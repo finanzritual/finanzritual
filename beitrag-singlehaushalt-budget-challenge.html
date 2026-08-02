@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="What Living Alone Really Costs: Milestones &amp; the €1 Doubling Challenge — Finanzritual">Was ein Single-Haushalt wirklich kostet — Finanzritual</title>
+<meta name="description" content="Realistische Lebenshaltungskosten für einen Single-Haushalt, ein anklickbares Fieberthermometer und eine 1-Euro-Verdopplungs-Challenge." data-en-content="Realistic living costs for a single-person household, a clickable fever-thermometer up to €200,000, and a €1 doubling savings challenge to try for yourself.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-singlehaushalt-budget-challenge.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Was ein Single-Haushalt wirklich kostet" data-en-content="What Living Alone Really Costs">
+<meta property="og:description" content="Realistische Lebenshaltungskosten für einen Single-Haushalt, ein anklickbares Fieberthermometer bis 200.000 € und eine 1-Euro-Verdopplungs-Challenge zum Sparen ausprobieren." data-en-content="Realistic living costs for a single-person household, a clickable fever-thermometer up to €200,000, and a €1 doubling savings challenge to try for yourself.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-singlehaushalt-budget-challenge.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Was ein Single-Haushalt wirklich kostet" data-en-content="What Living Alone Really Costs">
+<meta name="twitter:description" content="Realistische Lebenshaltungskosten, ein Fieberthermometer bis 200.000 € und eine 1-Euro-Verdopplungs-Challenge." data-en-content="Realistic living costs, a fever-thermometer up to €200,000, and a €1 doubling challenge.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Was ein Single-Haushalt wirklich kostet: Meilensteine & die 1-Euro-Challenge",
+  "description": "Realistische Lebenshaltungskosten für einen Single-Haushalt, ein anklickbares Fieberthermometer bis 200.000 € und eine 1-Euro-Verdopplungs-Challenge zum Sparen ausprobieren.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-singlehaushalt-budget-challenge.html"
+  },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Budget-Tabelle ===== */
+.sh-table-wrap{ overflow-x:auto; margin:22px 0 6px; }
+.sh-table{ width:100%; border-collapse:collapse; font-size:.9rem; min-width:360px; }
+.sh-table th, .sh-table td{ text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); }
+.sh-table th{ font-size:.68rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+.sh-table td:last-child, .sh-table th:last-child{ text-align:right; font-family:'JetBrains Mono',monospace; }
+.sh-table tr.sh-total td{ border-bottom:none; border-top:2px solid var(--line-strong); font-weight:700; }
+.sh-table tr.sh-total td:last-child{ color:var(--blue); }
+
+/* ===== Fieberthermometer ===== */
+.sh-thermo-wrap{ margin:30px 0; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.sh-thermo-progress-label{ font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); margin-bottom:8px; }
+.sh-thermo-progress-bar{ height:14px; border-radius:999px; background:var(--bg-sunken); overflow:hidden; border:1px solid var(--line); }
+.sh-thermo-progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,#c0392b,#d9822b,#1E8E5A); transition:width .4s ease; border-radius:999px; }
+.sh-thermo-progress-amount{ margin-top:8px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.25rem; color:var(--ink); }
+.sh-thermo{ margin:26px 0 4px; }
+.sh-thermo-step{
+  display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+  padding:11px 14px 11px 0; margin-left:20px; border-left:3px solid var(--line-strong);
+  background:none; border-top:none; border-right:none; border-bottom:none; cursor:pointer; font:inherit; color:inherit;
+  transition:border-color .2s;
+}
+.sh-thermo-step:last-child{ padding-bottom:0; }
+.sh-thermo-dot{
+  flex:none; width:32px; height:32px; margin-left:-19px; border-radius:50%;
+  background:var(--bg); border:3px solid var(--line-strong); display:flex; align-items:center; justify-content:center;
+  font-size:.9rem; transition:all .2s;
+}
+.sh-thermo-step.is-reached{ border-left-color:var(--green); }
+.sh-thermo-step.is-reached .sh-thermo-dot{ background:var(--green); border-color:var(--green); color:#fff; }
+.sh-thermo-step-label{ font-weight:700; font-size:.94rem; }
+.sh-thermo-step-sub{ font-size:.78rem; color:var(--ink-soft); margin-top:2px; }
+.sh-thermo-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+
+/* ===== 1-Euro-Challenge ===== */
+.sh-ch-cap-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:18px 0; }
+.sh-ch-cap-row label{ font-weight:600; font-size:.86rem; }
+.sh-ch-cap-row input[type="number"]{
+  width:110px; padding:8px 10px; border-radius:8px; border:1px solid var(--line-strong);
+  background:var(--bg); color:var(--ink); font:inherit; font-family:'JetBrains Mono',monospace;
+}
+.sh-ch-table-wrap{ overflow-x:auto; margin:16px 0 6px; }
+.sh-ch-table{ width:100%; border-collapse:collapse; font-size:.84rem; min-width:520px; }
+.sh-ch-table th, .sh-ch-table td{ text-align:center; padding:7px 8px; border-bottom:1px solid var(--line); }
+.sh-ch-table th{ font-size:.65rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+.sh-ch-table td:first-child, .sh-ch-table th:first-child{ text-align:left; font-weight:600; }
+.sh-ch-table td.sh-ch-over{ color:#c0392b; font-weight:700; }
+.sh-ch-table td.sh-ch-plateau{ color:var(--green); font-weight:700; }
+.sh-ch-table tr.sh-ch-sum td{ border-bottom:none; border-top:2px solid var(--line-strong); font-weight:700; }
+.sh-ch-done-btn{
+  width:26px; height:26px; border-radius:50%; border:2px solid var(--line-strong); background:var(--bg);
+  cursor:pointer; font-size:.8rem; line-height:1; color:transparent; transition:all .15s;
+}
+.sh-ch-done-btn.is-done{ background:var(--green); border-color:var(--green); color:#fff; }
+.sh-ch-summary{ margin:18px 0; padding:16px 18px; border-radius:12px; background:var(--blue-soft); border:1px solid rgba(36,84,166,.2); font-size:.88rem; }
+.sh-ch-summary strong{ color:var(--blue); }
+.sh-ch-tip{ margin:16px 0; padding:14px 16px; border-radius:12px; background:var(--green-soft); border:1px solid rgba(30,142,90,.25); font-size:.86rem; }
+.sh-ch-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+
+@media(max-width:640px){
+  .sh-thermo-step{ margin-left:14px; }
+  .sh-thermo-dot{ width:28px; height:28px; margin-left:-16px; }
+}
+
+/* ===== Druckansicht ===== */
+@media print{
+  header.site, .page-hero .breadcrumb, footer.site, .alert-banner, .alert-bell, .scroll-top-btn,
+  .sh-thermo-actions, .sh-ch-actions, .sh-ch-cap-row, #alert-test-btn { display:none !important; }
+  .sh-thermo-wrap, .sh-ch-table-wrap{ break-inside:avoid; }
+  body{ background:#fff; color:#000; }
+}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-singlehaushalt-budget-challenge.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-singlehaushalt-budget-challenge.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-minimalismus.html" data-en="Minimalism">Minimalismus</a><span>/</span><a href="kat-minimalismus-budget.html" data-en="Budget">Budget</a><span>/</span><span aria-current="page" data-en="Single-household budget & challenge">Single-Budget & Challenge</span>
+    </nav>
+    <div class="eyebrow" data-en="Minimalism · 27 Jul 2026">Minimalismus · 27.07.2026</div>
+    <h1 data-en="What living alone really costs: milestones &amp; the €1 doubling challenge">Was ein Single-Haushalt wirklich kostet: Meilensteine &amp; die 1-Euro-Challenge</h1>
+    <p style="max-width:60ch;" data-en="Less theory, more reality: a realistic monthly budget, a clickable thermometer up to your first €200,000, and a savings challenge that starts small enough that anyone can try it.">Weniger Theorie, mehr Realität: ein realistisches Monatsbudget, ein anklickbares Thermometer bis zu deinen ersten 200.000 € und eine Sparchallenge, die so klein anfängt, dass sie wirklich jeder ausprobieren kann.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="Most FIRE content jumps straight to seven-figure end goals. That's motivating for about five minutes, and then it feels miles away from a normal paycheck. This article does the opposite: it starts with an actually realistic monthly budget for a single-person household, then breaks the long road to real money into pieces small enough to click through &ndash; and a savings game so small at the start that the first &laquo;installment&raquo; costs one single euro.">Die meisten FIRE-Inhalte springen direkt zu siebenstelligen Endzielen. Das motiviert für etwa fünf Minuten und fühlt sich danach meilenweit von einem normalen Gehaltszettel entfernt an. Dieser Artikel macht es umgekehrt: Er startet mit einem tatsächlich realistischen Monatsbudget für einen Single-Haushalt, zerlegt den langen Weg zu echtem Geld dann in anklickbare Häppchen — und mit einem Sparspiel, das am Anfang so klein ist, dass die erste „Rate" genau einen Euro kostet.</p>
+
+    <h2 data-en="What a single household actually spends">Was ein Single-Haushalt tatsächlich ausgibt</h2>
+    <p data-en="No fancy Excel model, just one honest example month. These are illustrative sample figures for a single-person household &ndash; not an official statistic &ndash; but the kind of number that shows up again and again once you actually track your own spending.">Kein aufwendiges Excel-Modell, sondern ein ehrlicher Beispielmonat. Das sind illustrative Beispielzahlen für einen Single-Haushalt — keine offizielle Statistik —, aber genau die Art von Zahl, die immer wieder auftaucht, sobald man die eigenen Ausgaben tatsächlich mitschreibt.</p>
+
+    <div class="sh-table-wrap">
+      <table class="sh-table">
+        <thead>
+          <tr><th data-en="Category">Kategorie</th><th data-en="Monthly">Monatlich</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-en="Housing">Wohnen</td><td>662 €</td></tr>
+          <tr><td data-en="Groceries">Lebensmittel</td><td>212 €</td></tr>
+          <tr><td data-en="Transport">Verkehr</td><td>200 €</td></tr>
+          <tr><td data-en="Restaurants &amp; cafés">Gaststätte</td><td>99 €</td></tr>
+          <tr><td data-en="Leisure">Freizeit</td><td>187 €</td></tr>
+          <tr><td data-en="Household items">Ausstattung im Haus</td><td>75 €</td></tr>
+          <tr><td data-en="Other">Sonstiges</td><td>75 €</td></tr>
+          <tr><td data-en="Clothing">Kleidung</td><td>60 €</td></tr>
+          <tr><td data-en="Communication">Kommunikation</td><td>51 €</td></tr>
+          <tr><td data-en="Education">Bildung</td><td>8 €</td></tr>
+          <tr class="sh-total"><td data-en="Total">Gesamt</td><td>1.629 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="calc-note" data-en="Illustrative example budget for one person, not a representative survey. Your own numbers will differ by city, housing situation, and lifestyle &ndash; use this table as a starting template and swap in your real figures. Housing alone makes up about 41% of the total here, which lines up with what most budgeting guides (like the <a href=&quot;beitrag-50-30-20-regel.html&quot;>50/30/20 rule</a>) treat as the single biggest lever.">Illustrative Beispielrechnung für eine Person, keine repräsentative Erhebung. Deine eigenen Zahlen weichen je nach Stadt, Wohnsituation und Lebensstil ab — nutze diese Tabelle als Startvorlage und trag deine echten Werte ein. Wohnen macht hier allein rund 41⁠% der Gesamtsumme aus, was sich mit dem deckt, was die meisten Budget-Leitfäden (wie die <a href="beitrag-50-30-20-regel.html">50/30/20-Regel</a>) als größten Hebel ansehen.</p>
+
+    <h2 data-en="Milestones to click through: your progress up to €200,000">Meilensteine zum Anfassen: dein Fortschritt bis 200.000 €</h2>
+    <p data-en="The <a href=&quot;beitrag-meilensteine.html&quot;>milestone roadmap</a> lays out the euro amounts on paper. This version is meant to be clicked, not just read: mark off every stage you've actually reached, and the site remembers it for you &ndash; right here in your browser, nothing is sent anywhere.">Der <a href="beitrag-meilensteine.html">Meilenstein-Fahrplan</a> zeigt die Euro-Beträge auf dem Papier. Diese Version hier ist zum Anklicken gedacht, nicht nur zum Lesen: Hak jede Stufe ab, die du tatsächlich erreicht hast — die Seite merkt es sich für dich, direkt in deinem Browser, es wird nichts irgendwohin gesendet.</p>
+
+    <div class="sh-thermo-wrap">
+      <div class="sh-thermo-progress-label" data-en="Current progress">Aktueller Fortschritt</div>
+      <div class="sh-thermo-progress-bar"><div class="sh-thermo-progress-fill" id="sh-fill"></div></div>
+      <div class="sh-thermo-progress-amount" id="sh-amount">0 € <span data-en="of">von</span> 200.000 €</div>
+
+      <div class="sh-thermo" id="sh-thermo">
+        <button type="button" class="sh-thermo-step" data-index="1" data-amount="1000">
+          <span class="sh-thermo-dot">1</span>
+          <span><span class="sh-thermo-step-label">1.000 €</span><br><span class="sh-thermo-step-sub" data-en="First real buffer, not just loose change">Erste echte Rücklage, kein Kleingeld mehr</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="2" data-amount="5000">
+          <span class="sh-thermo-dot">2</span>
+          <span><span class="sh-thermo-step-label">5.000 €</span><br><span class="sh-thermo-step-sub" data-en="Roughly a 3-month emergency fund at this example budget">Etwa 3 Monate Notgroschen bei diesem Beispielbudget</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="3" data-amount="10000">
+          <span class="sh-thermo-dot">3</span>
+          <span><span class="sh-thermo-step-label">10.000 €</span><br><span class="sh-thermo-step-sub" data-en="Five figures &ndash; the first psychological wall">Fünfstellig — die erste psychologische Mauer</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="4" data-amount="25000">
+          <span class="sh-thermo-dot">4</span>
+          <span><span class="sh-thermo-step-label">25.000 €</span><br><span class="sh-thermo-step-sub" data-en="A real down payment or a genuine cushion">Eine echte Anzahlung oder ein echtes Polster</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="5" data-amount="50000">
+          <span class="sh-thermo-dot">5</span>
+          <span><span class="sh-thermo-step-label">50.000 €</span><br><span class="sh-thermo-step-sub" data-en="See &laquo;The First €100,000&raquo; &ndash; this is the hard half">Siehe „Die ersten 100.000 Euro" — das ist die harte Hälfte</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="6" data-amount="100000">
+          <span class="sh-thermo-dot">6</span>
+          <span><span class="sh-thermo-step-label">100.000 €</span><br><span class="sh-thermo-step-sub" data-en="From here, returns start pulling real weight">Ab hier zieht die Rendite spürbar mit</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="7" data-amount="150000">
+          <span class="sh-thermo-dot">7</span>
+          <span><span class="sh-thermo-step-label">150.000 €</span><br><span class="sh-thermo-step-sub" data-en="Three-quarters of the way to this chapter's goal">Drei Viertel des Weges zu diesem Kapitel-Ziel</span></span>
+        </button>
+        <button type="button" class="sh-thermo-step" data-index="8" data-amount="200000">
+          <span class="sh-thermo-dot">8</span>
+          <span><span class="sh-thermo-step-label">200.000 €</span><br><span class="sh-thermo-step-sub" data-en="This chapter's finish line &ndash; the next one keeps going from here">Etappenziel für dieses Kapitel — das nächste geht von hier weiter</span></span>
+        </button>
+      </div>
+
+      <div class="sh-thermo-actions">
+        <button type="button" class="btn btn-outline" id="sh-reset" data-en="Reset progress">Fortschritt zurücksetzen</button>
+        <button type="button" class="btn btn-primary" id="sh-print" data-en="Print progress 🖨️">Fortschritt drucken 🖨️</button>
+      </div>
+    </div>
+    <p class="calc-note" data-en="These amounts are illustrative reference points tied to the example budget above, not universal targets on a fixed timeline &ndash; see the <a href=&quot;beitrag-finanzielle-freiheitsstufen.html&quot;>7 stages of financial development</a> for why the same euro figure can mean something different for everyone.">Diese Beträge sind illustrative Orientierungspunkte, die sich am Beispielbudget oben orientieren, keine universellen Ziele für einen festen Zeitrahmen — warum derselbe Euro-Betrag für jeden etwas anderes bedeuten kann, steht in den <a href="beitrag-finanzielle-freiheitsstufen.html">7 Stufen der finanziellen Entwicklung</a>.</p>
+
+    <h2 data-en="The €1 doubling challenge">Die 1-Euro-Verdopplungs-Challenge</h2>
+    <p data-en="The rules are almost embarrassingly simple. Month 1, you set aside &euro;1. Month 2, you double it to &euro;2. Month 3, &euro;4. Then &euro;8, &euro;16, &euro;32 &ndash; and so on. Nobody is expected to keep doubling forever; the point of the game is finding out exactly where it stops being realistic for you, and building a small saving habit along the way.">Die Regeln sind fast schon lächerlich einfach. Monat 1 legst du 1 € zur Seite. Monat 2 verdoppelst du auf 2 €. Monat 3 auf 4 €. Dann 8 €, 16 €, 32 € — und so weiter. Niemand soll ewig weiter verdoppeln; der Sinn des Spiels ist herauszufinden, wo genau es für dich unrealistisch wird — und dabei ganz nebenbei eine kleine Sparroutine aufzubauen.</p>
+    <p data-en="Set your own realistic monthly ceiling below. The table shows what pure doubling would demand versus a version that plateaus at your ceiling once doubling would blow past it &ndash; so the challenge keeps running all year instead of collapsing after a few months.">Leg dir unten deine eigene realistische Obergrenze pro Monat fest. Die Tabelle zeigt, was reine Verdopplung verlangen würde, im Vergleich zu einer Version, die bei deiner Obergrenze verharrt, sobald die Verdopplung darüber hinausschießen würde — so läuft die Challenge das ganze Jahr weiter, statt nach ein paar Monaten zu kollabieren.</p>
+
+    <div class="sh-ch-cap-row">
+      <label for="sh-cap" data-en="Your realistic monthly ceiling">Deine realistische Obergrenze pro Monat</label>
+      <input type="number" id="sh-cap" min="5" max="5000" step="5" value="150"> €
+    </div>
+
+    <div class="sh-ch-table-wrap">
+      <table class="sh-ch-table" id="sh-ch-table">
+        <thead>
+          <tr>
+            <th data-en="Month">Monat</th>
+            <th data-en="Pure doubling">Reine Verdopplung</th>
+            <th data-en="Your plan (with ceiling)">Dein Plan (mit Deckel)</th>
+            <th data-en="Done">Erledigt</th>
+          </tr>
+        </thead>
+        <tbody id="sh-ch-body"><!-- per JS befüllt --></tbody>
+        <tfoot>
+          <tr class="sh-ch-sum">
+            <td data-en="Total after 12 months">Gesamt nach 12 Monaten</td>
+            <td id="sh-ch-sum-pure">–</td>
+            <td id="sh-ch-sum-plan">–</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="sh-ch-summary" id="sh-ch-summary"></div>
+
+    <div class="sh-ch-tip" data-en="Tip: at the end of each month, set aside the extra amount you'll need for next month's jump. That way the increase never hits you as a surprise mid-month &ndash; it's already waiting when you need it.">
+      Tipp: Leg dir schon am Ende jedes Monats den zusätzlichen Betrag zur Seite, den du für den Sprung im nächsten Monat brauchst. So trifft dich die Steigerung nie mitten im Monat unvorbereitet — sie liegt schon bereit, wenn du sie brauchst.
+    </div>
+
+    <div class="sh-ch-actions">
+      <button type="button" class="btn btn-outline" id="sh-ch-reset" data-en="Reset challenge">Challenge zurücksetzen</button>
+      <button type="button" class="btn btn-primary" id="sh-ch-print" data-en="Print progress 🖨️">Fortschritt drucken 🖨️</button>
+    </div>
+
+    <p class="calc-note" data-en="Illustrative example, not a savings recommendation for any specific income. Pure doubling grows fast enough that it becomes unrealistic for almost everyone well before month 12 &ndash; that's the point of the exercise, not a flaw in it.">Illustratives Beispiel, keine Sparempfehlung für ein bestimmtes Einkommen. Reine Verdopplung wächst schnell genug, dass sie für fast jeden schon lange vor Monat 12 unrealistisch wird — das ist der Sinn der Übung, kein Fehler daran.</p>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material and reflects one illustrative example, not financial advice or a representative survey. The example budget, milestone amounts, and challenge figures are simplified reference points meant to make abstract goals more concrete &ndash; not targets everyone should hit on the same timeline. Progress saved via the thermometer and challenge widgets stays only in your own browser (localStorage) and is never transmitted anywhere.">Dieser Beitrag ist Bildungsmaterial und spiegelt ein illustratives Beispiel wider, keine Finanzberatung und keine repräsentative Erhebung. Das Beispielbudget, die Meilenstein-Beträge und die Challenge-Zahlen sind vereinfachte Orientierungspunkte, die abstrakte Ziele greifbarer machen sollen — keine Ziele, die jeder im selben Zeitrahmen erreichen sollte. Der über Thermometer und Challenge gespeicherte Fortschritt bleibt ausschließlich in deinem eigenen Browser (localStorage) und wird nie irgendwohin übertragen.</div>
+
+    <p style="margin-top:32px;"><a href="kat-minimalismus-budget.html" data-en="← Back to all Budget posts">← Zurück zu allen Budget-Beiträgen</a></p>
+    <p><a href="beitrag-cashbaum-waescheklammern.html" data-en="→ The Cash Tree: A DIY Clothespin Board That Surrounds You With Money">→ Der Cashbaum: Ein Wäscheklammer-Brett, das dich mit Geld umgibt</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Fieberthermometer: Meilensteine bis 200.000 € ===== */
+(function(){
+  const wrap = document.getElementById('sh-thermo');
+  if(!wrap) return;
+  const steps = Array.from(wrap.querySelectorAll('.sh-thermo-step'));
+  const fill = document.getElementById('sh-fill');
+  const amountEl = document.getElementById('sh-amount');
+  const LS_KEY = 'fr-thermo-single';
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmt(n){
+    return isEn() ? '€' + n.toLocaleString('en-US') : n.toLocaleString('de-DE') + '\u00A0€';
+  }
+
+  function getLevel(){
+    const v = parseInt(localStorage.getItem(LS_KEY) || '0', 10);
+    return Number.isFinite(v) ? Math.max(0, Math.min(v, steps.length)) : 0;
+  }
+  function setLevel(level){
+    try{ localStorage.setItem(LS_KEY, String(level)); }catch(e){}
+    render(level);
+  }
+
+  function render(level){
+    steps.forEach(function(btn){
+      const idx = parseInt(btn.dataset.index, 10);
+      btn.classList.toggle('is-reached', idx <= level);
+    });
+    const pct = (level / steps.length) * 100;
+    fill.style.width = pct + '%';
+    const amount = level === 0 ? 0 : parseInt(steps[level - 1].dataset.amount, 10);
+    const ofWord = isEn() ? 'of' : 'von';
+    amountEl.textContent = fmt(amount) + ' ' + ofWord + ' ' + fmt(200000);
+  }
+
+  steps.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const idx = parseInt(btn.dataset.index, 10);
+      const current = getLevel();
+      setLevel(idx <= current ? idx - 1 : idx);
+    });
+  });
+
+  const resetBtn = document.getElementById('sh-reset');
+  if(resetBtn) resetBtn.addEventListener('click', function(){ setLevel(0); });
+
+  const printBtn = document.getElementById('sh-print');
+  if(printBtn) printBtn.addEventListener('click', function(){ window.print(); });
+
+  render(getLevel());
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(function(){ render(getLevel()); });
+})();
+
+/* ===== 1-Euro-Verdopplungs-Challenge ===== */
+(function(){
+  const body = document.getElementById('sh-ch-body');
+  if(!body) return;
+  const capInput = document.getElementById('sh-cap');
+  const sumPureEl = document.getElementById('sh-ch-sum-pure');
+  const sumPlanEl = document.getElementById('sh-ch-sum-plan');
+  const summaryEl = document.getElementById('sh-ch-summary');
+  const MONTHS = 12;
+  const LS_DONE = 'fr-challenge-single-done';
+  const LS_CAP = 'fr-challenge-single-cap';
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmt(n){
+    return isEn() ? '€' + n.toLocaleString('en-US') : n.toLocaleString('de-DE') + '\u00A0€';
+  }
+
+  function getDone(){
+    try{
+      const raw = JSON.parse(localStorage.getItem(LS_DONE) || '[]');
+      return Array.isArray(raw) ? raw : [];
+    }catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(LS_DONE, JSON.stringify(arr)); }catch(e){}
+  }
+  function getCap(){
+    const saved = parseFloat(localStorage.getItem(LS_CAP));
+    return Number.isFinite(saved) && saved > 0 ? saved : parseFloat(capInput.value) || 150;
+  }
+
+  function buildSchedule(cap){
+    let amt = 1, plateauStart = null;
+    const rows = [];
+    for(let m = 1; m <= MONTHS; m++){
+      const pure = Math.pow(2, m - 1);
+      const plan = Math.min(pure, cap);
+      if(pure > cap && plateauStart === null) plateauStart = m;
+      rows.push({ month:m, pure:pure, plan:plan });
+    }
+    return { rows, plateauStart };
+  }
+
+  function render(){
+    const cap = getCap();
+    capInput.value = cap;
+    const done = getDone();
+    const { rows, plateauStart } = buildSchedule(cap);
+
+    body.innerHTML = '';
+    let sumPure = 0, sumPlan = 0;
+    rows.forEach(function(row){
+      sumPure += row.pure;
+      sumPlan += row.plan;
+      const tr = document.createElement('tr');
+
+      const tdMonth = document.createElement('td');
+      tdMonth.textContent = (isEn() ? 'Month ' : 'Monat ') + row.month;
+      tr.appendChild(tdMonth);
+
+      const tdPure = document.createElement('td');
+      tdPure.textContent = fmt(row.pure);
+      if(plateauStart !== null && row.month >= plateauStart) tdPure.classList.add('sh-ch-over');
+      tr.appendChild(tdPure);
+
+      const tdPlan = document.createElement('td');
+      tdPlan.textContent = fmt(row.plan);
+      if(plateauStart !== null && row.month >= plateauStart) tdPlan.classList.add('sh-ch-plateau');
+      tr.appendChild(tdPlan);
+
+      const tdDone = document.createElement('td');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sh-ch-done-btn' + (done.includes(row.month) ? ' is-done' : '');
+      btn.textContent = '✓';
+      btn.setAttribute('aria-label', (isEn() ? 'Mark month ' : 'Monat ') + row.month + (isEn() ? ' done' : ' als erledigt markieren'));
+      btn.addEventListener('click', function(){
+        const list = getDone();
+        const pos = list.indexOf(row.month);
+        if(pos >= 0) list.splice(pos, 1); else list.push(row.month);
+        setDone(list);
+        render();
+      });
+      tdDone.appendChild(btn);
+      tr.appendChild(tdDone);
+
+      body.appendChild(tr);
+    });
+
+    sumPureEl.textContent = fmt(sumPure);
+    sumPlanEl.textContent = fmt(sumPlan);
+
+    if(plateauStart !== null){
+      summaryEl.innerHTML = isEn()
+        ? 'With a ceiling of <strong>' + fmt(cap) + '</strong>, pure doubling would already be unrealistic from <strong>month ' + plateauStart + '</strong> onward. Staying flat at your ceiling from there gets you to <strong>' + fmt(sumPlan) + '</strong> after 12 months &ndash; versus a theoretical ' + fmt(sumPure) + ' that almost nobody could actually keep up with.'
+        : 'Bei einer Obergrenze von <strong>' + fmt(cap) + '</strong> wäre reine Verdopplung schon ab <strong>Monat ' + plateauStart + '</strong> unrealistisch. Bleibst du ab da bei deiner Obergrenze, kommst du nach 12 Monaten auf <strong>' + fmt(sumPlan) + '</strong> — statt theoretischer ' + fmt(sumPure) + ', die kaum jemand tatsächlich durchhalten könnte.';
+    } else {
+      summaryEl.innerHTML = isEn()
+        ? 'With a ceiling of <strong>' + fmt(cap) + '</strong>, pure doubling stays within reach for all 12 months &ndash; both columns match at <strong>' + fmt(sumPlan) + '</strong>. Try lowering the ceiling to see where it starts to break.'
+        : 'Bei einer Obergrenze von <strong>' + fmt(cap) + '</strong> bleibt die reine Verdopplung alle 12 Monate im Rahmen — beide Spalten landen bei <strong>' + fmt(sumPlan) + '</strong>. Probier eine niedrigere Obergrenze aus, um zu sehen, wo es kippt.';
+    }
+  }
+
+  capInput.addEventListener('input', function(){
+    const val = parseFloat(capInput.value) || 150;
+    try{ localStorage.setItem(LS_CAP, String(val)); }catch(e){}
+    render();
+  });
+
+  const resetBtn = document.getElementById('sh-ch-reset');
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    setDone([]);
+    try{ localStorage.removeItem(LS_CAP); }catch(e){}
+    capInput.value = 150;
+    render();
+  });
+
+  const printBtn = document.getElementById('sh-ch-print');
+  if(printBtn) printBtn.addEventListener('click', function(){ window.print(); });
+
+  render();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+</body>
+</html>

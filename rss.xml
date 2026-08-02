@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Finanzritual</title>
+  <link>https://www.finanz-ritual.de</link>
+  <description>Finanzen, ETFs, Dividenden, Bücher und Minimalismus — von Rainer</description>
+  <language>de-DE</language>
+  <lastBuildDate>Tue, 21 Jul 2026 06:00:00 +0000</lastBuildDate>
+  <ttl>1440</ttl>
+  <image>
+    <url>https://www.finanz-ritual.de/og-default.jpg</url>
+    <title>Finanzritual</title>
+    <link>https://www.finanz-ritual.de</link>
+  </image>
+  <atom:link href="https://www.finanz-ritual.de/rss.xml" rel="self" type="application/rss+xml"/>
+
+  <item>
+    <title>MSCI World vs. FTSE All-World vs. ACWI — und was ist eigentlich ein Geldmarkt-ETF?</title>
+    <link>https://www.finanz-ritual.de/beitrag-msci-world-vs-ftse-all-world.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-msci-world-vs-ftse-all-world.html</guid>
+    <description>Die zwei Begriffspaare, die Anfänger am häufigsten irritieren: MSCI World vs. FTSE All-World vs. MSCI ACWI (die Schwellenländer-Frage), und Geldmarkt-ETF vs. Tagesgeld (wann welches Sinn ergibt).</description>
+    <category>Finanzen</category>
+    <pubDate>Thu, 01 Oct 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Notgroschen: Wie viel Cash-Reserve wirklich Sinn macht</title>
+    <link>https://www.finanz-ritual.de/beitrag-notgroschen.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-notgroschen.html</guid>
+    <description>Notgroschen erklärt: 3–6× Nettogehalt, Trade Republic Tagesgeld 2,25%, Bondora Go &amp; Grow (~6% P2P, kein Einlagenschutz), kurzfristige Staatsanleihen — und warum erst Schulden weg.</description>
+    <category>Finanzen</category>
+    <pubDate>Wed, 30 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Quellensteuer auf Dividenden: Die unsichtbare Steuer — und wie ETFs das meiste davon lösen</title>
+    <link>https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html</guid>
+    <description>Quellensteuer erklärt: Frankreich (30 %, aufwendige Rückforderung), Schweiz (35 %), UK (0 %), USA (15 % mit W-8BEN) — und warum IE-ETFs das Problem für die meisten Anleger automatisch lösen.</description>
+    <category>Finanzen</category>
+    <pubDate>Tue, 29 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Welcher ETF? Ein Leitfaden für blutige Anfänger</title>
+    <link>https://www.finanz-ritual.de/beitrag-etf-sparplan-fuer-anfaenger.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-etf-sparplan-fuer-anfaenger.html</guid>
+    <description>Depot eröffnet — und jetzt? Rund 4.500 ETFs sind in Deutschland handelbar. Was wirklich zählt, was man ignorieren kann — physisch vs. synthetisch, TER, MSCI World vs. All-World — und eine konkrete ETF-Liste für Einsteiger.</description>
+    <category>Finanzen</category>
+    <pubDate>Mon, 28 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die wichtigste Investition bist du selbst</title>
+    <link>https://www.finanz-ritual.de/beitrag-in-dich-selbst-investieren.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-in-dich-selbst-investieren.html</guid>
+    <description>Persönlichkeitsentwicklung als Rendite-Hebel: Warum gezieltes Lernen mehr bringt als YouTube-Destillat, und welche Gewohnheiten wirklich den Unterschied machen — aus eigener Erfahrung.</description>
+    <category>Minimalismus</category>
+    <pubDate>Sun, 27 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>100 Millionen Dollar Geldmodelle — Alex Hormozi</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-100m-geldmodelle.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-100m-geldmodelle.html</guid>
+    <description>Hormazis dritter Band — Guinness-Weltrekord als am schnellsten verkauftes Sachbuch. Wie man Angebote so in Sequenzen aufbaut, dass jeder Kunde systematisch mehr ausgibt und länger bleibt.</description>
+    <category>Bücher</category>
+    <pubDate>Sat, 26 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>100 Millionen Dollar Angebote — Alex Hormozi</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-100m-angebote.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-100m-angebote.html</guid>
+    <description>Über 1 Million verkaufte Exemplare: Wie man ein Angebot so baut, dass der Preis für den Kunden zur Nebensache wird — durch wahrgenommenen Wert, Risikoumkehr und Stacking.</description>
+    <category>Bücher</category>
+    <pubDate>Fri, 25 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>PlayBook to Millions — Grant Cardone</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-playbook-to-millions.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-playbook-to-millions.html</guid>
+    <description>Cardones umfassendstes Werk (400+ Seiten, Englisch): Strategie, Verkauf, Immobilien und Mindset als Nachschlagewerk für Unternehmer mit konkreten Checklisten und Übungen.</description>
+    <category>Bücher</category>
+    <pubDate>Thu, 24 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die 10x-Regel — Grant Cardone</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-10x-regel.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-10x-regel.html</guid>
+    <description>Zehnfache Ziele, zehnfacher Einsatz — Cardones Kernthese: normaler Aufwand in einem Wettbewerbsmarkt führt zur Unsichtbarkeit. Das Buch ist laut und repetitiv, die Kernbotschaft bleibt.</description>
+    <category>Bücher</category>
+    <pubDate>Wed, 23 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Dividendenprojektion: Meine echten Zahlen, Jahr für Jahr</title>
+    <link>https://www.finanz-ritual.de/beitrag-dividendenprojektion.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-dividendenprojektion.html</guid>
+    <description>Jahresweise Projektion meiner Dividendenstrategie: Depotwert, Einzahlungen, Dividende brutto/netto und Yield-on-Cost — mit vollständig anpassbarem Tool zum Kopieren, Ausdrucken und Umrechnen auf die eigene Strategie.</description>
+    <category>Finanzen</category>
+    <pubDate>Tue, 22 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Monatssparchallenge: 12 Felder, ein Monat, echtes Geld</title>
+    <link>https://www.finanz-ritual.de/beitrag-monatssparchallenge.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-monatssparchallenge.html</guid>
+    <description>Zwölf Felder, zufällig mit 5 €, 10 € oder 20 € belegt — aufdecken, erledigen, mit einem Klick abhaken. Am Ende des Monats landet der Gesamtbetrag als echtes Geld auf dem Sparkonto. Zum Ausdrucken, Abhaken, Weitergeben.</description>
+    <category>Minimalismus</category>
+    <pubDate>Mon, 21 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Junior-Depot: Wie dein Kind fast steuerfrei ein Vermögen aufbaut</title>
+    <link>https://www.finanz-ritual.de/beitrag-junior-depot-freibetraege.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-junior-depot-freibetraege.html</guid>
+    <description>13.348 € Kapitalerträge im Jahr komplett steuerfrei — durch die Kombination aus Sparerpauschbetrag und Grundfreibetrag im Namen des Kindes. Recherchiert, nachgerechnet, mit Sparrechner.</description>
+    <category>Finanzen</category>
+    <pubDate>Fri, 18 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Minimalismus und Vermögensaufbau: zwei Seiten derselben Medaille</title>
+    <link>https://www.finanz-ritual.de/beitrag-minimalismus-vermoegensaufbau.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-minimalismus-vermoegensaufbau.html</guid>
+    <description>Wie bewusster Konsum automatisch die Sparquote erhöht — und warum Kostensenkung dabei nur der Motor ist, während Einkommenswachstum der eigentliche Turbo bleibt. Mit Säulendiagramm zum Nachvollziehen.</description>
+    <category>Minimalismus</category>
+    <pubDate>Thu, 17 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Wie sich die Dividendenrendite verändert: Buffetts 65-%-Coca-Cola-Trick</title>
+    <link>https://www.finanz-ritual.de/beitrag-einstandsrendite-yield-on-cost.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-einstandsrendite-yield-on-cost.html</guid>
+    <description>Warren Buffetts Coca-Cola-Aktie bringt Berkshire heute rund 65 % Dividendenrendite — bezogen auf den Einstandspreis von 1988. Was Einstandsrendite (Yield on Cost) wirklich bedeutet, nachgerechnet und eingeordnet.</description>
+    <category>Finanzen</category>
+    <pubDate>Wed, 16 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die Kapitalertragsteuer einfach erklärt</title>
+    <link>https://www.finanz-ritual.de/beitrag-kapitalertragsteuer-erklaert.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-kapitalertragsteuer-erklaert.html</guid>
+    <description>Abgeltungssteuer, Soli, Sparerpauschbetrag und Verlusttopf — ein verständlicher Überblick für alle, die zum ersten Mal eine Steuerbescheinigung ihrer Depotbank in der Hand halten.</description>
+    <category>Finanzen</category>
+    <pubDate>Tue, 15 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>ETF oder Einzelaktie? Eine ehrliche Kosten-Nutzen-Rechnung</title>
+    <link>https://www.finanz-ritual.de/beitrag-etf-oder-einzelaktie.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-etf-oder-einzelaktie.html</guid>
+    <description>Wann sich der Mehraufwand von Einzelaktien wirklich lohnt — mit echten Zahlen zu Kosten, Zeitaufwand und wie oft professionelle Fondsmanager den Index tatsächlich schlagen.</description>
+    <category>Finanzen</category>
+    <pubDate>Mon, 14 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Dividendenkalender selbst bauen: So behältst du den Überblick</title>
+    <link>https://www.finanz-ritual.de/beitrag-dividendenkalender-selbst-bauen.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-dividendenkalender-selbst-bauen.html</guid>
+    <description>Eine einfache Tabelle für alle Ausschüttungstermine im Jahr — mit acht Beispieltiteln zum Reinschnuppern und der vollständigen Excel-Liste im Shop.</description>
+    <category>Finanzen</category>
+    <pubDate>Sun, 13 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>FIRE mit 40: Ein realistischer Fahrplan für Normalverdiener</title>
+    <link>https://www.finanz-ritual.de/beitrag-fire-mit-40.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-fire-mit-40.html</guid>
+    <description>Warum finanzielle Freiheit kein Traum für Großverdiener bleiben muss — und kein Wettlauf gegen eine bestimmte Altersgrenze. Mit Link zum FIRE-Rechner für die eigene Zahl.</description>
+    <category>FIRE</category>
+    <pubDate>Sat, 12 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Warum die Sparrate wichtiger ist als die Rendite</title>
+    <link>https://www.finanz-ritual.de/beitrag-sparrate-vs-rendite.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-sparrate-vs-rendite.html</guid>
+    <description>Der am meisten unterschätzte Hebel beim Vermögensaufbau. Mit einem Rechner, der +2 Punkte Rendite gegen +10 Punkte Sparquote antreten lässt.</description>
+    <category>FIRE</category>
+    <pubDate>Fri, 11 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die 4-Prozent-Regel: Mythos oder verlässlicher Rentenplan?</title>
+    <link>https://www.finanz-ritual.de/beitrag-vier-prozent-regel.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-vier-prozent-regel.html</guid>
+    <description>Was die Entnahmeregel wirklich hält – und wo ihre Grenzen liegen. Mit einem Rechner, der zeigt, wie dieselbe Durchschnittsrendite zu völlig unterschiedlichen Ergebnissen führen kann.</description>
+    <category>FIRE</category>
+    <pubDate>Thu, 10 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Der Schwarze Schwan</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-schwarzer-schwan.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-schwarzer-schwan.html</guid>
+    <description>Warum seltene, unvorhersehbare Ereignisse die Geschichte prägen — und weshalb Standard-Statistik das reale Risiko systematisch unterschätzt.</description>
+    <category>Bücher</category>
+    <pubDate>Wed, 09 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Optionen unschlagbar handeln</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-optionen-unschlagbar-handeln.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-optionen-unschlagbar-handeln.html</guid>
+    <description>Eine selbst verlegte Rolltechnik-Strategie für den Optionshandel — mit großspurigem Titel, der genauer betrachtet werden sollte, als er klingt.</description>
+    <category>Bücher</category>
+    <pubDate>Tue, 08 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Strategisch Investieren mit Aktienoptionen</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-strategisch-investieren-aktienoptionen.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-strategisch-investieren-aktienoptionen.html</guid>
+    <description>Konservativer Vermögenszuwachs mit Stillhaltergeschäften: eines der meistempfohlenen deutschsprachigen Einstiegsbücher zum Optionshandel.</description>
+    <category>Bücher</category>
+    <pubDate>Mon, 07 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Optionsstrategien für die Praxis</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-optionsstrategien-praxis.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-optionsstrategien-praxis.html</guid>
+    <description>Seit 2011 ein Standardwerk im deutschsprachigen Optionshandel: praxisnahe Strategien für regelmäßiges Einkommen, ohne Versprechen vom schnellen Reichtum.</description>
+    <category>Bücher</category>
+    <pubDate>Sun, 06 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Das große Handbuch der Optionsstrategien</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-handbuch-optionsstrategien.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-handbuch-optionsstrategien.html</guid>
+    <description>Ein Nachschlagewerk mit Bausteinen für planbares Einkommen an der Börse über Optionen — unabhängig von der Marktrichtung.</description>
+    <category>Bücher</category>
+    <pubDate>Sat, 05 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Dein Finanz-Cockpit: 10 Performance-Uhren zum Ausdrucken und Selbst-Testen</title>
+    <link>https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html</guid>
+    <description>Zehn Tacho-Uhren wie beim Auto: linker Anschlag 0%, rechter Anschlag 100% erreichtes Ziel — inklusive Einkommensmix und Arbeitszeit-Reduktion im Job. Eigene Zahlen eintragen, Nadel bewegt sich live, ausdrucken und manuell weiterführen.</description>
+    <category>Finanzen</category>
+    <pubDate>Fri, 04 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>5 „Scheinvermögen\u201c, die 99% der Mittelschicht kaufen — eingeordnet</title>
+    <link>https://www.finanz-ritual.de/beitrag-scheinvermoegen-fuenf-fallen.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-scheinvermoegen-fuenf-fallen.html</guid>
+    <description>Ein virales YouTube-Video, im Namen von Charlie Munger erzählt, listet fünf Alltagskäufe, die angeblich Vermögen zerstören. Wir ordnen die Herkunft ein und rechnen die Beispiele nach.</description>
+    <category>Finanzen</category>
+    <pubDate>Thu, 03 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Dramatische Aktien-Steigerungen: US-Tech-Werte gegen fossile Rohstoff-Werte — wie Tech zwischen 1998 und 2025 den Olymp erobert hat</title>
+    <link>https://www.finanz-ritual.de/beitrag-marktbewegung-in-farbe.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-marktbewegung-in-farbe.html</guid>
+    <description>Eine selbst gebaute Farbtabelle zeigt, wie sich die 30 wertvollsten Unternehmen der Welt von 1998 bis 2025 verschoben haben — von Öl und Telekom zu sieben grün markierten Tech-Riesen, mit Nokia als mahnendem Gegenbeispiel.</description>
+    <category>Finanzen</category>
+    <pubDate>Wed, 02 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Aktien nach Marktkapitalisierung auswählen: Die 25 wertvollsten Unternehmen der Welt</title>
+    <link>https://www.finanz-ritual.de/beitrag-top-marktkapitalisierung.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-top-marktkapitalisierung.html</guid>
+    <description>Marktkapitalisierung als Auswahlkriterium für Aktien: warum große Unternehmen die Stütze jedes Index und jedes ETFs sind, plus eine aktualisierte Top-25-Liste mit Land und Marktwert.</description>
+    <category>Finanzen</category>
+    <pubDate>Tue, 01 Sep 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die sechs Schritte zum Ziel: Aus einem Wunsch einen Plan machen</title>
+    <link>https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html</guid>
+    <description>Napoleon Hills konkrete Methode aus Think and Grow Rich, ein finanzielles Ziel von einer vagen Idee in einen schriftlich fixierten Plan zu verwandeln — mit FIRE-Tipps zu jedem Schritt und einem Generator für die eigene Zieldeklaration.</description>
+    <category>FIRE</category>
+    <pubDate>Mon, 31 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die 13 Erfolgsgesetze nach Napoleon Hill: Von der Theorie zur FIRE-Praxis</title>
+    <link>https://www.finanz-ritual.de/beitrag-13-erfolgsgesetze.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-13-erfolgsgesetze.html</guid>
+    <description>Alle 13 Erfolgsgesetze aus Think and Grow Rich einzeln erklärt, mit konkreten Tipps für den eigenen Weg zur finanziellen Unabhängigkeit — plus die sechs Gespenster der Angst und wie man ihnen finanziell begegnet.</description>
+    <category>FIRE</category>
+    <pubDate>Sun, 30 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Börsenweisheiten zum Ziehen: Ein Zitate-Quartett für Investoren</title>
+    <link>https://www.finanz-ritual.de/beitrag-boersenweisheiten.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-boersenweisheiten.html</guid>
+    <description>52 Investoren- und Geld-Zitate von Kostolany bis Buffett, als Slot-Maschinen-Karussell zum Durchscrollen, Ziehen und Sammeln.</description>
+    <category>Minimalismus</category>
+    <pubDate>Sat, 29 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Secrets of the Millionaire Mind — T. Harv Eker</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-secrets-of-the-millionaire-mind.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-secrets-of-the-millionaire-mind.html</guid>
+    <description>Das Konzept des „money blueprint“: unbewusste, in der Kindheit geprägte Geld-Glaubenssätze, die den finanziellen Erfolg begrenzen. Plakativ im Stil, aber ein guter Ausgangspunkt, um die eigene Geld-Prägung zu hinterfragen.</description>
+    <category>Bücher</category>
+    <pubDate>Fri, 28 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Think and Grow Rich — Napoleon Hill</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-think-and-grow-rich.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-think-and-grow-rich.html</guid>
+    <description>Der Klassiker von 1937: brennender Wunsch, klares Ziel und wiederholte Autosuggestion als Erfolgsformel. Stark esoterisch gefärbt, aber die direkte Vorlage für fast die gesamte spätere Mindset- und Selbsthilfe-Literatur.</description>
+    <category>Bücher</category>
+    <pubDate>Thu, 27 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>The Simple Path to Wealth — JL Collins</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-simple-path-to-wealth.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-simple-path-to-wealth.html</guid>
+    <description>Eine radikal einfache Anlagestrategie: hohe Sparquote, Schuldenfreiheit und ein einziger breit gestreuter Indexfonds statt Stock-Picking und Market-Timing. Bewusster Gegenentwurf zu einer komplexitätsverliebten Finanzbranche.</description>
+    <category>Bücher</category>
+    <pubDate>Wed, 26 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>The Millionaire Next Door — Thomas J. Stanley &amp; William D. Danko</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-millionaire-next-door.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-millionaire-next-door.html</guid>
+    <description>Eine Datenauswertung echter US-Millionäre widerlegt das Klischee vom protzigen Reichtum: die meisten leben unauffällig und sparen konsequent. Der stärkste gemeinsame Faktor ist die Sparquote, nicht die Gehaltshöhe.</description>
+    <category>Bücher</category>
+    <pubDate>Tue, 25 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Zero to One — Peter Thiel</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-zero-to-one.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-zero-to-one.html</guid>
+    <description>Warum echter Fortschritt nicht aus Wettbewerb entsteht, sondern aus dem Aufbau temporärer Monopole. Sieben zentrale Fragen für Gründer — nützlich auch, um Geschäftsmodelle vor einer Einzelaktien-Investition besser einzuschätzen.</description>
+    <category>Bücher</category>
+    <pubDate>Mon, 24 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Psycho-Kybernetik — Maxwell Maltz</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-psycho-kybernetik.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-psycho-kybernetik.html</guid>
+    <description>Warum das Selbstbild der eigentliche Steuerungsmechanismus für Erfolg ist und mentale Visualisierung neurologisch wie echtes Training wirkt. Der Ursprungstext hinter fast der gesamten späteren Erfolgsliteratur — inklusive Think and Grow Rich und Secrets of the Millionaire Mind.</description>
+    <category>Bücher</category>
+    <pubDate>Sun, 23 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Weltordnung im Wandel — Ray Dalio</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-weltordnung-im-wandel.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-weltordnung-im-wandel.html</guid>
+    <description>500 Jahre Wirtschaftsgeschichte destilliert zu einem zyklischen Muster aus Verschuldung, Leitwährungsstatus und Machtverschiebung — mit direktem Bezug zu den USA und China. Kein Einsteigerbuch, aber lohnend für Makro-interessierte Anleger.</description>
+    <category>Bücher</category>
+    <pubDate>Sat, 22 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Die 48 Gesetze der Macht — Robert Greene</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-48-gesetze-der-macht.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-48-gesetze-der-macht.html</guid>
+    <description>48 in sich geschlossene Machtprinzipien mit historischen Fallbeispielen von Machiavelli bis Mao. Bewusst amoralisch gehalten — eher Nachschlagewerk als Buch zum Durchlesen, nützlich für Verhandlung und Führung.</description>
+    <category>Bücher</category>
+    <pubDate>Fri, 21 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Influence — Robert B. Cialdini</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-influence.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-influence.html</guid>
+    <description>Sechs psychologische Hebel, die uns fast automatisch zum Ja bewegen — Reziprozität, Knappheit, soziale Bewährtheit und mehr, belegt mit Experimenten. Nützlich, um zu erkennen, wann Finanzprodukte genau diese Tricks nutzen.</description>
+    <category>Bücher</category>
+    <pubDate>Thu, 20 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Der Startschuss: Wie aus einem Kurssturz meine Dividendenstrategie wurde</title>
+    <link>https://www.finanz-ritual.de/beitrag-startschuss-dividendenstrategie.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-startschuss-dividendenstrategie.html</guid>
+    <description>Vom ersten Aktienkauf kurz vor 9/11 über Jahre auf dem Tagesgeldkonto bis zum Umbau des Depots im Oktober 2017: wie ein Zeitungsartikel über monatliche Dividenden meine Anlagestrategie verändert hat.</description>
+    <category>Finanzen</category>
+    <pubDate>Wed, 19 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>ETF-Watchlist: 23 Dividenden- und Themen-ETFs im TER-Vergleich</title>
+    <link>https://www.finanz-ritual.de/beitrag-etf-watchlist-dividenden.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-etf-watchlist-dividenden.html</guid>
+    <description>23 Dividenden-, Immobilien- und Anleihen-ETFs im Überblick: WKN, TER und Ausschüttungsrhythmus, sortiert nach Typ — als Ausgangspunkt für die eigene Recherche auf justETF.</description>
+    <category>Finanzen</category>
+    <pubDate>Tue, 18 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Souverän investieren mit Indexfonds und ETFs — Gerd Kommer</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-souveraen-investieren.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-souveraen-investieren.html</guid>
+    <description>Das deutschsprachige Standardwerk zum passiven Investieren: warum aktives Fondsmanagement langfristig meist verliert, wie eine simple Welt-ETF-Strategie aussieht, und was Studien wirklich über Markttiming sagen.</description>
+    <category>Bücher</category>
+    <pubDate>Mon, 17 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Der Weg zur finanziellen Freiheit — Bodo Schäfer</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-weg-zur-finanziellen-freiheit.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-weg-zur-finanziellen-freiheit.html</guid>
+    <description>Der deutsche Klassiker zum Thema Vermögensaufbau: das Prinzip der drei Konten, warum Schulden zuerst weg müssen, und wie eine Sparquote zur Gewohnheit statt zur Anstrengung wird.</description>
+    <category>Bücher</category>
+    <pubDate>Sun, 16 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Rich Dad Poor Dad — Robert T. Kiyosaki</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-rich-dad-poor-dad.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-rich-dad-poor-dad.html</guid>
+    <description>Der US-Bestseller, der eine ganze Generation für Finanzbildung sensibilisiert hat: der Unterschied zwischen Vermögenswerten und Verbindlichkeiten, erklärt anhand zweier gegensätzlicher Vater-Figuren.</description>
+    <category>Bücher</category>
+    <pubDate>Sat, 15 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Der reichste Mann von Babylon — George S. Clason</title>
+    <link>https://www.finanz-ritual.de/beitrag-buch-reichste-mann-von-babylon.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-buch-reichste-mann-von-babylon.html</guid>
+    <description>Zeitlose Finanzweisheiten verpackt in Parabeln aus dem alten Babylon: warum ein Zehntel des Einkommens immer zuerst zurückgelegt gehört, und wie einfache Prinzipien auch nach fast 100 Jahren noch tragen.</description>
+    <category>Bücher</category>
+    <pubDate>Fri, 14 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Das Verlust-Paradox: Warum 50% Minus einen Gewinn von 100% braucht</title>
+    <link>https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html</guid>
+    <description>Warum Verluste psychologisch mehr wiegen als gleich große Gewinne, warum ein Minus von 50% einen Gewinn von 100% zum Ausgleich braucht, und was die 72er-Regel über Verdopplungszeiten verrät — mit zwei interaktiven Rechnern.</description>
+    <category>Finanzen</category>
+    <pubDate>Thu, 13 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>REIT-ETF vs. physische Immobilie als Kapitalanlage</title>
+    <link>https://www.finanz-ritual.de/beitrag-reit-etf-vs-immobilie.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-reit-etf-vs-immobilie.html</guid>
+    <description>Leverage, Steuern, Aufwand und Klumpenrisiko: Was eine fremdfinanzierte Mietimmobilie wirklich von einem bar gekauften REIT-ETF unterscheidet — mit Rechner, der den Hebeleffekt auf dein eigenes Kapital zeigt.</description>
+    <category>Finanzen</category>
+    <pubDate>Wed, 12 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+  <item>
+    <title>Anlage KAP einfach erklärt: Wann sich die Steuererklärung für Kapitalerträge lohnt</title>
+    <link>https://www.finanz-ritual.de/beitrag-anlage-kap.html</link>
+    <guid isPermaLink="true">https://www.finanz-ritual.de/beitrag-anlage-kap.html</guid>
+    <description>Wann die Anlage KAP Pflicht ist, wann sie sich freiwillig lohnt (Günstigerprüfung, Verlustverrechnung über Banken hinweg) — mit Rechner, ab welchem Einkommen sich die Günstigerprüfung auszahlt.</description>
+    <category>Finanzen</category>
+    <pubDate>Tue, 11 Aug 2026 06:00:00 +0000</pubDate>
+  </item>
+</channel>
+</rss>

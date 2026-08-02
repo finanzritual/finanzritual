@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Checking Account, Savings & Portfolio: Why You're Overpaying at Your Branch Bank — Finanzritual">Girokonto, Tagesgeld, Depot im Vergleich — Finanzritual</title>
+<meta name="description" content="Wer seit Jahren bei Sparkasse oder Volksbank ist, zahlt oft 5 bis 15 € Kontoführung im Monat. Ab wann sich ein Wechsel lohnt — mit Rechner." data-en-content="If you've been with a branch bank for years, you're often paying 5 to 15 euros a month in account fees without questioning it. When switching pays off, what free alternatives like Consorsbank and Trade Republic offer &ndash; with a calculator for your own savings.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-girokonto-vergleich.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Girokonto, Tagesgeld, Depot: Warum du bei der Filialbank zu viel zahlst" data-en-content="Checking Account, Savings & Portfolio: Why You're Overpaying at Your Branch Bank">
+<meta property="og:description" content="Wer seit Jahren bei Sparkasse oder Volksbank ist, zahlt oft 5 bis 15 Euro Kontoführung im Monat, ohne es zu hinterfragen. Ab wann sich ein Wechsel lohnt, was kostenlose Alternativen wie Consorsbank und Trade Republic bieten — mit Rechner für deine eigene Ersparnis." data-en-content="If you've been with a branch bank for years, you're often paying 5 to 15 euros a month in account fees without questioning it. When switching pays off, what free alternatives like Consorsbank and Trade Republic offer &ndash; with a calculator for your own savings.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-girokonto-vergleich.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Girokonto, Tagesgeld, Depot: Warum du bei der Filialbank zu viel zahlst",
+  "description": "Wer seit Jahren bei Sparkasse oder Volksbank ist, zahlt oft 5 bis 15 Euro Kontoführung im Monat, ohne es zu hinterfragen. Ab wann sich ein Wechsel lohnt, was kostenlose Alternativen wie Consorsbank und Trade Republic bieten — mit Rechner für deine eigene Ersparnis.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-girokonto-vergleich.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Girokonto-Artikel: Vergleichskarten, Tabelle, Rechner (Namensraum gk-) ===== */
+.gk-compare{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:24px 0; }
+@media (max-width:760px){ .gk-compare{ grid-template-columns:1fr; } }
+.gk-compare-card{ background:var(--bg-raised); border:1px solid var(--line-strong); border-radius:12px; padding:18px 20px; }
+.gk-compare-card h3{ margin:0 0 8px; font-size:1rem; color:var(--blue); }
+.gk-compare-card ul{ margin:0; padding-left:20px; font-size:.84rem; }
+.gk-compare-card li{ margin-bottom:5px; }
+.gk-compare-card--good h3{ color:var(--green); }
+
+.gk-table-wrap{ overflow-x:auto; margin:24px 0; }
+.gk-table{ width:100%; border-collapse:collapse; font-size:.82rem; min-width:620px; }
+.gk-table th, .gk-table td{ text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); }
+.gk-table th{ font-size:.72rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+.gk-table td:first-child, .gk-table th:first-child{ font-weight:600; }
+.gk-table tr:last-child td{ border-bottom:none; }
+.gk-table td.gk-good{ color:var(--green); font-weight:600; }
+.gk-table td.gk-mid{ color:#b08d20; font-weight:600; }
+.gk-table td.gk-bad{ color:#c0392b; font-weight:600; }
+
+.gk-insight-box{ margin:22px 0; padding:20px 22px; border-radius:14px; background:var(--green-soft); border:1px solid rgba(30,142,90,.2); }
+
+.gk-tools{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0; }
+@media (max-width:640px){ .gk-tools{ grid-template-columns:1fr; } }
+.gk-tool-card{ background:var(--bg-raised); border:1px solid var(--line-strong); border-radius:12px; padding:16px 18px; }
+.gk-tool-card .name{ font-weight:700; font-size:.94rem; margin-bottom:4px; }
+.gk-tool-card .desc{ font-size:.8rem; color:var(--ink-soft); margin-bottom:10px; }
+.gk-tool-card a.btn{ font-size:.78rem; }
+
+/* ===== Rechner ===== */
+.gk-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.gk-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .gk-calc-inputs{ grid-template-columns:1fr; } }
+.gk-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.gk-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.gk-result-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:700px){ .gk-result-grid{ grid-template-columns:1fr; } }
+.gk-result-card{ border-radius:12px; padding:16px 18px; text-align:center; }
+.gk-result-card--fee{ background:rgba(192,57,43,.08); border:1px solid rgba(192,57,43,.25); }
+.gk-result-card--zins{ background:rgba(36,84,166,.08); border:1px solid rgba(36,84,166,.25); }
+.gk-result-card--total{ background:rgba(30,142,90,.1); border:1px solid rgba(30,142,90,.25); }
+.gk-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.gk-result-sub{ font-size:.68rem; color:var(--ink-soft); margin-top:4px; }
+.gk-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.4rem; }
+.gk-result-card--fee .gk-result-value{ color:#c0392b; }
+.gk-result-card--zins .gk-result-value{ color:var(--blue); }
+.gk-result-card--total .gk-result-value{ color:var(--green); }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-girokonto-vergleich.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-girokonto-vergleich.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-girokonto.html" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</a><span>/</span><span aria-current="page" data-en="Checking account comparison">Girokonto im Vergleich</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · 029 Jul 2026">Finanzen · 29.07.2026</div>
+    <h1 data-en="Checking account, savings, portfolio: why you're overpaying at your branch bank">Girokonto, Tagesgeld, Depot: Warum du bei der Filialbank zu viel zahlst</h1>
+    <p style="max-width:60ch;" data-en="Sparkasse or Volksbank for years, never once checked the monthly fee &ndash; that's most people. Here's the simple rule for when a switch is worth it, and what a fee-free setup with a neobroker actually looks like, plus a calculator for your own numbers.">Seit Jahren bei der Sparkasse oder Volksbank, die monatliche Gebühr aber nie hinterfragt — das sind die meisten Leute. Hier die einfache Regel, ab wann sich ein Wechsel lohnt, wie ein gebührenfreies Setup bei einem Neobroker konkret aussieht, und ein Rechner für deine eigenen Zahlen.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="Here's a pattern I see constantly: someone opens their first Girokonto as a teenager at whatever bank their parents use &ndash; usually the local Sparkasse or Volksbank &ndash; and simply never leaves. Ten, twenty, thirty years later, the account is still there, the monthly fee has quietly crept up two or three times, and nobody has ever sat down to ask whether it's still worth it.">Ein Muster, das ich ständig sehe: Jemand eröffnet als Teenager sein erstes Girokonto bei der Bank der Eltern — meist die örtliche Sparkasse oder Volksbank — und bleibt einfach dort. Zehn, zwanzig, dreißig Jahre später ist das Konto immer noch da, die monatliche Gebühr ist still und leise zwei- oder dreimal gestiegen, und niemand hat sich je hingesetzt und gefragt, ob sich das noch lohnt.</p>
+
+    <p data-en="This isn't an attack on traditional banks. If you regularly need a branch, value a personal advisor, or deposit cash often, that service has a real cost and paying for it can be entirely reasonable. But if you're like most people &ndash; banking almost exclusively through an app, rarely if ever setting foot in a branch &ndash; then that monthly fee is basically money for nothing.">Das ist kein Angriff auf klassische Banken. Wer regelmäßig eine Filiale braucht, einen persönlichen Berater schätzt oder oft Bargeld einzahlt, für den hat dieser Service reale Kosten, und die zu bezahlen kann völlig vernünftig sein. Aber wer wie die meisten Leute so gut wie ausschließlich per App bankt und so gut wie nie eine Filiale betritt — für den ist diese monatliche Gebühr im Grunde Geld für nichts.</p>
+
+    <h2 data-en="The 5-to-6-euro rule">Die 5-bis-6-Euro-Regel</h2>
+    <p data-en="My rule of thumb is simple: if your Girokonto costs you somewhere around 5 to 6 euros a month or less, and you're genuinely happy with the service, staying put is a perfectly fine decision. That's a manageable price for convenience, a familiar app, and not having to deal with a switch. But once the monthly fee climbs meaningfully above that &ndash; and plenty of Sparkassen and Volksbanken charge 8, 10, even 15 euros once you add card fees and account models together &ndash; a switch to a fee-free alternative pays for itself almost immediately.">Meine Faustregel ist einfach: Wenn dein Girokonto irgendwo bei 5 bis 6 Euro im Monat oder weniger liegt und du mit dem Service zufrieden bist, ist Bleiben eine völlig in Ordnung gehende Entscheidung. Das ist ein überschaubarer Preis für Bequemlichkeit, eine vertraute App und den Verzicht auf einen Wechsel. Aber sobald die monatliche Gebühr spürbar darüber steigt — und etliche Sparkassen und Volksbanken verlangen 8, 10, sogar 15 Euro, wenn man Kartengebühren und Kontomodell zusammenrechnet — zahlt sich ein Wechsel zu einer gebührenfreien Alternative fast sofort aus.</p>
+
+    <p data-en="The honest math: at 10 €/month, that's 120 € a year and 1,200 € over a decade &ndash; for a service you can get for 0 € elsewhere, with no loss of functionality for everyday banking. There's no investment risk here, no market timing, no decision to get wrong. It's the closest thing to free money you'll find in personal finance.">Die ehrliche Rechnung: Bei 10 €/Monat sind das 120 € im Jahr und 1.200 € über zehn Jahre — für einen Service, den es woanders für 0 € gibt, ohne Funktionsverlust im Alltag. Hier gibt es kein Anlagerisiko, kein Market-Timing, keine Entscheidung, die schiefgehen kann. Das ist so nah an geschenktem Geld, wie es in der persönlichen Finanzplanung nur geht.</p>
+
+    <h2 data-en="What that fee used to pay for">Wofür diese Gebühr früher stand</h2>
+    <p data-en="It's worth understanding why the fee exists in the first place. Traditional banks built their pricing around a network of physical branches, staffed advisors, and cash infrastructure &ndash; real costs that have to come from somewhere. For decades that model made sense, because it was the only way to bank at all.">Es lohnt sich zu verstehen, wofür die Gebühr ursprünglich stand. Klassische Banken haben ihre Preise um ein Netz aus Filialen, besetzten Beratern und Bargeld-Infrastruktur herum gebaut — reale Kosten, die irgendwoher kommen müssen. Über Jahrzehnte hat dieses Modell Sinn ergeben, weil es die einzige Möglichkeit war, überhaupt zu banken.</p>
+    <p data-en="Neobrokers and direct banks like Trade Republic and Consorsbank don't carry that overhead. No branches to staff, no local cash logistics, everything runs through an app and a handful of data centers. That structural cost advantage is passed on almost entirely as 0 € account fees &ndash; not a promotional trick, just a fundamentally cheaper way to run a bank account.">Neobroker und Direktbanken wie Trade Republic und Consorsbank tragen diesen Kostenblock nicht. Keine besetzten Filialen, keine lokale Bargeld-Logistik, alles läuft über eine App und ein paar Rechenzentren. Dieser strukturelle Kostenvorteil wird fast vollständig als 0-€-Kontoführung weitergegeben — kein Werbetrick, sondern schlicht eine grundsätzlich günstigere Art, ein Girokonto zu betreiben.</p>
+
+    <h2 data-en="Side by side: branch bank vs. two free alternatives">Im Vergleich: Filialbank vs. zwei kostenlose Alternativen</h2>
+    <p data-en="I personally use both Consorsbank and Trade Republic myself, so here's how a typical Sparkasse/Volksbank account stacks up against them. Figures for the branch bank are illustrative averages, since exact pricing varies by institution and account model.">Ich selbst nutze sowohl Consorsbank als auch Trade Republic, deshalb hier der Vergleich, wie ein typisches Sparkassen-/Volksbankkonto gegen beide abschneidet. Die Werte für die Filialbank sind illustrative Durchschnittswerte, da die genaue Preisgestaltung je nach Institut und Kontomodell variiert.</p>
+
+    <div class="gk-table-wrap">
+      <table class="gk-table">
+        <thead>
+          <tr>
+            <th data-en="Criterion">Kriterium</th>
+            <th data-en="Sparkasse / Volksbank">Sparkasse / Volksbank</th>
+            <th data-en="Consorsbank">Consorsbank</th>
+            <th data-en="Trade Republic">Trade Republic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-en="Account fee p. month">Kontoführung p. Monat</td>
+            <td class="gk-bad" data-en="Typically 5&ndash;15 €">Typisch 5–15 €</td>
+            <td class="gk-mid" data-en="0 € under 31 or with 700 €+ monthly inflow, otherwise ~4 €">0 € unter 31 J. oder ab 700 € Geldeingang, sonst ca. 4 €</td>
+            <td class="gk-good" data-en="0 €, always, no conditions">0 €, immer, ohne Bedingungen</td>
+          </tr>
+          <tr>
+            <td data-en="Girocard">Girocard</td>
+            <td class="gk-good" data-en="Included">Inklusive</td>
+            <td class="gk-good" data-en="Free on request">Kostenlos auf Wunsch</td>
+            <td class="gk-bad" data-en="None &ndash; Visa Debit only">Keine — nur Visa Debit</td>
+          </tr>
+          <tr>
+            <td data-en="Interest on balance p. a.">Zinsen aufs Guthaben p. a.</td>
+            <td class="gk-bad" data-en="0&ndash;0,25⁠% typical">Typisch 0–0,25⁠%</td>
+            <td class="gk-mid" data-en="Separate Tagesgeld account, variable">Separates Tagesgeldkonto, variabel</td>
+            <td class="gk-good" data-en="~2⁠% on all cash, no cap, variable">Rund 2⁠% auf das gesamte Guthaben, ohne Obergrenze, variabel</td>
+          </tr>
+          <tr>
+            <td data-en="Cash withdrawal">Bargeldabhebung</td>
+            <td class="gk-good" data-en="Free at own branch/network ATMs">Kostenlos am eigenen Automatennetz</td>
+            <td class="gk-good" data-en="Free worldwide from 50 €">Weltweit kostenlos ab 50 €</td>
+            <td class="gk-mid" data-en="Free worldwide from 100 €">Weltweit kostenlos ab 100 €</td>
+          </tr>
+          <tr>
+            <td data-en="Portfolio (Depot) integrated">Depot integriert</td>
+            <td class="gk-bad" data-en="Separate, often with fees">Separat, oft mit Gebühren</td>
+            <td class="gk-good" data-en="Yes, same login">Ja, gleicher Login</td>
+            <td class="gk-good" data-en="Yes, same app, 1 € per order">Ja, gleiche App, 1 € pro Order</td>
+          </tr>
+          <tr>
+            <td data-en="Branch / personal advisor">Filiale / persönliche Beratung</td>
+            <td class="gk-good" data-en="Yes">Ja</td>
+            <td class="gk-bad" data-en="No, app-only">Nein, nur App</td>
+            <td class="gk-bad" data-en="No, app-only">Nein, nur App</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="calc-note" data-en="Illustrative comparison, status June 2026. Not a live offer &ndash; conditions, fees, and interest rates change and should always be checked on the provider's own site before opening an account. No recommendation for any specific bank.">Illustrativer Vergleich, Stand Juni 2026. Kein Live-Angebot — Konditionen, Gebühren und Zinsen ändern sich und sollten vor Kontoeröffnung immer auf der Seite des Anbieters selbst geprüft werden. Keine Empfehlung für eine bestimmte Bank.</p>
+
+    <h2 data-en="A model worth considering: the fee-free banking trio">Ein Muster, das sich lohnt: das gebührenfreie Banking-Trio</h2>
+    <p data-en="Beyond just switching the Girokonto, there's a bigger structural upgrade worth considering: consolidating checking account, savings (Tagesgeld), and portfolio (Depot) under a single roof instead of spreading them across three separate institutions. Fewer logins, fewer statements, and no money sitting idle at 0⁠% while you mean to move it &ndash; because it's already earning interest by default.">Über den reinen Kontowechsel hinaus lohnt sich eine größere strukturelle Aufwertung: Girokonto, Tagesgeld und Depot unter einem Dach zu bündeln, statt sie über drei getrennte Institute zu verteilen. Weniger Logins, weniger Kontoauszüge, und kein Geld, das bei 0⁠% herumliegt, weil man es „eigentlich noch umschichten wollte" — weil es standardmäßig schon verzinst wird.</p>
+
+    <div class="gk-compare">
+      <div class="gk-compare-card gk-compare-card--good">
+        <h3 data-en="Model A: everything at Trade Republic">Modell A: Alles bei Trade Republic</h3>
+        <ul>
+          <li data-en="Girokonto, Tagesgeld and Depot in one app, one login">Girokonto, Tagesgeld und Depot in einer App, ein Login</li>
+          <li data-en="~2⁠% on every euro of cash, from day one, no minimum balance">Rund 2⁠% auf jeden Euro Cash, ab dem ersten Tag, ohne Mindestguthaben</li>
+          <li data-en="Best fit if you rarely need cash or a Girocard">Passt gut, wenn man selten Bargeld oder eine Girocard braucht</li>
+        </ul>
+      </div>
+      <div class="gk-compare-card gk-compare-card--good">
+        <h3 data-en="Model B: everything at Consorsbank">Modell B: Alles bei Consorsbank</h3>
+        <ul>
+          <li data-en="Girokonto, separate Tagesgeld and Depot, still one bank">Girokonto, separates Tagesgeld und Depot, trotzdem eine Bank</li>
+          <li data-en="Girocard and a free credit card included &ndash; useful for travel or cash">Girocard und kostenlose Kreditkarte inklusive — praktisch für Reisen oder Bargeld</li>
+          <li data-en="Free only under 31 or with 700 €+ monthly inflow, otherwise ~4 €">Kostenlos nur unter 31 J. oder ab 700 € Geldeingang, sonst ca. 4 €</li>
+        </ul>
+      </div>
+      <div class="gk-compare-card">
+        <h3 data-en="Model C: stay, but negotiate">Modell C: Bleiben, aber verhandeln</h3>
+        <ul>
+          <li data-en="Some branch banks waive the fee if you simply ask or threaten to leave">Manche Filialbanken erlassen die Gebühr, wenn man einfach fragt oder mit Kündigung droht</li>
+          <li data-en="Keeps the branch and advisor, worth it if you actually use them">Behält Filiale und Berater, lohnt sich, wenn man sie wirklich nutzt</li>
+          <li data-en="Works less often than people hope &ndash; go in with a real alternative in hand">Klappt seltener, als man hofft — am besten mit einer echten Alternative in der Hinterhand</li>
+        </ul>
+      </div>
+    </div>
+
+    <p data-en="Which model fits depends entirely on how you actually live. Trade Republic's lack of a Girocard is a real limitation for anyone who regularly pays with EC card in small local shops or needs frequent cash. Consorsbank closes that gap but ties the free account to an age or income condition. Neither is objectively &quot;better&quot; &ndash; they're simply different trade-offs, and it's worth reading the current terms on each provider's own site before deciding.">Welches Modell passt, hängt ganz vom eigenen Alltag ab. Die fehlende Girocard bei Trade Republic ist eine echte Einschränkung für alle, die regelmäßig mit EC-Karte im kleinen Laden zahlen oder oft Bargeld brauchen. Consorsbank schließt diese Lücke, koppelt das kostenlose Konto aber an eine Alters- oder Geldeingangs-Bedingung. Keins ist objektiv „besser" — es sind einfach unterschiedliche Trade-offs, und es lohnt sich, die aktuellen Bedingungen vor der Entscheidung direkt auf der Seite des jeweiligen Anbieters zu lesen.</p>
+
+    <h2 data-en="How switching actually works">Wie der Wechsel praktisch abläuft</h2>
+    <p data-en="This is the part that keeps people stuck for years: the fear that switching means chasing down every Dauerauftrag and payment partner by hand. In Germany, it doesn't have to. Under the Zahlungskontengesetz, every bank is legally required to offer a Kontowechselservice &ndash; you authorize your new bank, and it automatically contacts your old one, transfers standing orders and direct debits, and forwards incoming transfers for a transition period. In practice it takes a few days and a handful of taps in the app.">Das ist der Teil, der Leute jahrelang festhält: die Angst, jeden Dauerauftrag und jeden Zahlungspartner einzeln von Hand nachzupflegen. In Deutschland muss das nicht sein. Nach dem Zahlungskontengesetz ist jede Bank gesetzlich verpflichtet, einen Kontowechselservice anzubieten — man autorisiert die neue Bank, und sie kontaktiert automatisch die alte, überträgt Daueraufträge und Lastschriften und leitet eingehende Überweisungen für eine Übergangszeit weiter. In der Praxis dauert das ein paar Tage und ein paar Taps in der App.</p>
+    <p data-en="The one thing worth doing manually: keep the old account open with a small buffer for four to eight weeks, and only cancel it once you've confirmed salary, rent, and any remaining direct debits have actually moved over.">Das Einzige, was sich manuell zu prüfen lohnt: das alte Konto noch vier bis acht Wochen mit einem kleinen Puffer offen lassen und erst kündigen, wenn Gehalt, Miete und alle verbliebenen Lastschriften nachweislich umgestellt sind.</p>
+
+    <h2 data-en="What switching is really worth: the calculator">Was der Wechsel wirklich bringt: der Rechner</h2>
+    <p data-en="Two effects stack on top of each other: the fee you stop paying, and the interest you start earning on the balance that used to sit at 0⁠%. Enter your own numbers below.">Zwei Effekte addieren sich: die Gebühr, die wegfällt, und die Zinsen, die auf das Guthaben zu laufen beginnen, das vorher bei 0⁠% lag. Trag unten deine eigenen Zahlen ein.</p>
+
+    <div class="gk-calc" id="gk-calc">
+      <div class="gk-calc-inputs">
+        <div class="row">
+          <label for="gk-gebuehr"><span data-en="Current monthly account fee">Aktuelle monatliche Kontoführungsgebühr</span> <span class="val" id="gk-gebuehr-val">7,90 €</span></label>
+          <input type="range" id="gk-gebuehr" class="calc-slider" min="0" max="20" step="0.5" value="7.9">
+        </div>
+        <div class="row">
+          <label for="gk-guthaben"><span data-en="Average balance on the account">Durchschnittliches Guthaben auf dem Konto</span> <span class="val" id="gk-guthaben-val">3.000 €</span></label>
+          <input type="range" id="gk-guthaben" class="calc-slider" min="500" max="15000" step="250" value="3000">
+        </div>
+        <div class="row">
+          <label for="gk-zins"><span data-en="Interest rate at the new account p. a.">Zinssatz beim neuen Konto p. a.</span> <span class="val" id="gk-zins-val">2⁠%</span></label>
+          <input type="range" id="gk-zins" class="calc-slider" min="0" max="3" step="0.25" value="2">
+        </div>
+        <div class="row">
+          <label for="gk-jahre"><span data-en="Time horizon">Betrachtungszeitraum</span> <span class="val" id="gk-jahre-val">10 Jahre</span></label>
+          <input type="range" id="gk-jahre" class="calc-slider" min="1" max="20" step="1" value="10">
+        </div>
+      </div>
+      <p class="calc-note" data-en="Simplified example calculation, not a financing offer. Assumes a constant fee, constant average balance, and constant interest rate over the whole period, and does not account for taxes (Kapitalertragsteuer) on the interest earned.">Vereinfachte Beispielrechnung, kein Angebot. Geht von konstanter Gebühr, konstantem Durchschnittsguthaben und konstantem Zinssatz über den gesamten Zeitraum aus und berücksichtigt keine Kapitalertragsteuer auf die Zinserträge.</p>
+
+      <div class="gk-result-grid">
+        <div class="gk-result-card gk-result-card--fee">
+          <div class="gk-result-label" data-en="Fees saved">Ersparte Kontoführung</div>
+          <div class="gk-result-value" id="gk-result-fee">–</div>
+          <div class="gk-result-sub" data-en="over the whole period">über den gesamten Zeitraum</div>
+        </div>
+        <div class="gk-result-card gk-result-card--zins">
+          <div class="gk-result-label" data-en="Interest earned">Zusätzliche Zinserträge</div>
+          <div class="gk-result-value" id="gk-result-zins">–</div>
+          <div class="gk-result-sub" data-en="before tax, on the balance">vor Steuern, auf das Guthaben</div>
+        </div>
+        <div class="gk-result-card gk-result-card--total">
+          <div class="gk-result-label" data-en="Total benefit">Gesamtersparnis</div>
+          <div class="gk-result-value" id="gk-result-total">–</div>
+          <div class="gk-result-sub" data-en="fees + interest combined">Gebühr + Zinsen zusammen</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gk-insight-box">
+      <p style="margin:0;" data-en="Notice what's missing from this calculation: risk. Unlike an ETF savings plan, there's no market exposure here &ndash; it's a fee you stop paying and interest that was always yours to have. That's what makes this one of the very few financial moves that's genuinely close to free money.">Auffällig ist, was in dieser Rechnung fehlt: Risiko. Anders als bei einem ETF-Sparplan gibt es hier kein Marktrisiko — es ist eine Gebühr, die wegfällt, und Zinsen, die einem ohnehin zugestanden hätten. Das macht das zu einer der ganz wenigen finanziellen Entscheidungen, die wirklich nah an geschenktem Geld liegt.</p>
+    </div>
+
+    <h2 data-en="Where I opened my own accounts">Wo ich meine eigenen Konten habe</h2>
+    <p data-en="Full disclosure, since it's relevant here: I personally use both Consorsbank and Trade Republic, which is also why I could speak to their conditions in detail above. Mentioned as examples of what exists, not as the only options on the market &ndash; ING, DKB, and others run similar fee-free models worth comparing too.">Volle Transparenz, weil es hier relevant ist: Ich selbst nutze sowohl Consorsbank als auch Trade Republic, deshalb konnte ich oben auch im Detail auf die Konditionen eingehen. Als Beispiele dafür genannt, was es gibt — nicht als einzige Optionen am Markt, auch ING, DKB und andere fahren ähnliche gebührenfreie Modelle, die einen Vergleich wert sind.</p>
+
+    <div class="gk-tools">
+      <div class="gk-tool-card">
+        <div class="name">Consorsbank</div>
+        <div class="desc" data-en="Direct bank with Girokonto, Tagesgeld, Depot and a free credit card under one roof.">Direktbank mit Girokonto, Tagesgeld, Depot und kostenloser Kreditkarte unter einem Dach.</div>
+        <a href="#" class="btn btn-outline" data-en="To Consorsbank* (affiliate link, coming soon)" title="Affiliate-Link, wird ergänzt" data-en-title="Affiliate link, to be added">Zu Consorsbank*</a>
+      </div>
+      <div class="gk-tool-card">
+        <div class="name">Trade Republic</div>
+        <div class="desc" data-en="Neobroker with Girokonto, ~2⁠% interest on cash, Visa Debit and Depot in one app.">Neobroker mit Girokonto, rund 2⁠% Zinsen auf Cash, Visa Debit und Depot in einer App.</div>
+        <a href="#" class="btn btn-outline" data-en="To Trade Republic* (affiliate link, coming soon)" title="Affiliate-Link, wird ergänzt" data-en-title="Affiliate link, to be added">Zu Trade Republic*</a>
+      </div>
+    </div>
+    <p class="calc-note" data-en="* Placeholder links for now &ndash; will be replaced with the actual affiliate links. Clearly marked as advertising once live.">* Aktuell Platzhalter-Links — werden durch die echten Affiliate-Links ersetzt, sobald verfügbar. Sobald live, klar als Werbung gekennzeichnet.</p>
+
+    <h2 data-en="So, is it worth switching?">Also, lohnt sich der Wechsel?</h2>
+    <p data-en="If you're paying meaningfully more than 5 to 6 euros a month and rarely set foot in a branch, yes &ndash; almost certainly, and with close to zero downside. If your fee is already low and you genuinely value the branch and the advisor, there's no pressure to change anything. Either way, it's worth actually checking your last account statement instead of assuming.">Wenn die Gebühr spürbar über 5 bis 6 Euro im Monat liegt und man selten eine Filiale betritt: ja — fast sicher, und mit kaum einem Nachteil. Wenn die Gebühr schon niedrig ist und man Filiale und Berater wirklich schätzt, gibt es keinen Druck, etwas zu ändern. So oder so lohnt es sich, den letzten Kontoauszug wirklich zu prüfen, statt es anzunehmen.</p>
+
+    <p style="margin-top:8px;" data-en="This connects to the small-savings piece on switching your phone plan, and the ETF savings plan article if you want to put the freed-up money to work right away.">Das schließt an den Beitrag zu kleinen Ersparnissen beim Handyvertrag-Wechsel an, und an den Artikel zum ETF-Sparplan, wenn du das freigewordene Geld direkt arbeiten lassen willst.</p>
+    <ul>
+      <li><a href="beitrag-kleine-ersparnisse.html" data-en="→ Small Savings, Big Impact: Phone Plan, LED Bulbs & Balcony Solar">→ Kleine Ersparnisse, große Wirkung: Mobilfunk, LED & Balkonkraftwerk</a></li>
+      <li><a href="beitrag-etf-sparplan.html" data-en="→ ETF Savings Plan with a Neobroker: TER, Distributing vs. Accumulating">→ ETF-Sparplan mit dem Neobroker: TER, Ausschüttend vs. Thesaurierend</a></li>
+      <li><a href="beitrag-freibetrag.html" data-en="→ The €1,000 Tax Allowance: How to Get Every Cent Back">→ Der 1.000-Euro-Freibetrag: So holst du dir jeden Cent zurück</a></li>
+    </ul>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material and reflects one personal perspective, not financial advice, and not a recommendation for any specific bank or account. Fee ranges for branch banks are illustrative averages, not a survey of every provider; conditions for Consorsbank and Trade Republic reflect their own published terms as of June 2026 and can change at any time &ndash; always check the current terms on the provider's own site. The calculator uses a simplified model with a constant fee, constant average balance, and constant interest rate, and ignores Kapitalertragsteuer on interest earned. The Consorsbank and Trade Republic links are currently placeholders and will become affiliate links, clearly marked as advertising once active; I do use both providers myself.">Dieser Beitrag ist Bildungsmaterial und spiegelt eine persönliche Perspektive wider, keine Finanzberatung, und keine Empfehlung für eine bestimmte Bank oder ein bestimmtes Konto. Gebührenspannen für Filialbanken sind illustrative Durchschnittswerte, keine Erhebung aller Anbieter; die Konditionen für Consorsbank und Trade Republic entsprechen deren eigenen veröffentlichten Angaben, Stand Juni 2026, und können sich jederzeit ändern — bitte immer die aktuellen Bedingungen auf der Seite des jeweiligen Anbieters prüfen. Der Rechner nutzt ein vereinfachtes Modell mit konstanter Gebühr, konstantem Durchschnittsguthaben und konstantem Zinssatz und berücksichtigt keine Kapitalertragsteuer auf die Zinserträge. Die Links zu Consorsbank und Trade Republic sind aktuell Platzhalter und werden zu Affiliate-Links, sobald aktiv klar als Werbung gekennzeichnet; ich nutze beide Anbieter selbst.</div>
+
+    <p style="margin-top:32px;"><a href="kat-finanzen.html" data-en="← Back to all Finance posts">← Zurück zu allen Finanzen-Beiträgen</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Girokonto-Rechner: ersparte Gebuehren + Zinsertraege ===== */
+(function(){
+  const gebuehrEl = document.getElementById('gk-gebuehr');
+  const guthabenEl = document.getElementById('gk-guthaben');
+  const zinsEl = document.getElementById('gk-zins');
+  const jahreEl = document.getElementById('gk-jahre');
+  if(!gebuehrEl) return;
+
+  const gebuehrVal = document.getElementById('gk-gebuehr-val');
+  const guthabenVal = document.getElementById('gk-guthaben-val');
+  const zinsVal = document.getElementById('gk-zins-val');
+  const jahreVal = document.getElementById('gk-jahre-val');
+
+  const resultFee = document.getElementById('gk-result-fee');
+  const resultZins = document.getElementById('gk-result-zins');
+  const resultTotal = document.getElementById('gk-result-total');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtPct(p){
+    const s = p.toFixed(2).replace(/0$/, '').replace(/\.$/, '');
+    return isEn() ? s : s.replace('.', ',');
+  }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+  function fmtEUR2(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
+    return (en ? '€' : '') + fmt.format(v) + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+    const gebuehr = parseFloat(gebuehrEl.value);
+    const guthaben = parseFloat(guthabenEl.value);
+    const zins = parseFloat(zinsEl.value);
+    const jahre = parseInt(jahreEl.value, 10);
+
+    gebuehrVal.textContent = fmtEUR2(gebuehr);
+    guthabenVal.textContent = fmtEUR(guthaben);
+    zinsVal.textContent = fmtPct(zins) + '%';
+    jahreVal.textContent = jahre + (en ? (jahre === 1 ? ' year' : ' years') : ' Jahre');
+
+    const feeSaved = gebuehr * 12 * jahre;
+    const interestEarned = guthaben * (zins / 100) * jahre;
+    const total = feeSaved + interestEarned;
+
+    resultFee.textContent = fmtEUR(feeSaved);
+    resultZins.textContent = fmtEUR(interestEarned);
+    resultTotal.textContent = fmtEUR(total);
+  }
+
+  [gebuehrEl, guthabenEl, zinsEl, jahreEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+</body>
+</html>

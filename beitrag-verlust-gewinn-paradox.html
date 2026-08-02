@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="The Loss Paradox: Why a 50⁠% Drop Needs a 100⁠% Gain — Finanzritual">Das Verlust-Paradox: 50% Minus, 100% Gewinn — Finanzritual</title>
+<meta name="description" content="Warum Verluste psychologisch mehr wiegen als gleich große Gewinne, und was die 72er-Regel über Verdopplungszeiten verrät. Zwei Rechner." data-en-content="Why losses weigh more psychologically than equal gains, why a 50⁠% drop needs a 100⁠% gain to break even, and what the Rule of 72 reveals about doubling times — with two interactive calculators.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Das Verlust-Paradox: Warum 50% Minus einen Gewinn von 100% braucht" data-en-content="The Loss Paradox: Why a 50⁠% Drop Needs a 100⁠% Gain">
+<meta property="og:description" content="Warum Verluste psychologisch mehr wiegen als gleich große Gewinne, warum ein Minus von 50% einen Gewinn von 100% zum Ausgleich braucht, und was die 72er-Regel über Verdopplungszeiten verrät — mit zwei interaktiven Rechnern." data-en-content="Why losses weigh more psychologically than equal gains, why a 50⁠% drop needs a 100⁠% gain to break even, and what the Rule of 72 reveals about doubling times — with two interactive calculators.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Das Verlust-Paradox: Warum 50% Minus einen Gewinn von 100% braucht" data-en-content="The Loss Paradox: Why a 50⁠% Drop Needs a 100⁠% Gain">
+<meta name="twitter:description" content="Warum Verluste psychologisch mehr wiegen als gleich große Gewinne, warum ein Minus von 50% einen Gewinn von 100% zum Ausgleich braucht, und was die 72er-Regel über Verdopplungszeiten verrät — mit zwei interaktiven Rechnern." data-en-content="Why losses weigh more psychologically than equal gains, why a 50⁠% drop needs a 100⁠% gain to break even, and what the Rule of 72 reveals about doubling times — with two interactive calculators.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Das Verlust-Paradox: Warum 50% Minus einen Gewinn von 100% braucht",
+  "description": "Die Psychologie und Mathematik hinter der Verlust-Gewinn-Asymmetrie, plus die 72er-Regel für Verdopplungszeiten.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+.vp-table-wrap{ overflow-x:auto; margin:22px 0; }
+.vp-table{ width:100%; border-collapse:collapse; font-size:.82rem; min-width:420px; }
+.vp-table th, .vp-table td{ text-align:left; padding:9px 14px; border-bottom:1px solid var(--line); }
+.vp-table th{ font-size:.7rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+.vp-table td:first-child, .vp-table th:first-child{ font-weight:600; }
+.vp-table tr:last-child td{ border-bottom:none; }
+.vp-table td.vp-loss{ color:#c0392b; font-weight:600; font-family:'JetBrains Mono',monospace; }
+.vp-table td.vp-gain{ color:var(--green); font-weight:600; font-family:'JetBrains Mono',monospace; }
+.vp-table td.vp-years{ color:var(--blue); font-weight:600; font-family:'JetBrains Mono',monospace; }
+
+.vp-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.vp-calc-tabs{ display:flex; gap:8px; margin-bottom:20px; }
+.vp-calc-tab{ flex:1; padding:9px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); cursor:pointer; font-size:.8rem; font-weight:600; color:var(--ink-soft); font-family:inherit; transition:border-color .2s ease, color .2s ease, background .2s ease; }
+.vp-calc-tab.is-active{ border-color:var(--blue); color:var(--blue); background:var(--green-soft); }
+.vp-calc-pane{ display:none; }
+.vp-calc-pane.is-active{ display:block; }
+.vp-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.vp-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.vp-calc-inputs .row{ margin-bottom:18px; }
+.vp-calc-results{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
+@media (max-width:640px){ .vp-calc-results{ grid-template-columns:1fr; } }
+.vp-calc-result{ border-radius:12px; padding:16px 18px; text-align:center; background:var(--bg); border:1px solid var(--line); }
+.vp-calc-result .lbl{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.vp-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; }
+.vp-calc-result--a .num{ color:#c0392b; }
+.vp-calc-result--b .num{ color:var(--green); }
+.vp-calc-note{ font-size:.74rem; color:var(--ink-soft); margin-top:14px; }
+
+.vp-insight-box{ margin:24px 0; padding:20px 22px; border-radius:14px; background:var(--green-soft); border:1px solid rgba(30,142,90,.2); }
+.vp-insight-box p{ margin:0; }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-verlust-gewinn-paradox.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+      </div>
+    </div>
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-rendite.html" data-en="Portfolio & Returns">Depot & Rendite</a><span>/</span><span aria-current="page" data-en="The Loss Paradox">Das Verlust-Paradox</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · 31 Jul 2026">Finanzen · 31.07.2026</div>
+    <h1 data-en="The Loss Paradox: Why a 50⁠% Drop Needs a 100⁠% Gain">Das Verlust-Paradox: Warum 50⁠% Minus einen Gewinn von 100⁠% braucht</h1>
+    <p style="max-width:60ch;" data-en="A 200⁠% gain feels like it was always owed to us. A loss hits three or four times as hard and refuses to leave your head. The math behind it is even less forgiving than the feeling suggests.">200⁠% Gewinn nehmen wir mit wie selbstverständlich. Ein Verlust dagegen trifft uns drei-, vierfach so hart und geht nicht aus dem Kopf. Die Mathematik dahinter ist noch unbarmherziger, als sich das Gefühl anfühlt.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="Ask most investors and they'll tell you a story about a stock that doubled. Ask about the one that halved and you get a different tone entirely &ndash; longer, more detailed, still a little raw. That asymmetry isn't a coincidence. It's built into both our psychology and the math itself.">Frag die meisten Anleger, und sie erzählen dir voller Stolz von der Aktie, die sich verdoppelt hat. Frag nach der, die sich halbiert hat, und der Ton ändert sich schlagartig — länger, detaillierter, immer noch ein bisschen wund. Diese Asymmetrie ist kein Zufall. Sie steckt sowohl in unserer Psychologie als auch in der Mathematik selbst.</p>
+
+    <h2 data-en="Why a loss hurts more than an equal gain feels good" style="margin-top:36px;">Warum ein Verlust mehr schmerzt, als ein gleich großer Gewinn freut</h2>
+    <p data-en="Behavioral economists Daniel Kahneman and Amos Tversky measured this asymmetry decades ago and called it loss aversion. In their research, losses are felt roughly two to two-and-a-half times as intensely as equivalent gains &ndash; losing 100&nbsp;&euro; hurts more than finding 100&nbsp;&euro; feels good, even though the amount is identical. For your own portfolio, this can feel far more pronounced &ndash; the number itself matters less than the story you tell yourself about it.">Die Verhaltensökonomen Daniel Kahneman und Amos Tversky haben diese Asymmetrie schon vor Jahrzehnten vermessen und nannten sie Verlustaversion. In ihrer Forschung wiegen Verluste etwa zwei- bis zweieinhalbmal so schwer wie gleich große Gewinne — 100&nbsp;€ zu verlieren schmerzt mehr, als 100&nbsp;€ zu finden freut, obwohl der Betrag identisch ist. Am eigenen Depot kann sich das noch deutlich stärker anfühlen — die reine Zahl spielt dabei eine kleinere Rolle als die Geschichte, die man sich selbst darüber erzählt.</p>
+    <p data-en="This shows up in a well-documented pattern called the disposition effect: investors tend to sell winning positions too early, locking in the good feeling, while holding on to losing positions far too long, hoping they'll recover before the loss has to be admitted. The gain gets taken as a given. The loss gets carried around.">Das zeigt sich in einem gut dokumentierten Muster namens Dispositionseffekt: Anleger verkaufen Gewinner-Positionen tendenziell zu früh, um sich das gute Gefühl zu sichern, während Verlierer-Positionen viel zu lange gehalten werden — in der Hoffnung, dass sie sich erholen, bevor man den Verlust eingestehen muss. Der Gewinn wird wie selbstverständlich mitgenommen. Der Verlust wird mit sich herumgetragen.</p>
+
+    <h2 data-en="The math behind it: gains and losses aren't symmetrical" style="margin-top:36px;">Die Mathematik dahinter: Verluste und Gewinne sind nicht symmetrisch</h2>
+    <p data-en="Here's the part that trips almost everyone up at least once: a 50⁠% loss does not need a 50⁠% gain to break even. It needs a 100⁠% gain. The reason is simple once you see it &ndash; the percentage gain is always calculated from the new, smaller base, not the original one.">Hier kommt der Teil, der fast jeden mindestens einmal auf dem falschen Fuß erwischt: Ein Verlust von 50⁠% braucht keinen Gewinn von 50⁠%, um wieder auf null zu kommen. Er braucht einen Gewinn von 100⁠%. Der Grund ist simpel, sobald man ihn sieht — der Gewinn in Prozent wird immer von der neuen, kleineren Basis aus berechnet, nicht von der ursprünglichen.</p>
+    <p data-en="A concrete example: 10,000&nbsp;&euro; falls by 50⁠% to 5,000&nbsp;&euro;. To get back to 10,000&nbsp;&euro;, that remaining 5,000&nbsp;&euro; has to double &ndash; a 100⁠% gain, not 50⁠%. The formula for the gain needed to break even is: required gain = loss &divide; (1 &minus; loss).">Ein konkretes Beispiel: 10.000&nbsp;€ fallen um 50⁠% auf 5.000&nbsp;€. Um wieder auf 10.000&nbsp;€ zu kommen, müssen sich die verbleibenden 5.000&nbsp;€ verdoppeln — ein Gewinn von 100⁠%, nicht 50⁠%. Die Formel für den nötigen Ausgleichs-Gewinn lautet: nötiger Gewinn = Verlust &divide; (1 &minus; Verlust).</p>
+
+    <div class="vp-table-wrap">
+      <table class="vp-table">
+        <thead><tr><th data-en="Loss">Verlust</th><th data-en="Gain needed to break even">Nötiger Gewinn zum Ausgleich</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#1E8E5A;">&minus;3⁠%</td><td class="vp-gain">+3,1⁠%</td></tr>
+          <tr><td style="color:#1E8E5A;">&minus;5⁠%</td><td class="vp-gain">+5,3⁠%</td></tr>
+          <tr><td style="color:#1E8E5A;">&minus;7⁠%</td><td class="vp-gain">+7,5⁠%</td></tr>
+          <tr><td style="color:#1E8E5A;">&minus;10⁠%</td><td class="vp-gain">+11,1⁠%</td></tr>
+          <tr><td style="color:#1E8E5A;">&minus;12⁠%</td><td class="vp-gain">+13,6⁠%</td></tr>
+          <tr><td style="color:#1E8E5A;">&minus;15⁠%</td><td class="vp-gain">+17,6⁠%</td></tr>
+          <tr><td style="color:#298857;">&minus;20⁠%</td><td class="vp-gain">+25,0⁠%</td></tr>
+          <tr><td style="color:#348354;">&minus;25⁠%</td><td class="vp-gain">+33,3⁠%</td></tr>
+          <tr><td style="color:#3E7D51;">&minus;30⁠%</td><td class="vp-gain">+42,9⁠%</td></tr>
+          <tr><td style="color:#54724A;">&minus;40⁠%</td><td class="vp-gain">+66,7⁠%</td></tr>
+          <tr><td style="color:#6A6644;">&minus;50⁠%</td><td class="vp-gain">+100,0⁠%</td></tr>
+          <tr><td style="color:#7F5B3E;">&minus;60⁠%</td><td class="vp-gain">+150,0⁠%</td></tr>
+          <tr><td style="color:#A04A34;">&minus;75⁠%</td><td class="vp-gain">+300,0⁠%</td></tr>
+          <tr><td style="color:#C0392B;">&minus;90⁠%</td><td class="vp-gain">+900,0⁠%</td></tr>
+        </tbody>
+      </table>
+      <p class="vp-table-note" style="font-size:.78rem; color:var(--ink-soft); margin-top:10px;" data-en="Up to around &minus;15⁠%, the required gain stays close to the loss itself &ndash; a range most portfolios recover from without drastic measures. Beyond that, the gap widens fast, which the color shift from green to red is meant to make visible at a glance.">Bis etwa &minus;15⁠% bleibt der nötige Gewinn nah am Verlust selbst — ein Bereich, aus dem sich die meisten Depots ohne drastische Maßnahmen erholen. Danach öffnet sich die Schere schnell, was der Farbverlauf von Grün zu Rot auf einen Blick sichtbar machen soll.</p>
+    </div>
+
+    <div class="vp-insight-box">
+      <p data-en="It works the other way too, just less dramatically: a 50⁠% gain is wiped out entirely by a loss of only 33,3⁠%, not 50⁠%. Gains are fragile in the same way losses are stubborn &ndash; both because the base keeps shifting under your feet.">Es funktioniert auch andersherum, nur weniger dramatisch: Ein Gewinn von 50⁠% wird bereits durch einen Verlust von nur 33,3⁠% komplett aufgezehrt, nicht erst bei 50⁠%. Gewinne sind genauso zerbrechlich, wie Verluste hartnäckig sind — beides, weil sich die Basis unter den Füßen ständig verschiebt.</p>
+    </div>
+
+    <h2 data-en="The rule of 72: how long until it doubles?" style="margin-top:36px;">Die 72er-Regel: Wann verdoppelt sich ein Wert?</h2>
+    <p data-en="A useful companion piece of napkin math: divide 72 by the expected annual return, and you get the approximate number of years until your money doubles. A 6⁠% return doubles your capital in about 12 years; at 12⁠%, it takes about 6. It's not exact &ndash; it's an approximation that works best between roughly 4⁠% and 15⁠% &ndash; but it's close enough to plan around.">Ein nützliches Stück Kopfrechnung dazu: Teile 72 durch die erwartete jährliche Rendite, und du erhältst ungefähr die Anzahl Jahre, bis sich dein Geld verdoppelt. Bei 6⁠% Rendite verdoppelt sich das Kapital in rund 12 Jahren, bei 12⁠% in etwa 6 Jahren. Das ist keine exakte Rechnung — sondern eine Näherung, die zwischen etwa 4⁠% und 15⁠% am besten funktioniert —, aber nah genug dran, um damit zu planen.</p>
+
+    <div class="vp-table-wrap">
+      <table class="vp-table">
+        <thead><tr><th data-en="Annual return">Jährliche Rendite</th><th data-en="Doubling time (Rule of 72)">Verdopplungszeit (72er-Regel)</th></tr></thead>
+        <tbody>
+          <tr><td>2⁠%</td><td class="vp-years">36 Jahre</td></tr>
+          <tr><td>3⁠%</td><td class="vp-years">24 Jahre</td></tr>
+          <tr><td>4⁠%</td><td class="vp-years">18 Jahre</td></tr>
+          <tr><td>5⁠%</td><td class="vp-years">14,4 Jahre</td></tr>
+          <tr><td>6⁠%</td><td class="vp-years">12 Jahre</td></tr>
+          <tr><td>7⁠%</td><td class="vp-years">~10,3 Jahre</td></tr>
+          <tr><td>8⁠%</td><td class="vp-years">9 Jahre</td></tr>
+          <tr><td>10⁠%</td><td class="vp-years">7,2 Jahre</td></tr>
+          <tr><td>12⁠%</td><td class="vp-years">6 Jahre</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 data-en="Try it with your own numbers" style="margin-top:36px;">Mit eigenen Zahlen ausprobieren</h2>
+    <div class="vp-calc" id="vp-calc">
+      <div class="vp-calc-tabs">
+        <button type="button" class="vp-calc-tab is-active" id="vp-tab-loss" data-en="Loss &amp; break-even">Verlust &amp; Ausgleich</button>
+        <button type="button" class="vp-calc-tab" id="vp-tab-rule72" data-en="Rule of 72">72er-Regel</button>
+      </div>
+
+      <div class="vp-calc-pane is-active" id="vp-pane-loss">
+        <div class="vp-calc-inputs">
+          <div class="row">
+            <label for="vp-loss"><span data-en="Loss">Verlust</span> <span class="val" id="vp-loss-val">30⁠%</span></label>
+            <input type="range" id="vp-loss" class="calc-slider" min="5" max="95" step="1" value="30">
+          </div>
+          <div class="row">
+            <label for="vp-start"><span data-en="Starting value">Ausgangswert</span> <span class="val" id="vp-start-val">10.000&nbsp;€</span></label>
+            <input type="range" id="vp-start" class="calc-slider" min="1000" max="100000" step="1000" value="10000">
+          </div>
+        </div>
+        <div class="vp-calc-results">
+          <div class="vp-calc-result vp-calc-result--a">
+            <span class="lbl" data-en="Value after the loss">Wert nach dem Verlust</span>
+            <span class="num" id="vp-loss-value">7.000&nbsp;€</span>
+          </div>
+          <div class="vp-calc-result vp-calc-result--b">
+            <span class="lbl" data-en="Gain needed to break even">Nötiger Gewinn zum Ausgleich</span>
+            <span class="num" id="vp-gain-needed">+42,9⁠%</span>
+          </div>
+        </div>
+        <p class="vp-calc-note" data-en="Simplified example calculation, not investment advice.">Vereinfachte Beispielrechnung, keine Anlageberatung.</p>
+      </div>
+
+      <div class="vp-calc-pane" id="vp-pane-rule72">
+        <div class="vp-calc-inputs">
+          <div class="row">
+            <label for="vp-rate"><span data-en="Expected annual return">Erwartete jährliche Rendite</span> <span class="val" id="vp-rate-val">7⁠%</span></label>
+            <input type="range" id="vp-rate" class="calc-slider" min="1" max="15" step="0.5" value="7">
+          </div>
+        </div>
+        <div class="vp-calc-results">
+          <div class="vp-calc-result vp-calc-result--b">
+            <span class="lbl" data-en="Doubling time (Rule of 72)">Verdopplungszeit (72er-Regel)</span>
+            <span class="num" id="vp-rule72-years">~10,3 Jahre</span>
+          </div>
+          <div class="vp-calc-result vp-calc-result--b">
+            <span class="lbl" data-en="Exact doubling time">Exakte Verdopplungszeit</span>
+            <span class="num" id="vp-exact-years">~10,2 Jahre</span>
+          </div>
+        </div>
+        <p class="vp-calc-note" data-en="The Rule of 72 is a rough approximation. It's most accurate between roughly 4⁠% and 15⁠% &ndash; outside that range, the gap to the exact figure grows.">Die 72er-Regel ist eine Näherung. Am genauesten ist sie zwischen etwa 4⁠% und 15⁠% — außerhalb dieses Bereichs wächst der Abstand zum exakten Wert.</p>
+      </div>
+    </div>
+
+    <h2 data-en="What this means for how you invest" style="margin-top:36px;">Was das für dein Anlageverhalten bedeutet</h2>
+    <p data-en="None of this is a reason to panic after a drop, or to assume markets owe you a fast recovery. It's a reason to be honest about the math before it happens: the deeper a loss gets, the disproportionately larger the climb back becomes. That's one more argument for not concentrating too much capital in a single position, and for not needing to “win back” a loss quickly through a riskier bet &ndash; the math already makes that path harder than it looks.">Nichts davon ist ein Grund, nach einem Rückgang in Panik zu geraten oder davon auszugehen, dass einem der Markt eine schnelle Erholung schuldet. Es ist aber ein Grund, sich die Mathematik vorher ehrlich anzuschauen: Je tiefer ein Verlust wird, desto überproportional größer wird der Weg zurück. Das ist ein weiteres Argument dafür, nicht zu viel Kapital in eine einzelne Position zu stecken — und einen Verlust nicht mit einer riskanteren Wette schnell "zurückgewinnen" zu wollen. Die Mathematik macht diesen Weg ohnehin schon schwerer, als er aussieht.</p>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational content, not investment advice. All figures are simplified example calculations with constant, idealized rates &ndash; real markets fluctuate and never move in a straight line.">Dieser Beitrag ist Bildungsinhalt, keine Anlageberatung. Alle Zahlen sind vereinfachte Beispielrechnungen mit konstanten, idealisierten Raten — reale Märkte schwanken und bewegen sich nie in einer geraden Linie.</div>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+(function(){
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEUR(n){
+    return new Intl.NumberFormat(isEn() ? 'en-US' : 'de-DE', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(n);
+  }
+  function fmtPct(n, digits){
+    return new Intl.NumberFormat(isEn() ? 'en-US' : 'de-DE', { minimumFractionDigits:digits, maximumFractionDigits:digits }).format(n) + (isEn() ? '%' : '%');
+  }
+
+  var lossSlider  = document.getElementById('vp-loss');
+  var startSlider = document.getElementById('vp-start');
+  var lossVal     = document.getElementById('vp-loss-val');
+  var startVal    = document.getElementById('vp-start-val');
+  var lossValueOut= document.getElementById('vp-loss-value');
+  var gainNeeded  = document.getElementById('vp-gain-needed');
+
+  var rateSlider  = document.getElementById('vp-rate');
+  var rateVal     = document.getElementById('vp-rate-val');
+  var rule72Years = document.getElementById('vp-rule72-years');
+  var exactYears  = document.getElementById('vp-exact-years');
+
+  function computeLoss(){
+    if(!lossSlider) return;
+    var loss = parseFloat(lossSlider.value) / 100;
+    var start = parseFloat(startSlider.value);
+    var afterLoss = start * (1 - loss);
+    var requiredGain = loss / (1 - loss) * 100;
+
+    lossVal.textContent = fmtPct(loss * 100, 0);
+    startVal.textContent = fmtEUR(start);
+    lossValueOut.textContent = fmtEUR(afterLoss);
+    gainNeeded.textContent = '+' + fmtPct(requiredGain, 1);
+  }
+
+  function computeRule72(){
+    if(!rateSlider) return;
+    var rate = parseFloat(rateSlider.value);
+    rateVal.textContent = fmtPct(rate, rate % 1 === 0 ? 0 : 1);
+
+    var approx = 72 / rate;
+    var exact = Math.log(2) / Math.log(1 + rate / 100);
+
+    rule72Years.textContent = '~' + fmtPct(approx, 1).replace('%','').replace('%','') + (isEn() ? ' years' : ' Jahre');
+    exactYears.textContent = '~' + fmtPct(exact, 1).replace('%','').replace('%','') + (isEn() ? ' years' : ' Jahre');
+  }
+
+  if(lossSlider){
+    lossSlider.addEventListener('input', computeLoss);
+    startSlider.addEventListener('input', computeLoss);
+    computeLoss();
+  }
+  if(rateSlider){
+    rateSlider.addEventListener('input', computeRule72);
+    computeRule72();
+  }
+
+  var tabLoss = document.getElementById('vp-tab-loss');
+  var tabRule72 = document.getElementById('vp-tab-rule72');
+  var paneLoss = document.getElementById('vp-pane-loss');
+  var paneRule72 = document.getElementById('vp-pane-rule72');
+
+  function showLoss(){
+    tabLoss.classList.add('is-active'); tabRule72.classList.remove('is-active');
+    paneLoss.classList.add('is-active'); paneRule72.classList.remove('is-active');
+  }
+  function showRule72(){
+    tabRule72.classList.add('is-active'); tabLoss.classList.remove('is-active');
+    paneRule72.classList.add('is-active'); paneLoss.classList.remove('is-active');
+  }
+  if(tabLoss){
+    tabLoss.addEventListener('click', showLoss);
+    tabRule72.addEventListener('click', showRule72);
+  }
+
+  if(window.frPageRecomputers){
+    window.frPageRecomputers.push(function(){ computeLoss(); computeRule72(); });
+  }
+})();
+</script>
+</body>
+</html>

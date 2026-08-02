@@ -1,0 +1,14 @@
+<svg viewBox="0 -6 176 76" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Finanzritual Logo, feinjustierte zweizeilige Variante: FINANZ- und RITUA enger übereinander, beide rechtsbündig am L-Koordinatenkreuz, der Bindestrich von FINANZ- berührt die senkrechte Linie">
+  <!-- Zeile 1: FINANZ- — rechtsbündig an x=130, Bindestrich berührt das L -->
+  <text x="130" y="30" text-anchor="end" font-family="'Space Grotesk', Arial, sans-serif" font-weight="600" font-size="30" fill="#2454A6">FINANZ-</text>
+
+  <!-- Zeile 2: RITUA — ebenfalls rechtsbündig an x=130, keine Streckung, natürliche Zeichenbreiten -->
+  <text x="130" y="62" text-anchor="end" font-family="'Space Grotesk', Arial, sans-serif" font-weight="600" font-size="30" fill="#2454A6">RITUA</text>
+
+  <!-- Das L: enger Zeilenabstand jetzt nachvollzogen (Zeile 2 rückt näher an Zeile 1) -->
+  <path d="M130 4 V62 H166" stroke="#2454A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Grüne Wachstumslinie, an die kürzere Gesamthöhe angepasst -->
+  <path d="M134 54 L142 44 L148 48 L154 30 L160 12" stroke="#1E8E5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="160" cy="12" r="3.2" fill="#1E8E5A"/>
+</svg>

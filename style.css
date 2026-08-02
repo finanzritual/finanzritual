@@ -1,0 +1,1655 @@
+/* =========================================================
+   FINANZRITUAL — Design Tokens
+   Konzept: "Das Ledger" — ruhige Journal-Ästhetik,
+   präzise Zahlen, feine Linien statt lauter Fintech-Optik.
+   ========================================================= */
+
+/* >>> FR_FONTS_START — AUTOMATISCH GENERIERT von fonts_einrichten.sh.
+   Selbst gehostete Schriften — keine Anfrage geht mehr an Google.
+   Space Grotesk, Inter, JetBrains Mono — alle SIL Open Font License. <<< */
+@font-face{
+  font-family:'Inter';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('fonts/inter-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Inter';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('fonts/inter-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Inter';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('fonts/inter-500-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Inter';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('fonts/inter-500-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Inter';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('fonts/inter-600-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Inter';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('fonts/inter-600-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('fonts/jetbrains-mono-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('fonts/jetbrains-mono-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('fonts/jetbrains-mono-500-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('fonts/jetbrains-mono-500-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('fonts/jetbrains-mono-600-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('fonts/jetbrains-mono-600-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Space Grotesk';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('fonts/space-grotesk-500-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Space Grotesk';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('fonts/space-grotesk-500-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Space Grotesk';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('fonts/space-grotesk-600-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Space Grotesk';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('fonts/space-grotesk-600-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Space Grotesk';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url('fonts/space-grotesk-700-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Space Grotesk';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url('fonts/space-grotesk-700-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* >>> FR_FONTS_END <<< */
+
+/* Fallback-Stacks: greifen, solange die Schriften nicht lokal liegen.
+   Die font-family-Namen bleiben identisch ('Space Grotesk', 'Inter',
+   'JetBrains Mono'), damit der Rest des Stylesheets unverändert bleibt. */
+
+:root{
+  /* --- Light (default) --- */
+  --bg:            #F4F5F7;
+  --bg-raised:     #FFFFFF;
+  --ink:           #16233D;
+  --ink-soft:      #4B5568;
+  --blue:          #2454A6;
+  --blue-soft:     #E7EEF9;
+  --green:         #1E8E5A;
+  --green-soft:    #E6F3EC;
+  --line:          #C6CBBD;
+  --line-strong:   #9AA290;
+  --shadow:        0 1px 3px rgba(22,35,61,.08), 0 10px 28px rgba(22,35,61,.12);
+
+  /* type scale */
+  --step-user: 1;                 /* controlled by font-size slider */
+  --fs-display: clamp(2.4rem, 5vw, 4.4rem);
+  --fs-h2: calc(clamp(1.6rem, 3vw, 2.2rem) * var(--step-user));
+  --fs-h3: calc(1.2rem * var(--step-user));
+  --fs-body: calc(1rem * var(--step-user));
+  --fs-small: calc(.85rem * var(--step-user));
+  --fs-mono: calc(.9rem * var(--step-user));
+
+  --radius: 3px;
+  --radius-lg: 6px;
+  --maxw: 1120px;
+
+  color-scheme: light;
+}
+
+html[data-theme="dark"]{
+  --bg:            #10151C;
+  --bg-raised:     #171F29;
+  --ink:           #E9ECF1;
+  --ink-soft:      #A6AFBD;
+  --blue:          #7FA8E8;
+  --blue-soft:     #1B2635;
+  --green:         #55D99A;
+  --green-soft:    #14261F;
+  --line:          #3A4655;
+  --line-strong:   #556274;
+  --shadow:        0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+
+/* Hoher Kontrast: verstärkt Hell/Dunkel jeweils auf ihr Maximum (WCAG AAA,
+   >7:1 für Fließtext), statt beide auf ein einziges Schema zu reduzieren —
+   sonst hätte der Tag/Nacht-Schalter bei aktivem Kontrast keine sichtbare
+   Wirkung mehr gehabt. Reines Schwarz/Weiß statt gedämpfter Grautöne,
+   analog zu den High-Contrast-Modi von Windows/GNOME. */
+html[data-theme="light"][data-contrast="high"]{
+  --bg:            #FFFFFF;
+  --bg-raised:     #FFFFFF;
+  --ink:           #000000;
+  --ink-soft:      #1A1A1A;
+  --blue:          #0000EE;
+  --blue-soft:     #E0ECFF;
+  --green:         #00591F;
+  --green-soft:    #E1F3E6;
+  --line:          #000000;
+  --line-strong:   #000000;
+  --shadow:        none;
+  color-scheme: light;
+}
+html[data-theme="dark"][data-contrast="high"]{
+  --bg:            #000000;
+  --bg-raised:     #0D0D0D;
+  --ink:           #FFFFFF;
+  --ink-soft:      #E6E6E6;
+  --blue:          #6BD4FF;
+  --blue-soft:     #062138;
+  --green:         #4CFFA6;
+  --green-soft:    #04220F;
+  --line:          #FFFFFF;
+  --line-strong:   #FFFFFF;
+  --shadow:        none;
+  color-scheme: dark;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:var(--fs-body);
+  font-weight:500;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .25s ease, color .25s ease;
+}
+
+h1,h2,h3,.font-display{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  font-weight:600;
+  line-height:1.1;
+  letter-spacing:-.01em;
+  margin:0;
+}
+/* H2/H3 skalieren mit dem Schriftgrößen-Regler mit (--step-user), damit auch
+   Nutzer mit Sehschwäche größere Titel bekommen. H1 bleibt bewusst fest —
+   bei großen Display-Überschriften wirkte die Skalierung zu extrem. */
+h1{ font-size:2rem; }
+h2,.font-display{ font-size:calc(1.5rem * var(--step-user)); }
+h3{ font-size:calc(1.17rem * var(--step-user)); }
+
+.mono, .num, time, .tag, .chip, .price{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+}
+
+a{ color:var(--blue); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+a:focus-visible, button:focus-visible, input:focus-visible{
+  outline:2px solid var(--blue);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+p{ margin:0 0 1em; color:var(--ink-soft); max-width:64ch; }
+
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+.section{ padding:72px 0; border-bottom:1px solid var(--line); }
+.section-head{ margin-bottom:36px; }
+.section-head--with-action{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.rss-btn{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono',monospace; font-size:.78rem;
+  padding:6px 12px; border-radius:20px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; white-space:nowrap;
+  transition:border-color .2s ease, color .2s ease;
+}
+.rss-btn svg{ width:15px; height:15px; }
+.rss-btn:hover{ border-color:var(--green); color:var(--green); text-decoration:none; }
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--green);
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:10px;
+}
+.eyebrow::before{ content:""; width:14px; height:1px; background:var(--green); display:inline-block; }
+
+/* ---------- Ledger grid backdrop (used sparingly, hero only) ---------- */
+.ledger-grid{
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 100% 42px, 64px 100%;
+  background-position: 0 0;
+  opacity:.5;
+  position:absolute; inset:0;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 92%);
+          mask-image: linear-gradient(to bottom, black, transparent 92%);
+  pointer-events:none;
+}
+
+/* ============================= HEADER ============================= */
+header.site{
+  position:sticky; top:0; z-index:40;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(10px);
+  /* Grüne Akzentlinie im Ruhezustand (scrollY === 0).
+     Wechselt zu grau sobald der Nutzer zu scrollen beginnt — per JS-Klasse
+     .is-scrolled. Transition sorgt für einen weichen Farbübergang. */
+  border-bottom:2px solid var(--green);
+  transition:border-color .35s ease;
+}
+header.site.is-scrolled{
+  border-bottom-color:var(--line);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px; padding:14px 24px; position:relative;
+  max-width:var(--maxw); margin:0 auto;
+}
+.logo-mark{ display:inline-flex; align-items:flex-end; text-decoration:none; }
+.logo-word{
+  font-family:'Space Grotesk',sans-serif; font-weight:600;
+  font-size:1.55rem; line-height:1; color:var(--blue); letter-spacing:-.01em;
+  white-space:nowrap;
+}
+.logo-l{ width:30px; height:auto; display:block; margin-left:1px; transform:translateY(-1px); flex:none; }
+#logo-btn{ cursor:pointer; }
+
+/* ---------- Secret Panel: per Doppelklick auf das Header-Logo ---------- */
+.fr-secret-panel{
+  position:absolute; top:calc(100% + 10px); left:0; z-index:150;
+  opacity:0; visibility:hidden; transform:translateY(-6px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
+}
+.fr-secret-panel.is-open{ opacity:1; visibility:visible; transform:translateY(0); }
+.fr-secret-panel-inner{
+  background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow); padding:16px; width:250px;
+}
+.fr-secret-panel-header{
+  font-size:.68rem; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink-soft); font-family:'JetBrains Mono',monospace; margin-bottom:10px;
+}
+.fr-secret-nav{ display:flex; flex-direction:column; gap:2px; margin-bottom:14px; }
+.fr-secret-nav a{
+  padding:8px 10px; margin:0 -10px; border-radius:var(--radius); font-size:.9rem;
+  color:var(--ink); text-decoration:none; transition:background .15s ease, color .15s ease;
+}
+.fr-secret-nav a:hover{ background:var(--bg); color:var(--blue); }
+/* Trennlinie vor Shop/VIP im Secret Panel */
+.fr-secret-nav a.fr-secret-soon{
+  margin-top:6px; padding-top:10px;
+  border-top:1px solid var(--line);
+  color:var(--ink-soft);
+  font-size:.85rem;
+}
+.fr-secret-nav a.fr-secret-soon:first-of-type{ margin-top:6px; }
+.fr-secret-nav a.fr-secret-soon:hover{ color:var(--blue); }
+
+.fr-secret-calendar{ border-top:1px solid var(--line); padding-top:12px; }
+.fr-cal-header{
+  font-size:.78rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+  font-family:'Space Grotesk',sans-serif; text-transform:capitalize;
+}
+.fr-cal-weekdays, .fr-cal-days{ display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+.fr-cal-weekdays{ margin-bottom:5px; }
+.fr-cal-weekdays span{
+  font-size:.6rem; text-align:center; color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+.fr-cal-day{
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  font-size:.68rem; border-radius:4px; color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+.fr-cal-day.is-other{ opacity:.3; }
+.fr-cal-day.is-today{ background:var(--green); color:#fff; font-weight:600; }
+.logo-mark--lg .logo-word{ font-size:1.95rem; }
+.logo-mark--lg .logo-l{ width:38px; margin-left:2px; }
+
+nav.primary{ display:flex; gap:2px; }
+nav.primary a{
+  color:var(--ink-soft);
+  font-size:.92rem;
+  font-weight:500;
+  padding:8px 12px;
+  border-radius:var(--radius);
+  white-space:nowrap;
+}
+nav.primary a:hover{ color:var(--ink); background:var(--bg-raised); text-decoration:none; }
+nav.primary a.is-soon{ opacity:.55; }
+nav.primary a.is-soon::after{ content:"·bald"; font-size:.65em; margin-left:4px; color:var(--green); }
+.nav-rechner-link{
+  display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace;
+  font-size:.78rem; font-weight:700; letter-spacing:.03em; color:var(--green);
+}
+.nav-rechner-link:hover{ color:var(--green); background:var(--green-soft); }
+.nav-rechner-link.is-active{ color:var(--ink); background:var(--bg-raised); }
+.nav-rechner-icon{ width:16px; height:16px; flex:none; }
+.nav-start-link{
+  display:inline-flex; align-items:center; font-family:'JetBrains Mono',monospace;
+  font-size:.78rem; font-weight:700; letter-spacing:.03em; color:var(--blue);
+}
+.nav-start-link:hover{ color:var(--blue); background:var(--blue-soft); }
+.nav-start-link.is-active{ color:var(--ink); background:var(--bg-raised); }
+
+.header-controls{ display:flex; align-items:center; gap:14px; }
+
+.control{ display:flex; align-items:center; gap:8px; }
+.control label{ font-size:.7rem; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; }
+
+input[type="range"].font-slider{
+  width:76px; accent-color:var(--blue); cursor:pointer;
+}
+
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+}
+.theme-toggle:hover{ border-color:var(--blue); color:var(--blue); }
+.theme-toggle svg{ width:16px; height:16px; display:block; }
+/* Der Icon-Wrapper nutzt die generische .dot-Klasse (10x10px, für Legenden-Punkte
+   gedacht), das SVG darin ist aber 16x16 – dadurch saß Sonne/Mond bisher sichtbar
+   nach oben/links verschoben statt zentriert im runden Button. Fix: eigener,
+   passend großer, echt zentrierter Container nur für diesen Anwendungsfall. */
+.theme-toggle .dot{
+  width:16px; height:16px; border-radius:0; background:none;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+
+.lang-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  color:var(--ink-soft); font-family:'JetBrains Mono',monospace;
+  font-size:.66rem; font-weight:600; letter-spacing:.02em;
+  transition:border-color .2s ease, color .2s ease;
+}
+.lang-toggle:hover{ border-color:var(--blue); color:var(--blue); }
+.lang-toggle[aria-pressed="true"]{ border-color:var(--blue); color:var(--blue); }
+
+.contrast-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+}
+.contrast-toggle svg{ width:16px; height:16px; display:block; }
+.contrast-toggle:hover{ border-color:var(--blue); color:var(--blue); }
+.contrast-toggle[aria-pressed="true"]{ border-color:var(--green); color:var(--green); }
+
+.fullscreen-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+}
+.fullscreen-toggle svg{ width:16px; height:16px; display:block; }
+.fullscreen-toggle:hover{ border-color:var(--blue); color:var(--blue); }
+.fullscreen-toggle[aria-pressed="true"]{ border-color:var(--green); color:var(--green); }
+.fullscreen-toggle[hidden]{ display:none; }
+
+.calc-link{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+  text-decoration:none;
+}
+.calc-link:hover{ border-color:var(--blue); color:var(--blue); }
+.calc-link svg{ width:16px; height:16px; display:block; }
+
+.nav-toggle{ display:none; }
+
+/* ============================= HERO ============================= */
+.hero{ position:relative; overflow:hidden; padding:88px 0 64px; }
+.hero-inner{
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center;
+}
+.hero h1{ font-size:var(--fs-display); margin-bottom:20px; }
+.hero h1 .accent{ color:var(--green); }
+.hero p.lead{ font-size:calc(1.05rem * var(--step-user)); max-width:52ch; }
+.hero-cta{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 20px; border-radius:var(--radius);
+  font-weight:600; font-size:.92rem; cursor:pointer;
+  border:1px solid transparent; transition:transform .15s ease, background .2s ease;
+}
+.btn:hover{ text-decoration:none; }
+.btn-primary{ background:var(--ink); color:var(--bg); }
+.btn-primary:hover{ transform:translateY(-1px); }
+
+@keyframes fr-hero-bounce-in{
+  0%{ transform:translateY(0); }
+  20%{ transform:translateY(-9px); }
+  40%{ transform:translateY(0); }
+  60%{ transform:translateY(-5px); }
+  80%{ transform:translateY(0); }
+  100%{ transform:translateY(0); }
+}
+.btn-hero-bounce{ animation:fr-hero-bounce-in 1.4s ease .5s 1 both; transition:transform .15s ease; }
+.btn-hero-bounce.fr-pulse-again{ animation:fr-hero-bounce-in 1.1s ease 0s 1 both; }
+.btn-hero-bounce:hover{ transform:scale(1.06); }
+@media (prefers-reduced-motion: reduce){
+  .btn-hero-bounce, .btn-hero-bounce.fr-pulse-again{ animation:none; }
+}
+.btn-outline{ background:transparent; border-color:var(--line-strong); color:var(--ink); }
+.btn-outline:hover{ border-color:var(--ink); }
+.btn-green{ background:var(--green); color:#08170F; }
+.btn-green:hover{ transform:translateY(-1px); filter:brightness(1.06); color:#08170F; }
+/* Im Hell-Modus mit hohem Kontrast ist --green ein dunkles Grün (für Text auf
+   Weiß gedacht), nicht das übliche mittlere Grün. Als Button-Hintergrund
+   wiederverwendet, macht das den fest dunklen Button-Text fast unlesbar —
+   deshalb hier auf Weiß umschalten. Dunkel-Modus (auch mit Kontrast) bleibt
+   unverändert, da --green dort weiterhin hell ist und dunkler Text passt. */
+html[data-theme="light"][data-contrast="high"] .btn-green,
+html[data-theme="light"][data-contrast="high"] .btn-green:hover{ color:#FFFFFF; }
+
+.hero-chart-box{
+  position:relative;
+  background:var(--bg-raised); border:1px solid var(--line);
+  border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow);
+}
+.hero-chart-box svg{ width:100%; height:auto; display:block; }
+.chart-caption{ display:flex; flex-direction:column; gap:4px; margin-top:10px; font-size:.72rem; color:var(--ink-soft); }
+.chart-caption-line{ display:block; }
+
+.chart-value-wrap{
+  position:absolute; top:16px; right:20px; z-index:2; text-align:right;
+  transition:opacity .7s ease;
+}
+.chart-value-wrap.is-hidden{ opacity:0; }
+.chart-value{
+  display:block; font-size:1.5rem; font-weight:600; color:var(--blue); line-height:1.1;
+}
+.chart-value-label{
+  display:block; font-size:.62rem; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-soft); margin-top:2px;
+}
+
+/* draw-on animation for the signature line */
+.chart-path{
+  stroke-dasharray:520; stroke-dashoffset:520;
+  animation:draw 1.8s cubic-bezier(.4,0,.2,1) .3s forwards;
+}
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+.chart-dot{ opacity:0; animation:pop .3s ease .9s forwards; }
+@keyframes pop{ to{ opacity:1; } }
+
+/* ============================= EINKLAPPBARE BEREICHE (Rechner/Portfolio/Optionen) ============================= */
+details.tool-details{ border:none; }
+details.tool-details summary.tool-summary{
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+  cursor:pointer; list-style:none; padding:2px 0;
+}
+details.tool-details summary.tool-summary::-webkit-details-marker{ display:none; }
+details.tool-details summary.tool-summary::marker{ content:""; }
+.tool-arrow{
+  display:inline-flex; align-items:center; justify-content:center; flex:none;
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--line);
+  transition:border-color .25s ease, background .25s ease, transform .2s ease;
+}
+.tool-arrow svg{ width:17px; height:14px; }
+details.tool-details summary.tool-summary:hover .tool-arrow{ border-color:var(--blue); transform:translateY(-1px); }
+details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); background:var(--green-soft); }
+.tool-body{ margin-top:28px; }
+
+/* ---------- Warn-Banner (orange-rot, standardmäßig ausgeblendet) ---------- */
+:root{ --alert-bg:#e2431e; }
+.alert-banner{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:var(--alert-bg); color:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
+  transform:translateY(-100%);
+  transition:transform .25s ease;
+}
+.alert-banner.is-visible{ transform:translateY(0); }
+.alert-banner-inner{
+  max-width:1200px; margin:0 auto; padding:10px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.alert-banner-text{ font-size:.88rem; font-weight:600; line-height:1.4; }
+.alert-banner-right{ display:flex; align-items:center; gap:14px; flex:none; }
+
+/* Zähler bleibt im bekannten Konzept: unsichtbar (verschmilzt mit dem Banner), erst beim Markieren lesbar */
+.alert-banner-counter{
+  font-family:'JetBrains Mono',monospace; font-size:.62rem; line-height:1.5;
+  color:var(--alert-bg); text-align:right; cursor:default;
+  user-select:text; -webkit-user-select:text;
+}
+.alert-banner-counter::selection{ color:#fff; background:rgba(255,255,255,.35); }
+.alert-banner-counter *::selection{ color:#fff; background:rgba(255,255,255,.35); }
+
+.alert-banner-close{
+  flex:none; width:26px; height:26px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.55); background:transparent; color:#fff;
+  cursor:pointer; font-size:.8rem; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.alert-banner-close:hover{ background:rgba(255,255,255,.18); }
+
+/* =========================================================
+   INFO-DISCLAIMER-BANNER (blau, einmalig)
+   ========================================================= */
+.info-banner{
+  position:fixed; top:0; left:0; right:0; z-index:205;
+  background:var(--blue); color:#fff;
+  box-shadow:0 2px 12px rgba(0,0,0,.25);
+  transform:translateY(-100%);
+  transition:transform .35s cubic-bezier(.22,.68,0,1.2);
+}
+.info-banner.is-visible{ transform:translateY(0); }
+.info-banner-inner{
+  max-width:1200px; margin:0 auto; padding:13px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.info-banner-icon{
+  flex:none; width:20px; height:20px; opacity:.9; color:#fff;
+}
+.info-banner-text{
+  flex:1; font-size:.95rem; line-height:1.55; margin:0; color:#fff; font-weight:600;
+}
+.info-banner-text strong{ font-weight:800; color:#fff; }
+.info-banner-logo{
+  flex:none; height:44px; width:auto; opacity:.85;
+}
+@media(max-width:500px){ .info-banner-logo{ display:none; } }
+/* Kreis-Timer */
+.info-banner-timer{
+  flex:none; position:relative; width:36px; height:36px; cursor:pointer;
+  padding:0; margin:0; border:none; background:none; appearance:none;
+  -webkit-appearance:none; box-sizing:border-box; font:inherit; display:block;
+}
+.info-banner-timer svg{ position:absolute; top:0; left:0; transform:rotate(-90deg); }
+.info-banner-timer .timer-bg{
+  fill:none; stroke:rgba(255,255,255,.3); stroke-width:3;
+}
+.info-banner-timer .timer-arc{
+  fill:none; stroke:#fff; stroke-width:3;
+  stroke-linecap:round;
+  stroke-dasharray:91; stroke-dashoffset:0;
+  transition:stroke-dashoffset linear;
+}
+.info-banner-timer .timer-x{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:.75rem; color:#fff; font-weight:700; line-height:1;
+  pointer-events:none;
+}
+.info-banner-timer:hover .timer-arc{ stroke:rgba(255,255,255,.6); }
+@media(max-width:600px){
+  .info-banner-text{ font-size:.85rem; }
+}
+
+/* Glocke: nur sichtbar, wenn eine aktive Warnung gerade ausgeblendet ist */
+.alert-bell{
+  position:fixed; top:10px; right:10px; z-index:190;
+  width:32px; height:32px; border-radius:50%;
+  background:var(--bg-raised); border:1px solid var(--line); box-shadow:var(--shadow);
+  align-items:center; justify-content:center; color:var(--alert-bg);
+  cursor:pointer; display:none;
+}
+.alert-bell.is-visible{ display:flex; }
+.alert-bell svg{ width:16px; height:16px; }
+
+/* ---------- Easter-Egg-Button neben Sonne/Mond: zeigt den Banner testweise, ohne ihn scharf zu schalten ---------- */
+.alert-test-btn{
+  width:30px; height:30px; border-radius:50%; border:1px solid var(--line);
+  background:transparent; display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.alert-test-btn:hover{ border-color:var(--alert-bg); }
+.alert-test-dot{
+  width:8px; height:8px; border-radius:50%; background:var(--alert-bg);
+  box-shadow:0 0 0 0 rgba(226,67,30,.55);
+  animation:alert-dot-pulse 2.4s ease-out infinite;
+}
+@keyframes alert-dot-pulse{
+  0%{ box-shadow:0 0 0 0 rgba(226,67,30,.55); }
+  70%{ box-shadow:0 0 0 7px rgba(226,67,30,0); }
+  100%{ box-shadow:0 0 0 0 rgba(226,67,30,0); }
+}
+@media (max-width:560px){
+  .alert-banner-inner{ flex-wrap:wrap; row-gap:8px; }
+  .alert-banner-text{ font-size:.8rem; }
+}
+
+/* ---------- Easter Egg: "fire" tippen ---------- */
+.fr-easter-glow{ animation: fr-glow 1.8s ease-out; }
+@keyframes fr-glow{
+  0%{ filter:drop-shadow(0 0 0 rgba(30,142,90,0)); }
+  30%{ filter:drop-shadow(0 0 8px rgba(30,142,90,.85)); }
+  100%{ filter:drop-shadow(0 0 0 rgba(30,142,90,0)); }
+}
+.fr-easter-toast{
+  position:fixed; left:50%; bottom:28px; transform:translate(-50%,12px);
+  background:var(--bg-raised); color:var(--ink); border:1px solid var(--line);
+  box-shadow:var(--shadow); border-radius:var(--radius); padding:12px 18px;
+  font-family:'Inter',sans-serif; font-size:.88rem; font-weight:500;
+  opacity:0; transition:opacity .35s ease, transform .35s ease; z-index:9999;
+  pointer-events:none;
+}
+.fr-easter-toast.is-visible{ opacity:1; transform:translate(-50%,0); }
+@media (prefers-reduced-motion: reduce){
+  .fr-easter-glow{ animation:none; }
+  .fr-easter-toast{ transition:none; }
+}
+
+/* ---------- Nach-oben-Button (erscheint erst nach etwas Scroll) ---------- */
+.scroll-top-btn{
+  position:fixed; right:20px; bottom:20px; z-index:60;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--bg-raised); border:1px solid var(--line); box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:center; color:var(--ink-soft);
+  cursor:pointer; opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .25s ease, transform .25s ease, border-color .2s ease, color .2s ease;
+}
+.scroll-top-btn.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
+.scroll-top-btn svg{ width:18px; height:18px; }
+.scroll-top-btn:hover{ border-color:var(--blue); color:var(--blue); }
+/* ---- Rechner-Buttons als Gitternetz (Technik-Bereich) ---- */
+.tool-links-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:12px; margin:22px 0 4px;
+}
+.tool-link-btn{
+  display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+  padding:16px 18px; border:1px solid var(--line-strong); border-radius:var(--radius);
+  background:var(--bg-raised); text-decoration:none; color:var(--ink);
+  transition:border-color .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+.tool-link-btn:hover{ border-color:var(--blue); transform:translateY(-2px); box-shadow:var(--shadow); }
+.tool-link-icon{ color:var(--blue); }
+.tool-link-icon svg{ width:20px; height:20px; display:block; }
+.tool-link-label{ font-size:.86rem; font-weight:600; line-height:1.3; }
+.tool-link-sub{ font-size:.72rem; color:var(--ink-soft); }
+
+/* ---- CALCULATOR (allgemein, fuer die neuen Rechner-Seiten) ---- */
+.calc-card.calc-card--3col .calc-result{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+@media(max-width:700px){ .calc-card.calc-card--3col .calc-result{ grid-template-columns:1fr; } }
+.calc-result-box{
+  border-radius:var(--radius); padding:16px 14px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.calc-result-box.is-a{ background:var(--blue-soft); border:1px solid rgba(36,84,166,.2); }
+.calc-result-box.is-b{ background:var(--green-soft); border:1px solid rgba(30,142,90,.2); }
+.calc-result-box.is-c{ background:rgba(220,40,40,.07); border:1px solid rgba(220,40,40,.18); }
+.calc-result-box .box-label{
+  font-size:.68rem; text-transform:uppercase; letter-spacing:.08em;
+  font-family:'JetBrains Mono',monospace; color:var(--ink-soft);
+}
+.calc-result-box .box-value{
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:1.4rem; color:var(--ink); line-height:1.15;
+}
+.calc-result-box.is-a .box-value{ color:var(--blue); }
+.calc-result-box.is-b .box-value{ color:var(--green); }
+.calc-result-box.is-c .box-value{ color:#c0392b; }
+.calc-result-box .box-sub{ font-size:.74rem; color:var(--ink-soft); }
+
+@media (max-width:560px){
+  .scroll-top-btn{ width:40px; height:40px; right:14px; bottom:14px; }
+}
+
+/* ============================= CALCULATOR ============================= */
+.calc-card{
+  background:var(--bg-raised); border:2px solid var(--line-strong);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow);
+  padding:32px; display:grid; grid-template-columns:1fr 1fr; gap:36px;
+}
+.calc-inputs .row{ margin-bottom:22px; }
+.calc-inputs label{
+  display:flex; justify-content:space-between; font-size:.82rem;
+  color:var(--ink-soft); margin-bottom:8px;
+}
+.calc-inputs label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:600; }
+input[type="range"].calc-slider{
+  width:100%; accent-color:var(--green); cursor:pointer;
+}
+.calc-result{ display:flex; flex-direction:column; justify-content:center; gap:20px; }
+.calc-stat--total{ display:flex; flex-direction:column; gap:4px; }
+.calc-stat--total .label{ font-size:.72rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.08em; font-family:'JetBrains Mono',monospace;}
+.calc-stat--total .big{
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:2rem; color:var(--ink); line-height:1; display:inline-block;
+}
+.calc-stat-row{ display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--line); padding-top:16px; }
+.calc-stat{ display:flex; align-items:center; gap:9px; font-size:.86rem; }
+.calc-stat[hidden]{ display:none; }
+.calc-stat .label{ color:var(--ink-soft); flex:1; }
+.calc-stat .num{ font-weight:600; color:var(--ink); display:inline-block; }
+.dot{ width:10px; height:10px; border-radius:50%; display:inline-block; flex:none; }
+.dot-start{ background:var(--ink-soft); }
+.dot-blue{ background:var(--blue); }
+.dot-green{ background:var(--green); }
+.calc-note{ font-size:.7rem; color:var(--ink-soft); margin-top:8px; }
+
+/* ---- Säulengrafik (Jahresverlauf) ---- */
+.calc-chart-panel{ margin-top:28px; }
+.calc-chart-legend{ display:flex; gap:22px; margin-bottom:14px; flex-wrap:wrap; }
+.calc-chart-legend span{ display:inline-flex; align-items:center; gap:7px; font-size:.78rem; color:var(--ink-soft); }
+.calc-chart-legend .dot{ width:9px; height:9px; }
+.calc-bars{ width:100%; border:1px solid var(--line-strong); border-radius:var(--radius-lg); background:var(--bg-raised); padding:14px 10px 6px; }
+.calc-bars svg{ width:100%; height:200px; display:block; overflow:visible; }
+.bar-seg-start{ fill:var(--ink-soft); }
+.bar-seg-deposit{ fill:var(--blue); }
+.bar-seg-gain{ fill:var(--green); }
+.bar-guide{ stroke:var(--ink); stroke-width:1; stroke-dasharray:3 3; opacity:.45; }
+.bar-guide-selected{ stroke:var(--blue); stroke-width:1.4; stroke-dasharray:none; opacity:.85; }
+.bar-hguide{ stroke:var(--ink); stroke-width:1; stroke-dasharray:3 4; opacity:.3; }
+.bar-year-label{ font-family:'JetBrains Mono',monospace; font-size:9px; fill:var(--ink-soft); }
+.bar-year-label.is-milestone{ fill:var(--ink); font-weight:600; }
+.bar-year-label.is-selected{ fill:var(--blue); font-weight:700; }
+
+.bar-seg{
+  transform-box:fill-box; transform-origin:bottom;
+  animation:bar-grow .55s cubic-bezier(.22,1,.36,1) backwards;
+}
+@keyframes bar-grow{
+  from{ transform:scaleY(0); }
+  to{ transform:scaleY(1); }
+}
+
+.is-pulsing{ animation:value-pulse .45s cubic-bezier(.22,1,.36,1); }
+@keyframes value-pulse{
+  0%{ transform:scale(1); }
+  35%{ transform:scale(1.055); color:var(--green); }
+  100%{ transform:scale(1); }
+}
+
+/* ============================= TAG CLOUD ============================= */
+.tagcloud{ display:flex; flex-wrap:wrap; gap:10px 14px; align-items:baseline; }
+.tagcloud a{
+  color:var(--ink); font-family:'JetBrains Mono',monospace; font-weight:500;
+  border-bottom:2px solid transparent; padding-bottom:2px;
+}
+.tagcloud a:hover{ border-color:var(--green); color:var(--green); text-decoration:none; }
+
+/* ============================= FEED ============================= */
+.feed{ display:flex; flex-direction:column; }
+.feed-item{
+  display:grid; grid-template-columns:100px 1fr; gap:24px;
+  padding:22px 0; border-top:1px solid var(--line);
+}
+.feed-item:last-child{ border-bottom:1px solid var(--line); }
+.feed-item time{ font-size:.78rem; color:var(--ink-soft); padding-top:3px; }
+.feed-item h3{ font-size:calc(1.1rem * var(--step-user)); margin-bottom:6px; }
+.feed-item h3 a{ color:var(--ink); }
+.feed-item h3 a:hover{ color:var(--blue); }
+.feed-cat{
+  display:inline-block; font-size:.68rem; font-family:'JetBrains Mono',monospace;
+  color:var(--green); background:var(--green-soft); border-radius:999px;
+  padding:2px 9px; margin-bottom:8px;
+}
+.feed-item p{ font-size:calc(.92rem * var(--step-user)); margin:0; }
+.feed-more{ text-align:center; margin-top:32px; }
+
+/* ============================= CATEGORY SECTIONS ============================= */
+.cat-intro{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
+.cat-list{ margin-top:28px; display:grid; gap:20px; }
+.cat-row{
+  display:grid; grid-template-columns:120px 1fr; gap:20px; align-items:center;
+  padding:16px 0; border-top:1px dashed var(--line);
+}
+.cat-list--with-cover .cat-row{ grid-template-columns:38px 120px 1fr; gap:16px; }
+.cat-row-cover{
+  display:block; width:38px; height:55px; border-radius:4px; overflow:hidden;
+  background:var(--bg); border:1px solid var(--line); box-shadow:0 1px 5px rgba(0,0,0,.16);
+  flex:none; transition:border-color .15s ease;
+}
+.cat-row-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
+a.cat-row-cover:hover{ border-color:var(--green); }
+.cat-row-cover.cover-broken{
+  display:flex; align-items:center; justify-content:center;
+  background:var(--blue-soft); box-shadow:none;
+}
+.cat-row-cover.cover-broken::after{ content:"📖"; font-size:.9rem; opacity:.6; }
+.cat-row time{ font-size:.75rem; color:var(--ink-soft); }
+.cat-row a{ color:var(--ink); font-weight:500; }
+.cat-row-meta{ display:flex; flex-direction:column; gap:5px; }
+.cat-row-cat{
+  display:inline-block; width:fit-content; font-size:.66rem; font-family:'JetBrains Mono',monospace;
+  color:var(--blue); background:var(--blue-soft); border-radius:999px;
+  padding:2px 8px;
+}
+.placeholder-box{
+  border:1px dashed var(--line-strong); border-radius:var(--radius-lg);
+  padding:40px; text-align:center; color:var(--ink-soft); margin-top:20px;
+}
+.placeholder-box .mono{ color:var(--green); }
+
+/* ============================= TWO-UP CARDS (Shop/VIP teaser) ============================= */
+.twoup{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.promo-card{
+  border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:32px; background:var(--bg-raised); box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:14px;
+}
+.promo-card .icon{
+  width:38px; height:38px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--blue-soft); color:var(--blue);
+}
+.promo-card.green .icon{ background:var(--green-soft); color:var(--green); }
+
+/* ============================= NEWSLETTER / EBOOK (dezent) ============================= */
+.ebook-strip{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:24px; flex-wrap:wrap;
+  border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:22px 28px; background:linear-gradient(120deg, var(--blue-soft), transparent 60%);
+}
+.ebook-strip form{ display:flex; gap:8px; }
+.ebook-strip input[type="email"]{
+  padding:10px 12px; border-radius:var(--radius); border:1px solid var(--line-strong);
+  background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; min-width:220px;
+}
+
+/* ============================= FOOTER ============================= */
+footer.site{ padding:48px 0 32px; }
+.footer-grid{ display:grid; grid-template-columns:1.2fr .8fr .9fr 1.2fr; gap:24px; }
+.footer-grid h4{ font-size:calc(.78rem * var(--step-user)); text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; margin-bottom:12px; }
+.footer-grid ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.footer-grid a{ color:var(--ink-soft); font-size:.88rem; }
+.footer-grid a:hover{ color:var(--ink); }
+
+.social-links{ display:flex; gap:10px; margin-top:16px; }
+.social-links a{
+  width:32px; height:32px; border-radius:50%; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; color:var(--ink-soft);
+  transition:border-color .2s ease, color .2s ease;
+}
+.social-links a:hover{ border-color:var(--blue); color:var(--blue); text-decoration:none; }
+.social-links svg{ width:15px; height:15px; }
+.social-links--compact a{ width:26px; height:26px; }
+.social-links--compact svg{ width:13px; height:13px; }
+
+.footer-newsletter{ display:flex; flex-direction:column; gap:8px; }
+.footer-newsletter input[type="email"]{
+  padding:10px 12px; border-radius:var(--radius); border:1px solid var(--line-strong);
+  background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; font-size:.85rem;
+}
+.footer-newsletter .btn{ justify-content:center; padding:9px 16px; font-size:.82rem; }
+.footer-bottom{
+  margin-top:36px; padding-top:20px; border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-size:.78rem; color:var(--ink-soft);
+}
+.disclaimer-box{
+  margin-top:28px; padding:16px 18px; border-left:3px solid var(--green);
+  background:var(--green-soft); font-size:calc(.8rem * var(--step-user)); color:var(--ink-soft); border-radius:0 var(--radius) var(--radius) 0;
+}
+
+.footer-about-note{
+  margin-top:28px; padding:16px 18px; border-left:3px solid var(--blue);
+  background:var(--blue-soft); border-radius:0 var(--radius) var(--radius) 0;
+}
+.footer-about-note h4{
+  font-size:calc(.78rem * var(--step-user)); text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink); font-family:'JetBrains Mono',monospace; margin:0 0 8px;
+}
+.footer-about-note p{
+  font-size:calc(.8rem * var(--step-user)); color:var(--ink-soft); margin:0; line-height:1.55;
+  max-width:none;
+}
+
+/* ============================= SHOP-TIPP (Produkt-Empfehlung im Artikeltext) ============================= */
+.shop-tip{
+  display:flex; gap:16px; align-items:center; margin:28px 0; padding:14px;
+  border:1px solid var(--line); border-left:3px solid var(--green);
+  border-radius:0 var(--radius-lg) var(--radius-lg) 0; background:var(--bg-raised);
+}
+.shop-tip img{ width:76px; height:76px; object-fit:cover; border-radius:var(--radius); flex:none; }
+.shop-tip-body{ display:flex; flex-direction:column; gap:3px; flex:1; min-width:0; }
+.shop-tip-label{
+  font-family:'JetBrains Mono',monospace; font-size:.68rem; text-transform:uppercase;
+  letter-spacing:.08em; color:var(--green); display:flex; align-items:center; gap:7px;
+}
+.shop-tip-label::before{ content:""; width:12px; height:2px; background:var(--green); display:inline-block; }
+.shop-tip-body h4{ font-size:calc(.95rem * var(--step-user)); margin:0; }
+.shop-tip-body p{ font-size:.84rem; color:var(--ink-soft); margin:0; }
+.shop-tip-body a.btn{ align-self:flex-start; margin-top:6px; padding:7px 14px; font-size:.8rem; }
+@media (max-width:520px){ .shop-tip{ flex-direction:column; align-items:flex-start; } .shop-tip img{ width:100%; height:140px; } }
+
+/* ============================= GENERIC PAGE (shop/vip/legal) ============================= */
+.page-hero{ padding:56px 0 32px; }
+.book-cover-hero{
+  float:right; width:110px; height:auto; margin:0 0 14px 20px; border-radius:6px;
+  box-shadow:0 4px 14px rgba(0,0,0,.22); border:1px solid var(--line);
+}
+@media(max-width:560px){
+  .book-cover-hero{ width:84px; margin:0 0 10px 14px; }
+}
+.page-hero h1{ font-size:clamp(2rem,4vw,3rem); margin-bottom:14px; }
+
+.breadcrumb{ display:flex; align-items:center; gap:8px; font-size:.8rem; color:var(--ink-soft); margin-bottom:16px; flex-wrap:wrap; }
+.breadcrumb a{ color:var(--ink-soft); }
+.breadcrumb a:hover{ color:var(--blue); }
+.breadcrumb span[aria-current]{ color:var(--ink); }
+
+.shop-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.product-card{
+  border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--bg-raised); box-shadow:var(--shadow); display:flex; flex-direction:column;
+}
+.product-thumb{
+  aspect-ratio:4/3; background:
+    linear-gradient(135deg, var(--blue-soft), var(--green-soft));
+  display:flex; align-items:center; justify-content:center; color:var(--ink-soft);
+}
+.product-thumb--photo{ background:var(--bg); padding:0; }
+.product-thumb--photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.product-body{ padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.product-body h3{ font-size:calc(1rem * var(--step-user)); }
+.product-body .price{ font-size:1.05rem; font-weight:600; color:var(--green); margin-top:auto; }
+.product-body .btn{ margin-top:10px; justify-content:center; }
+.badge{
+  align-self:flex-start; font-size:.68rem; font-family:'JetBrains Mono',monospace;
+  background:var(--blue-soft); color:var(--blue); padding:3px 9px; border-radius:999px;
+}
+
+.vip-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+.vip-benefits ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
+.vip-benefits li{ display:flex; gap:12px; align-items:flex-start; }
+.vip-benefits .chk{
+  width:20px; height:20px; border-radius:50%; background:var(--green-soft); color:var(--green);
+  display:flex; align-items:center; justify-content:center; font-size:.7rem; flex:none; margin-top:2px;
+}
+.login-card{
+  border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--bg-raised);
+  box-shadow:var(--shadow); padding:32px;
+}
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:.8rem; color:var(--ink-soft); margin-bottom:6px; }
+.field input{
+  width:100%; padding:11px 12px; border-radius:var(--radius); border:1px solid var(--line-strong);
+  background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif;
+}
+.login-divider{ display:flex; align-items:center; gap:10px; margin:18px 0; color:var(--ink-soft); font-size:.78rem; }
+.login-divider::before,.login-divider::after{ content:""; flex:1; height:1px; background:var(--line); }
+.id-chip{
+  display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace;
+  font-size:.78rem; background:var(--green-soft); color:var(--green); padding:6px 12px; border-radius:999px;
+}
+
+.legal h2{ font-size:calc(1.15rem * var(--step-user)); margin:34px 0 10px; }
+.legal p, .legal li{ color:var(--ink-soft); font-size:calc(.94rem * var(--step-user)); }
+.legal ul{ padding-left:20px; }
+
+.impressum-logo-block{ display:inline-flex; align-items:center; gap:12px; padding:14px 0 22px; }
+.logo-stack{
+  display:flex; flex-direction:column; font-family:'Space Grotesk',sans-serif;
+  font-weight:600; font-size:1.5rem; line-height:1.15; color:var(--blue); letter-spacing:-.01em;
+}
+.logo-l-tall{ width:32px; height:52px; flex:none; }
+
+/* ============================= RESPONSIVE ============================= */
+@media (max-width: 900px){
+  nav.primary{ display:none; }
+  .nav-toggle{
+    display:flex; background:none; border:1px solid var(--line-strong); border-radius:var(--radius);
+    padding:8px 10px; color:var(--ink); cursor:pointer;
+  }
+  .hero-inner{ grid-template-columns:1fr; }
+  .calc-card{ grid-template-columns:1fr; }
+  .twoup{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .shop-grid{ grid-template-columns:1fr 1fr; }
+  .vip-wrap{ grid-template-columns:1fr; }
+  .feed-item{ grid-template-columns:1fr; gap:4px; }
+}
+@media (max-width: 560px){
+  .shop-grid{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .header-controls .control label{ display:none; }
+}
+
+/* ============================================================
+   MOBILFUNK-TARIFVERGLEICH  (Vergleich-Sektion)
+   ============================================================ */
+.fr-tarif-tool{ margin-top:28px; }
+
+.fr-tarif-filters{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;
+  padding:18px; background:var(--bg); border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+}
+.fr-tarif-filter{ display:flex; flex-direction:column; gap:6px; }
+.fr-tarif-filter > span{
+  font-size:var(--fs-small); color:var(--ink-soft); font-weight:600;
+  letter-spacing:.01em;
+}
+.fr-tarif-filter select{
+  appearance:none; -webkit-appearance:none;
+  padding:9px 30px 9px 12px; font:inherit; font-size:var(--fs-small);
+  color:var(--ink); background:var(--bg-raised);
+  border:1px solid var(--line-strong); border-radius:var(--radius);
+  cursor:pointer; width:100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234B5568' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 11px center;
+}
+.fr-tarif-filter select:focus{ outline:2px solid var(--blue); outline-offset:1px; border-color:var(--blue); }
+
+.fr-tarif-count{ margin:18px 0 10px; color:var(--ink-soft); font-size:var(--fs-small); }
+
+.fr-tarif-table{ border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden; }
+.fr-tarif-head,
+.fr-tarif-row{
+  display:grid;
+  grid-template-columns:minmax(0,2.4fr) .9fr .9fr 1.2fr auto;
+  align-items:center; gap:16px; padding:14px 18px;
+}
+.fr-tarif-head{
+  background:var(--bg); border-bottom:1px solid var(--line);
+  font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--ink-soft); font-weight:700;
+}
+.fr-tarif-row{ border-bottom:1px solid var(--line); background:var(--bg-raised); }
+.fr-tarif-row:last-child{ border-bottom:none; }
+.fr-tarif-row:nth-child(even){ background:var(--bg); }
+.fr-tarif-row:hover{ background:var(--blue-soft); }
+
+.fr-tarif-main{ display:flex; flex-direction:column; gap:3px; min-width:0; }
+.fr-tarif-name{ font-weight:600; color:var(--ink); }
+.fr-tarif-sub{ font-size:var(--fs-small); color:var(--ink-soft); }
+
+.fr-tarif-badge{
+  display:inline-block; padding:3px 9px; border-radius:100px;
+  font-size:.72rem; font-weight:700; letter-spacing:.02em;
+  background:var(--blue-soft); color:var(--blue);
+  border:1px solid transparent; white-space:nowrap;
+}
+.fr-tarif-badge.netz-telekom{ background:#fce7ef; color:#b8005a; }
+.fr-tarif-badge.netz-vodafone{ background:#fde3e0; color:#c8180c; }
+.fr-tarif-badge.netz-o2{ background:#e2eafc; color:#1a3f8f; }
+.fr-tarif-badge.netz-11{ background:var(--green-soft); color:var(--green); }
+html[data-theme="dark"] .fr-tarif-badge.netz-telekom{ background:#3a1524; color:#ff86b6; }
+html[data-theme="dark"] .fr-tarif-badge.netz-vodafone{ background:#3a1512; color:#ff8f86; }
+html[data-theme="dark"] .fr-tarif-badge.netz-o2{ background:#16233d; color:#9cc0ff; }
+
+.fr-tarif-preis{ display:flex; flex-direction:column; gap:2px; }
+.fr-tarif-price{ font-weight:700; font-size:1.05rem; color:var(--ink); }
+.fr-tarif-note{
+  display:inline-block; margin-top:3px; font-size:.72rem; font-weight:600;
+  color:var(--green);
+}
+.fr-tarif-cta{ justify-self:end; }
+.fr-tarif-btn{ white-space:nowrap; padding:9px 16px; font-size:.82rem; }
+
+@media (max-width: 760px){
+  .fr-tarif-filters{ grid-template-columns:1fr 1fr; }
+  .fr-tarif-head{ display:none; }
+  .fr-tarif-row{
+    grid-template-columns:1fr auto; gap:8px 14px;
+    padding:16px; border:1px solid var(--line); border-radius:var(--radius-lg);
+    margin-bottom:12px;
+  }
+  .fr-tarif-row:nth-child(even){ background:var(--bg-raised); }
+  .fr-tarif-table{ border:none; overflow:visible; }
+  .fr-tarif-main{ grid-column:1 / -1; }
+  .fr-tarif-netz{ grid-column:1; }
+  .fr-tarif-laufzeit{ grid-column:1; color:var(--ink-soft); font-size:var(--fs-small); }
+  .fr-tarif-preis{ grid-column:1; }
+  .fr-tarif-cta{ grid-column:2; grid-row:2 / 5; align-self:center; }
+}
+@media (max-width: 420px){
+  .fr-tarif-filters{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   KAFFEE-BUTTON  (Easter Egg: Doppelklick aufs Logo)
+   ============================================================ */
+:root{
+  --coffee:       #8A5A2B;
+  --coffee-soft:  #EFDCC4;
+  --coffee-line:  #E4D3BE;
+}
+html[data-theme="dark"]{
+  --coffee:       #E0B183;
+  --coffee-soft:  #3D2D1A;
+  --coffee-line:  #4A3A28;
+}
+/* Im Dark-Mode braucht der Fließtext kein extra Gewicht */
+html[data-theme="dark"] body{ font-weight:400; }
+
+.fr-secret-coffee{ border-top:1px solid var(--line); margin-top:14px; padding-top:12px; }
+.footer-coffee{ margin-top:16px; max-width:240px; }
+
+.fr-coffee-btn{
+  display:flex; align-items:center; gap:10px;
+  padding:10px; margin:0 -6px;
+  background:var(--coffee-soft); border:1px solid var(--coffee-line);
+  border-radius:var(--radius); color:var(--ink); text-decoration:none;
+  transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.fr-coffee-btn:hover{
+  transform:translateY(-1px); border-color:var(--coffee);
+  box-shadow:0 3px 10px rgba(138,90,43,.16); text-decoration:none;
+}
+.fr-coffee-btn:active{ transform:translateY(0); }
+.fr-coffee-btn:focus-visible{ outline:2px solid var(--coffee); outline-offset:2px; }
+
+.fr-coffee-cup{ flex:0 0 auto; color:var(--coffee); display:flex; }
+.fr-coffee-cup svg{ width:24px; height:24px; }
+
+.fr-coffee-text{ display:flex; flex-direction:column; gap:1px; min-width:0; }
+.fr-coffee-label{
+  font-family:'Space Grotesk',sans-serif; font-weight:600;
+  font-size:.85rem; color:var(--ink); line-height:1.2;
+}
+.fr-coffee-sub{
+  font-family:'JetBrains Mono',monospace; font-size:.6rem;
+  color:var(--ink-soft); letter-spacing:.02em;
+}
+
+/* Dampf steigt erst beim Hover auf – sonst zu unruhig im Panel */
+.fr-steam{ opacity:0; transform-origin:center bottom; }
+.fr-coffee-btn:hover .fr-steam{ animation:fr-steam-rise 2s ease-in-out infinite; }
+.fr-coffee-btn:hover .fr-steam-2{ animation-delay:.3s; }
+.fr-coffee-btn:hover .fr-steam-3{ animation-delay:.6s; }
+@keyframes fr-steam-rise{
+  0%   { opacity:0;  transform:translateY(2px)  scaleY(.7); }
+  40%  { opacity:.85; }
+  100% { opacity:0;  transform:translateY(-3px) scaleY(1.15); }
+}
+
+/* Button ohne hinterlegten Link: sichtbar, aber klar inaktiv */
+.fr-coffee-btn.is-disabled{
+  opacity:.5; cursor:not-allowed; pointer-events:none; filter:grayscale(.5);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .fr-coffee-btn{ transition:none; }
+  .fr-coffee-btn:hover{ transform:none; }
+  .fr-coffee-btn:hover .fr-steam{ animation:none; opacity:.7; }
+}
+
+/* ============================================================
+   NAV-DROPDOWN (Unterkategorien in Finanzen/Minimalismus)
+   ============================================================ */
+.nav-drop{ position:relative; }
+.nav-drop-toggle{
+  background:none; border:none; font:inherit; cursor:pointer;
+  color:var(--ink-soft); font-size:.92rem; font-weight:500;
+  padding:8px 10px 8px 12px; border-radius:var(--radius);
+  display:inline-flex; align-items:center; gap:5px;
+  transition:color .15s ease, background .15s ease;
+}
+.nav-drop-toggle:hover{ color:var(--ink); background:var(--bg-raised); }
+.nav-drop-toggle.is-active{ color:var(--ink); background:var(--bg-raised); }
+.nav-caret{ width:9px; height:6px; flex:none; transition:transform .18s ease; }
+.nav-drop.is-open .nav-caret{ transform:rotate(180deg); }
+
+.nav-drop-panel{
+  position:absolute; top:calc(100% + 6px); left:0; z-index:60; min-width:230px;
+  background:var(--bg-raised); border:1px solid var(--line); border-top:3px solid var(--green);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow); padding:8px; display:flex; flex-direction:column; gap:1px;
+  opacity:0; visibility:hidden; transform:translateY(-6px);
+  transition:opacity .16s ease, transform .16s ease, visibility .16s ease;
+}
+.nav-drop:hover .nav-drop-panel,
+.nav-drop.is-open .nav-drop-panel,
+.nav-drop:focus-within .nav-drop-panel{ opacity:1; visibility:visible; transform:translateY(0); }
+.nav-drop-panel a{
+  padding:8px 10px; border-radius:var(--radius); font-size:.85rem;
+  color:var(--ink); white-space:nowrap;
+}
+.nav-drop-panel a:hover{ background:var(--bg); color:var(--blue); text-decoration:none; }
+.nav-drop-panel a.is-active{ color:var(--blue); font-weight:600; }
+.nav-drop-panel a.nav-drop-all{
+  display:flex; align-items:center; gap:8px;
+  border-bottom:1px solid var(--line); margin-bottom:4px; padding-bottom:9px;
+  font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+  font-weight:600; color:var(--green);
+}
+.nav-drop-panel a.nav-drop-all::before{ content:""; width:14px; height:2px; background:var(--green); display:inline-block; flex:none; }
+.nav-drop-panel a.nav-drop-all:hover{ background:var(--green-soft); color:var(--green); }
+.nav-drop-panel a.nav-sub-link{ display:flex; align-items:center; gap:9px; }
+.nav-sub-icon{ display:inline-flex; align-items:center; justify-content:center; flex:none; color:var(--ink-soft); transition:color .15s ease; }
+.nav-sub-icon svg{ width:15px; height:15px; display:block; }
+.nav-drop-panel a.nav-sub-link:hover .nav-sub-icon,
+.nav-drop-panel a.nav-sub-link.is-active .nav-sub-icon{ color:var(--blue); }
+.nav-wegweiser .nav-sub-icon{ color:var(--green); }
+.nav-wegweiser:hover .nav-sub-icon{ color:var(--green); }
+.nav-sub-link--game .nav-sub-icon{ color:var(--green); }
+.nav-sub-link--game:hover{ background:var(--green-soft); }
+.nav-sub-link--game .nav-sub-count{ color:var(--green); font-weight:700; }
+.nav-wegweiser:hover{ color:var(--green); }
+.nav-sub-label{ flex:1; }
+.nav-group-label{
+  font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-soft); padding:10px 10px 3px; opacity:.75; display:block; text-decoration:none;
+}
+.nav-group-label:hover{ opacity:1; color:var(--blue); }
+.nav-group-label:first-of-type{ padding-top:2px; }
+.nav-sub-count{ font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--ink-soft); flex:none; }
+
+nav.primary > a.is-active{ color:var(--ink); background:var(--bg-raised); }
+
+@media (max-width:900px){
+  nav.primary.is-open{
+    display:flex; flex-direction:column; align-items:stretch; gap:2px;
+    position:absolute; top:100%; left:0; right:0; z-index:55;
+    background:var(--bg-raised); border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow); padding:10px 14px;
+  }
+  .nav-drop-panel{
+    position:static; opacity:1; visibility:visible; transform:none;
+    box-shadow:none; border:none; background:none; padding:2px 0 6px 14px;
+    display:none;
+  }
+  .nav-drop.is-open .nav-drop-panel{ display:flex; }
+  .nav-drop-toggle{ width:100%; justify-content:space-between; }
+}
+
+/* ============================================================
+   BEREICHE-UEBERSICHT (Startseite: Karten statt endloser Sektionen)
+   ============================================================ */
+.kat-overview-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+  gap:18px; margin-top:28px;
+}
+.kat-overview-card{
+  display:flex; flex-direction:column; gap:10px; padding:22px;
+  background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-lg);
+  transition:border-color .15s ease, transform .15s ease;
+}
+.kat-overview-card:hover{ border-color:var(--blue); transform:translateY(-2px); text-decoration:none; }
+.kat-overview-icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:12px; flex:none;
+}
+.kat-overview-icon svg{ width:20px; height:20px; }
+.kat-overview-icon--blue{ background:var(--blue-soft); color:var(--blue); }
+.kat-overview-icon--green{ background:var(--green-soft); color:var(--green); }
+.kat-overview-icon--amber{ background:rgba(184,134,11,.14); color:#b8860b; }
+.kat-overview-icon--soft{ background:var(--bg-sunken); color:var(--ink-soft); }
+.kat-overview-card h3{ font-family:'Space Grotesk',sans-serif; font-size:calc(1.08rem * var(--step-user)); margin:0; }
+.kat-overview-card p{ font-size:.86rem; color:var(--ink-soft); margin:0; }
+.kat-overview-more{ font-size:.8rem; font-weight:600; color:var(--blue); margin-top:auto; }
+
+/* ============================================================
+   KATEGORIE-SEITEN (kat-*.html): Subkategorie-Pills + View-Toggle + Karten
+   ============================================================ */
+.kat-subnav{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 6px; }
+.kat-pill{
+  font-size:.82rem; font-weight:500; padding:7px 14px; border-radius:999px;
+  border:1px solid var(--line-strong); color:var(--ink-soft);
+}
+.kat-pill:hover{ border-color:var(--blue); color:var(--blue); text-decoration:none; }
+.kat-pill.is-current{ background:var(--blue); border-color:var(--blue); color:#fff; }
+
+.kat-toolbar{
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
+  gap:12px; margin:22px 0 4px;
+}
+.kat-count{ font-size:.82rem; color:var(--ink-soft); }
+.kat-view-toggle{ display:inline-flex; border:1px solid var(--line-strong); border-radius:var(--radius); overflow:hidden; }
+.kat-view-toggle button{
+  background:none; border:none; padding:7px 12px; font-size:.8rem; font-weight:500;
+  color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+}
+.kat-view-toggle button + button{ border-left:1px solid var(--line-strong); }
+.kat-view-toggle button[aria-pressed="true"]{ background:var(--bg-raised); color:var(--ink); }
+.kat-view-toggle svg{ width:14px; height:14px; }
+
+.kat-card-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+  gap:18px; margin-top:20px;
+}
+.kat-card{
+  display:flex; flex-direction:column; gap:12px; padding:20px;
+  background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-lg);
+  transition:border-color .15s ease, transform .15s ease; color:var(--ink);
+}
+.kat-card:hover{ border-color:var(--blue); transform:translateY(-2px); text-decoration:none; }
+.kat-card-icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:10px; flex:none;
+}
+.kat-card-icon svg{ width:18px; height:18px; }
+.kat-card-icon--blue{ background:var(--blue-soft); color:var(--blue); }
+.kat-card-icon--green{ background:var(--green-soft); color:var(--green); }
+.kat-card-icon--amber{ background:rgba(184,134,11,.14); color:#b8860b; }
+.kat-card-icon--cover{
+  width:52px; height:76px; border-radius:5px; background:var(--bg); overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.18); border:1px solid var(--line);
+}
+.kat-card-icon--cover img{ width:100%; height:100%; object-fit:cover; display:block; }
+.kat-card-icon--cover.cover-broken{
+  background:var(--blue-soft); display:flex; align-items:center; justify-content:center;
+  box-shadow:none; border-color:var(--line);
+}
+.kat-card-icon--cover.cover-broken::after{ content:"📖"; font-size:1.3rem; opacity:.6; }
+a.kat-card-icon--cover:hover{ border-color:var(--green); }
+
+/* kat-card--split: Cover verlinkt zu Amazon, Rest der Karte zum Artikel —
+   deshalb zwei <a> nebeneinander statt einer großen, umschließenden <a>.
+   Optik bleibt identisch zur normalen .kat-card, nur die Klickbereiche
+   sind jetzt getrennt statt eine einzige große Fläche. */
+.kat-card--split .kat-card-body{
+  display:flex; flex-direction:column; gap:0;
+  color:var(--ink); text-decoration:none;
+}
+.kat-card--split .kat-card-body:hover{ text-decoration:none; }
+.kat-card--split .kat-card-body:hover h3{ text-decoration:underline; }
+.kat-card-body time{ font-size:.72rem; color:var(--ink-soft); }
+.kat-card-tag{
+  display:inline-block; width:fit-content; font-size:.66rem; font-family:'JetBrains Mono',monospace;
+  color:var(--blue); background:var(--blue-soft); border-radius:999px;
+  padding:2px 8px; margin-top:5px;
+}
+.kat-card-body h3{ font-family:'Space Grotesk',sans-serif; font-size:calc(1rem * var(--step-user)); margin:6px 0 6px; line-height:1.3; }
+.kat-card-body p{ font-size:.82rem; color:var(--ink-soft); margin:0; line-height:1.5; }
+
+@media (max-width:640px){
+  .kat-card-grid{ grid-template-columns:1fr; }
+}
+
+/* ============================= BUCH-BEWERTUNG (fr-rating) ============================= */
+/* Ergänzt das Vier-Block-Schema der Buchkritiken um eine persönliche, sichtbare
+   Bewertung. Nutzt ausschließlich bestehende --Variablen, funktioniert daher
+   automatisch in Hell/Dunkel/Hoher-Kontrast und skaliert mit dem Schriftgrößen-Regler.
+   Sterne = zwei überlagerte Unicode-Sternreihen (Hintergrund + geclippte
+   Vordergrund-Ebene), kein Bild, kein JS nötig, funktioniert auch bei
+   deaktiviertem Font-Loading (Fallback-Glyphe ★ ist Teil der Basisschrift). */
+
+.fr-rating-card{
+  margin:22px 0 28px; padding:20px 22px;
+  background:var(--bg-raised); border:1px solid var(--line); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+}
+
+.fr-rating-top{
+  display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+}
+.fr-rating-info{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.fr-rating-label{
+  font-family:'JetBrains Mono',monospace; font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.1em; color:var(--ink-soft);
+}
+.fr-rating-buy-btn{
+  padding:8px 14px; font-size:.8rem; flex:none; white-space:nowrap;
+}
+
+.fr-stars{
+  position:relative; display:inline-block; font-size:1.35rem; line-height:1;
+  letter-spacing:2px; white-space:nowrap;
+}
+.fr-stars-bg{ color:var(--line-strong); }
+.fr-stars-fg{
+  position:absolute; top:0; left:0; overflow:hidden; color:var(--green);
+  width:calc(var(--score) / 5 * 100%);
+}
+.fr-rating-num{ font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700; color:var(--ink); }
+.fr-rating-num-max{ font-size:.8rem; font-weight:500; color:var(--ink-soft); }
+
+.fr-rating-quote{
+  margin:16px 0 18px; padding:12px 16px; border-left:3px solid var(--blue);
+  background:var(--blue-soft); border-radius:0 var(--radius) var(--radius) 0;
+}
+.fr-rating-quote p{
+  margin:0; font-style:italic; color:var(--ink);
+  font-size:calc(.92rem * var(--step-user)); line-height:1.55;
+}
+
+.fr-rating-sub{ display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.fr-rating-sub-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.fr-rating-sub-label{ font-size:calc(.82rem * var(--step-user)); color:var(--ink-soft); }
+.fr-rating-sub-stars{
+  position:relative; display:inline-block; font-size:.88rem; letter-spacing:1.5px;
+  white-space:nowrap; flex:none;
+}
+
+.fr-rating-not-for{
+  font-size:calc(.85rem * var(--step-user)); color:var(--ink-soft); margin:0;
+  padding-top:12px; border-top:1px dashed var(--line);
+}
+.fr-rating-not-for strong{ color:var(--ink); font-weight:600; }
+
+@media(max-width:560px){
+  .fr-rating-card{ padding:16px 16px; }
+  .fr-stars{ font-size:1.15rem; }
+}
+
+/* ============================= PULL-QUOTE ============================= */
+/* Für einzelne, starke Sätze in Fließtext-lastigen Artikeln — zieht eine
+   Kernaussage optisch heraus, ohne ein neues Farbschema einzuführen
+   (nutzt dieselben --Variablen wie die anderen Boxen). Bewusst schlicht:
+   ein Akzentbalken, kein Kasten — wirkt als Tempowechsel, nicht als
+   weitere Box neben den ohnehin schon vorhandenen. */
+.pull-quote{
+  margin:30px 0; padding:2px 0 2px 22px; border-left:4px solid var(--green);
+}
+.pull-quote p{
+  margin:0; font-family:'Space Grotesk'; font-weight:600;
+  font-size:calc(1.22rem * var(--step-user)); line-height:1.4; color:var(--ink);
+}
+.pull-quote.is-blue{ border-left-color:var(--blue); }
+@media(max-width:560px){
+  .pull-quote{ padding-left:16px; }
+  .pull-quote p{ font-size:calc(1.05rem * var(--step-user)); }
+}
+
+/* ============================= INFO-BOX / TIP-BOX ============================= */
+/* Bisher nur lokal in beitrag-etf-sparplan-fuer-anfaenger.html definiert,
+   jetzt global — wird für den Retrofit mehrerer textlastiger Artikel
+   wiederverwendet, nicht mehr pro Seite dupliziert. */
+.info-box {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border-radius: 10px;
+  border-left: 3px solid var(--blue);
+  background: #BFD8F5; /* kräftiger als var(--blue-soft) im Hellmodus, sonst kaum vom Seitenhintergrund zu unterscheiden */
+}
+[data-theme="dark"] .info-box{ background: var(--blue-soft); } /* Dunkelmodus-Kontrast war schon ausreichend, bewusst unveraendert */
+.info-box.is-green {
+  border-left-color: var(--green);
+  background: var(--green-soft);
+}
+.info-box-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.info-box.is-green .info-box-label { color: var(--green); }
+.info-box p { margin: 0; font-size: .88rem; }
+
+.tip-box {
+  margin: 22px 0;
+  padding: 15px 20px 15px 17px;
+  border-radius: 10px;
+  background: #F7DFA8;
+  border-left: 3px solid #D97706;
+}
+[data-theme="dark"] .tip-box { background: #4A3410; }
+.tip-box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #92400E;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+[data-theme="dark"] .tip-box-label { color: #FCD34D; }
+.tip-box p  { margin: 0 0 7px; font-size: .87rem; }
+.tip-box p:last-child { margin-bottom: 0; }
+.tip-box ul { margin: 6px 0 0; padding-left: 1.2em; }
+.tip-box li { font-size: .86rem; margin-bottom: 4px; line-height: 1.5; }
+.tip-box code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .82rem;
+  background: rgba(217,119,6,.1);
+  border-radius: 3px;
+  padding: 0 4px;
+  color: #92400E;
+}
+[data-theme="dark"] .tip-box code { background: rgba(253,211,77,.12); color: #FCD34D; }
+
+/* ============================= CV-CAT-CARD ("Demnächst"-Karten) ============================= */
+/* Bisher nur lokal in kat-vergleich.html definiert, jetzt global — wird
+   jetzt auch in kat-technik.html für die App/Tool-Platzhalter genutzt. */
+.cv-cat-card{
+  margin:22px 0; padding:20px 22px; border-radius:14px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+.cv-cat-card-body h3{ margin:0 0 4px; font-size:1rem; }
+.cv-cat-card-body p{ margin:0; font-size:.84rem; color:var(--ink-soft); max-width:52ch; }
+.cv-cat-soon{ opacity:.7; }
+.cv-cat-soon-tag{
+  font-family:'JetBrains Mono',monospace; font-size:.68rem; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--ink-soft); border:1px solid var(--line-strong);
+  border-radius:20px; padding:4px 10px; white-space:nowrap;
+}
+
+/* ── Begriffs-Tooltip (Fly-over statt Seitenwechsel zum Glossar) ────────── */
+.term-tip{
+  position:relative; display:inline-block; cursor:help;
+  border-bottom:1.5px dotted var(--ink-soft);
+}
+.term-tip:hover, .term-tip.is-open{ border-bottom-color:var(--blue); }
+.term-tip-popup{
+  position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%) translateY(4px);
+  width:300px; max-width:82vw; background:#16233D; color:#fff;
+  padding:13px 15px; border-radius:10px; font-size:.82rem; line-height:1.55;
+  font-family:'Inter',sans-serif; font-weight:400; text-align:left;
+  box-shadow:0 8px 24px rgba(0,0,0,.4); z-index:60;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease, visibility .15s;
+}
+.term-tip-popup::after{
+  content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+  border:6px solid transparent; border-top-color:#16233D;
+}
+.term-tip-popup .term-tip-label{
+  font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.06em;
+  text-transform:uppercase; color:#98A2B3; margin-bottom:5px; display:block;
+}
+.term-tip-popup a{ color:#fff; text-decoration:underline; }
+.term-tip:hover .term-tip-popup,
+.term-tip.is-open .term-tip-popup{
+  opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+
+/* Umkehr-Variante: wird per JS gesetzt, wenn oberhalb nicht genug Platz ist
+   (z.B. Begriff steht ganz oben im sichtbaren Bereich, auch im Vollbild-Modus) */
+.term-tip.flip-down .term-tip-popup{
+  bottom:auto; top:calc(100% + 10px); transform:translateX(-50%) translateY(-4px);
+}
+.term-tip.flip-down .term-tip-popup::after{
+  top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#16233D;
+}
+.term-tip.flip-down:hover .term-tip-popup,
+.term-tip.flip-down.is-open .term-tip-popup{
+  transform:translateX(-50%) translateY(0);
+}
+@media(max-width:480px){
+  .term-tip-popup{ width:260px; font-size:.8rem; }
+}

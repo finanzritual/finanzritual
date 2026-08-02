@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Market Wisdom to Draw: A Quote Deck for Investors — Finanzritual">52 Börsenweisheiten zum Ziehen und Sammeln — Finanzritual</title>
+<meta name="description" content="52 Investoren- und Geld-Zitate von Kostolany bis Buffett, verpackt als anklickbares Karten-Quartett zum Ziehen und Sammeln." data-en-content="52 investing and money quotes from Kostolany to Buffett, packed into a clickable quote deck — draw, collect, and reflect on your own investing horizon.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-boersenweisheiten.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Börsenweisheiten zum Ziehen: Ein Zitate-Quartett für Investoren" data-en-content="Market Wisdom to Draw: A Quote Deck for Investors">
+<meta property="og:description" content="52 Investoren- und Geld-Zitate von Kostolany bis Buffett, verpackt als anklickbares Karten-Quartett — zum Ziehen, Sammeln und Über-den-eigenen-Anlagehorizont-Nachdenken." data-en-content="52 investing and money quotes from Kostolany to Buffett, packed into a clickable quote deck — draw, collect, and reflect on your own investing horizon.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-boersenweisheiten.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Börsenweisheiten zum Ziehen: Ein Zitate-Quartett für Investoren" data-en-content="Market Wisdom to Draw: A Quote Deck for Investors">
+<meta name="twitter:description" content="52 Investoren- und Geld-Zitate von Kostolany bis Buffett, verpackt als anklickbares Karten-Quartett — zum Ziehen, Sammeln und Über-den-eigenen-Anlagehorizont-Nachdenken." data-en-content="52 investing and money quotes from Kostolany to Buffett, packed into a clickable quote deck — draw, collect, and reflect on your own investing horizon.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Börsenweisheiten zum Ziehen: Ein Zitate-Quartett für Investoren",
+  "description": "52 Investoren- und Geld-Zitate von Kostolany bis Buffett, verpackt als anklickbares Karten-Quartett — zum Ziehen, Sammeln und Über-den-eigenen-Anlagehorizont-Nachdenken.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-boersenweisheiten.html"
+  },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Zitate-Quartett-Widget (Börsenweisheiten) ===== */
+.zq-intro-box{
+  margin:22px 0; padding:18px 20px; border-radius:12px;
+  background:rgba(36,84,166,.07); border:1px solid rgba(36,84,166,.22);
+}
+.zq-intro-box strong{ color:var(--blue); }
+
+.zq-block{
+  margin:30px 0; padding:32px 20px 26px; border-radius:18px; text-align:center;
+  background:linear-gradient(180deg, rgba(36,84,166,.09), rgba(30,142,90,.03));
+  border:1px solid rgba(36,84,166,.22);
+}
+.zq-cardwrap{ position:relative; width:280px; height:190px; margin:0 auto 18px; perspective:900px; }
+.zq-card{
+  position:absolute; inset:0; border-radius:14px; cursor:pointer;
+  transform-style:preserve-3d; transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.zq-card.is-flipped{ transform:rotateY(180deg); }
+.zq-card-face{
+  position:absolute; inset:0; border-radius:14px; backface-visibility:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  padding:20px; box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.zq-card-front{
+  background:linear-gradient(135deg,#1E8E5A,#2454A6); color:#fff; font-family:'JetBrains Mono',monospace;
+}
+.zq-card-front .zq-card-mark{ font-size:2.4rem; line-height:1; }
+.zq-card-front .zq-card-hint{ font-size:.68rem; opacity:.85; letter-spacing:.03em; }
+.zq-card-back{
+  background:var(--bg-raised); border:1px solid var(--line); transform:rotateY(180deg);
+  text-align:center; color:var(--ink);
+}
+.zq-card-back .zq-card-text{ font-size:1rem; font-weight:600; line-height:1.4; color:var(--ink); }
+.zq-card-back .zq-card-author{
+  font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--green);
+  font-family:'JetBrains Mono',monospace; margin-top:4px;
+}
+.zq-progress-label{ font-size:.85rem; color:var(--ink-soft); margin-bottom:4px; }
+.zq-progress-count{ font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--blue); }
+.zq-actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+
+/* ===== Statische Zitat-Liste (Fallback / Übersicht) ===== */
+.zq-list{ margin:26px 0; padding:0; list-style:none; display:grid; gap:12px; }
+.zq-list li{
+  padding:16px 18px; border-radius:12px; background:rgba(30,142,90,.06); border:1px solid rgba(30,142,90,.2);
+}
+.zq-list blockquote{ margin:0 0 6px; font-size:.95rem; font-weight:600; line-height:1.4; color:var(--ink); font-style:normal; }
+.zq-list cite{ font-size:.78rem; color:var(--ink-soft); font-style:normal; }
+
+/* ===== Slot-Maschinen-Karussell ===== */
+.zq-reel-wrap{
+  position:relative; height:300px; overflow:hidden; border-radius:16px; margin:20px 0 10px;
+  background:var(--bg-raised); border:1px solid var(--line); cursor:ns-resize; user-select:none;
+  box-shadow:inset 0 24px 26px -20px var(--bg-raised), inset 0 -24px 26px -20px var(--bg-raised);
+}
+.zq-reel-fade-top, .zq-reel-fade-bottom{
+  position:absolute; left:0; right:0; height:64px; z-index:5; pointer-events:none;
+}
+.zq-reel-fade-top{ top:0; background:linear-gradient(var(--bg-raised), rgba(0,0,0,0)); }
+.zq-reel-fade-bottom{ bottom:0; background:linear-gradient(rgba(0,0,0,0), var(--bg-raised)); }
+.zq-reel-center-line{
+  position:absolute; top:50%; left:20px; right:20px; height:1px; background:var(--green);
+  opacity:.3; transform:translateY(-50%); pointer-events:none; z-index:4;
+}
+.zq-reel-track{ position:absolute; left:0; right:0; top:50%; height:0; }
+.zq-reel-row{
+  position:absolute; left:0; right:0; top:0; padding:0 32px; text-align:center;
+  will-change:transform, opacity;
+}
+.zq-reel-row blockquote{
+  margin:0 0 3px; font-weight:700; color:var(--ink); font-style:normal; font-size:.98rem; line-height:1.35;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.zq-reel-row cite{ font-size:.72rem; color:var(--green); font-style:normal; font-weight:700; text-transform:uppercase; letter-spacing:.02em; }
+.zq-reel-hint{ text-align:center; font-size:.76rem; color:var(--ink-soft); margin:8px 0 0; }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-boersenweisheiten.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-boersenweisheiten.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<style>
+  header.site, .page-hero .breadcrumb, footer.site, .alert-banner, .alert-bell, .scroll-top-btn,
+  .nav-toggle{ }
+</style>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-minimalismus.html" data-en="Minimalism">Minimalismus</a><span>/</span><a href="kat-minimalismus-motivation.html" data-en="Motivation">Motivation</a><span>/</span><span aria-current="page" data-en="Market wisdom to draw">Börsenweisheiten zum Ziehen</span>
+    </nav>
+    <div class="eyebrow" data-en="Minimalism · 5 Aug 2026">Minimalismus · 05.08.2026</div>
+    <h1 data-en="Market wisdom to draw: a quote deck for investors">Börsenweisheiten zum Ziehen: Ein Zitate-Quartett für Investoren</h1>
+    <p style="max-width:60ch;" data-en="Kostolany, Buffett, Livermore, Munger: over fifty short lines that have outlived every market cycle they were written in. Draw one when you need it &ndash; before a rough week, or just for the reminder.">Kostolany, Buffett, Livermore, Munger: über fünfzig kurze Sätze, die jeden Marktzyklus überlebt haben, in dem sie geschrieben wurden. Zieh eine, wenn du sie brauchst — vor einer holprigen Woche, oder einfach als Erinnerung.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="Motivation doesn't have to mean hustle culture. Sometimes the most motivating thing an investor can read is a single sentence that says: calm down, this has all happened before. The quotes below were chosen for exactly that &ndash; not hype, but perspective, mostly from people who lived through crashes far worse than whatever is currently making headlines.">Motivation muss nicht Hustle-Culture bedeuten. Manchmal ist der motivierendste Satz für einen Investor genau der, der sagt: beruhig dich, das gab es alles schon einmal. Die Zitate unten wurden genau dafür ausgewählt — nicht für Hype, sondern für Perspektive, meist von Leuten, die weit schlimmere Crashs erlebt haben als das, was gerade Schlagzeilen macht.</p>
+
+    <div class="zq-intro-box">
+      <strong data-en="A quick note on sources">Kurzer Hinweis zu den Quellen</strong><br>
+      <span data-en="A few of these sentences are exact quotes from letters, speeches, or books; a few are famous paraphrases that have circulated for decades and can no longer be traced to a single original wording. Where that's the case, it's marked below with &laquo;attributed to&raquo; instead of a firm source.">Ein Teil dieser Sätze ist wörtlich aus Briefen, Reden oder Büchern zitiert; ein Teil sind berühmte Paraphrasen, die seit Jahrzehnten kursieren und sich nicht mehr auf einen einzigen Original-Wortlaut zurückführen lassen. Wo das der Fall ist, steht unten „zugeschrieben" statt einer festen Quelle.</span>
+    </div>
+
+    <div class="zq-block">
+      <h3 style="margin-top:0;" data-en="Try it: draw a quote card">Zum Ausprobieren: Zieh eine Zitat-Karte</h3>
+      <div class="zq-cardwrap" id="zq-cardwrap">
+        <div class="zq-card" id="zq-card" role="button" tabindex="0" aria-label="Karte ziehen" data-en-aria-label="Draw a card">
+          <div class="zq-card-face zq-card-front">
+            <span class="zq-card-mark" aria-hidden="true">€</span>
+            <span class="zq-card-hint" data-en="tap to draw">antippen zum Ziehen</span>
+          </div>
+          <div class="zq-card-face zq-card-back">
+            <span class="zq-card-text" id="zq-card-text"></span>
+            <span class="zq-card-author" id="zq-card-author"></span>
+          </div>
+        </div>
+      </div>
+      <div class="zq-progress-label">
+        <span data-en="Cards collected:">Karten gesammelt:</span> <span class="zq-progress-count" id="zq-progress-count">0 / 52</span>
+      </div>
+      <div class="zq-actions">
+        <button type="button" class="btn btn-outline" id="zq-reset-btn" data-en="Reset collection">Sammlung zurücksetzen</button>
+      </div>
+    </div>
+    <p class="calc-note" data-en="Purely for inspiration &ndash; nothing here is saved anywhere except your own browser. Tap the card to draw a random quote from the full deck below.">Rein zur Inspiration — hier wird nichts gespeichert außer in deinem eigenen Browser. Tippe auf die Karte, um ein zufälliges Zitat aus dem kompletten Kartenstapel unten zu ziehen.</p>
+
+    <h2 data-en="The full deck" style="margin-top:36px;">Der ganze Kartenstapel</h2>
+    <p data-en="Instead of a static list, this one behaves like a slot machine: move your mouse toward the top or bottom of the window below and it scrolls in that direction &ndash; the closer to the edge, the faster. The quote centered on the green line is the active one; click it to jump straight to it.">Statt einer starren Liste verhält sich diese hier wie ein Spielautomat: Beweg die Maus im Fenster unten Richtung oben oder unten, und es scrollt in diese Richtung — je näher am Rand, desto schneller. Das Zitat auf der grünen Linie in der Mitte ist das aktive; anklicken springt direkt dorthin.</p>
+
+    <div class="zq-reel-wrap" id="zq-reel-wrap">
+      <div class="zq-reel-center-line" aria-hidden="true"></div>
+      <div class="zq-reel-track" id="zq-reel-track"></div>
+      <div class="zq-reel-fade-top" aria-hidden="true"></div>
+      <div class="zq-reel-fade-bottom" aria-hidden="true"></div>
+    </div>
+    <p class="zq-reel-hint" data-en="Tip: works with touch too &ndash; swipe up or down.">Tipp: funktioniert auch per Touch — nach oben oder unten wischen.</p>
+
+    <p data-en="None of these sentences replace a real strategy, and a few of them are more myth than verified quote. But as a group, they point in the same direction: the market rewards patience and punishes the urge to constantly react. That's worth pinning up somewhere, even if the exact wording of one or two of them is up for debate.">Keiner dieser Sätze ersetzt eine echte Strategie, und ein paar von ihnen sind eher Mythos als belegtes Zitat. Aber als Gruppe zeigen sie in dieselbe Richtung: Der Markt belohnt Geduld und bestraft den Drang, ständig zu reagieren. Das ist es wert, sich irgendwo hinzuhängen — auch wenn der exakte Wortlaut bei ein, zwei von ihnen diskutabel ist.</p>
+
+    <p style="margin-top:32px;"><a href="kat-minimalismus-motivation.html" data-en="&larr; Back to Motivation">← Zurück zu Motivation</a></p>
+  </div>
+  <div style="margin:28px 0 0; padding:20px; background:var(--bg-raised); border-radius:10px; border:1px solid var(--line);">
+    <p style="font-size:.75rem;font-weight:700;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;" data-en="Continue reading">Weiterlesen</p>
+    <ul>
+      <li><a href="beitrag-in-dich-selbst-investieren.html" data-en="→ The most important investment is you">→ Die wichtigste Investition bist du selbst</a></li>
+      <li><a href="beitrag-horizont-micro-habits.html" data-en="→ Out of autopilot: how small habit switches broaden your horizon">→ Raus aus dem Autopilot: kleine Habits, großer Horizont</a></li>
+    </ul>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Zitate-Quartett: Boersenweisheiten-Karten ===== */
+(function(){
+  const cardEl = document.getElementById('zq-card');
+  if(!cardEl) return;
+
+  const LS_DRAWN = 'fr-zitate-drawn';
+
+  const CARDS = [
+    { de:"Die Menschen unterschätzen, was langfristig möglich ist, und überschätzen kurzfristige Renditen.", en:"We underestimate what's possible in the long run, and overestimate what's achievable in the short run.", authorDe:"nach Roy Amara", authorEn:"After Roy Amara" },
+    { de:"Ihr Geld ist nicht weg, mein Freund — es hat nur ein anderer.", en:"Your money isn't gone, my friend — someone else just has it.", authorDe:"zugeschrieben Amschel Meyer Rothschild", authorEn:"Attributed to Amschel Meyer Rothschild" },
+    { de:"Regel Nr. 1: Verliere nie Geld. Regel Nr. 2: Vergiss nie Regel Nr. 1.", en:"Rule No. 1: never lose money. Rule No. 2: never forget Rule No. 1.", authorDe:"Warren Buffett", authorEn:"Warren Buffett" },
+    { de:"Geld verdient man durchs Sitzenbleiben — nicht durchs Handeln.", en:"Money is made by sitting, not trading.", authorDe:"Jesse Livermore", authorEn:"Jesse Livermore" },
+    { de:"Du wirst nicht dafür belohnt, Risiken einzugehen. Du wirst dafür belohnt, günstige Vermögenswerte zu kaufen.", en:"You don't get rewarded for taking risk. You get rewarded for buying cheap assets.", authorDe:"Jeremy Grantham", authorEn:"Jeremy Grantham" },
+    { de:"Es kommt nicht darauf an, wie du startest — sondern wie du ankommst.", en:"It's not how you start, it's how you finish.", authorDe:"oft zugeschrieben Shelby Davis", authorEn:"Often attributed to Shelby Davis" },
+    { de:"Aktien kaufen, Schlaftabletten nehmen und die Kurse jahrelang nicht mehr ansehen.", en:"Buy stocks, take sleeping pills, and don't look at the prices for years.", authorDe:"André Kostolany", authorEn:"André Kostolany" },
+    { de:"Sei ängstlich, wenn andere gierig sind — und gierig, wenn andere ängstlich sind.", en:"Be fearful when others are greedy, and greedy when others are fearful.", authorDe:"Warren Buffett", authorEn:"Warren Buffett" },
+    { de:"Preis ist, was du zahlst. Wert ist, was du bekommst.", en:"Price is what you pay. Value is what you get.", authorDe:"Warren Buffett", authorEn:"Warren Buffett" },
+    { de:"Der Markt ist kurzfristig eine Abstimmungsmaschine — langfristig eine Waage.", en:"In the short run, the market is a voting machine. In the long run, it's a weighing machine.", authorDe:"Benjamin Graham", authorEn:"Benjamin Graham" },
+    { de:"Suche nicht die Nadel im Heuhaufen. Kauf einfach den ganzen Heuhaufen.", en:"Don't look for the needle in the haystack. Just buy the haystack.", authorDe:"John C. Bogle", authorEn:"John C. Bogle" },
+    { de:"Wisse, was du besitzt, und wisse, warum du es besitzt.", en:"Know what you own, and know why you own it.", authorDe:"Peter Lynch", authorEn:"Peter Lynch" },
+    { de:"Das große Geld liegt nicht im Kaufen oder Verkaufen, sondern im Warten.", en:"The big money is not in the buying or the selling, but in the waiting.", authorDe:"Charlie Munger", authorEn:"Charlie Munger" },
+    { de:"Der positive Denker sieht das Unsichtbare, fühlt das Unfassbare und erreicht das Unmögliche.", en:"The positive thinker sees the invisible, feels the intangible, and achieves the impossible.", authorDe:"zugeschrieben Winston Churchill", authorEn:"Attributed to Winston Churchill" },
+    { de:"Optimisten haben nur nicht genügend Informationen.", en:"Optimists just don't have enough information.", authorDe:"unbekannt", authorEn:"Unknown" },
+    { de:"Ein Ziel ist ein Traum mit Deadline.", en:"A goal is a dream with a deadline.", authorDe:"unbekannt", authorEn:"Unknown" },
+    { de:"Wir leben alle unter dem gleichen Himmel, aber wir haben nicht alle den gleichen Horizont.", en:"We all live under the same sky, but we don't all have the same horizon.", authorDe:"zugeschrieben Konrad Adenauer", authorEn:"Attributed to Konrad Adenauer" },
+    { de:"Wer für alles offen ist, kann nicht ganz dicht sein.", en:"Anyone open to everything can't be quite all there.", authorDe:"Christian Wallner (zugeschrieben)", authorEn:"Christian Wallner (attributed)" },
+    { de:"Es ist besser, einen Tag im Monat über sein Geld nachzudenken, als einen ganzen Monat dafür zu arbeiten.", en:"It is better to spend one day a month thinking about your money than to work an entire month for it.", authorDe:"John D. Rockefeller", authorEn:"John D. Rockefeller" },
+    { de:"Geld ist nicht alles, aber ohne ist alles nichts.", en:"Money isn't everything, but without it, everything is nothing.", authorDe:"Sprichwort", authorEn:"Proverb" },
+    { de:"Der Weg, um reich zu werden, ist, Geld zu verdienen — nicht zu sparen.", en:"The way to get rich is to make money, not to save it.", authorDe:"unbekannt (oft fälschlich Thoreau zugeschrieben)", authorEn:"Unknown (often misattributed to Thoreau)" },
+    { de:"Reichtum besteht nicht darin, viel zu besitzen, sondern wenige Bedürfnisse zu haben.", en:"Wealth consists not in having great possessions, but in having few wants.", authorDe:"Epiktet", authorEn:"Epictetus" },
+    { de:"Das Schwierigste, was es in der Welt zu verstehen gilt, ist die Einkommensteuer.", en:"The hardest thing in the world to understand is the income tax.", authorDe:"Albert Einstein", authorEn:"Albert Einstein" },
+    { de:"Zu viele Menschen geben Geld aus, das sie nicht verdient haben, um Leuten zu imponieren, die sie nicht mögen.", en:"Too many people spend money they haven't earned to impress people they don't like.", authorDe:"Will Smith", authorEn:"Will Smith" },
+    { de:"Man muss Geld zum Fenster rauswerfen, damit es zur Tür wieder reinkommt.", en:"You have to throw money out the window so it comes back in through the door.", authorDe:"Karl Lagerfeld", authorEn:"Karl Lagerfeld" },
+    { de:"Zinseszins ist das achte Weltwunder.", en:"Compound interest is the eighth wonder of the world.", authorDe:"zugeschrieben Albert Einstein (nicht belegt)", authorEn:"Attributed to Albert Einstein (unverified)" },
+    { de:"Paradox der Zeit: Zeit vergeht schneller vor der Klotür als hinter ihr.", en:"The paradox of time: it passes faster in front of the bathroom door than behind it.", authorDe:"unbekannt", authorEn:"Unknown" },
+    { de:"An der Börse ist alles möglich. Auch das Gegenteil.", en:"At the stock market, everything is possible. Even the opposite.", authorDe:"André Kostolany", authorEn:"André Kostolany" },
+    { de:"Die ganze Börse hängt nur davon ab, ob es mehr Aktien gibt als Idioten oder mehr Idioten als Aktien.", en:"The whole market depends on whether there are more shares than idiots, or more idiots than shares.", authorDe:"André Kostolany", authorEn:"André Kostolany" },
+    { de:"Wer mit Aktien Geld verdienen will, macht dies nicht mit dem Kopf oder mit dem Bauch, sondern mit dem Hintern, indem er möglichst lange drauf sitzen bleibt.", en:"Anyone who wants to make money with stocks doesn't do it with their head or their gut, but with their backside — by sitting on it as long as possible.", authorDe:"Börsenweisheit", authorEn:"Market saying" },
+    { de:"Das Schöne an den Aktien ist, dass man 1000 Prozent gewinnen kann, aber höchstens 100 Prozent verlieren.", en:"The beauty of stocks is that you can gain 1,000 percent, but lose at most 100 percent.", authorDe:"unbekannt", authorEn:"Unknown" },
+    { de:"Börsengewinne sind Schmerzensgelder. Erst kommen die Schmerzen, dann das Geld.", en:"Stock market profits are pain money. First comes the pain, then the money.", authorDe:"André Kostolany", authorEn:"André Kostolany" },
+    { de:"Für Börsenspekulationen ist der Februar einer der gefährlichsten Monate. Die anderen sind Juli, Januar, September, April, November, Mai, März, Juni, Dezember, August und Oktober.", en:"February is one of the peculiarly dangerous months to speculate in stocks. The others are July, January, September, April, November, May, March, June, December, August, and October.", authorDe:"Mark Twain (zugeschrieben)", authorEn:"Mark Twain (attributed)" },
+    { de:"Das größte Risiko unserer Zeit liegt in der Angst vor dem Risiko.", en:"The greatest risk of our time lies in the fear of risk.", authorDe:"Helmut Schoeck", authorEn:"Helmut Schoeck" },
+    { de:"Mut steht am Anfang des Handelns, Glück am Ende.", en:"Courage stands at the beginning of action, happiness at the end.", authorDe:"Demokrit", authorEn:"Democritus" },
+    { de:"Ein Depot an der Börse ist wie über die Börse reden — nur krasser.", en:"Having a portfolio is like talking about the market, just more intense.", authorDe:"unbekannt", authorEn:"Unknown" },
+    { de:"Es gibt tausend Möglichkeiten, Geld loszuwerden, aber nur zwei, es zu erwerben: Entweder wir arbeiten für Geld – oder das Geld arbeitet für uns.", en:"There are a thousand ways to lose money, but only two to earn it: either we work for money — or money works for us.", authorDe:"Bernard M. Baruch", authorEn:"Bernard M. Baruch" },
+    { de:"Wer nichts waget, der darf nichts hoffen.", en:"He who risks nothing may hope for nothing.", authorDe:"Friedrich Schiller", authorEn:"Friedrich Schiller" },
+    { de:"Erfolg hat drei Buchstaben: TUN.", en:"Success has three letters: DO.", authorDe:"zugeschrieben Goethe", authorEn:"Attributed to Goethe" },
+    { de:"Offensichtlich muss man nicht in der Lage sein, den Aktienmarkt vorherzusagen, um mit Aktien wirklich Geld zu verdienen.", en:"Obviously you don't have to be able to predict the stock market to make real money with stocks.", authorDe:"Peter Lynch", authorEn:"Peter Lynch" },
+    { de:"Am meisten machen wir falsch, wenn wir alles richtig machen wollen.", en:"We go most wrong when we try to do everything right.", authorDe:"Helga Schäferling", authorEn:"Helga Schäferling" },
+    { de:"Ich habe bei meinen Börsenspekulationen nie zu den Dummköpfen gehört, die immer wieder den unmöglichen Versuch machen, nur zum niedrigsten Kurs zu kaufen und zum höchsten zu verkaufen.", en:"In my stock speculations, I have never been among the fools who keep making the impossible attempt to buy only at the lowest price and sell at the highest.", authorDe:"Amschel Meyer Rothschild", authorEn:"Amschel Meyer Rothschild" },
+    { de:"Wenn alle Aktien steigen, triffst du viele Leute, die glauben, sie seien begnadete Börsenexperten.", en:"When all stocks are rising, you meet a lot of people who think they're gifted market experts.", authorDe:"Peter Hohl", authorEn:"Peter Hohl" },
+    { de:"Die Flut hebt alle Schiffe – in einem Bullenmarkt sind Gewinner keine Kunst.", en:"A rising tide lifts all boats — in a bull market, winners are no great feat.", authorDe:"unbekannt", authorEn:"Unknown" },
+    { de:"Börse und Konjunktur basieren lediglich auf dem Vertrauen in die Zukunft.", en:"Markets and the economy are based purely on trust in the future.", authorDe:"Erhard Blanck", authorEn:"Erhard Blanck" },
+    { de:"Börse ist, Nerven dort zu behalten, wo sie andere verlieren.", en:"The market is about keeping your nerve where others lose theirs.", authorDe:"Erhard Blanck", authorEn:"Erhard Blanck" },
+    { de:"Manche betrachten das ständige Auf und Ab an der Börse mit einer Faszination, die sie für einen Fahrstuhl niemals aufbringen würden.", en:"Some people watch the market's constant ups and downs with a fascination they'd never muster for an elevator.", authorDe:"Erwin Koch", authorEn:"Erwin Koch" },
+    { de:"Der Wert einer Aktie ist eine Sache … ihr Kurs eine andere: Gier oder Angst bestimmen den Börsenstand!", en:"The value of a stock is one thing … its price another: greed or fear determine where the market stands.", authorDe:"Willy Meurer", authorEn:"Willy Meurer" },
+    { de:"Die Zukunft ist niemals klar. Schon für ein bisschen Gewissheit muss man einen hohen Preis zahlen. Unsicherheit ist deshalb der Freund von Langfrist-Investoren.", en:"The future is never clear. You pay a very high price for a cheery consensus. Uncertainty is actually the friend of the long-term investor.", authorDe:"Warren Buffett", authorEn:"Warren Buffett" },
+    { de:"Die beste Aktie des Lebens ist eine glückliche Ehe.", en:"The best stock in life is a happy marriage.", authorDe:"Rainer Karius", authorEn:"Rainer Karius" },
+    { de:"Ich kann die Bahn der Himmelskörper auf Zentimeter und Sekunden genau berechnen, aber nicht, wohin die verrückte Menge einen Börsenkurs treiben kann.", en:"I can calculate the motion of heavenly bodies to the centimeter and the second, but not where a crazy crowd might drive a stock price.", authorDe:"Isaac Newton", authorEn:"Isaac Newton" },
+    { de:"Lebe aktiv, investiere passiv und nutze die Zeit, um dich persönlich zu entwickeln — immer.", en:"Live actively, invest passively, and use the time to grow personally — always.", authorDe:"Finanzritual", authorEn:"Finanzritual" },
+  ];
+  window.FR_ZQ_CARDS = CARDS;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function getDrawn(){
+    try{
+      const raw = localStorage.getItem(LS_DRAWN);
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr)) return arr.filter(n => Number.isInteger(n) && n >= 0 && n < CARDS.length);
+    }catch(e){}
+    return [];
+  }
+  function setDrawn(arr){ try{ localStorage.setItem(LS_DRAWN, JSON.stringify(arr)); }catch(e){} }
+
+  let drawn = getDrawn();
+  let currentIndex = -1;
+
+  const textEl = document.getElementById('zq-card-text');
+  const authorEl = document.getElementById('zq-card-author');
+  const progressEl = document.getElementById('zq-progress-count');
+
+  function renderProgress(){
+    progressEl.textContent = drawn.length + ' / ' + CARDS.length;
+  }
+
+  function pickIndex(){
+    if(drawn.length >= CARDS.length){
+      return Math.floor(Math.random() * CARDS.length);
+    }
+    let idx;
+    do { idx = Math.floor(Math.random() * CARDS.length); } while(idx === currentIndex);
+    return idx;
+  }
+
+  function draw(){
+    const idx = pickIndex();
+    currentIndex = idx;
+    const card = CARDS[idx];
+    textEl.textContent = isEn() ? ('\u00AB' + card.en + '\u00BB') : ('\u201E' + card.de + '\u201C');
+    authorEl.textContent = isEn() ? card.authorEn : card.authorDe;
+    if(!drawn.includes(idx)){
+      drawn.push(idx);
+      setDrawn(drawn);
+    }
+    renderProgress();
+    cardEl.classList.add('is-flipped');
+  }
+
+  function flipBack(){
+    cardEl.classList.remove('is-flipped');
+  }
+
+  cardEl.addEventListener('click', function(){
+    if(cardEl.classList.contains('is-flipped')){
+      flipBack();
+      setTimeout(draw, 200);
+    } else {
+      draw();
+    }
+  });
+  cardEl.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      cardEl.click();
+    }
+  });
+
+  const resetBtn = document.getElementById('zq-reset-btn');
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    drawn = [];
+    setDrawn([]);
+    renderProgress();
+    flipBack();
+  });
+
+  function recompute(){
+    renderProgress();
+    if(cardEl.classList.contains('is-flipped') && currentIndex >= 0){
+      const card = CARDS[currentIndex];
+      textEl.textContent = isEn() ? ('\u00AB' + card.en + '\u00BB') : ('\u201E' + card.de + '\u201C');
+      authorEl.textContent = isEn() ? card.authorEn : card.authorDe;
+    }
+  }
+
+  renderProgress();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(recompute);
+})();
+</script>
+
+<script>
+/* ===== Zitate-Karussell: Slot-Maschinen-Optik ===== */
+(function(){
+  const wrap = document.getElementById('zq-reel-wrap');
+  const track = document.getElementById('zq-reel-track');
+  const CARDS = window.FR_ZQ_CARDS;
+  if(!wrap || !track || !CARDS) return;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  const N = CARDS.length;
+  const ROW_HEIGHT = 76;
+  let pos = 0;          // fortlaufende (fraktionale) Position im Kartenstapel
+  let speed = 0;        // Reihen pro Frame, aus Mausposition abgeleitet
+  let rafId = null;
+
+  function buildRows(){
+    track.innerHTML = '';
+    CARDS.forEach(function(_, i){
+      const row = document.createElement('div');
+      row.className = 'zq-reel-row';
+      row.dataset.index = String(i);
+      row.innerHTML = '<blockquote></blockquote><cite></cite>';
+      track.appendChild(row);
+    });
+  }
+
+  function updateTexts(){
+    const rows = track.children;
+    for(let i = 0; i < rows.length; i++){
+      const c = CARDS[i];
+      rows[i].querySelector('blockquote').textContent = isEn() ? ('\u00AB' + c.en + '\u00BB') : ('\u201E' + c.de + '\u201C');
+      rows[i].querySelector('cite').textContent = isEn() ? c.authorEn : c.authorDe;
+    }
+  }
+
+  function shortestDiff(i, p){
+    let diff = (i - p) % N;
+    if(diff > N / 2) diff -= N;
+    if(diff < -N / 2) diff += N;
+    return diff;
+  }
+
+  function render(){
+    const rows = track.children;
+    for(let i = 0; i < rows.length; i++){
+      const diff = shortestDiff(i, pos);
+      const dist = Math.abs(diff);
+      if(dist > 3){
+        rows[i].style.opacity = '0';
+        rows[i].style.pointerEvents = 'none';
+        continue;
+      }
+      const y = diff * ROW_HEIGHT;
+      const scale = Math.max(0.55, 1 - dist * 0.17);
+      const opacity = Math.max(0, 1 - dist * 0.34);
+      rows[i].style.transform = 'translateY(' + y.toFixed(1) + 'px) translateY(-50%) scale(' + scale.toFixed(3) + ')';
+      rows[i].style.opacity = String(opacity);
+      rows[i].style.zIndex = String(100 - Math.round(dist * 10));
+      rows[i].style.pointerEvents = dist < 0.5 ? 'auto' : 'none';
+    }
+  }
+
+  function tick(){
+    if(Math.abs(speed) > 0.0004){
+      pos = ((pos + speed) % N + N) % N;
+      render();
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function speedFromRelY(relY){
+    const centered = (relY - 0.5) * 2;   // -1 (oben) .. 1 (unten)
+    const dead = 0.14;                    // Totzone in der Mitte
+    if(Math.abs(centered) <= dead) return 0;
+    const sign = centered > 0 ? 1 : -1;
+    const mag = (Math.abs(centered) - dead) / (1 - dead); // 0..1
+    return sign * mag * 0.05;             // maximale Geschwindigkeit
+  }
+
+  wrap.addEventListener('mousemove', function(e){
+    const rect = wrap.getBoundingClientRect();
+    const relY = (e.clientY - rect.top) / rect.height;
+    speed = speedFromRelY(Math.max(0, Math.min(1, relY)));
+  });
+  wrap.addEventListener('mouseleave', function(){ speed = 0; });
+
+  wrap.addEventListener('touchmove', function(e){
+    if(!e.touches || !e.touches[0]) return;
+    const rect = wrap.getBoundingClientRect();
+    const relY = (e.touches[0].clientY - rect.top) / rect.height;
+    speed = speedFromRelY(Math.max(0, Math.min(1, relY)));
+    e.preventDefault();
+  }, { passive: false });
+  wrap.addEventListener('touchend', function(){ speed = 0; });
+
+  wrap.addEventListener('click', function(e){
+    const rowEl = e.target.closest('.zq-reel-row');
+    if(rowEl){
+      pos = parseInt(rowEl.dataset.index, 10);
+      render();
+    }
+  });
+
+  buildRows();
+  updateTexts();
+  render();
+  rafId = requestAnimationFrame(tick);
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(updateTexts);
+})();
+</script>
+</body>
+</html>

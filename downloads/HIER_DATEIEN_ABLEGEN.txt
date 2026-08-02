@@ -1,0 +1,11 @@
+In diesen Ordner gehören deine Download-Dateien:
+
+  finanzritual-ebook.pdf
+  finanzritual-excel-toolset.xlsx
+
+Danach den gesamten downloads/-Ordner mit auf den Server hochladen.
+Die URLs werden dann:
+  https://finanz-ritual.de/downloads/finanzritual-ebook.pdf
+  https://finanz-ritual.de/downloads/finanzritual-excel-toolset.xlsx
+
+Diese Textdatei bitte NICHT auf den Server hochladen.

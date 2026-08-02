@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Debt Is the Biggest Brake on Investing — Finanzritual">Schulden sind die größte Investitionsbremse — Finanzritual</title>
+<meta name="description" content="Warum du erst Schulden tilgen musst, bevor du investierst – mit interaktivem Schuldenrechner und Opportunitätskostenrechnung." data-en-content="Why you need to pay off debt before you invest &ndash; with an interactive debt calculator and opportunity-cost analysis.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-schulden.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Schulden sind die größte Investitionsbremse" data-en-content="Debt Is the Biggest Brake on Investing">
+<meta property="og:description" content="Warum du erst Schulden tilgen musst, bevor du investierst – mit interaktivem Schuldenrechner." data-en-content="Why you need to pay off debt before you invest &ndash; with an interactive debt calculator.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-schulden.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Schulden sind die größte Investitionsbremse" data-en-content="Debt Is the Biggest Brake on Investing">
+<meta name="twitter:description" content="Warum du erst Schulden tilgen musst, bevor du investierst – mit interaktivem Schuldenrechner." data-en-content="Why you need to pay off debt before you invest &ndash; with an interactive debt calculator.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Schulden sind die größte Investitionsbremse",
+  "description": "Warum du erst Schulden tilgen musst, bevor du investierst – mit interaktivem Schuldenrechner und Opportunitätskostenrechnung.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-schulden.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== SCHULDENRECHNER ===== */
+.debt-card{
+  background:var(--bg-raised); border:2px solid var(--line-strong);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow);
+  padding:32px; margin:40px 0;
+}
+.debt-card h3{
+  font-size:1.1rem; margin-bottom:24px; color:var(--ink);
+}
+.debt-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+@media(max-width:600px){ .debt-inputs{ grid-template-columns:1fr; } }
+
+.debt-row label{
+  display:flex; justify-content:space-between;
+  font-size:.82rem; color:var(--ink-soft); margin-bottom:8px;
+}
+.debt-row label .val{
+  font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:600;
+}
+input[type="range"].debt-slider{
+  width:100%; accent-color:var(--blue); cursor:pointer;
+}
+
+/* Ergebnisbereich */
+.debt-results{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+  margin-top:28px; padding-top:24px; border-top:2px solid var(--line-strong);
+}
+@media(max-width:600px){ .debt-results{ grid-template-columns:1fr; } }
+
+.debt-result-box{
+  border-radius:var(--radius); padding:18px 16px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.debt-result-box.is-cost{  background:rgba(220,40,40,.07); border:1px solid rgba(220,40,40,.18); }
+.debt-result-box.is-etf{   background:var(--green-soft);   border:1px solid rgba(30,142,90,.2); }
+.debt-result-box.is-opp{   background:var(--blue-soft);    border:1px solid rgba(36,84,166,.2); }
+
+.debt-result-box .box-label{
+  font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+  font-family:'JetBrains Mono',monospace; color:var(--ink-soft);
+}
+.debt-result-box .box-value{
+  font-family:'Space Grotesk',sans-serif; font-weight:700;
+  font-size:1.5rem; color:var(--ink); line-height:1;
+}
+.debt-result-box .box-sub{
+  font-size:.78rem; color:var(--ink-soft); margin-top:2px;
+}
+.debt-result-box.is-cost .box-value{ color:#c0392b; }
+.debt-result-box.is-etf  .box-value{ color:var(--green); }
+.debt-result-box.is-opp  .box-value{ color:var(--blue); }
+
+/* Zahlenstrahl */
+.debt-timeline{
+  margin-top:28px; padding-top:20px; border-top:1px solid var(--line);
+}
+.debt-timeline-label{
+  font-size:.72rem; color:var(--ink-soft); font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase; letter-spacing:.07em; margin-bottom:14px;
+}
+.debt-track{
+  position:relative; height:10px; border-radius:5px;
+  background:linear-gradient(to right, rgba(192,57,43,.25) 0%, rgba(192,57,43,.25) 50%, var(--green-soft) 50%, var(--green-soft) 100%);
+  border:1px solid var(--line-strong);
+  margin:0 20px;
+}
+.debt-track-zero{
+  position:absolute; left:50%; top:-8px; bottom:-8px;
+  width:2px; background:var(--ink); transform:translateX(-50%);
+}
+.debt-track-zero-label{
+  position:absolute; left:50%; top:18px;
+  transform:translateX(-50%);
+  font-size:.68rem; font-family:'JetBrains Mono',monospace;
+  color:var(--ink); white-space:nowrap; font-weight:600;
+}
+.debt-track-marker{
+  position:absolute; top:50%; transform:translate(-50%,-50%);
+  width:16px; height:16px; border-radius:50%;
+  border:2px solid var(--bg-raised); box-shadow:0 0 0 2px currentColor;
+  transition:left .4s cubic-bezier(.22,1,.36,1);
+}
+.debt-track-marker.is-now{ color:#c0392b; background:#c0392b; left:10%; }
+.debt-track-marker.is-free{ color:var(--ink); background:var(--ink); left:50%; }
+.debt-track-marker.is-save{ color:var(--green); background:var(--green); left:70%; }
+
+.debt-track-labels{
+  display:flex; justify-content:space-between;
+  margin:10px 20px 0; font-size:.7rem; color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+
+.debt-faustformel{
+  margin-top:24px; padding:16px 20px;
+  background:var(--blue-soft); border-left:3px solid var(--blue);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-size:.88rem; color:var(--ink);
+}
+.debt-faustformel strong{ color:var(--blue); }
+
+.debt-note{
+  font-size:.7rem; color:var(--ink-soft); margin-top:16px; text-align:center;
+}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-schulden.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-schulden.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau" data-en-aria-label="Notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-kredit.html" data-en="Loans & Debt">Kredit & Schulden</a><span>/</span><span aria-current="page" data-en="Pay Off Debt First">Schulden tilgen zuerst</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · 15 Jul 2026">Finanzen · 15.07.2026</div>
+    <h1 data-en="Debt Is the Biggest Trap Standing Between You and Investing">Schulden sind die größte Falle, um überhaupt investieren zu können</h1>
+    <p style="max-width:60ch;" data-en="You want to save, but somehow it&rsquo;s never enough? The problem often runs deeper &ndash; and it has a name.">Du möchtest sparen, aber irgendwie reicht es nie? Das Problem sitzt oft tiefer – und hat einen Namen.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="You want to save. You know it&rsquo;s important. You might even have a target percentage in mind &ndash; 10⁠% of your income, or at least &euro;150 a month. But then reality hits: the car still has 14 months of payments left, last month&rsquo;s buy-now-pay-later bill is ticking away in the background, and somehow the money is gone by the end of the month.">Du willst Geld zurücklegen. Du weißt, dass es wichtig ist. Vielleicht hast du sogar eine Quote im Kopf – 10⁠% des Einkommens, oder wenigstens 150 € monatlich. Aber dann kommt die Realität: Das Auto wird noch 14 Monate abbezahlt, die Buy-Now-Pay-Later-Rechnung vom letzten Monat tickert im Hintergrund, und irgendwie fehlt am Monatsende das Geld.</p>
+
+    <p data-en="The problem isn&rsquo;t your discipline. The problem is: &lt;strong&gt;every euro you pay in debt interest is a euro you can&rsquo;t invest.&lt;/strong&gt; And while you&rsquo;re paying down debt, your wealth isn&rsquo;t growing &ndash; it&rsquo;s shrinking, because every interest payment costs you money you need for building it up.">Das Problem ist nicht deine Disziplin. Das Problem ist: <strong>Ein Euro, den du für Schuldzinsen zahlst, ist ein Euro, den du nicht investieren kannst.</strong> Und während du Schulden abbaust, wächst dein Vermögen nicht – es schrumpft, weil jeder Zinszahltag dich Geld kostet, das dir für den Aufbau fehlt.</p>
+
+    <h2 data-en="How you end up in the debt trap">Wie man in die Schuldenfalle gerät</h2>
+
+    <p data-en="There&rsquo;s rarely just one big mistake. Usually it&rsquo;s the sum of small, ordinary decisions:">Es gibt selten den einen großen Fehler. Meistens ist es eine Summe kleiner, normaler Entscheidungen:</p>
+
+    <p data-en="&lt;strong&gt;Buy Now, Pay Later.&lt;/strong&gt; The jacket for &euro;80, the laptop for &euro;600, the concert ticket for &euro;120. Each purchase looks harmless on its own. But with four or five such open items, you suddenly find yourself with &euro;800&ndash;1,500 in liabilities &ndash; often with interest between 12 and 20⁠% a year, hidden in the fine print."><strong>Buy Now, Pay Later.</strong> Die Jacke für 80 €, der Laptop für 600 €, das Konzertticket für 120 €. Jeder Kauf für sich wirkt harmlos. Aber wer vier oder fünf solcher offener Posten hat, sitzt plötzlich auf 800–1.500 € Verbindlichkeiten – oft mit Zinsen zwischen 12 und 20⁠% pro Jahr, die im Kleingedruckten versteckt sind.</p>
+
+    <p data-en="&lt;strong&gt;Credit card debt.&lt;/strong&gt; Less common in Germany than in the US, but if you use a revolving credit card and only pay the minimum, you often pay 18&ndash;22⁠% interest a year. That&rsquo;s not credit, that&rsquo;s a cost trap."><strong>Kreditkartenschulden.</strong> In Deutschland weniger verbreitet als in den USA, aber wer eine revolvierende Kreditkarte nutzt und nur den Mindestbetrag zahlt, zahlt oft 18–22⁠% Zinsen jährlich. Das ist kein Kredit, das ist eine Kostenfalle.</p>
+
+    <p data-en="&lt;strong&gt;Car financing.&lt;/strong&gt; This is the &ldquo;legal&rdquo; debt that almost no one perceives as a problem. &euro;2,000 remaining after three years of instalments &ndash; you get used to it, keep paying, and don&rsquo;t think about what that &euro;2,000 could be doing in an ETF instead."><strong>Autofinanzierung.</strong> Das ist die „legale" Schuld, die kaum jemand als Problem wahrnimmt. 2.000 € Restschuld nach drei Jahren Ratenzahlung – man hat sich daran gewöhnt, zahlt weiter, und denkt dabei nicht daran, was diese 2.000 € in einem ETF täten.</p>
+
+    <h2 data-en="The number line that explains everything">Der Zahlenstrahl, der alles erklärt</h2>
+
+    <p data-en="Picture a line. On the left: where you stand now, in debt. In the middle: zero. On the right: the first capital you've built yourself.">Stell dir eine Linie vor. Links: dein aktueller Stand mit Schulden. Mitte: null. Rechts: dein erstes selbst aufgebautes Kapital.</p>
+
+    <p data-en="As long as you're to the left of zero, you're not investing &ndash; you're paying back debt. No matter how disciplined you are: the interest on your debt is almost always higher than the return you'd get from a safe investment. &lt;strong&gt;Paying off debt is the best risk-free return you can get.&lt;/strong&gt;">Solange du links von der Null bist, investierst du nicht – du zahlst Schulden zurück. Du kannst noch so diszipliniert sein: Die Zinsen auf deine Schulden sind fast immer höher als die Rendite, die du mit einem sicheren Investment erzielen würdest. <strong>Schulden tilgen ist die beste risikofreie Rendite, die du bekommen kannst.</strong></p>
+
+    <p data-en="Only once you reach zero does real wealth begin. And even then, the first step isn't the ETF savings plan right away &ndash; it's an emergency fund of &euro;1,000 to &euro;2,000, so the next unexpected expense doesn't push you back to the left of zero.">Erst wenn du die Null erreichst, beginnt echtes Vermögen. Und selbst dann ist der erste Schritt nicht sofort der ETF-Sparplan – sondern ein Notfallfonds von 1.000 bis 2.000 €, damit du bei der nächsten unerwarteten Ausgabe nicht wieder links von der Null landest.</p>
+
+    <h2 data-en="The plan: three phases">Der Plan: drei Phasen</h2>
+
+    <p><strong data-en="Phase 1 &ndash; Debt gone.">Phase 1 – Schulden weg.</strong> <span data-en="Full focus. No new spending on credit. Every free euro goes toward paying off debt &ndash; ideally starting with the highest-interest debt first (the so-called avalanche method).">Volle Konzentration. Kein neues Konsumieren auf Kredit. Jeder freie Euro geht in die Schuldentilgung – am besten mit der höchsten Zinsschuld zuerst (sogenannte Avalanche-Methode).</span></p>
+
+    <p><strong data-en="Phase 2 &ndash; Emergency fund.">Phase 2 – Notfallfonds.</strong> <span data-en="Before you invest, you put &euro;1,000&ndash;2,000 into a savings account. That's your buffer. Without it, the next car tyre or dentist visit will pull you back into the debt spiral.">Bevor du investierst, legst du 1.000–2.000 € auf ein Tagesgeldkonto. Das ist dein Puffer. Ohne ihn wirst du beim nächsten Autoreifen oder Zahnarztbesuch wieder in die Schuldenspirale hineingezogen.</span></p>
+
+    <p><strong data-en="Phase 3 &ndash; Now you invest.">Phase 3 – Jetzt erst investieren.</strong> <span data-en="Set up a savings plan, increase the amounts, think long-term. But only now &ndash; once the foundation is right.">Sparplan einrichten, Beträge erhöhen, langfristig denken. Aber eben erst jetzt – wenn die Basis stimmt.</span></p>
+
+    <h2 data-en="What debt really costs you: the calculator">Was dich Schulden wirklich kosten: der Rechner</h2>
+
+    <p data-en="Interest alone sounds abstract. What actually stings: seeing what the same money would have become if you had invested it instead. And what you could have paid yourself out of it for life.">Zinsen allein klingen abstrakt. Was tatsächlich weh tut: zu sehen, was aus dem gleichen Geld geworden wäre, wenn du es stattdessen investiert hättest. Und was du dir damit lebenslang hättest auszahlen können.</p>
+
+    <!-- ===== SCHULDENRECHNER ===== -->
+    <div class="debt-card" id="schuldenrechner">
+      <h3 data-en="Debt Calculator &mdash; What Your Debt Really Costs">Schuldenrechner — Was deine Schulden wirklich kosten</h3>
+
+      <div class="debt-inputs">
+        <div class="debt-row">
+          <label for="debt-amount"><span data-en="Debt amount">Schuldenbetrag</span> <span class="val" id="debt-amount-val">2.000 €</span></label>
+          <input type="range" id="debt-amount" class="debt-slider" min="500" max="150000" step="500" value="2000">
+        </div>
+        <div class="debt-row">
+          <label for="debt-rate"><span data-en="Interest rate per year">Zinssatz pro Jahr</span> <span class="val" id="debt-rate-val">12⁠%</span></label>
+          <input type="range" id="debt-rate" class="debt-slider" min="1" max="25" step="0.5" value="12">
+        </div>
+        <div class="debt-row">
+          <label for="debt-monthly"><span data-en="Monthly repayment">Monatliche Rückzahlung</span> <span class="val" id="debt-monthly-val">150 €</span></label>
+          <input type="range" id="debt-monthly" class="debt-slider" min="25" max="2500" step="25" value="150">
+        </div>
+        <div class="debt-row" style="align-content:end;">
+          <p style="font-size:.82rem; color:var(--ink-soft); margin:0; padding-bottom:6px;" data-en="ETF return fixed at 7⁠% p.a. (historical MSCI World average)">ETF-Rendite fest mit 7⁠% p.a. (historischer MSCI-World-Schnitt)</p>
+        </div>
+      </div>
+
+      <!-- Ergebnisse -->
+      <div class="debt-results">
+        <div class="debt-result-box is-cost">
+          <span class="box-label"><span data-en="Total cost of debt">Gesamtkosten Schuld</span> · <span id="debt-duration-cost">–</span></span>
+          <span class="box-value" id="debt-total-cost">–</span>
+          <span class="box-sub" id="debt-months-sub">– · – € Zinsen</span>
+        </div>
+        <div class="debt-result-box is-etf">
+          <span class="box-label"><span data-en="ETF scenario">ETF-Szenario</span> · <span id="debt-duration-etf">–</span></span>
+          <span class="box-value" id="debt-etf-value">–</span>
+          <span class="box-sub" id="debt-etf-sub">– € für diese Laufzeit investiert</span>
+        </div>
+        <div class="debt-result-box is-opp">
+          <span class="box-label" data-en="Opportunity cost">Opportunitätskosten</span>
+          <span class="box-value" id="debt-opp-cost">–</span>
+          <span class="box-sub" id="debt-opp-sub">– Zinsen + entgangener ETF-Gewinn</span>
+        </div>
+      </div>
+
+      <!-- Faustformel -->
+      <div class="debt-faustformel" id="debt-faustformel">
+        <strong data-en="Rule of thumb:">Faustformel:</strong> <span data-en="If you had invested the">Hättest du die</span> <span id="ff-amount">2.000</span> <span data-en="€ instead and withdrawn it using the 4⁠% rule, you could pay yourself">€ stattdessen investiert und mit der 4-%-Entnahmeregel entnommen, könntest du dir lebenslang</span> <strong><span id="ff-monthly">6,67</span> <span data-en="€ per month">€ pro Monat</span></strong> <span data-en="&ndash; forever, without touching the principal.">auszahlen – für immer, ohne das Kapital anzutasten.</span>
+      </div>
+
+      <!-- Zahlenstrahl -->
+      <div class="debt-timeline">
+        <div class="debt-timeline-label" data-en="Your path to financial freedom">Dein Weg zur finanziellen Freiheit</div>
+        <div class="debt-track">
+          <div class="debt-track-zero"></div>
+          <div class="debt-track-zero-label" data-en="€0 — Debt-free">0 € — Schuldenfrei</div>
+          <div class="debt-track-marker is-now" id="track-now" title="Dein aktueller Stand" data-en-title="Your current position"></div>
+          <div class="debt-track-marker is-free" title="Ziel: schuldenfrei" data-en-title="Goal: debt-free"></div>
+          <div class="debt-track-marker is-save" title="Notfallfonds aufgebaut" data-en-title="Emergency fund built"></div>
+        </div>
+        <div class="debt-track-labels">
+          <span id="track-label-left">–2.000 €</span>
+          <span style="color:var(--green);" data-en="Emergency fund &rarr; Invest">Notfallfonds → Investieren</span>
+        </div>
+      </div>
+
+      <p class="debt-note" data-en="Simplified example calculation, not investment advice. Interest is calculated monthly. Real-world outcomes may vary.">Vereinfachte Beispielrechnung, keine Anlageberatung. Zinsen werden monatlich berechnet. Reale Verläufe können abweichen.</p>
+    </div>
+    <!-- ===== ENDE SCHULDENRECHNER ===== -->
+
+    <h2 data-en="The uncomfortable truth">Die unbequeme Wahrheit</h2>
+
+    <p data-en="Not everyone can put &euro;150 a month toward debt repayment right away. When income is too tight, saving discipline alone isn't enough. That leaves two levers: cut expenses &ndash; and raise income. Both sound obvious, but they're the only way when the numbers don't add up.">Nicht jeder kann sofort 150 € monatlich für die Schuldentilgung aufbringen. Wenn das Einkommen zu knapp ist, reicht Spardisziplin allein nicht. Dann gibt es zwei Hebel: Ausgaben senken – und Einnahmen erhöhen. Beides klingt banal, ist aber der einzige Weg, wenn die Rechnung nicht aufgeht.</p>
+
+    <p data-en="What doesn't help: starting a &euro;50 ETF savings plan while you still owe &euro;1,500 at 15⁠% interest. The math doesn't work &ndash; you lose more on the debt than you gain in the ETF.">Was nicht hilft: Einen ETF-Sparplan mit 50 € starten, während gleichzeitig 1.500 € Schulden mit 15⁠% Zinsen offen sind. Die Rechnung geht nicht auf – du verlierst auf der Schuld mehr, als du im ETF gewinnst.</p>
+
+    <p data-en="Pay off debt first. Then build a buffer. Then invest. In that order.">Erst tilgen. Dann puffern. Dann investieren. In dieser Reihenfolge.</p>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material, not financial or debt counselling. For serious debt problems, your local debt counselling service (Schuldnerberatung) can help free of charge.">
+      Dieser Beitrag ist Bildungsmaterial, keine Finanz- oder Schuldnerberatung. Bei ernsthaften Schuldenproblemen kann die Schuldnerberatung deiner Stadt kostenlos helfen.
+    </div>
+
+    <p style="margin-top:32px;"><a href="kat-finanzen.html" data-en="← Back to all Finance posts">← Zurück zu allen Finanzen-Beiträgen</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Schuldenrechner ===== */
+(function(){
+  const amountEl  = document.getElementById('debt-amount');
+  const rateEl    = document.getElementById('debt-rate');
+  const monthlyEl = document.getElementById('debt-monthly');
+
+  const amountVal  = document.getElementById('debt-amount-val');
+  const rateVal    = document.getElementById('debt-rate-val');
+  const monthlyVal = document.getElementById('debt-monthly-val');
+
+  const totalCostEl  = document.getElementById('debt-total-cost');
+  const monthsSubEl  = document.getElementById('debt-months-sub');
+  const etfValueEl   = document.getElementById('debt-etf-value');
+  const oppCostEl    = document.getElementById('debt-opp-cost');
+  const oppSubEl     = document.getElementById('debt-opp-sub');
+  const ffAmountEl   = document.getElementById('ff-amount');
+  const ffMonthlyEl  = document.getElementById('ff-monthly');
+  const trackNowEl   = document.getElementById('track-now');
+  const trackLabelEl = document.getElementById('track-label-left');
+
+  const ETF_ANNUAL = 0.07;
+
+  function isEn(){
+    return document.documentElement.getAttribute('lang') === 'en';
+  }
+
+  function compute(){
+    const en = isEn();
+    const fmt  = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const fmt2 = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+    const eur2 = v => en ? ('€' + fmt2.format(v)) : (fmt2.format(v) + '\u00A0€');
+
+    const debt    = parseFloat(amountEl.value);
+    const annRate = parseFloat(rateEl.value) / 100;
+    const monthly = parseFloat(monthlyEl.value);
+    const mRate   = annRate / 12;
+
+    amountVal.textContent  = eur(debt);
+    rateVal.textContent    = rateEl.value + '%';
+    monthlyVal.textContent = eur(monthly);
+    trackLabelEl.textContent = (en ? '−€' : '−') + fmt.format(debt) + (en ? '' : '\u00A0€');
+
+    // Monate bis Schulden weg (Mindestbedingung: monatliche Rate > monatliche Zinsen)
+    const minPayment = debt * mRate;
+    let months = 0;
+    let totalPaid = 0;
+    if(monthly <= minPayment){
+      // Zahlung deckt nicht mal die Zinsen
+      totalCostEl.textContent = '∞';
+      monthsSubEl.textContent = en ? 'Payment too low – debt keeps growing' : 'Rate zu niedrig – Schuld wächst';
+      etfValueEl.textContent  = '–';
+      oppCostEl.textContent   = '–';
+      oppSubEl.textContent    = '';
+      return;
+    }
+
+    let balance = debt;
+    while(balance > 0 && months < 600){
+      const interest = balance * mRate;
+      balance = balance - (monthly - interest);
+      totalPaid += monthly;
+      months++;
+      if(balance < 0){ totalPaid += balance; balance = 0; }
+    }
+
+    const totalInterest = totalPaid - debt;
+
+    // ETF-Szenario: Startbetrag (=Schuld) für dieselbe Laufzeit investiert
+    const etfMonthlyRate = ETF_ANNUAL / 12;
+    const etfFactor = Math.pow(1 + etfMonthlyRate, months);
+    const etfValue  = debt * etfFactor;
+    const etfGain   = etfValue - debt;
+
+    // Opportunitätskosten = Zinsen gezahlt + entgangener ETF-Gewinn
+    const oppCost = totalInterest + etfGain;
+
+    // Faustformel: 4%-Entnahmeregel auf Schuldbetrag
+    const monthlyWithdrawal = (debt * 0.04) / 12;
+
+    // Monate in lesbare Zeitangabe umwandeln
+    function fmtDuration(m){
+      const y = Math.floor(m / 12);
+      const mo = m % 12;
+      if(en){
+        if(y === 0) return mo + (mo === 1 ? ' month' : ' months');
+        if(mo === 0) return y + (y === 1 ? ' year' : ' years');
+        return y + (y === 1 ? ' year ' : ' years ') + mo + (mo === 1 ? ' month' : ' months');
+      }
+      if(y === 0) return mo + (mo === 1 ? ' Monat' : ' Monate');
+      if(mo === 0) return y + (y === 1 ? ' Jahr' : ' Jahre');
+      return y + (y === 1 ? ' Jahr ' : ' Jahre ') + mo + (mo === 1 ? ' Monat' : ' Monate');
+    }
+
+    const durationStr = fmtDuration(months);
+
+    // Anzeige
+    totalCostEl.textContent = eur(Math.round(totalPaid));
+    document.getElementById('debt-duration-cost').textContent = durationStr;
+    document.getElementById('debt-duration-etf').textContent  = durationStr;
+    monthsSubEl.textContent = en
+      ? (durationStr + ' · ' + eur(Math.round(totalInterest)) + ' interest')
+      : (durationStr + ' · ' + fmt.format(Math.round(totalInterest)) + ' € Zinsen');
+    document.getElementById('debt-etf-sub').textContent = en
+      ? (eur(debt) + ' invested for ' + durationStr)
+      : (fmt.format(debt) + ' € für ' + durationStr + ' investiert');
+    etfValueEl.textContent  = eur(Math.round(etfValue));
+    oppCostEl.textContent   = eur(Math.round(oppCost));
+    oppSubEl.textContent    = en
+      ? (eur(Math.round(totalInterest)) + ' interest + ' + eur(Math.round(etfGain)) + ' foregone gain')
+      : (fmt.format(Math.round(totalInterest)) + ' € Zinsen + ' + fmt.format(Math.round(etfGain)) + ' € entgangener Gewinn');
+
+    ffAmountEl.textContent  = fmt.format(debt);
+    ffMonthlyEl.textContent = fmt2.format(monthlyWithdrawal);
+
+    // Zahlenstrahl: Marker-Position (0%=links, 50%=null, 100%=rechts)
+    // Aktuell-Marker bleibt links (je höher die Schuld, desto weiter links)
+    const maxDebt = 150000;
+    const nowPct  = Math.max(2, 48 * (1 - debt / maxDebt)); // 2% bis 48%
+    trackNowEl.style.left = nowPct + '%';
+  }
+
+  [amountEl, rateEl, monthlyEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  /* Neu berechnen, wenn die Sprache umgeschaltet wird (siehe script.js) */
+  window.frDebtCalcRecompute = compute;
+})();
+</script>
+</body>
+</html>

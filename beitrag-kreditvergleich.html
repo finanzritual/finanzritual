@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Loan Comparison: The Only Loan That Really Makes Sense — Finanzritual">Kredite im Vergleich: Was Sinn ergibt — Finanzritual</title>
+<meta name="description" content="Baufinanzierung, Ratenkredit, Autokredit und Dispo im Effektivzins-Vergleich — plus Rechner inklusive Opportunitätskosten als ETF-Sparplan." data-en-content="Mortgage, personal loan, car loan, and overdraft compared by effective interest rate — plus a mortgage calculator including the opportunity cost of an ETF savings plan.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-kreditvergleich.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kredite im Vergleich: Der einzige Kredit, der wirklich Sinn ergibt" data-en-content="Loan Comparison: The Only Loan That Really Makes Sense">
+<meta property="og:description" content="Baufinanzierung, Ratenkredit, Autokredit und Dispo im Effektivzins-Vergleich — plus ein Rechner für die eigene Baufinanzierung inklusive Opportunitätskosten als ETF-Sparplan." data-en-content="Mortgage, personal loan, car loan, and overdraft compared by effective interest rate — plus a mortgage calculator including the opportunity cost of an ETF savings plan.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-kreditvergleich.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kredite im Vergleich: Der einzige Kredit, der wirklich Sinn ergibt",
+  "description": "Baufinanzierung, Ratenkredit, Autokredit und Dispo im Effektivzins-Vergleich — plus ein Rechner für die eigene Baufinanzierung inklusive Opportunitätskosten als ETF-Sparplan.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-kreditvergleich.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Vier-Wege-Vergleichskarten ===== */
+.kv-compare{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0;
+}
+@media (max-width:700px){ .kv-compare{ grid-template-columns:1fr; } }
+.kv-compare-card{
+  background:var(--bg-raised); border:1px solid var(--line-strong); border-radius:12px;
+  padding:18px 20px;
+}
+.kv-compare-card h3{ margin:0 0 8px; font-size:1rem; color:var(--blue); }
+.kv-compare-card ul{ margin:0; padding-left:20px; font-size:.84rem; }
+.kv-compare-card li{ margin-bottom:5px; }
+.kv-compare-card--good h3{ color:var(--green); }
+
+/* ===== Vergleichstabelle ===== */
+.kv-table-wrap{ overflow-x:auto; margin:24px 0; }
+.kv-table{ width:100%; border-collapse:collapse; font-size:.82rem; min-width:580px; }
+.kv-table th, .kv-table td{ text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); }
+.kv-table th{ font-size:.72rem; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+.kv-table td:first-child, .kv-table th:first-child{ font-weight:600; }
+.kv-table tr:last-child td{ border-bottom:none; }
+.kv-table td.kv-good{ color:var(--green); font-weight:600; }
+.kv-table td.kv-mid{ color:#b08d20; font-weight:600; }
+.kv-table td.kv-bad{ color:#c0392b; font-weight:600; }
+
+/* ===== Effektivzins-Balken (statisch) ===== */
+.kv-rate-chart{ margin:26px 0 10px; }
+.kv-rate-row{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.kv-rate-label{ width:170px; flex-shrink:0; font-size:.82rem; font-weight:600; color:var(--ink); }
+.kv-rate-track{ flex:1; height:26px; border-radius:7px; background:var(--bg-sunken,rgba(0,0,0,.04)); position:relative; overflow:hidden; }
+.kv-rate-fill{ height:100%; border-radius:7px 0 0 7px; display:flex; align-items:center; padding-left:10px; }
+.kv-rate-fill span{
+  font-family:'JetBrains Mono',monospace; font-size:.76rem; font-weight:700; white-space:nowrap;
+  background:#2454A6; color:#fff; padding:3px 8px; border-radius:5px;
+}
+.kv-rate-fill--bau{ background:var(--green); }
+.kv-rate-fill--auto{ background:#b08d20; }
+.kv-rate-fill--raten{ background:#c0392b; }
+.kv-rate-fill--dispo{ background:#8e1f14; }
+
+/* ===== Interaktiver Baufinanzierungs-Rechner ===== */
+.kv-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.kv-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .kv-calc-inputs{ grid-template-columns:1fr; } }
+.kv-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.kv-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.kv-result-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:700px){ .kv-result-grid{ grid-template-columns:1fr; } }
+.kv-result-card{ border-radius:12px; padding:16px 18px; text-align:center; }
+.kv-result-card--rate{ background:rgba(36,84,166,.08); border:1px solid rgba(36,84,166,.25); }
+.kv-result-card--rest{ background:rgba(176,141,32,.1); border:1px solid rgba(176,141,32,.25); }
+.kv-result-card--zins{ background:rgba(192,57,43,.08); border:1px solid rgba(192,57,43,.25); }
+.kv-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.kv-result-sub{ font-size:.68rem; color:var(--ink-soft); margin-top:4px; }
+.kv-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.4rem; }
+.kv-result-card--rate .kv-result-value{ color:var(--blue); }
+.kv-result-card--rest .kv-result-value{ color:#b08d20; }
+.kv-result-card--zins .kv-result-value{ color:#c0392b; }
+
+/* ===== Opportunitätskosten: Kredit vs. ETF ===== */
+.kv-opp{
+  margin:18px 0 4px; padding:20px 22px; border-radius:14px;
+  background:var(--bg-sunken,rgba(0,0,0,.03)); border:1px solid var(--line-strong);
+}
+.kv-opp-row{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; margin-top:14px;
+}
+@media (max-width:600px){ .kv-opp-row{ grid-template-columns:1fr; text-align:center; } }
+.kv-opp-side{ text-align:center; }
+.kv-opp-side .kv-opp-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:6px; }
+.kv-opp-side .kv-opp-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.6rem; }
+.kv-opp-side.kv-opp-side--credit .kv-opp-value{ color:#c0392b; }
+.kv-opp-side.kv-opp-side--etf .kv-opp-value{ color:var(--green); }
+.kv-opp-vs{ font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-soft); text-align:center; }
+
+.kv-chart-note{ font-size:.7rem; color:var(--ink-soft); margin-top:6px; }
+
+.kv-insight-box{
+  margin:22px 0; padding:20px 22px; border-radius:14px;
+  background:var(--green-soft); border:1px solid rgba(30,142,90,.2);
+}
+
+/* ===== Portal/Anbieter-Liste ===== */
+.kv-tools{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:22px 0; }
+@media (max-width:640px){ .kv-tools{ grid-template-columns:1fr; } }
+.kv-tool-card{
+  background:var(--bg-raised); border:1px solid var(--line-strong); border-radius:12px;
+  padding:16px 18px;
+}
+.kv-tool-card .name{ font-weight:700; font-size:.94rem; margin-bottom:4px; }
+.kv-tool-card .desc{ font-size:.8rem; color:var(--ink-soft); }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-kreditvergleich.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-kreditvergleich.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-kredit.html" data-en="Loans & Debt">Kredit & Schulden</a><span>/</span><span aria-current="page" data-en="Loan comparison">Kredite im Vergleich</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · 19 Jul 2026">Finanzen · 19.07.2026</div>
+    <h1 data-en="Loan comparison: the only loan that really makes sense">Kredite im Vergleich: Der einzige Kredit, der wirklich Sinn ergibt</h1>
+    <p style="max-width:60ch;" data-en="Most loan types quietly work against you. This piece is meant to give you a feel for the numbers before your bank advisor lays out an offer &ndash; and a calculator for the one loan type I think is actually worth taking on.">Die meisten Kreditarten arbeiten leise gegen dich. Dieser Beitrag soll dir ein Gefühl für die Zahlen geben, bevor dir dein Bankberater ein Angebot vorlegt — und einen Rechner für die eine Kreditart, die meiner Meinung nach tatsächlich Sinn ergibt.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="Here's my honest position: the only loan I think is generally worth taking on is a mortgage for a property you actually plan to live in yourself. Everything else on this page &ndash; personal loans, car loans, overdrafts &ndash; mostly exists to let you spend money you don't have yet, at a rate that works out in the bank's favor, not yours.">Meine ehrliche Position vorweg: Der einzige Kredit, den ich grundsätzlich für sinnvoll halte, ist eine Baufinanzierung für eine Immobilie, in der man selbst wohnen möchte. Alles andere auf dieser Seite — Ratenkredite, Autokredite, Dispo — existiert vor allem, damit man Geld ausgeben kann, das man noch nicht hat, zu einem Zinssatz, der sich für die Bank lohnt, nicht für einen selbst.</p>
+
+    <p data-en="And even the mortgage comes with a condition, in my view: you should be the type who's genuinely willing to do the work. Garden maintenance, fixing the heating, replacing a sink, patching a roof leak &ndash; owning a home means an ongoing stream of small and not-so-small jobs. If that sounds like a burden rather than something you'd enjoy, factor the cost of paying someone else to do all of it into your numbers before you sign anything.">Und selbst die Baufinanzierung hat für mich eine Bedingung: Man sollte wirklich bereit sein, selbst mit anzupacken. Gartenarbeit, die Heizung reparieren, ein Waschbecken neu installieren, ein undichtes Dach flicken — Eigentum bedeutet einen ständigen Strom kleiner und nicht ganz so kleiner Aufgaben. Wenn sich das für dich eher nach Last als nach Freude anhört, rechne die Kosten dafür, andere dafür zu bezahlen, mit ein, bevor du irgendwas unterschreibst.</p>
+
+    <p data-en="One fairness note: if you specifically want a rental property for the return and enjoy that lifestyle &ndash; tenants, maintenance, the whole process &ndash; that's a legitimate path too, and nothing here argues against it. This article and its calculator are simply built around the self-occupied case, since that's the loan type I think holds up best for most people.">Ein Punkt der Fairness halber: Wer gezielt eine Rendite-Immobilie will und diesen Lebensstil mag — Mieter, Instandhaltung, der ganze Prozess — für den ist das ebenfalls ein legitimer Weg, und nichts hier spricht dagegen. Dieser Beitrag und sein Rechner sind einfach auf den Fall der selbstgenutzten Immobilie ausgelegt, da das für mich die Kreditart ist, die für die meisten Menschen am besten trägt.</p>
+
+    <h2 data-en="The loan types your bank advisor will mention">Die Kreditarten, die dein Bankberater erwähnen wird</h2>
+
+    <div class="kv-compare">
+      <div class="kv-compare-card kv-compare-card--good">
+        <h3 data-en="Mortgage (self-occupied)">Baufinanzierung (selbstgenutzt)</h3>
+        <ul>
+          <li data-en="Secured by the property itself (Grundschuld) &ndash; by far the lowest rates">Besichert durch die Immobilie selbst (Grundschuld) — mit Abstand die niedrigsten Zinsen</li>
+          <li data-en="Replaces rent you'd pay anyway; builds equity over time">Ersetzt Miete, die ohnehin anfallen würde; baut über die Zeit Eigenkapital auf</li>
+          <li data-en="Long-term commitment, but for an asset you actually use">Langfristige Bindung, aber für einen Vermögenswert, den man tatsächlich nutzt</li>
+          <li data-en="Only makes sense if you're realistic about maintenance effort">Ergibt nur Sinn, wenn man beim Instandhaltungsaufwand realistisch ist</li>
+        </ul>
+      </div>
+      <div class="kv-compare-card">
+        <h3 data-en="Personal loan (Ratenkredit)">Ratenkredit (Konsumentenkredit)</h3>
+        <ul>
+          <li data-en="Unsecured &ndash; the bank prices in the risk with a much higher rate">Unbesichert — die Bank preist das Risiko mit einem deutlich höheren Zins ein</li>
+          <li data-en="Financing consumption (furniture, vacations, electronics) that loses value or has no lasting return">Finanziert Konsum (Möbel, Urlaub, Elektronik), der an Wert verliert oder keine bleibende Rendite bringt</li>
+          <li data-en="Fixed monthly rate for 1&ndash;7 years, easy to underestimate the total cost">Feste Monatsrate für 1–7 Jahre, Gesamtkosten werden leicht unterschätzt</li>
+        </ul>
+      </div>
+      <div class="kv-compare-card">
+        <h3 data-en="Car loan (Autokredit)">Autokredit</h3>
+        <ul>
+          <li data-en="Sometimes secured by the vehicle, but the vehicle itself loses value fast">Teils durch das Fahrzeug besichert, das Fahrzeug selbst verliert aber schnell an Wert</li>
+          <li data-en="Balloon/leasing offers can hide the effective rate behind a low monthly figure">Ballon-/Leasing-Angebote können den Effektivzins hinter einer niedrigen Monatsrate verstecken</li>
+          <li data-en="Cheaper than a personal loan on average, still financing a depreciating asset">Im Schnitt günstiger als ein Ratenkredit, finanziert aber trotzdem einen Wertverlust</li>
+        </ul>
+      </div>
+      <div class="kv-compare-card">
+        <h3 data-en="Overdraft (Dispokredit)">Dispokredit (Überziehungskredit)</h3>
+        <ul>
+          <li data-en="By far the most expensive everyday credit &ndash; often double-digit effective rates">Mit Abstand teuerster Alltagskredit — oft zweistellige Effektivzinsen</li>
+          <li data-en="Meant as short-term buffer, not as ongoing financing">Als kurzfristiger Puffer gedacht, nicht als dauerhafte Finanzierung</li>
+          <li data-en="If you're permanently in the red here, that's the first thing to fix">Wenn man hier dauerhaft im Minus steckt, ist das als Erstes zu beheben</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 data-en="Side by side">Im direkten Vergleich</h2>
+    <div class="kv-table-wrap">
+      <table class="kv-table">
+        <thead>
+          <tr>
+            <th data-en="Criterion">Kriterium</th>
+            <th data-en="Mortgage">Baufinanzierung</th>
+            <th data-en="Personal loan">Ratenkredit</th>
+            <th data-en="Car loan">Autokredit</th>
+            <th data-en="Overdraft">Dispokredit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-en="Purpose">Zweck</td>
+            <td class="kv-good" data-en="Self-occupied property">Selbstgenutzte Immobilie</td>
+            <td class="kv-bad" data-en="Consumption">Konsum</td>
+            <td class="kv-mid" data-en="Depreciating asset">Wertverlustgut</td>
+            <td class="kv-bad" data-en="Short-term buffer">Kurzfristpuffer</td>
+          </tr>
+          <tr>
+            <td data-en="Typical effective rate p.a.">Typischer Effektivzins p.a.</td>
+            <td class="kv-good">3&ndash;4,5⁠%</td>
+            <td class="kv-bad">6&ndash;11⁠%</td>
+            <td class="kv-mid">5&ndash;9⁠%</td>
+            <td class="kv-bad">9&ndash;14⁠%</td>
+          </tr>
+          <tr>
+            <td data-en="Collateral">Besicherung</td>
+            <td class="kv-good" data-en="Grundschuld on the property">Grundschuld auf die Immobilie</td>
+            <td class="kv-bad" data-en="None">Keine</td>
+            <td class="kv-mid" data-en="Often the vehicle">Oft das Fahrzeug</td>
+            <td class="kv-bad" data-en="None">Keine</td>
+          </tr>
+          <tr>
+            <td data-en="Typical term">Typische Laufzeit</td>
+            <td data-en="10&ndash;30 years">10–30 Jahre</td>
+            <td data-en="1&ndash;7 years">1–7 Jahre</td>
+            <td data-en="2&ndash;7 years">2–7 Jahre</td>
+            <td data-en="Open-ended">Unbefristet</td>
+          </tr>
+          <tr>
+            <td data-en="My assessment">Meine Einschätzung</td>
+            <td class="kv-good" data-en="Worth it, if self-occupied and you're hands-on">Sinnvoll, wenn selbstgenutzt und man handwerklich mit anpackt</td>
+            <td class="kv-bad" data-en="Avoid where possible">Nach Möglichkeit vermeiden</td>
+            <td class="kv-mid" data-en="Only if it's genuinely needed">Nur, wenn wirklich nötig</td>
+            <td class="kv-bad" data-en="Emergency use only">Nur im Notfall</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="calc-note" data-en="Simplified, illustrative comparison. Actual rates depend heavily on your credit score, collateral, bank, and current interest-rate environment; this is not a forecast or an offer.">Vereinfachter, illustrativer Vergleich. Tatsächliche Zinssätze hängen stark von Bonität, Besicherung, Bank und aktuellem Zinsumfeld ab; dies ist keine Prognose oder ein Angebot.</p>
+
+    <h2 data-en="The effective rate, visualized">Der Effektivzins im Bild</h2>
+    <p data-en="Seeing the gap between a mortgage and an overdraft side by side makes it obvious why one is worth considering and the other is a fire you want to put out quickly.">Der Unterschied zwischen Baufinanzierung und Dispo nebeneinander macht deutlich, warum die eine eine Überlegung wert ist und die andere ein Feuer, das man schnell löschen sollte.</p>
+    <div class="kv-rate-chart">
+      <div class="kv-rate-row">
+        <div class="kv-rate-label" data-en="Mortgage">Baufinanzierung</div>
+        <div class="kv-rate-track">
+          <div class="kv-rate-fill kv-rate-fill--bau" style="width:24%;"><span>3&ndash;4,5⁠%</span></div>
+        </div>
+      </div>
+      <div class="kv-rate-row">
+        <div class="kv-rate-label" data-en="Car loan">Autokredit</div>
+        <div class="kv-rate-track">
+          <div class="kv-rate-fill kv-rate-fill--auto" style="width:48%;"><span>5&ndash;9⁠%</span></div>
+        </div>
+      </div>
+      <div class="kv-rate-row">
+        <div class="kv-rate-label" data-en="Personal loan">Ratenkredit</div>
+        <div class="kv-rate-track">
+          <div class="kv-rate-fill kv-rate-fill--raten" style="width:64%;"><span>6&ndash;11⁠%</span></div>
+        </div>
+      </div>
+      <div class="kv-rate-row">
+        <div class="kv-rate-label" data-en="Overdraft">Dispokredit</div>
+        <div class="kv-rate-track">
+          <div class="kv-rate-fill kv-rate-fill--dispo" style="width:100%;"><span>9&ndash;14⁠%</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="kv-chart-note" data-en="Illustrative typical ranges for effective annual rates, not a live quote. Bar width scaled to the upper end of each range.">Illustrative, typische Spannen für den Effektivzins p.a., kein Live-Angebot. Balkenbreite an der Obergrenze der jeweiligen Spanne skaliert.</p>
+
+    <h2 data-en="Understanding your mortgage offer">Dein Baufinanzierungs-Angebot verstehen</h2>
+    <p data-en="When a bank advisor lays out an Annuitätendarlehen (the standard German mortgage structure), the monthly rate is made up of two parts: interest (Sollzins) and repayment (Tilgung). As the loan balance shrinks, the interest portion shrinks with it and the repayment portion grows &ndash; but your monthly payment usually stays the same for the whole fixed-rate period (Zinsbindung). Play with the numbers below to see what a given rate actually costs, and what's left to refinance once the fixed period ends.">Wenn dir ein Bankberater ein Annuitätendarlehen vorlegt (die in Deutschland übliche Baufinanzierungsstruktur), setzt sich die Monatsrate aus zwei Teilen zusammen: Zinsen (Sollzins) und Tilgung. Mit sinkender Restschuld wird der Zinsanteil kleiner und der Tilgungsanteil größer — deine Monatsrate bleibt aber über die gesamte Zinsbindung meist gleich. Spiel unten mit den Zahlen, um zu sehen, was ein bestimmter Zins wirklich kostet, und was am Ende der Zinsbindung zur Anschlussfinanzierung übrig bleibt.</p>
+
+    <div class="kv-calc" id="kv-calc">
+      <div class="kv-calc-inputs">
+        <div class="row">
+          <label for="kv-darlehen"><span data-en="Loan amount">Darlehenssumme</span> <span class="val" id="kv-darlehen-val">300.000 €</span></label>
+          <input type="range" id="kv-darlehen" class="calc-slider" min="50000" max="500000" step="5000" value="300000">
+        </div>
+        <div class="row">
+          <label for="kv-sollzins"><span data-en="Interest rate p.a. (Sollzins)">Sollzins p.a.</span> <span class="val" id="kv-sollzins-val">3,8⁠%</span></label>
+          <input type="range" id="kv-sollzins" class="calc-slider" min="2.5" max="6" step="0.1" value="3.8">
+        </div>
+        <div class="row">
+          <label for="kv-tilgung"><span data-en="Initial repayment rate p.a. (Tilgung)">Anfängliche Tilgung p.a.</span> <span class="val" id="kv-tilgung-val">2⁠%</span></label>
+          <input type="range" id="kv-tilgung" class="calc-slider" min="1" max="5" step="0.5" value="2">
+        </div>
+        <div class="row">
+          <label for="kv-jahre"><span data-en="Fixed-rate period (Zinsbindung)">Zinsbindung</span> <span class="val" id="kv-jahre-val">15 Jahre</span></label>
+          <input type="range" id="kv-jahre" class="calc-slider" min="5" max="30" step="1" value="15">
+        </div>
+      </div>
+      <p class="calc-note" data-en="Simplified example calculation, not a financing offer. Assumes a constant Sollzins over the whole fixed period, standard Annuitätendarlehen amortization, and ignores fees, Grunderwerbsteuer, and notary costs.">Vereinfachte Beispielrechnung, kein Finanzierungsangebot. Geht von konstantem Sollzins über die gesamte Zinsbindung aus, klassischer Annuitätendarlehen-Tilgung, und lässt Gebühren, Grunderwerbsteuer und Notarkosten außen vor.</p>
+
+      <div class="kv-result-grid">
+        <div class="kv-result-card kv-result-card--rate">
+          <div class="kv-result-label" data-en="Monthly payment">Monatliche Rate</div>
+          <div class="kv-result-value" id="kv-result-rate">–</div>
+          <div class="kv-result-sub" data-en="fixed for the whole period">fest über die gesamte Zinsbindung</div>
+        </div>
+        <div class="kv-result-card kv-result-card--rest">
+          <div class="kv-result-label" data-en="Remaining debt (Restschuld)">Restschuld</div>
+          <div class="kv-result-value" id="kv-result-rest">–</div>
+          <div class="kv-result-sub" data-en="at the end of the fixed period">am Ende der Zinsbindung</div>
+        </div>
+        <div class="kv-result-card kv-result-card--zins">
+          <div class="kv-result-label" data-en="Interest paid">Gezahlte Zinsen</div>
+          <div class="kv-result-value" id="kv-result-zins">–</div>
+          <div class="kv-result-sub" data-en="over the fixed period">über die Zinsbindung</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 data-en="The opportunity cost, as an ETF savings plan">Die Opportunitätskosten, als ETF-Sparplan</h2>
+    <p data-en="Here's the comparison your bank advisor won't bring up: what if, instead of that monthly mortgage payment, you'd put the same amount into an ETF savings plan for the same number of years? This isn't a fair apples-to-apples comparison &ndash; in the ETF scenario you'd still be paying rent somewhere, and the mortgage scenario builds you a paid-off (or partly paid-off) home &ndash; but it's a useful gut-check for how much the interest you're paying is really costing you in growth terms.">Hier kommt der Vergleich, den dir dein Bankberater nicht vorlegen wird: Was, wenn du statt der monatlichen Kreditrate denselben Betrag über dieselbe Anzahl Jahre in einen ETF-Sparplan einzahlst? Das ist kein fairer 1:1-Vergleich — im ETF-Szenario würdest du weiterhin irgendwo Miete zahlen, und das Kredit-Szenario baut dir eine abbezahlte (oder teilweise abbezahlte) Immobilie auf — aber es ist ein nützlicher Realitätscheck dafür, wie viel dich die gezahlten Zinsen wirklich an Wachstum kosten.</p>
+
+    <div class="kv-opp">
+      <div class="row">
+        <label for="kv-etf-return"><span data-en="ETF return p.a. (opportunity cost)">ETF-Rendite p.a. (Opportunitätskosten)</span> <span class="val" id="kv-etf-return-val">7⁠%</span></label>
+        <input type="range" id="kv-etf-return" class="calc-slider" min="4" max="9" step="0.5" value="7">
+      </div>
+      <div class="kv-opp-row">
+        <div class="kv-opp-side kv-opp-side--credit">
+          <div class="kv-opp-label" data-en="Interest paid on the mortgage">Gezahlte Zinsen für den Kredit</div>
+          <div class="kv-opp-value" id="kv-opp-credit">–</div>
+        </div>
+        <div class="kv-opp-vs" data-en="vs.">vs.</div>
+        <div class="kv-opp-side kv-opp-side--etf">
+          <div class="kv-opp-label" data-en="Same rate, invested in an ETF savings plan instead">Gleiche Rate stattdessen im ETF-Sparplan</div>
+          <div class="kv-opp-value" id="kv-opp-etf">–</div>
+        </div>
+      </div>
+      <p class="calc-note" style="margin-top:14px;" data-en="Simplified example calculation, not investment advice. Assumes the full monthly mortgage payment is instead invested monthly at the chosen ETF return, compounded monthly, over the same fixed-rate period &ndash; it does not account for rent you'd still owe, property value changes, or taxes.">Vereinfachte Beispielrechnung, keine Anlageberatung. Geht davon aus, dass die komplette monatliche Kreditrate stattdessen monatlich zur gewählten ETF-Rendite angelegt wird, verzinst über dieselbe Zinsbindung — Miete, die weiterhin anfallen würde, Wertänderungen der Immobilie und Steuern sind nicht berücksichtigt.</p>
+    </div>
+
+    <div class="kv-insight-box">
+      <p style="margin:0;" data-en="This is exactly why the &quot;only take a mortgage if you'll actually live there&quot; rule matters so much. If you're paying rent anyway, the mortgage payment mostly replaces a cost you already had &ndash; the interest is close to the true cost of leverage. But any other loan competes directly against a number like the one on the right, for something that won't be worth anything in ten years.">Genau deshalb ist die Regel „Nur eine Baufinanzierung, wenn man selbst dort wohnt" so wichtig. Wenn ohnehin Miete anfällt, ersetzt die Kreditrate größtenteils eine Kosten, die man sowieso gehabt hätte — die Zinsen sind nahe an den tatsächlichen Kosten des Hebels. Aber jeder andere Kredit konkurriert direkt mit einer Zahl wie der rechts oben — für etwas, das in zehn Jahren nichts mehr wert ist.</p>
+    </div>
+
+    <h2 data-en="Where to compare offers">Wo man Angebote vergleicht</h2>
+    <p data-en="For a mortgage, it's worth getting quotes from more than one source: your house bank, an independent Baufinanzierungsvermittler, and a comparison portal like Interhyp or Dr. Klein. For personal and car loans, Verivox and Check24 make it easy to compare the effective rate (not just the advertised nominal rate) across providers before signing anything.">Bei einer Baufinanzierung lohnt es sich, Angebote von mehr als einer Quelle einzuholen: der Hausbank, einem unabhängigen Baufinanzierungsvermittler und einem Vergleichsportal wie Interhyp oder Dr. Klein. Bei Raten- und Autokrediten lassen sich mit Verivox und Check24 die Effektivzinsen (nicht nur der beworbene Nominalzins) verschiedener Anbieter leicht vergleichen, bevor man unterschreibt.</p>
+
+    <div class="kv-tools">
+      <div class="kv-tool-card">
+        <div class="name">Interhyp / Dr. Klein</div>
+        <div class="desc" data-en="Independent mortgage brokers comparing offers across many banks at once.">Unabhängige Baufinanzierungsvermittler, die Angebote vieler Banken gleichzeitig vergleichen.</div>
+      </div>
+      <div class="kv-tool-card">
+        <div class="name">Verivox / Check24</div>
+        <div class="desc" data-en="Comparison portals for personal and car loans, sortable by effective rate.">Vergleichsportale für Raten- und Autokredite, sortierbar nach Effektivzins.</div>
+      </div>
+    </div>
+    <p class="calc-note" data-en="Mentioned as examples of what exists, not as a recommendation or endorsement. Always compare the effective rate (Effektivzins), not the advertised nominal rate.">Als Beispiele dafür genannt, was es gibt — nicht als Empfehlung oder Befürwortung. Vergleiche immer den Effektivzins, nicht den beworbenen Nominalzins.</p>
+
+    <h2 data-en="So, when does a loan make sense?">Also, wann ergibt ein Kredit Sinn?</h2>
+    <p data-en="If it's a mortgage for a home you'll live in, you're financially ready for the commitment, and you're genuinely willing to handle the maintenance yourself &ndash; it can be one of the better financial decisions you make. For nearly everything else on this page, the honest answer is: save up first, or don't buy it yet.">Wenn es eine Baufinanzierung für eine Immobilie ist, in der man selbst wohnt, man finanziell bereit für die Bindung ist und wirklich gewillt ist, die Instandhaltung selbst zu übernehmen — kann das eine der besseren finanziellen Entscheidungen sein, die man trifft. Für fast alles andere auf dieser Seite lautet die ehrliche Antwort: erst sparen, oder es sich noch nicht leisten.</p>
+
+    <p style="margin-top:8px;" data-en="This connects directly to the debt-trap piece and the ETF savings-plan article &ndash; both worth a look if this topic interests you.">Das schließt direkt an den Beitrag zur Schuldenfalle und den Artikel zum ETF-Sparplan an — beide lohnen sich, wenn dich das Thema interessiert.</p>
+    <ul>
+      <li><a href="beitrag-schulden.html" data-en="→ Debt Is the Biggest Trap Standing Between You and Investing">→ Schulden sind die größte Falle, um überhaupt investieren zu können</a></li>
+      <li><a href="beitrag-etf-sparplan.html" data-en="→ ETF Savings Plan with a Neobroker: TER, Distributing vs. Accumulating">→ ETF-Sparplan mit dem Neobroker: TER, Ausschüttend vs. Thesaurierend</a></li>
+      <li><a href="beitrag-reits-vs-immobilien.html" data-en="→ REITs, Bonds, or Property: Comparing Three Ways to Stable Income">→ REITs, Anleihen oder Immobilie: Drei Wege zu stabilem Einkommen im Vergleich</a></li>
+    </ul>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material and reflects one personal perspective, not financial or investment advice, and not a recommendation for any specific lender, broker, or product. Interest-rate ranges are typical, illustrative figures, not a live offer or a forecast, and actual rates depend on your creditworthiness, collateral, and the current market. The mortgage calculator uses a simplified, constant-rate Annuitätendarlehen model and ignores fees, Grunderwerbsteuer, notary costs, and maintenance costs. The ETF opportunity-cost comparison assumes a constant, non-varying annual return compounded monthly and does not account for rent, property value changes, or taxes; real ETF returns fluctuate and can be negative for extended periods. Whether any loan makes sense depends entirely on your personal financial situation &ndash; when in doubt, get independent advice before signing.">Dieser Beitrag ist Bildungsmaterial und spiegelt eine persönliche Perspektive wider, keine Finanz- oder Anlageberatung, und keine Empfehlung für einen bestimmten Kreditgeber, Vermittler oder ein bestimmtes Produkt. Zinsspannen sind typische, illustrative Werte, kein Live-Angebot oder eine Prognose, und die tatsächlichen Zinsen hängen von Bonität, Besicherung und aktuellem Marktumfeld ab. Der Baufinanzierungsrechner nutzt ein vereinfachtes Annuitätendarlehen-Modell mit konstantem Zins und lässt Gebühren, Grunderwerbsteuer, Notarkosten und Instandhaltungskosten außen vor. Der ETF-Opportunitätskosten-Vergleich geht von einer konstanten, nicht schwankenden Jahresrendite bei monatlicher Verzinsung aus und berücksichtigt weder Miete noch Wertänderungen der Immobilie noch Steuern; reale ETF-Renditen schwanken und können über längere Zeit auch negativ sein. Ob ein Kredit Sinn ergibt, hängt vollständig von der persönlichen finanziellen Situation ab — im Zweifel vor der Unterschrift unabhängig beraten lassen.</div>
+
+    <p style="margin-top:32px;"><a href="kat-finanzen.html" data-en="← Back to all Finance posts">← Zurück zu allen Finanzen-Beiträgen</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Baufinanzierungs-Rechner + ETF-Opportunitaetskosten ===== */
+(function(){
+  const darlehenEl = document.getElementById('kv-darlehen');
+  const sollzinsEl = document.getElementById('kv-sollzins');
+  const tilgungEl = document.getElementById('kv-tilgung');
+  const jahreEl = document.getElementById('kv-jahre');
+  const etfReturnEl = document.getElementById('kv-etf-return');
+  if(!darlehenEl) return;
+
+  const darlehenVal = document.getElementById('kv-darlehen-val');
+  const sollzinsVal = document.getElementById('kv-sollzins-val');
+  const tilgungVal = document.getElementById('kv-tilgung-val');
+  const jahreVal = document.getElementById('kv-jahre-val');
+  const etfReturnVal = document.getElementById('kv-etf-return-val');
+
+  const resultRate = document.getElementById('kv-result-rate');
+  const resultRest = document.getElementById('kv-result-rest');
+  const resultZins = document.getElementById('kv-result-zins');
+  const oppCredit = document.getElementById('kv-opp-credit');
+  const oppEtf = document.getElementById('kv-opp-etf');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtPct(p){
+    const s = p.toFixed(2).replace(/0$/, '').replace(/\.$/, '');
+    return isEn() ? s : s.replace('.', ',');
+  }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+
+  function mortgage(darlehen, sollzins, tilgung, jahre){
+    const monthlyRatePct = (sollzins + tilgung) / 100 / 12;
+    const payment = darlehen * monthlyRatePct;
+    const monthlyInterestRate = sollzins / 100 / 12;
+    let balance = darlehen;
+    let totalInterest = 0;
+    const months = jahre * 12;
+    for(let m = 0; m < months; m++){
+      const interest = balance * monthlyInterestRate;
+      let principalPaid = payment - interest;
+      if(principalPaid > balance) principalPaid = balance;
+      balance -= principalPaid;
+      totalInterest += interest;
+      if(balance <= 0){ balance = 0; break; }
+    }
+    return { payment, balance, totalInterest };
+  }
+
+  function finalBalance(pmt, annualPct, years){
+    const monthlyRate = (annualPct / 100) / 12;
+    const months = years * 12;
+    let balance = 0;
+    for(let m = 0; m < months; m++){
+      balance = balance * (1 + monthlyRate) + pmt;
+    }
+    return balance;
+  }
+
+  function compute(){
+    const en = isEn();
+    const darlehen = parseFloat(darlehenEl.value);
+    const sollzins = parseFloat(sollzinsEl.value);
+    const tilgung = parseFloat(tilgungEl.value);
+    const jahre = parseInt(jahreEl.value, 10);
+    const etfReturn = parseFloat(etfReturnEl.value);
+
+    darlehenVal.textContent = fmtEUR(darlehen);
+    sollzinsVal.textContent = fmtPct(sollzins) + '%';
+    tilgungVal.textContent = fmtPct(tilgung) + '%';
+    jahreVal.textContent = jahre + (en ? (jahre === 1 ? ' year' : ' years') : ' Jahre');
+    etfReturnVal.textContent = fmtPct(etfReturn) + '%';
+
+    const m = mortgage(darlehen, sollzins, tilgung, jahre);
+    resultRate.textContent = fmtEUR(m.payment);
+    resultRest.textContent = fmtEUR(m.balance);
+    resultZins.textContent = fmtEUR(m.totalInterest);
+
+    oppCredit.textContent = fmtEUR(m.totalInterest);
+    oppEtf.textContent = fmtEUR(finalBalance(m.payment, etfReturn, jahre));
+  }
+
+  [darlehenEl, sollzinsEl, tilgungEl, jahreEl, etfReturnEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+</body>
+</html>

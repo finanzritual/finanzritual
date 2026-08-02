@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="The Pig Cycle: A Completely Different Kind of Cyclical Stock — Finanzritual">Der Schweinezyklus: eine ganz andere Art von zyklischer Aktie — Finanzritual</title>
+<meta name="description" content="Nicht jeder Auf-und-ab-Chart ist dasselbe Phänomen. Der echte Schweinezyklus dauert 3-4 Jahre, entsteht durch verzögerte Angebotsanpassung, und trifft heute Speicherchips und Automobilhersteller genauso wie einst Schweinezüchter — ein anderer Mechanismus als Apples jährlicher Sägezahn." data-en-content="Not every up-and-down chart is the same phenomenon. The real pig cycle takes 3-4 years, arises from delayed supply adjustment, and hits memory chips and carmakers today just as it once hit pig farmers — a different mechanism than Apple's annual sawtooth.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-schweinezyklus-zyklische-aktien.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Der Schweinezyklus: eine ganz andere Art von zyklischer Aktie" data-en-content="The Pig Cycle: A Completely Different Kind of Cyclical Stock">
+<meta property="og:description" content="Warum Speicherchip-Preise und Automärkte alle paar Jahre übertreiben — und warum das nicht dasselbe ist wie Apples Quartals-Sägezahn." data-en-content="Why memory chip prices and car markets overshoot every few years — and why that's not the same as Apple's quarterly sawtooth.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-schweinezyklus-zyklische-aktien.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Der Schweinezyklus: eine ganz andere Art von zyklischer Aktie",
+  "description": "Der Schweinezyklus (Cobweb-Theorem) erklaert, mit Beispielen aus Landwirtschaft, Speicherchips und Automobilindustrie -- und klar abgegrenzt von nachfragegetriebener Saisonalitaet wie bei Apple.",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.finanz-ritual.de/beitrag-schweinezyklus-zyklische-aktien.html" },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ── Vergleichstabellen ──────────────────────────────────── */
+.cmp-table-wrap {
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 12px;
+  border: 1.5px solid var(--line-strong);
+  box-shadow: var(--shadow);
+}
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8rem;
+  min-width: 460px;
+}
+.cmp-table thead th {
+  background: var(--blue);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+.cmp-table thead th:last-child { border-right: none; }
+.cmp-table tbody tr { border-bottom: 1px solid var(--line); }
+.cmp-table tbody tr:hover { background: var(--bg); }
+.cmp-table tbody tr:last-child { border-bottom: none; }
+.cmp-table td {
+  padding: 10px 14px;
+  border-right: 1px solid var(--line);
+  font-size: .79rem;
+  color: var(--ink);
+  vertical-align: middle;
+}
+.cmp-table td:last-child { border-right: none; }
+.cmp-table td:first-child { font-weight: 700; }
+.cmp-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.cmp-green { color: var(--green); }
+.cmp-blue  { color: var(--blue); }
+.cmp-muted { color: var(--ink-soft); }
+.cmp-badge {
+  display: inline-block; font-size: .62rem; font-weight: 700;
+  letter-spacing: .06em; border-radius: 3px; padding: 2px 5px;
+  text-transform: uppercase; margin-left: 4px;
+}
+.badge-em    { background: var(--blue-soft);  color: var(--blue); }
+.badge-ind   { background: var(--green-soft); color: var(--green); }
+.badge-rec   { background: #FEF9E7; color: #D97706; }
+
+/* ── Highlight-Box ──────────────────────────────────────── */
+.hl-box {
+  margin: 20px 0; padding: 15px 18px;
+  border-radius: 10px; border-left: 3px solid var(--blue);
+  background: var(--blue-soft);
+}
+.hl-box.is-green { border-left-color: var(--green); background: var(--green-soft); }
+.hl-box.is-amber { border-left-color: #D97706; background: #F7DFA8; }
+[data-theme="dark"] .hl-box.is-amber { background: #4A3410; }
+.hl-box-label {
+  font-family: 'JetBrains Mono', monospace; font-size: .67rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 6px;
+}
+.hl-box.is-green .hl-box-label { color: var(--green); }
+.hl-box.is-amber .hl-box-label { color: #92400E; }
+[data-theme="dark"] .hl-box.is-amber .hl-box-label { color: #FCD34D; }
+.hl-box p { margin: 0; font-size: .87rem; }
+
+/* ── Index-Karte visuell ─────────────────────────────────── */
+.idx-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+@media (max-width: 540px) { .idx-cards { grid-template-columns: 1fr; } }
+.idx-card {
+  border-radius: 10px;
+  padding: 14px 15px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--bg-raised);
+}
+.idx-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: .88rem;
+  color: var(--ink); margin-bottom: 6px;
+}
+.idx-card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--blue); line-height: 1.1;
+}
+.idx-card-sub { font-size: .72rem; color: var(--ink-soft); margin-top: 2px; }
+.idx-card-tag {
+  font-size: .65rem; font-weight: 700; border-radius: 3px;
+  padding: 2px 6px; margin-top: 8px; display: inline-block;
+}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-schweinezyklus-zyklische-aktien.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-schweinezyklus-zyklische-aktien.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<div class="alert-banner" id="alert-banner" role="alert"><div class="alert-banner-inner"><span class="alert-banner-text" id="alert-banner-text"></span><div class="alert-banner-right"><span class="alert-banner-counter" id="perf-counter" aria-hidden="true"><span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span></span><button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button></div></div></div>
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></button>
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche"><a href="index.html#optionen">Optionen</a><a href="shop.html" class="fr-secret-soon">Shop ✦</a><a href="vip.html" class="fr-secret-soon">VIP-Bereich ✦</a></nav>
+        <div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div>
+        <div class="fr-secret-coffee"><a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener"><span class="fr-coffee-cup" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/><path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/><path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/><path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M2 22h16"/></svg></span><span class="fr-coffee-text"><span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span><span class="fr-coffee-sub" id="fr-coffee-sub">Du hast das Versteck gefunden ☕</span></span></a></div>
+      </div>
+    </div>
+        <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control"><label for="font-slider">Aa</label><input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße"></div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus" data-en-aria-label="Toggle dark mode"><span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" title="Switch to English"><span id="lang-toggle-text">EN</span></button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Vorschau"><span class="alert-test-dot"></span></button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<style>
+.pz-cycle-steps{ counter-reset:pzstep; margin:18px 0; }
+.pz-cycle-step{ display:flex; gap:14px; padding:12px 0; border-bottom:1px dashed var(--line); }
+.pz-cycle-step:last-child{ border-bottom:none; }
+.pz-cycle-num{ counter-increment:pzstep; flex:none; width:28px; height:28px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.82rem; }
+.pz-cycle-num::before{ content:counter(pzstep); }
+.pz-cycle-text{ font-size:.9rem; padding-top:3px; }
+.pz-compare-table{ width:100%; border-collapse:collapse; margin:16px 0; font-size:.86rem; }
+.pz-compare-table th{ text-align:left; padding:8px 10px; border-bottom:2px solid var(--ink); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); }
+.pz-compare-table td{ padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+</style>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-portfolio.html" data-en="My Portfolio">Mein Portfolio</a><span>/</span><span aria-current="page" data-en="The pig cycle">Der Schweinezyklus</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance &middot; 02 Aug 2026">Finanzen · 02.08.2026</div>
+    <h1 data-en="The pig cycle: a completely different kind of cyclical stock">Der Schweinezyklus: eine ganz andere Art von zyklischer Aktie</h1>
+    <p style="max-width:60ch;" data-en="Apple's revenue chart looks like a saw blade once a year. Memory chip prices look like a saw blade every three to four years, for a completely different reason. Worth knowing which one you're looking at.">Apples Umsatzkurve sieht einmal im Jahr wie ein Sägeblatt aus. Speicherchip-Preise sehen alle drei bis vier Jahre wie ein Sägeblatt aus, aus einem völlig anderen Grund. Es lohnt sich zu wissen, welches der beiden man gerade vor sich hat.</p>
+  </div>
+</section>
+
+<!-- ARTIKEL -->
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+  <p style="font-family:'Space Grotesk';font-weight:600;font-size:calc(1.15rem * var(--step-user));margin-bottom:22px;" data-en="Named after actual pigs. Still shaping memory chip prices a century later.">Benannt nach echten Schweinen. Prägt ein Jahrhundert später immer noch Speicherchip-Preise.</p>
+
+  <p data-en="In 1927, German agricultural economist Arthur Hanau described a pattern in pig prices that kept repeating every three to four years: high prices, followed by oversupply and a price crash, followed by shortage and high prices again. He called it the Schweinezyklus. The theoretical explanation for it &mdash; the Cobweb theorem &mdash; turns out to apply well beyond pigs.">1927 beschrieb der deutsche Agrarökonom Arthur Hanau ein Muster bei Schweinepreisen, das sich alle drei bis vier Jahre wiederholte: hohe Preise, gefolgt von Überangebot und Preisverfall, gefolgt von Knappheit und wieder hohen Preisen. Er nannte es den Schweinezyklus. Die theoretische Erklärung dafür — das Cobweb-Theorem (Spinnwebtheorem) — lässt sich weit über Schweine hinaus anwenden.</p>
+
+  <h2 data-en="The mechanism, step by step">Der Mechanismus, Schritt für Schritt</h2>
+  <div class="pz-cycle-steps">
+    <div class="pz-cycle-step"><div class="pz-cycle-num"></div><div class="pz-cycle-text" data-en="Pig prices are high. Farmers see a profit opportunity and decide to breed more pigs.">Schweinepreise sind hoch. Landwirte sehen eine Gewinnchance und entscheiden sich, mehr Ferkel aufzuziehen.</div></div>
+    <div class="pz-cycle-step"><div class="pz-cycle-num"></div><div class="pz-cycle-text" data-en="But raising a pig to market weight takes about 15 months. The decision to produce more happens now; the extra supply only shows up over a year later.">Aber ein Schwein bis zur Schlachtreife aufzuziehen dauert rund 15 Monate. Die Entscheidung für mehr Produktion fällt jetzt; das zusätzliche Angebot erscheint erst über ein Jahr später.</div></div>
+    <div class="pz-cycle-step"><div class="pz-cycle-num"></div><div class="pz-cycle-text" data-en="When that oversupply finally hits the market, demand hasn't grown to match it. Prices crash.">Wenn dieses Überangebot dann endlich auf den Markt trifft, ist die Nachfrage nicht mitgewachsen. Die Preise brechen ein.</div></div>
+    <div class="pz-cycle-step"><div class="pz-cycle-num"></div><div class="pz-cycle-text" data-en="Farmers, reacting to today's low price, cut back production. Again, the effect only shows up over a year later &mdash; by which point supply is too low, and prices climb again. The cycle repeats.">Landwirte reagieren auf den heutigen niedrigen Preis und fahren die Produktion zurück. Auch das zeigt sich erst über ein Jahr später — bis dahin ist das Angebot zu niedrig, und die Preise steigen erneut. Der Zyklus wiederholt sich.</div></div>
+  </div>
+  <p data-en="The root cause is always the same: producers base today's supply decision on today's price, but the lead time between that decision and the goods actually reaching the market is long enough that conditions have completely changed by the time they arrive.">Die Grundursache ist immer dieselbe: Produzenten treffen die heutige Angebotsentscheidung auf Basis des heutigen Preises, aber die Vorlaufzeit zwischen dieser Entscheidung und dem tatsächlichen Erscheinen der Ware am Markt ist lang genug, dass sich die Bedingungen bis dahin komplett geändert haben.</p>
+
+  <div style="margin:20px 0;"><svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:Inter,sans-serif;"><line x1="60" y1="355.0" x2="675" y2="355.0" stroke="#E4E6EA" stroke-width="1" stroke-dasharray="3,3"/><text x="50" y="359.0" text-anchor="end" font-size="11" fill="#5B677A" font-family="JetBrains Mono, monospace">0</text><line x1="60" y1="272.5" x2="675" y2="272.5" stroke="#E4E6EA" stroke-width="1" stroke-dasharray="3,3"/><text x="50" y="276.5" text-anchor="end" font-size="11" fill="#5B677A" font-family="JetBrains Mono, monospace">50</text><line x1="60" y1="190.0" x2="675" y2="190.0" stroke="#B45309" stroke-width="1" /><text x="50" y="194.0" text-anchor="end" font-size="11" fill="#5B677A" font-family="JetBrains Mono, monospace">100</text><line x1="60" y1="107.5" x2="675" y2="107.5" stroke="#E4E6EA" stroke-width="1" stroke-dasharray="3,3"/><text x="50" y="111.5" text-anchor="end" font-size="11" fill="#5B677A" font-family="JetBrains Mono, monospace">150</text><line x1="60" y1="25.0" x2="675" y2="25.0" stroke="#E4E6EA" stroke-width="1" stroke-dasharray="3,3"/><text x="50" y="29.0" text-anchor="end" font-size="11" fill="#5B677A" font-family="JetBrains Mono, monospace">200</text><text x="671" y="184.0" text-anchor="end" font-size="10" fill="#B45309" font-weight="700">Gleichgewichtspreis</text><text x="16" y="190.0" text-anchor="middle" font-size="11" fill="#5B677A" transform="rotate(-90 16 190.0)">Preisindex</text><line x1="60" y1="25" x2="60" y2="355" stroke="#16233D" stroke-width="1.5"/><line x1="60" y1="355" x2="675" y2="355" stroke="#16233D" stroke-width="1.5"/><text x="60.0" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 0</text><text x="154.6" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 2</text><text x="249.2" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 4</text><text x="343.8" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 6</text><text x="438.5" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 8</text><text x="533.1" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 10</text><text x="627.7" y="373" text-anchor="middle" font-size="10" fill="#5B677A">Jahr 12</text><path d="M60.0,279.8 L71.8,268.0 L83.7,244.4 L95.5,212.4 L107.3,177.1 L119.1,143.7 L131.0,117.4 L142.8,102.1 L154.6,100.2 L166.4,112.0 L178.3,135.6 L190.1,167.6 L201.9,202.9 L213.8,236.3 L225.6,262.6 L237.4,277.9 L249.2,279.8 L261.1,268.0 L272.9,244.4 L284.7,212.4 L296.5,177.1 L308.4,143.7 L320.2,117.4 L332.0,102.1 L343.8,100.2 L355.7,112.0 L367.5,135.6 L379.3,167.6 L391.2,202.9 L403.0,236.3 L414.8,262.6 L426.6,277.9 L438.5,279.8 L450.3,268.0 L462.1,244.4 L473.9,212.4 L485.8,177.1 L497.6,143.7 L509.4,117.4 L521.2,102.1 L533.1,100.2 L544.9,112.0 L556.7,135.6 L568.6,167.6 L580.4,202.9 L592.2,236.3 L604.0,262.6 L615.9,277.9 L627.7,279.8 L639.5,268.0 L651.3,244.4 L663.2,212.4 L675.0,177.1" fill="none" stroke="#B45309" stroke-width="2.5"/><circle cx="107.3" cy="177.1" r="4" fill="#B45309"/><circle cx="178.3" cy="135.6" r="4" fill="#B45309"/><circle cx="261.1" cy="268.0" r="4" fill="#B45309"/><text x="107.3" y="163.1" text-anchor="middle" font-size="9.5" font-weight="700" fill="#16233D">Boom</text><text x="187.7" y="182.7" text-anchor="middle" font-size="9.5" font-weight="700" fill="#16233D">Überangebot</text><text x="263.4" y="250.2" text-anchor="middle" font-size="9.5" font-weight="700" fill="#16233D">Knappheit</text><line x1="60.0" y1="387" x2="249.2" y2="387" stroke="#2454A6" stroke-width="1.5"/><line x1="60.0" y1="383" x2="60.0" y2="391" stroke="#2454A6" stroke-width="1.5"/><line x1="249.2" y1="383" x2="249.2" y2="391" stroke="#2454A6" stroke-width="1.5"/><text x="154.6" y="400" text-anchor="middle" font-size="10" font-weight="700" fill="#2454A6">ein Zyklus: 3-4 Jahre</text></svg></div>
+  <p style="font-size:.78rem;color:var(--ink-soft);text-align:center;margin-top:-6px;" data-en="Schematic illustration of the general pig-cycle/cobweb pattern &mdash; oscillating around an equilibrium price, not tied to one specific real market's data.">Schematische Darstellung des allgemeinen Schweinezyklus-/Cobweb-Musters — oszillierend um einen Gleichgewichtspreis, nicht an die Daten eines bestimmten realen Marktes gebunden.</p>
+
+  <div class="pull-quote is-blue">
+    <p data-en="It isn't about pigs. It's about any market where the decision to produce more and the arrival of that supply are separated by a long, fixed lead time.">Es geht nicht um Schweine. Es geht um jeden Markt, bei dem zwischen der Entscheidung für mehr Produktion und dem tatsächlichen Erscheinen dieses Angebots eine lange, feste Vorlaufzeit liegt.</p>
+  </div>
+
+  <h2 data-en="The modern examples: memory chips and cars">Die modernen Beispiele: Speicherchips und Autos</h2>
+  <p data-en="Semiconductor memory (DRAM, NAND flash) is the textbook modern case: high memory prices trigger massive new fab investment, but building and ramping a new chip factory takes roughly two to three years. By the time that new capacity comes online, the shortage that triggered it may already be over &mdash; and the market swings into oversupply and crashing prices, until the next shortage triggers the next investment wave. Car manufacturing shows a similar, if less extreme, pattern: new factory capacity or a new model line takes years to plan and build, so production decisions are locked in long before anyone knows what demand will actually look like when the cars roll off the line.">Speicherchips (DRAM, NAND-Flash) sind der moderne Lehrbuchfall: Hohe Speicherpreise lösen massive neue Investitionen in Fabriken aus, aber der Bau und Hochlauf einer neuen Chipfabrik dauert rund zwei bis drei Jahre. Bis diese neue Kapazität online geht, kann die Knappheit, die sie ausgelöst hat, schon vorbei sein — und der Markt schwenkt in Überangebot und einbrechende Preise um, bis die nächste Knappheit die nächste Investitionswelle auslöst. Automobilproduktion zeigt ein ähnliches, wenn auch weniger extremes Muster: Neue Fabrikkapazität oder eine neue Modellreihe brauchen Jahre an Planung und Bau, sodass Produktionsentscheidungen lange feststehen, bevor überhaupt klar ist, wie die Nachfrage aussehen wird, wenn die Autos vom Band laufen.</p>
+
+  <p data-en="This is directly relevant right now: in Apple's own Q3 2026 earnings call, rising memory chip prices were flagged as a headwind for the coming quarter's gross margin. That's the pig cycle showing up inside a sawtooth-cycle company's supply chain &mdash; two different cyclical mechanisms, layered on top of each other.">Das ist gerade direkt relevant: Im eigenen Q3-2026-Earnings-Call von Apple wurden steigende Speicherchip-Preise als Gegenwind für die Bruttomarge des kommenden Quartals genannt. Das ist der Schweinezyklus, der innerhalb der Lieferkette eines Sägezahn-Zyklus-Unternehmens auftaucht — zwei verschiedene zyklische Mechanismen, übereinandergelagert.</p>
+
+  <h2 data-en="Not the same thing as Apple's sawtooth">Nicht dasselbe wie Apples Sägezahn</h2>
+  <table class="pz-compare-table">
+    <tr><th data-en="">&nbsp;</th><th data-en="Pig cycle / Cobweb">Schweinezyklus/Cobweb</th><th data-en="Apple's sawtooth">Apples Sägezahn</th></tr>
+    <tr><td data-en="Driven by">Getrieben von</td><td data-en="Supply, with a production lag">Angebot, mit Produktions-Zeitverzug</td><td data-en="Demand, tied to a launch calendar">Nachfrage, gebunden an Launch-Kalender</td></tr>
+    <tr><td data-en="Typical cycle length">Typische Zykluslänge</td><td>3-4 <span data-en="years">Jahre</span></td><td>1 <span data-en="year">Jahr</span></td></tr>
+    <tr><td data-en="Root cause">Grundursache</td><td data-en="Producers react to lagging price signals">Produzenten reagieren auf verzögerte Preissignale</td><td data-en="Customers cluster purchases around launch dates">Kunden bündeln Käufe um Launch-Termine</td></tr>
+    <tr><td data-en="Examples">Beispiele</td><td data-en="Livestock, memory chips, shipping capacity, semiconductor fabs">Vieh, Speicherchips, Schiffskapazität, Chipfabriken</td><td data-en="Consumer electronics, ice cream parlors, holiday retail">Unterhaltungselektronik, Eisdielen, Weihnachtsgeschäft</td></tr>
+  </table>
+  <p data-en="Both produce a chart that goes up and down repeatedly &mdash; which is exactly why they get lumped together as &ldquo;cyclical.&rdquo; But knowing which mechanism you're looking at changes what you'd actually expect: a demand-seasonality sawtooth (Apple) is highly predictable and repeats on a fixed calendar. A supply-lag pig cycle (memory chips) is much harder to time, because it depends on investment decisions made years in advance by many separate companies who can't see each other's plans.">Beide erzeugen einen Chart, der wiederholt auf und ab geht — genau deshalb werden sie unter „zyklisch" in einen Topf geworfen. Aber zu wissen, welcher Mechanismus tatsächlich vorliegt, verändert, was man erwarten sollte: Ein nachfragegetriebener Sägezahn (Apple) ist gut vorhersehbar und wiederholt sich nach festem Kalender. Ein angebotsgetriebener Schweinezyklus (Speicherchips) ist deutlich schwerer zu timen, weil er von Investitionsentscheidungen abhängt, die Jahre im Voraus von vielen einzelnen Unternehmen getroffen werden, die die Pläne der anderen nicht kennen.</p>
+
+  <div class="tip-box">
+    <div class="tip-box-label" data-en="Why this distinction is worth the effort">Warum sich die Unterscheidung lohnt</div>
+    <p data-en="Before calling any chart pattern &ldquo;cyclical,&rdquo; ask what's actually causing the cycle: a calendar (demand clustering, predictable, low risk of surprise) or a production lag (supply overshoot, much harder to time, real risk of getting caught on the wrong side of the swing). The word &ldquo;cyclical&rdquo; hides that difference &mdash; the underlying mechanism doesn't.">Bevor man ein Chart-Muster „zyklisch" nennt: Frage, was den Zyklus tatsächlich verursacht — ein Kalender (Nachfrage-Bündelung, vorhersehbar, geringes Überraschungsrisiko) oder ein Produktions-Zeitverzug (Angebots-Überschwingen, deutlich schwerer zu timen, echtes Risiko, auf der falschen Seite des Ausschlags erwischt zu werden). Das Wort „zyklisch" verdeckt diesen Unterschied — der zugrunde liegende Mechanismus nicht.</p>
+  </div>
+
+  <p style="margin-top:20px;font-size:.85rem;color:var(--ink-soft);" data-en="Schweinezyklus/Cobweb theorem per Arthur Hanau (1927) and the underlying Cobweb theorem (Ezekiel, Kaldor); modern semiconductor and automotive examples are general industry knowledge, not tied to one specific source. This is educational information about a general economic pattern, not investment advice or a forecast for any specific stock.">Schweinezyklus/Cobweb-Theorem nach Arthur Hanau (1927) und dem zugrunde liegenden Cobweb-Theorem (Ezekiel, Kaldor); moderne Speicherchip- und Automobil-Beispiele sind allgemeines Branchenwissen, nicht an eine einzelne Quelle gebunden. Dies ist Bildungsinhalt zu einem allgemeinen ökonomischen Muster, keine Anlageberatung und keine Prognose für eine bestimmte Aktie.</p>
+
+  <p style="margin-top:24px;" data-en="Related on this blog:">Passend dazu auf diesem Blog:</p>
+  <ul>
+    <li><a href="beitrag-apple-saegezahn-zyklische-aktien.html" data-en="→ Apple's sawtooth curve: why revenue swings up and down every year">→ Apples Sägezahn-Kurve: Warum der Umsatz jedes Jahr auf und ab schwankt</a></li>
+    <li><a href="beitrag-esg-etf-greenwashing.html" data-en="→ ESG ETFs ecologically sustainable? — not necessarily">→ ESG-ETFs ökologisch nachhaltig? — Nicht unbedingt</a></li>
+  </ul>
+
+  <p style="margin-top:32px;"><a href="kat-finanzen.html" data-en="&larr; Back to Finance">← Zurück zu Finanzen</a></p>
+
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<svg viewBox="0 -8 190 88" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Finanzritual Logo, zweizeilige Variante mit durchgehendem L: FINANZ- auf der ersten Zeile, RITUA auf der zweiten, das blaue L beginnt oben neben FINANZ- und läuft über die volle Höhe beider Zeilen nach unten, bevor es bei RITUA nach rechts abknickt und damit RITUAL vervollständigt">
+  <!-- Zeile 1: FINANZ- -->
+  <text x="0" y="30" font-family="'Space Grotesk', Arial, sans-serif" font-weight="600" font-size="30"
+        textLength="120" lengthAdjust="spacingAndGlyphs" fill="#2454A6">FINANZ-</text>
+
+  <!-- Zeile 2: RITUA -->
+  <text x="0" y="76" font-family="'Space Grotesk', Arial, sans-serif" font-weight="600" font-size="30"
+        textLength="120" lengthAdjust="spacingAndGlyphs" fill="#2454A6">RITUA</text>
+
+  <!-- Das L: beginnt oben auf Höhe FINANZ-, läuft die volle Höhe beider Zeilen
+       hinunter, knickt erst unten auf Höhe RITUA nach rechts ab -->
+  <path d="M130 4 V76 H170" stroke="#2454A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Grüne Wachstumslinie, jetzt über die volle Höhe des L gezogen -->
+  <path d="M134 66 L146 50 L154 56 L162 34 L168 12" stroke="#1E8E5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="168" cy="12" r="3.2" fill="#1E8E5A"/>
+</svg>

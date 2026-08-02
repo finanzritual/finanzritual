@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Dividend Projection: My Real Numbers, Year by Year — Finanzritual">Meine Dividendenprojektion, Jahr für Jahr — Finanzritual</title>
+<meta name="description" content="Jahresweise Projektion meiner Dividendenstrategie: Depotwert, Dividende brutto/netto, Yield-on-Cost — mit anpassbarem Tool zum Ausdrucken." data-en-content="Year-by-year projection of my dividend strategy: portfolio value, contributions, gross/net dividend, yield-on-cost — plus a tool to adapt, copy and print your own projection.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-dividendenprojektion.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dividendenprojektion: Meine echten Zahlen, Jahr für Jahr" data-en-content="Dividend Projection: My Real Numbers, Year by Year">
+<meta property="og:description" content="Jahresweise Projektion meiner Dividendenstrategie mit interaktivem Tool zum Anpassen, Kopieren und Drucken." data-en-content="Year-by-year projection of my dividend strategy with an interactive tool to adapt, copy and print.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-dividendenprojektion.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Dividendenprojektion: Meine echten Zahlen, Jahr für Jahr",
+  "description": "Jahresweise Projektion meiner Dividendenstrategie: Depotwert, Einzahlungen, Dividende brutto/netto, Yield-on-Cost.",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.finanz-ritual.de/beitrag-dividendenprojektion.html" },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* =====================================================================
+   DIVIDENDENPROJEKTION — Tool-Styles
+   ===================================================================== */
+
+/* ---- Eingabe-Panel ---- */
+.dv-tool {
+  margin: 32px 0;
+  background: var(--bg-raised);
+  border: 2px solid var(--line-strong);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.dv-tool-header {
+  padding: 22px 28px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dv-tool-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0;
+}
+.dv-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--green-soft);
+  color: var(--green);
+  border: 1px solid rgba(30,142,90,.2);
+}
+
+/* ---- Inputs Grid ---- */
+.dv-inputs-wrap {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.dv-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 28px;
+}
+@media (max-width: 700px) { .dv-inputs-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .dv-inputs-grid { grid-template-columns: 1fr; } }
+
+.dv-input-group { display: flex; flex-direction: column; gap: 5px; }
+.dv-input-label {
+  font-size: .74rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: .02em;
+}
+.dv-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+  transition: border-color .15s;
+}
+.dv-input-row:focus-within { border-color: var(--blue); }
+.dv-input-row input[type="number"] {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 8px 10px;
+  outline: none;
+  -moz-appearance: textfield;
+}
+.dv-input-row input[type="number"]::-webkit-inner-spin-button,
+.dv-input-row input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.dv-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  color: var(--ink-soft);
+  padding: 0 9px;
+  border-left: 1px solid var(--line);
+  white-space: nowrap;
+  background: var(--bg-raised);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+/* Checkbox-Row */
+.dv-check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 4px;
+}
+.dv-check-row input[type="checkbox"] {
+  width: 17px; height: 17px;
+  accent-color: var(--green);
+  cursor: pointer;
+  flex: none;
+}
+.dv-check-row label {
+  font-size: .78rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  line-height: 1.3;
+}
+/* Sektion-Label innerhalb Grid */
+.dv-section-label {
+  grid-column: 1 / -1;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  margin-top: 4px;
+}
+.dv-section-label:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+
+/* ---- Key-Stats Reihe ---- */
+.dv-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 640px) { .dv-stats { grid-template-columns: repeat(2, 1fr); } }
+.dv-stat {
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
+}
+.dv-stat:last-child { border-right: none; }
+@media (max-width: 640px) {
+  .dv-stat:nth-child(2) { border-right: none; }
+  .dv-stat:nth-child(3) { border-top: 1px solid var(--line); }
+  .dv-stat:nth-child(4) { border-right: none; border-top: 1px solid var(--line); }
+}
+.dv-stat-label {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 5px;
+}
+.dv-stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.45rem;
+  color: var(--ink);
+  line-height: 1;
+}
+.dv-stat-value.is-green { color: var(--green); }
+.dv-stat-value.is-blue  { color: var(--blue); }
+.dv-stat-sub {
+  font-size: .7rem;
+  color: var(--ink-soft);
+  margin-top: 3px;
+}
+
+/* ---- Charts ---- */
+.dv-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 640px) { .dv-charts { grid-template-columns: 1fr; } }
+.dv-chart-panel {
+  padding: 20px 20px 16px;
+  border-right: 1px solid var(--line);
+}
+.dv-chart-panel:last-child { border-right: none; }
+@media (max-width: 640px) {
+  .dv-chart-panel { border-right: none; border-bottom: 1px solid var(--line); }
+  .dv-chart-panel:last-child { border-bottom: none; }
+}
+.dv-chart-title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 10px;
+}
+.dv-chart-panel svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* ---- Tabelle ---- */
+.dv-table-wrap {
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  -webkit-overflow-scrolling: touch;
+}
+.dv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .76rem;
+  min-width: 560px;
+}
+.dv-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-raised);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 7px 10px;
+  text-align: right;
+  border-bottom: 2px solid var(--line-strong);
+  border-right: 1px solid var(--line);
+  white-space: nowrap;
+}
+.dv-table thead th:first-child { text-align: left; }
+.dv-table th:last-child, .dv-table td:last-child { border-right: none; }
+/* Gruppen-Trenner nach Depot Start (2) und Netto/Mon. (5) */
+.dv-table th:nth-child(2), .dv-table td:nth-child(2),
+.dv-table th:nth-child(5), .dv-table td:nth-child(5) {
+  border-right: 1px solid var(--line-strong);
+}
+.dv-table tbody tr { border-bottom: 1px solid var(--line); }
+.dv-table tbody tr:hover { background: var(--bg); }
+.dv-table tbody tr.is-milestone { background: var(--green-soft); }
+.dv-table tbody tr.is-milestone td { font-weight: 600; }
+.dv-table td {
+  padding: 6px 10px;
+  text-align: right;
+  color: var(--ink);
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  border-right: 1px solid var(--line);
+}
+.dv-table td:first-child {
+  text-align: left;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: var(--ink-soft);
+  font-size: .75rem;
+}
+.dv-table td.is-green  { color: var(--green); }
+.dv-table td.is-blue   { color: var(--blue);  }
+.dv-table td.is-red    { color: #c0392b; }
+.dv-table .ms-badge {
+  display: inline-block;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  background: var(--green);
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin-left: 5px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+/* ---- Meilensteine ---- */
+.dv-table-footnote {
+  padding: 8px 20px 10px;
+  font-size: .66rem;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.6;
+}
+.dv-table-footnote span { display: block; }
+.dv-milestones {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.dv-ms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+@media (max-width: 640px) { .dv-ms-grid { grid-template-columns: 1fr 1fr; } }
+.dv-ms-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.dv-ms-card.is-reached {
+  background: var(--green-soft);
+  border-color: rgba(30,142,90,.25);
+}
+.dv-ms-label {
+  font-size: .66rem;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .04em;
+  margin-bottom: 4px;
+}
+.dv-ms-year {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.dv-ms-card.is-reached .dv-ms-year { color: var(--green); }
+.dv-ms-sub {
+  font-size: .66rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* ---- Aktionen ---- */
+.dv-actions {
+  padding: 18px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.dv-actions .btn { font-size: .8rem; }
+.dv-note {
+  flex: 1;
+  font-size: .7rem;
+  color: var(--ink-soft);
+  min-width: 180px;
+}
+
+/* =====================================================================
+   PRINT
+   ===================================================================== */
+@media print {
+  header.site, .alert-banner, .alert-bell, .scroll-top-btn,
+  .page-hero, .article-intro, .article-outro, footer.site,
+  .dv-actions, .dv-tool-header .dv-badge {
+    display: none !important;
+  }
+  body { background: #fff !important; }
+  .wrap { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  .dv-tool { border: 1.5px solid #333 !important; box-shadow: none !important; margin: 0 !important; }
+  .dv-inputs-wrap { display: none !important; }
+  .dv-stat-value { font-size: 1.15rem !important; }
+  .dv-charts { grid-template-columns: 1fr 1fr !important; }
+  .dv-table { font-size: .72rem !important; min-width: auto !important; }
+  .dv-table td, .dv-table th { padding: 6px 10px !important; }
+  .dv-print-header { display: block !important; padding: 16px 28px 0; }
+  .dv-table-footnote {
+  padding: 8px 20px 10px;
+  font-size: .66rem;
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.6;
+}
+.dv-table-footnote span { display: block; }
+.dv-milestones { padding: 14px 28px !important; }
+  .dv-ms-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+.dv-print-header { display: none; }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-dividendenprojektion.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-dividendenprojektion.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- WARN-BANNER -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<!-- HEADER -->
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+          <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+          <a href="kat-finanzen-portfolio.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+          <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+          <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+          <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+          <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+          <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+          <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+          <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">Lebensstil<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nav-drop-panel">
+          <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+          <div class="nav-group-label" data-en="FIRE">FIRE</div>
+          <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+          <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+          <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+          <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+          <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+          <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English"><span id="lang-toggle-text">EN</span></button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview"><span class="alert-test-dot"></span></button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-portfolio.html" data-en="My Portfolio">Mein Portfolio</a><span>/</span><span aria-current="page" data-en="Dividend Projection">Dividendenprojektion</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · Portfolio · 11 Aug 2026">Finanzen · Portfolio · 11.08.2026</div>
+    <h1 data-en="Dividend Projection: My Real Numbers, Year by Year">Dividendenprojektion: Meine echten Zahlen, Jahr für Jahr</h1>
+    <p style="max-width:60ch;" data-en="What does a dividend portfolio actually pay out in ten, fifteen, twenty years — if you keep adding every month? The tool below shows my projection, year by year. You can adjust every parameter and make it your own.">Was zahlt ein Dividendenportfolio in zehn, fünfzehn, zwanzig Jahren wirklich aus — wenn man jeden Monat weiter einzahlt? Das Tool zeigt meine Projektion, Jahr für Jahr. Alle Parameter lassen sich anpassen und auf die eigene Strategie übertragen.</p>
+  </div>
+</section>
+
+<!-- ARTIKEL -->
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <div class="article-intro">
+      <p data-en="Dividend projections in articles are usually illustrations: a smooth curve, assumptions not clearly stated, no room to change anything. This one is different. The numbers below are the actual parameters of my own strategy — starting capital, monthly contribution, current yield, expected dividend growth, expected price growth. Everything is editable. If your numbers differ from mine, adjust them. The model updates instantly.">Dividendenprojektionen in Artikeln sind meistens Illustrationen: eine glatte Kurve, Annahmen nicht klar benannt, nichts veränderbar. Dieser hier ist anders. Die Zahlen unten sind die echten Parameter meiner eigenen Strategie — Startkapital, monatliche Einzahlung, aktuelle Rendite, erwartetes Dividendenwachstum, erwartetes Kurswachstum. Alles ist editierbar. Wenn deine Zahlen abweichen, pass sie an. Das Modell aktualisiert sich sofort.</p>
+
+      <p data-en="One note on the model: dividend growth and share-price growth are treated as separate rates. If dividend growth is faster than price growth, the effective yield on today's cost (Yield-on-Cost) improves each year. If they're equal, the yield stays flat. This is intentional — it reflects the real mechanics of a dividend-growth strategy.">Hinweis zum Modell: Dividendenwachstum und Kurswachstum werden als getrennte Raten behandelt. Wenn das Dividendenwachstum höher ist als das Kurswachstum, verbessert sich die effektive Rendite auf den Einstandspreis (Yield-on-Cost) Jahr für Jahr. Sind beide gleich, bleibt die Rendite konstant. Das ist so gewollt — es bildet die echte Mechanik einer Dividendenwachstums-Strategie ab.</p>
+    </div>
+
+    <!-- ============================================================
+         PROJEKTIONS-TOOL
+         ============================================================ -->
+    <div class="dv-tool" id="dv-tool">
+
+      <!-- Print-Header (nur Druck) -->
+      <div class="dv-print-header">
+        <strong>Dividendenprojektion · finanz-ritual.de</strong>
+        <span id="dv-print-params" style="font-size:.8rem; color:#666; margin-left:12px;"></span>
+      </div>
+
+      <!-- Kopfzeile -->
+      <div class="dv-tool-header">
+        <span class="dv-tool-title" data-en="Dividend Projection">Dividendenprojektion</span>
+        <span class="dv-badge" data-en="Adjust to your strategy">An deine Strategie anpassbar</span>
+      </div>
+
+      <!-- Eingaben -->
+      <div class="dv-inputs-wrap">
+        <div class="dv-inputs-grid">
+
+          <div class="dv-section-label" data-en="Starting position">Ausgangsposition</div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-start" data-en="Current portfolio value">Aktueller Depotwert</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-start" value="52000" min="0" max="5000000" step="500" aria-label="Aktueller Depotwert in Euro">
+              <span class="dv-unit">€</span>
+            </div>
+          </div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-monthly" data-en="Monthly contribution">Monatliche Einzahlung</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-monthly" value="400" min="0" max="10000" step="50" aria-label="Monatliche Einzahlung in Euro">
+              <span class="dv-unit">€/Monat</span>
+            </div>
+          </div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-years" data-en="Time horizon">Zeithorizont</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-years" value="25" min="3" max="50" step="1" aria-label="Zeithorizont in Jahren">
+              <span class="dv-unit" data-en="years">Jahre</span>
+            </div>
+          </div>
+
+          <div class="dv-section-label" data-en="Strategy parameters">Strategie-Parameter</div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-yield" data-en="Current dividend yield">Dividendenrendite heute</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-yield" value="3.8" min="0.1" max="15" step="0.1" aria-label="Dividendenrendite in Prozent">
+              <span class="dv-unit">%</span>
+            </div>
+          </div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-divgrowth" data-en="Dividend growth p.a.">Div-Wachstum p.a.</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-divgrowth" value="6" min="0" max="20" step="0.5" aria-label="Jährliches Dividendenwachstum in Prozent">
+              <span class="dv-unit">% p.a.</span>
+            </div>
+          </div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-pricegrowth" data-en="Price growth p.a.">Kurswachstum p.a.</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-pricegrowth" value="5" min="0" max="20" step="0.5" aria-label="Jährliches Kurswachstum in Prozent">
+              <span class="dv-unit">% p.a.</span>
+            </div>
+          </div>
+
+          <div class="dv-input-group">
+            <label class="dv-input-label" for="dv-tax" data-en="Capital gains tax">Abgeltungssteuer</label>
+            <div class="dv-input-row">
+              <input type="number" id="dv-tax" value="26.375" min="0" max="50" step="0.001" aria-label="Abgeltungssteuer in Prozent">
+              <span class="dv-unit">%</span>
+            </div>
+          </div>
+
+          <div class="dv-input-group" style="justify-content:flex-end;">
+            <label class="dv-input-label">&nbsp;</label>
+            <div class="dv-check-row">
+              <input type="checkbox" id="dv-reinvest" checked aria-label="Dividenden reinvestieren">
+              <label for="dv-reinvest" data-en="Reinvest dividends (DRIP)">Dividenden reinvestieren (DRIP)</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Key Stats -->
+      <div class="dv-stats" id="dv-stats">
+        <div class="dv-stat">
+          <div class="dv-stat-label" data-en="Annual dividend today">Dividende/Jahr heute</div>
+          <div class="dv-stat-value is-green" id="dv-s-now">–</div>
+          <div class="dv-stat-sub" id="dv-s-now-monthly">– Netto/Mon.</div>
+        </div>
+        <div class="dv-stat">
+          <div class="dv-stat-label" id="dv-s-final-label" data-en="Annual dividend at end">Dividende/Jahr am Ende</div>
+          <div class="dv-stat-value is-green" id="dv-s-final">–</div>
+          <div class="dv-stat-sub" id="dv-s-final-monthly">– Netto/Mon.</div>
+        </div>
+        <div class="dv-stat">
+          <div class="dv-stat-label" data-en="Portfolio value at end">Depotwert am Ende</div>
+          <div class="dv-stat-value is-blue" id="dv-s-depot">–</div>
+          <div class="dv-stat-sub" id="dv-s-invested">davon eingezahlt: –</div>
+        </div>
+        <div class="dv-stat">
+          <div class="dv-stat-label" data-en="Total dividends received">Dividenden gesamt</div>
+          <div class="dv-stat-value" id="dv-s-total">–</div>
+          <div class="dv-stat-sub" id="dv-s-yoc"></div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="dv-charts">
+        <div class="dv-chart-panel">
+          <div class="dv-chart-title" data-en="Net dividend per year (€)">Netto-Dividende p.a. (€)</div>
+          <svg id="dv-chart-div" viewBox="0 0 330 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dividenden-Verlaufschart"></svg>
+        </div>
+        <div class="dv-chart-panel">
+          <div class="dv-chart-title" data-en="Portfolio value (€)">Depotwert-Entwicklung (€)</div>
+          <svg id="dv-chart-depot" viewBox="0 0 330 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Depotwert-Entwicklungschart"></svg>
+        </div>
+      </div>
+
+      <!-- Tabelle -->
+      <div class="dv-table-wrap">
+        <table class="dv-table" id="dv-table" aria-label="Jahresweise Dividendenprojektion">
+          <thead>
+            <tr>
+              <th data-en="Year">Jahr</th>
+              <th data-en="Portfolio start">Depot Start</th>
+              <th data-en="Gross/yr">Brutto/J.</th>
+              <th data-en="Net/yr">Netto/J.</th>
+              <th data-en="Net/mo.">Netto/Mon.</th>
+              <th data-en="Div.-Rendite">Div.-Rendite</th>
+            </tr>
+          </thead>
+          <tbody id="dv-tbody"></tbody>
+        </table>
+      </div>
+      <div class="dv-table-footnote" data-en="Div.-Rendite: annual dividend &divide; current portfolio value — equivalent to the standard dividend yield on today&rsquo;s market price.">
+        <span>Div.-Rendite: jährliche Dividende ÷ aktueller Depotwert — entspricht der klassischen Dividendenrendite auf den heutigen Marktpreis.</span>
+      </div>
+
+      <!-- Meilensteine -->
+      <div class="dv-milestones">
+        <div class="dv-chart-title" data-en="Milestones">Meilensteine</div>
+        <div class="dv-ms-grid" id="dv-ms-grid"></div>
+      </div>
+
+      <!-- Aktionen -->
+      <div class="dv-actions">
+        <button type="button" class="btn btn-outline" id="dv-reset-btn" data-en="Reset to my values">Auf meine Werte zurücksetzen</button>
+        <button type="button" class="btn btn-outline" id="dv-copy-btn" data-en="Copy table">Tabelle kopieren</button>
+        <button type="button" class="btn btn-primary" id="dv-print-btn" data-en="Print / Save as PDF">Drucken / PDF</button>
+        <span class="dv-note calc-note" data-en="Simplified projection, not investment advice. Dividends can be cut or suspended at any time.">Vereinfachte Projektion, keine Anlageberatung. Dividenden können jederzeit gekürzt oder gestrichen werden.</span>
+      </div>
+    </div><!-- /dv-tool -->
+
+    <div class="article-outro">
+      <h2 data-en="What the numbers don't show">Was die Zahlen nicht zeigen</h2>
+      <p data-en="Every projection assumes the inputs hold constant — the same yield, the same growth, the same monthly contribution, year after year. Reality doesn't work that way. Companies cut dividends. Markets crash. You might pause your contributions for a year. The projection is a planning tool, not a guarantee. What it does show, reliably, is the directional effect of compounding: more capital produces more dividend income, which in turn adds more capital, and the gap between the early years and the late years is always wider than people expect.">Jede Projektion setzt voraus, dass die Eingaben konstant bleiben — dieselbe Rendite, dasselbe Wachstum, dieselbe monatliche Einzahlung, Jahr für Jahr. Die Realität funktioniert nicht so. Unternehmen kürzen Dividenden. Märkte brechen ein. Du pausierst vielleicht ein Jahr mit den Einzahlungen. Die Projektion ist ein Planungswerkzeug, keine Garantie. Was sie zuverlässig zeigt: den Richtungseffekt des Zinseszinses. Mehr Kapital produziert mehr Dividendeneinkommen, das wiederum mehr Kapital ergibt — und der Abstand zwischen den frühen und den späten Jahren ist immer größer, als man erwartet.</p>
+
+      <p data-en="The most useful number in the table isn't the final one. It's whichever year the monthly net dividend crosses a personally meaningful threshold — 200 €, 500 €, 1.000 €. That's the year that reframes the strategy from 'I hope this pays off eventually' to 'I can see exactly when this becomes meaningful income.'">Die nützlichste Zahl in der Tabelle ist nicht die letzte. Es ist das Jahr, in dem die monatliche Netto-Dividende eine persönlich bedeutsame Schwelle überschreitet — 200 €, 500 €, 1.000 €. Das ist das Jahr, das die Strategie umdeutet: von „ich hoffe, das zahlt sich irgendwann aus" zu „ich sehe genau, wann daraus echtes Einkommen wird."</p>
+
+      <p style="margin-top:32px;" data-en="Related articles:">Verwandte Artikel:</p>
+      <ul>
+        <li><a href="beitrag-startschuss-dividendenstrategie.html" data-en="→ The Starting Signal: How a Crash Turned Into My Dividend Strategy">→ Der Startschuss: Wie aus einem Kurssturz meine Dividendenstrategie wurde</a></li>
+        <li><a href="beitrag-einstandsrendite-yield-on-cost.html" data-en="→ Yield-on-Cost: The Number That Grows Even When the Market Doesn't">→ Einstandsrendite (Yield-on-Cost): Die Zahl, die wächst, auch wenn der Markt es nicht tut</a></li>
+        <li><a href="beitrag-etf-watchlist-dividenden.html" data-en="→ My Dividend ETF Watchlist">→ Meine Dividenden-ETF-Watchlist</a></li>
+        <li><a href="rechner-dividenden.html" data-en="→ Simple dividend calculator (quick version)">→ Einfacher Dividendenrechner (Schnellversion)</a></li>
+        <li><a href="beitrag-depot-performance-6-jahre.html" data-en="→ My Portfolio, Six Years, No Filter">→ Mein Depot, sechs Jahre, ungeschönt</a></li>
+      </ul>
+
+      <div class="disclaimer-box" style="margin-top:32px;" data-en="This tool is educational material, not investment advice. All projections assume constant dividend growth, constant price growth, and constant monthly contributions — none of which are guaranteed in practice. Dividends may be cut or suspended. Past dividend growth of individual companies or ETFs does not predict future behaviour. Yield-on-Cost figures are calculated relative to the initial portfolio value, not to individual share purchase prices.">Dieses Tool ist Bildungsmaterial, keine Anlageberatung. Alle Projektionen setzen konstantes Dividendenwachstum, konstantes Kurswachstum und konstante monatliche Einzahlungen voraus — nichts davon ist in der Praxis garantiert. Dividenden können gekürzt oder gestrichen werden. Vergangenes Dividendenwachstum von Einzelwerten oder ETFs lässt keine Rückschlüsse auf die zukünftige Entwicklung zu. Die Yield-on-Cost-Werte beziehen sich auf den anfänglichen Depotwert, nicht auf individuelle Einstandskurse.</div>
+    </div>
+
+  </div>
+</article>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* =====================================================================
+   DIVIDENDENPROJEKTION — Berechnungsmotor + Charts
+   Autor: Finanzritual · 2026
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  const WJ = '\u2060'; // Word-Joiner verhindert Umbruch vor %/€
+
+  /* ---- Rainer's Baseline-Werte (Reset-Referenz) ---- */
+  const DEFAULTS = {
+    start:       52000,
+    monthly:     400,
+    years:       25,
+    yield:       3.8,
+    divGrowth:   6.0,
+    priceGrowth: 5.0,
+    tax:         26.375,
+    reinvest:    true
+  };
+
+  /* ---- DOM ---- */
+  const $  = id => document.getElementById(id);
+  const inputs = {
+    start:       $('dv-start'),
+    monthly:     $('dv-monthly'),
+    years:       $('dv-years'),
+    yield:       $('dv-yield'),
+    divGrowth:   $('dv-divgrowth'),
+    priceGrowth: $('dv-pricegrowth'),
+    tax:         $('dv-tax'),
+    reinvest:    $('dv-reinvest')
+  };
+
+  /* ---- Formatierung ---- */
+  function isEn() { return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function fmtEur(v, fractionDigits) {
+    const fd = fractionDigits !== undefined ? fractionDigits : 0;
+    const n = new Intl.NumberFormat(isEn() ? 'en-IE' : 'de-DE',
+      { minimumFractionDigits: fd, maximumFractionDigits: fd }).format(v);
+    return isEn() ? ('€' + n) : (n + WJ + '\u00a0€');
+  }
+  function fmtPct(v, fd) {
+    const d = fd !== undefined ? fd : 1;
+    return new Intl.NumberFormat(isEn() ? 'en-IE' : 'de-DE',
+      { minimumFractionDigits: d, maximumFractionDigits: d }).format(v) + WJ + '%';
+  }
+  function fmtYear(y) { return String(y); }
+
+  /* ---- Projektion berechnen ---- */
+  function compute() {
+    const start       = Math.max(0, parseFloat(inputs.start.value)       || 0);
+    const monthly     = Math.max(0, parseFloat(inputs.monthly.value)     || 0);
+    const years       = Math.max(1, Math.min(50, parseInt(inputs.years.value) || 1));
+    const yieldPct    = Math.max(0, parseFloat(inputs.yield.value)       || 0);
+    const divGrowth   = Math.max(0, parseFloat(inputs.divGrowth.value)   || 0);
+    const priceGrowth = Math.max(0, parseFloat(inputs.priceGrowth.value) || 0);
+    const taxRate     = Math.max(0, parseFloat(inputs.tax.value)         || 0) / 100;
+    const reinvest    = inputs.reinvest.checked;
+
+    const annualContrib    = monthly * 12;
+    const yieldFrac        = yieldPct / 100;
+    const divGrowthFac     = 1 + divGrowth / 100;
+    const priceGrowthFac   = 1 + priceGrowth / 100;
+    const ratioFac         = divGrowthFac / priceGrowthFac; // Yield-Drift p.a.
+    const taxFac           = 1 - taxRate;
+    const startYear        = new Date().getFullYear();
+
+    const rows         = [];
+    let depot          = start;
+    let totalInvested  = start;
+    let totalGrossDiv  = 0;
+
+    for (let y = 0; y < years; y++) {
+      const effYield   = yieldFrac * Math.pow(ratioFac, y);   // effektive Rendite in Jahr y
+      const grossDiv   = depot * effYield;
+      const netDiv     = grossDiv * taxFac;
+      const yoc        = totalInvested > 0 ? (grossDiv / totalInvested * 100) : 0;
+
+      rows.push({
+        year:         startYear + y,
+        depot:        Math.round(depot),
+        grossDiv:     Math.round(grossDiv),
+        netDiv:       Math.round(netDiv),
+        netMonthly:   Math.round(netDiv / 12),
+        yoc:          yoc,
+        effYield:     effYield * 100,
+        totalInvested: Math.round(totalInvested)
+      });
+
+      totalGrossDiv += grossDiv;
+
+      // Depot für nächstes Jahr
+      let nextDepot = depot * priceGrowthFac + annualContrib;
+      if (reinvest) nextDepot += grossDiv;
+      depot = nextDepot;
+      totalInvested += annualContrib;
+    }
+
+    return { rows, totalGrossDiv, finalDepot: depot, totalInvested, startYear, years };
+  }
+
+  /* ---- Milesteine ---- */
+  const MILESTONES = [
+    { key: 'div-1k',   label: isEn => isEn ? '1,000 €/year' : '1.000\u00a0€/Jahr',  test: r => r.netDiv >= 1000   },
+    { key: 'div-500m', label: isEn => isEn ? '500 €/month'  : '500\u00a0€/Monat',   test: r => r.netMonthly >= 500 },
+    { key: 'div-1km',  label: isEn => isEn ? '1,000 €/month': '1.000\u00a0€/Monat', test: r => r.netMonthly >= 1000 },
+    { key: 'depot100', label: isEn => isEn ? 'Depot 100k'   : 'Depot 100k',          test: r => r.depot >= 100000  },
+    { key: 'depot250', label: isEn => isEn ? 'Depot 250k'   : 'Depot 250k',          test: r => r.depot >= 250000  },
+    { key: 'depot500', label: isEn => isEn ? 'Depot 500k'   : 'Depot 500k',          test: r => r.depot >= 500000  },
+  ];
+
+  function findMilestones(rows, startYear, years) {
+    const found = {};
+    MILESTONES.forEach(ms => {
+      const row = rows.find(ms.test);
+      found[ms.key] = row ? row.year : null;
+    });
+    return found;
+  }
+
+  /* ---- Charts ---- */
+  // Hilfsfunktion: SVG-Element erzeugen
+  function svgEl(tag, attrs) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+    return el;
+  }
+
+  function getColor(varName) {
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  }
+
+  function drawDivChart(rows) {
+    const svg    = $('dv-chart-div');
+    svg.innerHTML = '';
+    if (!rows.length) return;
+
+    const W = 330, H = 200, PL = 42, PR = 8, PT = 10, PB = 30;
+    const cW = W - PL - PR;
+    const cH = H - PT - PB;
+    const n  = rows.length;
+    const maxVal = Math.max(...rows.map(r => r.netDiv), 1);
+
+    const green    = getColor('--green')    || '#1E8E5A';
+    const inkSoft  = getColor('--ink-soft') || '#4B5568';
+    const line     = getColor('--line')     || '#C6CBBD';
+    const blue     = getColor('--blue')     || '#2454A6';
+
+    const barW = Math.max(1, (cW / n) - 2);
+    const gap  = Math.max(0, (cW - barW * n) / (n - 1 || 1));
+
+    // Y-Achse Labels (3 Stufen)
+    [0, 0.5, 1].forEach(f => {
+      const val = maxVal * f;
+      const y   = PT + cH - f * cH;
+      const txt = svgEl('text', { x: PL - 5, y: y + 4, 'text-anchor': 'end',
+        'font-size': '9', fill: inkSoft, 'font-family': 'JetBrains Mono,monospace' });
+      txt.textContent = val >= 1000
+        ? (val / 1000).toFixed(val % 1000 === 0 ? 0 : 1) + 'k'
+        : String(Math.round(val));
+      svg.appendChild(txt);
+      if (f > 0) {
+        svg.appendChild(svgEl('line', { x1: PL, y1: y, x2: W - PR, y2: y,
+          stroke: line, 'stroke-width': '0.5', 'stroke-dasharray': '3 3' }));
+      }
+    });
+
+    // Balken
+    rows.forEach((r, i) => {
+      const bH   = (r.netDiv / maxVal) * cH;
+      const x    = PL + i * (barW + gap);
+      const y    = PT + cH - bH;
+      const isMilestone = r.netMonthly >= 500;
+
+      svg.appendChild(svgEl('rect', {
+        x: x.toFixed(1), y: y.toFixed(1),
+        width: barW.toFixed(1), height: Math.max(1, bH).toFixed(1),
+        fill: isMilestone ? blue : green,
+        rx: '1.5'
+      }));
+    });
+
+    // X-Achse: jedes 5. Jahr (oder Anfang/Ende)
+    rows.forEach((r, i) => {
+      if (i === 0 || i === rows.length - 1 || r.year % 5 === 0) {
+        const x = PL + i * (barW + gap) + barW / 2;
+        const txt = svgEl('text', { x: x.toFixed(1), y: H - 4, 'text-anchor': 'middle',
+          'font-size': '8.5', fill: inkSoft, 'font-family': 'JetBrains Mono,monospace' });
+        txt.textContent = String(r.year).slice(2);
+        svg.appendChild(txt);
+      }
+    });
+  }
+
+  function drawDepotChart(rows) {
+    const svg    = $('dv-chart-depot');
+    svg.innerHTML = '';
+    if (!rows.length) return;
+
+    const W = 330, H = 200, PL = 50, PR = 8, PT = 10, PB = 30;
+    const cW = W - PL - PR;
+    const cH = H - PT - PB;
+    const n  = rows.length;
+
+    const allDepots    = rows.map(r => r.depot);
+    const allInvested  = rows.map(r => r.totalInvested);
+    const maxVal = Math.max(...allDepots, 1);
+
+    const blue     = getColor('--blue')      || '#2454A6';
+    const blueS    = getColor('--blue-soft') || '#E7EEF9';
+    const green    = getColor('--green')     || '#1E8E5A';
+    const greenS   = getColor('--green-soft')|| '#E6F3EC';
+    const inkSoft  = getColor('--ink-soft')  || '#4B5568';
+    const line     = getColor('--line')      || '#C6CBBD';
+    const bgRaised = getColor('--bg-raised') || '#FFFFFF';
+
+    function xOf(i)   { return PL + (i / (n - 1 || 1)) * cW; }
+    function yOf(val) { return PT + cH - (val / maxVal) * cH; }
+
+    // Gitter
+    [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+      const val = maxVal * f;
+      const y   = PT + cH - f * cH;
+      const txt = svgEl('text', { x: PL - 5, y: y + 4, 'text-anchor': 'end',
+        'font-size': '9', fill: inkSoft, 'font-family': 'JetBrains Mono,monospace' });
+      txt.textContent = val >= 1000000
+        ? (val / 1000000).toFixed(1) + 'M'
+        : val >= 1000
+          ? (val / 1000).toFixed(0) + 'k'
+          : String(Math.round(val));
+      svg.appendChild(txt);
+      if (f > 0 && f < 1) {
+        svg.appendChild(svgEl('line', { x1: PL, y1: y, x2: W - PR, y2: y,
+          stroke: line, 'stroke-width': '0.5', 'stroke-dasharray': '3 3' }));
+      }
+    });
+
+    // Bereich: Kumulierte Einzahlungen (hellgrün)
+    const invPts = rows.map((r, i) => `${xOf(i).toFixed(1)},${yOf(r.totalInvested).toFixed(1)}`);
+    const invPoly = invPts.join(' ') +
+      ` ${xOf(n-1).toFixed(1)},${(PT+cH)} ${xOf(0).toFixed(1)},${(PT+cH)}`;
+    svg.appendChild(svgEl('polygon', { points: invPoly, fill: greenS, opacity: '0.8' }));
+
+    // Bereich: Gesamt-Depotwert (hellblau)
+    const depPts = rows.map((r, i) => `${xOf(i).toFixed(1)},${yOf(r.depot).toFixed(1)}`);
+    const depPoly = depPts.join(' ') +
+      ` ${xOf(n-1).toFixed(1)},${(PT+cH)} ${xOf(0).toFixed(1)},${(PT+cH)}`;
+    svg.appendChild(svgEl('polygon', { points: depPoly, fill: blueS, opacity: '0.85' }));
+
+    // Linie: Depotwert (blau)
+    svg.appendChild(svgEl('polyline', {
+      points: depPts.join(' '), fill: 'none',
+      stroke: blue, 'stroke-width': '1.8', 'stroke-linecap': 'round', 'stroke-linejoin': 'round'
+    }));
+
+    // Linie: Einzahlungen (grün)
+    svg.appendChild(svgEl('polyline', {
+      points: invPts.join(' '), fill: 'none',
+      stroke: green, 'stroke-width': '1.2',
+      'stroke-dasharray': '4 3', 'stroke-linecap': 'round'
+    }));
+
+    // X-Achse
+    rows.forEach((r, i) => {
+      if (i === 0 || i === rows.length - 1 || r.year % 5 === 0) {
+        const x = xOf(i);
+        const txt = svgEl('text', { x: x.toFixed(1), y: H - 4, 'text-anchor': 'middle',
+          'font-size': '8.5', fill: inkSoft, 'font-family': 'JetBrains Mono,monospace' });
+        txt.textContent = String(r.year).slice(2);
+        svg.appendChild(txt);
+      }
+    });
+
+    // Legende
+    const leg = [
+      { label: isEn() ? 'Portfolio' : 'Depot', color: blue, dash: false },
+      { label: isEn() ? 'Invested'  : 'Einzahlungen', color: green, dash: true }
+    ];
+    leg.forEach((l, li) => {
+      const lx = PL + li * 100;
+      svg.appendChild(svgEl('line', {
+        x1: lx, y1: PT - 2, x2: lx + 14, y2: PT - 2,
+        stroke: l.color, 'stroke-width': '1.8',
+        'stroke-dasharray': l.dash ? '4 3' : 'none'
+      }));
+      const t = svgEl('text', { x: lx + 18, y: PT + 2, 'font-size': '8.5',
+        fill: inkSoft, 'font-family': 'JetBrains Mono,monospace' });
+      t.textContent = l.label;
+      svg.appendChild(t);
+    });
+  }
+
+  /* ---- Haupt-Render ---- */
+  function render() {
+    const { rows, totalGrossDiv, finalDepot, totalInvested, startYear, years } = compute();
+    if (!rows.length) return;
+
+    const en  = isEn();
+    const r0  = rows[0];
+    const rN  = rows[rows.length - 1];
+    const tax = Math.max(0, parseFloat(inputs.tax.value) || 0) / 100;
+
+    // ---- Key Stats ----
+    $('dv-s-now').textContent         = fmtEur(r0.netDiv);
+    $('dv-s-now-monthly').textContent = fmtEur(r0.netMonthly) + (en ? ' net/mo.' : ' Netto/Mon.');
+    $('dv-s-final').textContent       = fmtEur(rN.netDiv);
+    $('dv-s-final-monthly').textContent = fmtEur(rN.netMonthly) + (en ? ' net/mo.' : ' Netto/Mon.');
+    $('dv-s-final-label').textContent = en ? 'Annual div. in ' + rN.year : 'Dividende/J. in ' + rN.year;
+    $('dv-s-depot').textContent       = fmtEur(Math.round(finalDepot));
+    $('dv-s-invested').textContent    = (en ? 'of which invested: ' : 'davon eingezahlt: ') + fmtEur(Math.round(totalInvested));
+    $('dv-s-total').textContent       = fmtEur(Math.round(totalGrossDiv * (1 - tax)));
+    $('dv-s-yoc').textContent         = '';
+
+    // Print-Params
+    const start   = parseFloat(inputs.start.value) || 0;
+    const monthly = parseFloat(inputs.monthly.value) || 0;
+    $('dv-print-params').textContent =
+      fmtEur(start) + ' + ' + fmtEur(monthly) + '/Mo. · '
+      + fmtPct(parseFloat(inputs.yield.value) || 0)
+      + ' · Div+' + fmtPct(parseFloat(inputs.divGrowth.value) || 0)
+      + ' · Kurs+' + fmtPct(parseFloat(inputs.priceGrowth.value) || 0)
+      + ' · ' + years + (en ? ' yrs' : ' J.');
+
+    // ---- Tabelle ----
+    const ms = findMilestones(rows);
+    const tbody = $('dv-tbody');
+    tbody.innerHTML = '';
+
+    rows.forEach(r => {
+      const isMilestone = r.netMonthly >= 500 || r.depot >= 100000;
+      const tr = document.createElement('tr');
+      if (isMilestone) tr.classList.add('is-milestone');
+
+      // Meilenstein-Badges bestimmen
+      let badge = '';
+      if (r.netMonthly >= 1000 && rows.find(x => x.year === r.year && MILESTONES[2].test(x)) && ms['div-1km'] === r.year)
+        badge += '<span class="ms-badge">' + (en ? '1k/mo' : '1k/Mo') + '</span>';
+      else if (r.netMonthly >= 500 && ms['div-500m'] === r.year)
+        badge += '<span class="ms-badge">' + (en ? '500/mo' : '500/Mo') + '</span>';
+      if (ms['depot100'] === r.year)
+        badge += '<span class="ms-badge" style="background:var(--blue)">100k</span>';
+      else if (ms['depot250'] === r.year)
+        badge += '<span class="ms-badge" style="background:var(--blue)">250k</span>';
+      else if (ms['depot500'] === r.year)
+        badge += '<span class="ms-badge" style="background:var(--blue)">500k</span>';
+
+      tr.innerHTML =
+        '<td>' + fmtYear(r.year) + badge + '</td>' +
+        '<td class="is-blue">' + fmtEur(r.depot) + '</td>' +
+        '<td>' + fmtEur(r.grossDiv) + '</td>' +
+        '<td class="is-green">' + fmtEur(r.netDiv) + '</td>' +
+        '<td class="is-green">' + fmtEur(r.netMonthly) + '</td>' +
+        '<td>' + fmtPct(r.effYield, 2) + '</td>';
+      tbody.appendChild(tr);
+    });
+
+    // ---- Meilensteine ----
+    const msGrid = $('dv-ms-grid');
+    msGrid.innerHTML = '';
+    MILESTONES.forEach(ms => {
+      const year = findMilestoneYear(rows, ms.test);
+      if (!year) return;                    // nicht erreichbar → Karte ausblenden
+      const card = document.createElement('div');
+      card.className = 'dv-ms-card is-reached';
+      const lbl = ms.label(en);
+      card.innerHTML =
+        '<div class="dv-ms-label">' + lbl + '</div>' +
+        '<div class="dv-ms-year">' + year + '</div>' +
+        '<div class="dv-ms-sub">' + (en ? 'in ' : 'in ') + (year - startYear) + (en ? ' years' : ' J.') + '</div>';
+      msGrid.appendChild(card);
+    });
+    // Meilenstein-Sektion ausblenden wenn keine Treffer
+    const msSection = $('dv-ms-grid').closest ? $('dv-ms-grid').parentElement : $('dv-ms-grid').parentNode;
+    msSection.style.display = msGrid.children.length ? '' : 'none';
+
+    // ---- Charts ----
+    drawDivChart(rows);
+    drawDepotChart(rows);
+  }
+
+  function findMilestoneYear(rows, testFn) {
+    const r = rows.find(testFn);
+    return r ? r.year : null;
+  }
+
+  /* ---- Event-Listener ---- */
+  Object.values(inputs).forEach(el => {
+    el.addEventListener('input', render);
+    el.addEventListener('change', render);
+  });
+
+  // Reset
+  $('dv-reset-btn').addEventListener('click', function () {
+    inputs.start.value       = DEFAULTS.start;
+    inputs.monthly.value     = DEFAULTS.monthly;
+    inputs.years.value       = DEFAULTS.years;
+    inputs.yield.value       = DEFAULTS.yield;
+    inputs.divGrowth.value   = DEFAULTS.divGrowth;
+    inputs.priceGrowth.value = DEFAULTS.priceGrowth;
+    inputs.tax.value         = DEFAULTS.tax;
+    inputs.reinvest.checked  = DEFAULTS.reinvest;
+    render();
+  });
+
+  // Tabelle kopieren
+  $('dv-copy-btn').addEventListener('click', function () {
+    const btn = this;
+    const table = $('dv-table');
+    const rows  = Array.from(table.querySelectorAll('tr'));
+    const text  = rows.map(tr =>
+      Array.from(tr.querySelectorAll('th,td'))
+        .map(c => c.textContent.trim().replace(/\s+/g, ' '))
+        .join('\t')
+    ).join('\n');
+    navigator.clipboard.writeText(text).then(function () {
+      const prev = btn.textContent;
+      btn.textContent = isEn() ? 'Copied!' : 'Kopiert!';
+      setTimeout(function () { btn.textContent = prev; }, 1800);
+    }).catch(function () {
+      // Fallback: text area
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    });
+  });
+
+  // Drucken
+  $('dv-print-btn').addEventListener('click', function () { window.print(); });
+
+  // Sprach-Neurendering wenn DE/EN wechselt
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+
+  // Init
+  render();
+})();
+</script>
+</body>
+</html>

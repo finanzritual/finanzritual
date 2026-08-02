@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Your Finance Cockpit: 10 Performance Gauges to Print and Test Yourself — Finanzritual">Dein Finanz-Cockpit mit 10 Performance-Uhren — Finanzritual</title>
+<meta name="description" content="Zehn Tacho-Uhren wie beim Auto: linker Anschlag 0%, rechter Anschlag 100% erreichtes Ziel. Eigene Zahlen eintragen, Nadel bewegt sich live." data-en-content="Ten car-tachometer-style gauges: left stop 0⁠%, right stop 100⁠% goal reached. Enter your own numbers, watch the needle move live, print it out and keep tracking by hand.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dein Finanz-Cockpit: 10 Performance-Uhren zum Ausdrucken und Selbst-Testen" data-en-content="Your Finance Cockpit: 10 Performance Gauges to Print and Test Yourself">
+<meta property="og:description" content="Zehn Tacho-Uhren wie beim Auto: linker Anschlag 0%, rechter Anschlag 100% erreichtes Ziel. Eigene Zahlen eintragen, Nadel bewegt sich live, ausdrucken und manuell weiterführen." data-en-content="Ten car-tachometer-style gauges: left stop 0⁠%, right stop 100⁠% goal reached. Enter your own numbers, watch the needle move live, print it out and keep tracking by hand.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dein Finanz-Cockpit: 10 Performance-Uhren zum Ausdrucken und Selbst-Testen" data-en-content="Your Finance Cockpit: 10 Performance Gauges to Print and Test Yourself">
+<meta name="twitter:description" content="Zehn Tacho-Uhren wie beim Auto: linker Anschlag 0%, rechter Anschlag 100% erreichtes Ziel. Eigene Zahlen eintragen, Nadel bewegt sich live, ausdrucken und manuell weiterführen." data-en-content="Ten car-tachometer-style gauges: left stop 0⁠%, right stop 100⁠% goal reached. Enter your own numbers, watch the needle move live, print it out and keep tracking by hand.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Dein Finanz-Cockpit: 10 Performance-Uhren zum Ausdrucken und Selbst-Testen",
+  "description": "Zehn Tacho-Uhren wie beim Auto: linker Anschlag 0%, rechter Anschlag 100% erreichtes Ziel. Eigene Zahlen eintragen, Nadel bewegt sich live, ausdrucken und manuell weiterführen.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html"
+  },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+.pu-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:8px; margin:18px 0; }
+.pu-card{
+  padding:9px 9px 11px; border-radius:12px; background:var(--bg-raised); border:1px solid var(--line);
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.pu-card-num{
+  font-family:'JetBrains Mono',monospace; font-size:.58rem; font-weight:700; color:var(--ink-soft);
+  align-self:flex-start; margin-bottom:0;
+}
+.pu-card-title{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.78rem; color:var(--ink); margin-bottom:2px; line-height:1.15; cursor:help; }
+.pu-card-desc{ display:none; }
+.pu-gauge-svg{ width:100%; max-width:128px; height:auto; margin-bottom:-8px; }
+.pu-card-pct{ display:none; }
+.pu-card-target{ font-size:.62rem; color:var(--ink-soft); margin-bottom:4px; }
+.pu-card-input-row{ display:flex; align-items:center; gap:4px; width:100%; margin-top:2px; }
+.pu-card-input-row input{
+  flex:1; min-width:0; padding:5px 6px; border-radius:6px; border:1px solid var(--line); background:var(--bg);
+  color:var(--ink); font-family:'JetBrains Mono',monospace; font-size:.78rem; text-align:right;
+}
+.pu-card-target-row{ margin-bottom:3px; }
+.pu-card-target-label{ font-size:.6rem; color:var(--ink-soft); white-space:nowrap; }
+.pu-card-target-input{
+  font-size:.68rem !important; padding:3px 5px !important; opacity:.85; border-style:dashed !important;
+}
+.pu-card-unit{ font-size:.62rem; color:var(--ink-soft); white-space:nowrap; }
+.pu-toolbar{ display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 6px; }
+.pu-print-fields{ display:none; }
+
+@media print{
+  header.site, .page-hero .breadcrumb, footer.site, .alert-banner, .alert-bell, .scroll-top-btn,
+  .pu-toolbar, .pu-card-input-row input{ display:none !important; }
+  .pu-card-target-input{ display:inline-block !important; border:none !important; background:none !important; color:#000 !important; opacity:1 !important; -webkit-appearance:none; }
+  .pu-print-fields{ display:block; font-family:'JetBrains Mono',monospace; font-size:1rem; border-bottom:1px solid #999; padding:4px 0; width:80%; }
+  .pu-grid{ break-inside:avoid; }
+  .pu-card{ break-inside:avoid; border:1px solid #999; }
+  body{ background:#fff; color:#000; }
+}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-performance-uhren-cockpit.html">
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen" data-en="Options">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="wrap" style="max-width:920px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-vermoegen.html" data-en="Building Wealth">Vermögensaufbau</a><span>/</span><span aria-current="page" data-en="Performance gauges">Performance-Uhren</span>
+    </nav>
+    <div class="eyebrow" data-en="August 6, 2026">06.08.2026</div>
+    <h1 data-en="Your finance cockpit: 8 performance gauges to print and test yourself">Dein Finanz-Cockpit: 10 Performance-Uhren zum Ausdrucken und Selbst-Testen</h1>
+    <p style="max-width:64ch;" data-en="Like a car's rev counter: the needle starts at the left stop (0⁠%) and every gauge is built so the right stop means one thing &ndash; 100⁠%, target fully met. Enter your own numbers below, watch the needles move, then print the page and keep tracking by hand.">Wie der Drehzahlmesser im Auto: Die Nadel startet am linken Anschlag (0⁠%), und jede Uhr ist so gebaut, dass der rechte Anschlag genau eines bedeutet — 100⁠%, Ziel vollständig erfüllt. Trag unten deine eigenen Zahlen ein, sieh den Nadeln beim Bewegen zu, und druck die Seite anschließend aus, um von Hand weiterzuführen.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:920px;">
+
+  <p data-en="Five of these ten gauges were the original idea: total net worth, financial independence, financial freedom, cash reserve, and the high-yield savings account. We added three more that felt like they belonged in the same cockpit &ndash; savings rate (the lever that drives everything else), the emergency fund expressed in months rather than euros (which actually tells you how long it lasts), and debt freedom (because building wealth while still carrying debt is only half the picture). A ninth was added on request: the income mix between main job and side hustle, a tenth the reduction of working hours. All ten work similarly: enter a number, the needle moves.">Fünf dieser zehn Uhren waren die ursprüngliche Idee: Gesamtvermögen, finanzielle Unabhängigkeit, finanzielle Freiheit, Cash-Reserve und das Tagesgeldkonto. Drei weitere haben wir ergänzt, weil sie ins selbe Cockpit gehören — die Sparquote (der Hebel, der den ganzen Rest antreibt), der Notgroschen in Monaten statt in Euro (das sagt tatsächlich etwas über die Reichweite) und Schuldenfreiheit (weil Vermögensaufbau bei gleichzeitig offenen Schulden nur die halbe Geschichte ist). Eine neunte kam auf Wunsch dazu: der Einkommensmix aus Hauptjob und Side Hustle, eine zehnte die Arbeitszeit-Reduktion im Job. Alle zehn funktionieren ähnlich: Zahl eintragen, Nadel bewegt sich.</p>
+
+  <div class="pu-toolbar">
+    <button type="button" class="btn btn-outline" id="pu-print-btn" data-en="Print for filling in by hand">Zum handschriftlichen Ausfüllen drucken</button>
+    <button type="button" class="btn btn-outline" id="pu-reset-btn" data-en="Reset all gauges">Alle Uhren zurücksetzen</button>
+  </div>
+
+  <div class="pu-grid" id="pu-grid">
+    
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 0</span>
+      <span class="pu-card-title" data-en="Total net worth" title="Dein komplettes Nettovermögen — Depot, Konten, Immobilien minus Schulden.">Gesamtvermögen</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="gv-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="gv-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="gv-target-input" inputmode="decimal" value="800000" class="pu-card-target-input" data-default="800000">
+        <span class="pu-card-unit">€</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="gv-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">€</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 1</span>
+      <span class="pu-card-title" data-en="Financial independence" title="Passives Einkommen (z. B. Dividenden), das deinen Grundbedarf von 1.500 € abdeckt.">Finanzielle Unabhängigkeit</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="fu-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="fu-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="fu-target-input" inputmode="decimal" value="1500" class="pu-card-target-input" data-default="1500">
+        <span class="pu-card-unit">€/Monat</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="fu-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">€/Monat</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 2</span>
+      <span class="pu-card-title" data-en="Financial freedom" title="Passives Einkommen, das deinen vollen Lebensstandard von 4.000 € netto deckt.">Finanzielle Freiheit</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="ff-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="ff-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="ff-target-input" inputmode="decimal" value="4000" class="pu-card-target-input" data-default="4000">
+        <span class="pu-card-unit">€/Monat</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="ff-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">€/Monat</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 3</span>
+      <span class="pu-card-title" data-en="Cash reserve" title="Bargeld und sofort verfügbares Guthaben für den ersten Notfall.">Cash-Reserve</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="cash-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="cash-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="cash-target-input" inputmode="decimal" value="10000" class="pu-card-target-input" data-default="10000">
+        <span class="pu-card-unit">€</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="cash-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">€</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 4</span>
+      <span class="pu-card-title" data-en="High-yield savings account" title="Größerer Sicherheitspuffer auf dem Tagesgeldkonto, verzinst und trotzdem liquide.">Tagesgeldkonto</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="tg-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="tg-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="tg-target-input" inputmode="decimal" value="20000" class="pu-card-target-input" data-default="20000">
+        <span class="pu-card-unit">€</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="tg-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">€</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 5</span>
+      <span class="pu-card-title" data-en="Savings rate" title="Ergänzt, weil sie den ganzen Rest antreibt: Anteil des Nettoeinkommens, den du sparst.">Sparquote</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="sq-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="sq-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="sq-target-input" inputmode="decimal" value="50" class="pu-card-target-input" data-default="50">
+        <span class="pu-card-unit">%</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="sq-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">%</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 6</span>
+      <span class="pu-card-title" data-en="Emergency fund in months" title="Ergänzt, weil Cash allein nichts über die Reichweite sagt: wie viele Monatsausgaben dein Notgroschen abdeckt.">Notgroschen in Monaten</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="ng-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="ng-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Target:">Ziel:</span>
+        <input type="number" id="ng-target-input" inputmode="decimal" value="6" class="pu-card-target-input" data-default="6">
+        <span class="pu-card-unit">Monate</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="ng-input" inputmode="decimal" placeholder="0" data-invert="0">
+        <span class="pu-card-unit">Monate</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 7</span>
+      <span class="pu-card-title" data-en="Debt freedom" title="Ergänzt, weil Vermögensaufbau ohne Schuldenabbau nur die halbe Geschichte ist: verbleibende Restschuld in % des Ursprungsbetrags (0% = rechter Anschlag).">Schuldenfreiheit</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="sf-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="sf-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <span class="pu-card-target" data-en="Target: 0⁠% Restschuld">Ziel: 0⁠% Restschuld</span>
+      <div class="pu-card-input-row">
+        <input type="number" id="sf-input" inputmode="decimal" placeholder="0" data-target="0" data-invert="1">
+        <span class="pu-card-unit">% Restschuld</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 8</span>
+      <span class="pu-card-title" data-en="Income mix" title="Ergänzt, weil der Betrag allein nichts über Abhängigkeit sagt: welcher Anteil deines Gesamteinkommens vom Hauptjob kommt und welcher vom Side Hustle.">Einkommensmix</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="mix-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="mix-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <span class="pu-card-target" id="mix-label" data-en="0⁠% side hustle &middot; 100⁠% main job">0⁠% Side Hustle · 100⁠% Hauptjob</span>
+      <div class="pu-card-input-row">
+        <input type="number" id="mix-main-input" inputmode="decimal" placeholder="2000" aria-label="Hauptjob-Gehalt">
+        <span class="pu-card-unit" data-en="&euro; main job">€ Hauptjob</span>
+      </div>
+      <div class="pu-card-input-row" style="margin-top:6px;">
+        <input type="number" id="mix-side-input" inputmode="decimal" placeholder="100" aria-label="Side-Hustle-Einkommen">
+        <span class="pu-card-unit" data-en="&euro; side hustle">€ Side Hustle</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+
+    <div class="pu-card">
+      <span class="pu-card-num">UHR 9</span>
+      <span class="pu-card-title" data-en="Added because time is the real cost: how far you've already reduced your working hours, starting from a full-time job." title="Ergänzt, weil Zeit der eigentliche Preis ist: wie weit du deine Arbeitsstunden im Job schon reduziert hast, ausgehend von einer Vollzeitstelle.">Job-Reduktion</span>
+      <svg viewBox="0 0 200 128" class="pu-gauge-svg" role="img" aria-hidden="true">
+      <path d="M15.00,105.00 A85,85 0 0 1 185.00,105.00" fill="none" stroke="var(--line)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <path d="M15.00,105.00 A85,85 0 0 1 57.50,31.39" fill="none" stroke="#e63946" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M57.50,31.39 A85,85 0 0 1 142.50,31.39" fill="none" stroke="#f4b400" stroke-width="11" stroke-linecap="butt" opacity="0.95"/><path d="M142.50,31.39 A85,85 0 0 1 185.00,105.00" fill="none" stroke="#0fa860" stroke-width="11" stroke-linecap="butt" opacity="0.95"/>
+      <line x1="8.0" y1="105.0" x2="1.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="12.5" y1="76.6" x2="5.8" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="25.6" y1="50.9" x2="19.9" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="45.9" y1="30.6" x2="41.8" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="71.6" y1="17.5" x2="69.4" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="100.0" y1="13.0" x2="100.0" y2="6.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="128.4" y1="17.5" x2="130.6" y2="10.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="154.1" y1="30.6" x2="158.2" y2="24.9" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="174.4" y1="50.9" x2="180.1" y2="46.8" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="187.5" y1="76.6" x2="194.2" y2="74.4" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/><line x1="192.0" y1="105.0" x2="199.0" y2="105.0" stroke="var(--ink-soft)" stroke-width="1.5" opacity="0.5"/>
+      <g id="job-needle" transform="rotate(180 100 105)" style="transition:transform .6s cubic-bezier(.22,1,.36,1);">
+      <polygon points="97,105 171,102.5 171,107.5" fill="var(--ink)"/>
+    </g>
+      <circle cx="100" cy="105" r="7" fill="var(--ink)"/>
+      <circle cx="100" cy="105" r="3" fill="var(--bg-raised)"/>
+      <text id="job-pct" x="100" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" fill="var(--ink)">0⁠%</text>
+    </svg>
+      <span class="pu-card-target" id="job-label" data-en="160 hrs/month &middot; full-time">160 Std./Monat · Vollzeit</span>
+      <div class="pu-card-input-row pu-card-target-row">
+        <span class="pu-card-target-label" data-en="Full-time:">Vollzeit:</span>
+        <input type="number" id="job-target-input" inputmode="decimal" value="160" class="pu-card-target-input" data-default="160">
+        <span class="pu-card-unit" data-en="hrs/month">Std./Monat</span>
+      </div>
+      <div class="pu-card-input-row">
+        <input type="number" id="job-input" inputmode="decimal" placeholder="160" data-invert="1">
+        <span class="pu-card-unit" data-en="hrs/month worked">Std./Monat aktuell</span>
+      </div>
+      <div class="pu-print-fields">&nbsp;</div>
+    </div>
+  </div>
+
+  <p class="calc-note" style="margin-top:8px;" data-en="Nothing entered here is sent anywhere &ndash; values are kept only in your own browser (localStorage) so they're still there next time you open this page. The color zones on each gauge (red / yellow / green) are a rough visual aid, not a judgment &ndash; 0⁠% is a starting point, not a failure.">Nichts von dem, was du hier einträgst, wird irgendwohin gesendet — die Werte bleiben nur in deinem eigenen Browser (localStorage) gespeichert, damit sie beim nächsten Öffnen noch da sind. Die Farbzonen auf jeder Uhr (Rot/Gelb/Grün) sind eine grobe visuelle Hilfe, kein Urteil — 0⁠% ist ein Startpunkt, kein Scheitern.</p>
+
+  <h2 style="margin-top:34px;" data-en="Why these targets, specifically">Warum genau diese Zielwerte</h2>
+  <p data-en="Every target here is a reasonable, commonly cited default &ndash; not a universal rule. Your own numbers will differ depending on where you live, your actual monthly expenses, and your risk tolerance. Before you rely on any of these for real planning, swap in your own figures: your &lt;a href=&quot;beitrag-finanzielle-freiheitsstufen.html&quot;&gt;actual expenses&lt;/a&gt; instead of the 1,500 &euro; / 4,000 &euro; used here, and your real emergency-fund target instead of a flat 6 months.">Jeder Zielwert hier ist ein vernünftiger, gängig zitierter Standardwert — keine universelle Regel. Deine eigenen Zahlen weichen je nach Wohnort, tatsächlichen monatlichen Ausgaben und Risikobereitschaft ab. Bevor du dich für echte Planung darauf verlässt, tausch deine eigenen Werte ein: deine <a href="beitrag-finanzielle-freiheitsstufen.html">tatsächlichen Ausgaben</a> statt der hier verwendeten 1.500 € / 4.000 €, und dein reales Notgroschen-Ziel statt pauschal 6 Monaten.</p>
+
+  <p style="margin-top:24px;"><a href="kat-finanzen-vermoegen.html" data-en="&larr; Back to Building Wealth">← Zurück zu Vermögensaufbau</a></p>
+  </div>
+</article>
+
+<script>
+
+(function(){
+  var GAUGE_IDS = ['gv', 'fu', 'ff', 'cash', 'tg', 'sq', 'ng', 'sf', 'job'];
+  var EDITABLE_TARGET_IDS = ['gv', 'fu', 'ff', 'cash', 'tg', 'sq', 'ng', 'job'];
+  var LS_KEY = 'fr-performance-uhren';
+
+  function loadAll(){
+    try{
+      var raw = localStorage.getItem(LS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveAll(data){
+    try{ localStorage.setItem(LS_KEY, JSON.stringify(data)); }catch(e){}
+  }
+
+  function fmtNum(n){
+    return n.toLocaleString('de-DE', {maximumFractionDigits:1});
+  }
+
+  function rotationFor(pct){
+    // 0% = linker Anschlag (9 Uhr), 50% = oben (12 Uhr), 100% = rechter Anschlag (3 Uhr) -> im Uhrzeigersinn
+    return 180 + (pct * 1.8);
+  }
+
+  function currentTarget(id){
+    var targetInput = document.getElementById(id + '-target-input');
+    if(targetInput){
+      var v = parseFloat(targetInput.value);
+      if(!isNaN(v) && v !== 0) return v;
+      if(!isNaN(v) && v === 0) return 0;
+    }
+    var valInput = document.getElementById(id + '-input');
+    var fallback = valInput ? parseFloat(valInput.getAttribute('data-target')) : NaN;
+    return isNaN(fallback) ? 1 : fallback;
+  }
+
+  function updateTargetLabel(id, target, unit){
+    // aktualisiert das Print-Feld fuer den Zielwert, falls vorhanden (rein informativ)
+  }
+
+  function updateGauge(id){
+    var input = document.getElementById(id + '-input');
+    var needle = document.getElementById(id + '-needle');
+    var pctEl = document.getElementById(id + '-pct');
+    if(!input || !needle || !pctEl) return;
+
+    var target = currentTarget(id);
+    var invert = input.getAttribute('data-invert') === '1';
+    var hasValue = input.value !== '';
+    var raw = parseFloat(input.value);
+    if(isNaN(raw)) raw = 0;
+
+    var pct;
+    if(!hasValue){
+      pct = 0;
+    } else if(invert){
+      pct = 100 - (raw / (target || 100) * 100);
+      if(target === 0){ pct = raw <= 0 ? 100 : Math.max(0, 100 - raw); }
+    } else {
+      pct = target !== 0 ? (raw / target) * 100 : (raw > 0 ? 100 : 0);
+    }
+    pct = Math.max(0, Math.min(100, pct));
+
+    needle.setAttribute('transform', 'rotate(' + rotationFor(pct).toFixed(1) + ' 100 105)');
+    pctEl.textContent = Math.round(pct) + '%';
+
+    var printField = input.closest('.pu-card').querySelector('.pu-print-fields');
+    if(printField){
+      printField.textContent = raw ? fmtNum(raw) : '________________';
+    }
+
+    if(id === 'job'){
+      var jobLabel = document.getElementById('job-label');
+      if(jobLabel){
+        var hasValue = input.value !== '';
+        var hrs = hasValue ? raw : target;
+        var ratio = target > 0 ? hrs / target : 1;
+        var stageDe, stageEn;
+        if(!hasValue){ stageDe = 'Vollzeit'; stageEn = 'full-time'; }
+        else if(ratio >= 0.95){ stageDe = 'Vollzeit'; stageEn = 'full-time'; }
+        else if(ratio >= 0.7){ stageDe = '3/4 Teilzeit'; stageEn = '3/4 part-time'; }
+        else if(ratio >= 0.4){ stageDe = 'Halbtags'; stageEn = 'half-time'; }
+        else if(ratio > 0.02){ stageDe = 'Minijob/Teilzeit'; stageEn = 'mini-job / part-time'; }
+        else { stageDe = 'Frei'; stageEn = 'free'; }
+        jobLabel.textContent = fmtNum(hrs) + ' Std./Monat · ' + stageDe;
+        jobLabel.setAttribute('data-en', fmtNum(hrs) + ' hrs/month &middot; ' + stageEn);
+      }
+    }
+
+    return raw;
+  }
+
+  function persist(){
+    var data = {};
+    GAUGE_IDS.forEach(function(id){
+      var input = document.getElementById(id + '-input');
+      if(input && input.value !== '') data[id] = input.value;
+    });
+    EDITABLE_TARGET_IDS.forEach(function(id){
+      var t = document.getElementById(id + '-target-input');
+      if(t && t.value !== '') data[id + '-target'] = t.value;
+    });
+    var mainInput = document.getElementById('mix-main-input');
+    var sideInput = document.getElementById('mix-side-input');
+    if(mainInput && mainInput.value !== '') data['mix-main'] = mainInput.value;
+    if(sideInput && sideInput.value !== '') data['mix-side'] = sideInput.value;
+    saveAll(data);
+  }
+
+  function init(){
+    var stored = loadAll();
+    EDITABLE_TARGET_IDS.forEach(function(id){
+      var targetInput = document.getElementById(id + '-target-input');
+      if(!targetInput) return;
+      if(stored[id + '-target'] !== undefined) targetInput.value = stored[id + '-target'];
+      targetInput.addEventListener('input', function(){ updateGauge(id); persist(); });
+    });
+    GAUGE_IDS.forEach(function(id){
+      var input = document.getElementById(id + '-input');
+      if(!input) return;
+      if(stored[id] !== undefined) input.value = stored[id];
+      updateGauge(id);
+      input.addEventListener('input', function(){ updateGauge(id); persist(); });
+    });
+  }
+
+  function updateMixGauge(){
+    var mainInput = document.getElementById('mix-main-input');
+    var sideInput = document.getElementById('mix-side-input');
+    var needle = document.getElementById('mix-needle');
+    var pctEl = document.getElementById('mix-pct');
+    var labelEl = document.getElementById('mix-label');
+    if(!mainInput || !sideInput || !needle) return;
+
+    var main = parseFloat(mainInput.value); if(isNaN(main) || main < 0) main = 0;
+    var side = parseFloat(sideInput.value); if(isNaN(side) || side < 0) side = 0;
+    var total = main + side;
+    var pct = total > 0 ? (side / total) * 100 : 0;
+    pct = Math.max(0, Math.min(100, pct));
+
+    var rotation = rotationFor(pct);
+    needle.setAttribute('transform', 'rotate(' + rotation.toFixed(1) + ' 100 105)');
+    pctEl.textContent = Math.round(pct) + '%';
+
+    var sidePct = Math.round(pct);
+    var mainPct = 100 - sidePct;
+    if(labelEl){
+      var deLabel = sidePct + ' % Side Hustle · ' + mainPct + ' % Hauptjob';
+      var enLabel = sidePct + '% side hustle &middot; ' + mainPct + '% main job';
+      labelEl.setAttribute('data-en', enLabel);
+      labelEl.textContent = deLabel;
+    }
+
+    var card = mainInput.closest('.pu-card');
+    var printField = card ? card.querySelector('.pu-print-fields') : null;
+    if(printField){
+      printField.textContent = total > 0
+        ? fmtNum(main) + ' € + ' + fmtNum(side) + ' € = ' + sidePct + ' % Side Hustle'
+        : '________________';
+    }
+  }
+
+  function persistMix(){
+    var mainInput = document.getElementById('mix-main-input');
+    var sideInput = document.getElementById('mix-side-input');
+    var data = loadAll();
+    if(mainInput && mainInput.value !== '') data['mix-main'] = mainInput.value;
+    if(sideInput && sideInput.value !== '') data['mix-side'] = sideInput.value;
+    saveAll(data);
+  }
+
+  function initMix(){
+    var mainInput = document.getElementById('mix-main-input');
+    var sideInput = document.getElementById('mix-side-input');
+    if(!mainInput || !sideInput) return;
+    var stored = loadAll();
+    if(stored['mix-main'] !== undefined) mainInput.value = stored['mix-main'];
+    if(stored['mix-side'] !== undefined) sideInput.value = stored['mix-side'];
+    updateMixGauge();
+    mainInput.addEventListener('input', function(){ updateMixGauge(); persistMix(); });
+    sideInput.addEventListener('input', function(){ updateMixGauge(); persistMix(); });
+  }
+  initMix();
+
+  var printBtn = document.getElementById('pu-print-btn');
+  if(printBtn) printBtn.addEventListener('click', function(){ window.print(); });
+
+  var resetBtn = document.getElementById('pu-reset-btn');
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    GAUGE_IDS.forEach(function(id){
+      var input = document.getElementById(id + '-input');
+      if(input) input.value = '';
+      updateGauge(id);
+    });
+    EDITABLE_TARGET_IDS.forEach(function(id){
+      var t = document.getElementById(id + '-target-input');
+      if(t) t.value = t.getAttribute('data-default');
+      updateGauge(id);
+    });
+    var mainInput = document.getElementById('mix-main-input');
+    var sideInput = document.getElementById('mix-side-input');
+    if(mainInput) mainInput.value = '';
+    if(sideInput) sideInput.value = '';
+    updateMixGauge();
+    saveAll({});
+  });
+
+  init();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(function(){});
+})();
+</script>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

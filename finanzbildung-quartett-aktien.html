@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Finance Quartet: 30 Companies Compared — Finanzritual">Finanz-Quartett: 30 Unternehmen im Vergleich — Finanzritual</title>
+<meta name="description" content="Wie das Auto-Quartett aus deiner Kindheit, nur mit Marktkapitalisierung, Umsatz und Dividendenrendite statt PS und Hubraum. 30 Unternehmen, spielbar zu zweit im Browser." data-en-content="Like the car top-trumps game from your childhood, just with market cap, revenue, and dividend yield instead of horsepower and engine size. 30 companies, playable head-to-head in the browser.">
+<link rel="canonical" href="https://www.finanz-ritual.de/finanzbildung-quartett-aktien.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Finanz-Quartett: 30 Unternehmen im Vergleich" data-en-content="Finance Quartet: 30 Companies Compared">
+<meta property="og:description" content="Wie das Auto-Quartett aus deiner Kindheit, nur mit Marktkapitalisierung, Umsatz und Dividendenrendite statt PS und Hubraum." data-en-content="Like the car top-trumps game from your childhood, just with market cap, revenue, and dividend yield instead of horsepower and engine size.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/finanzbildung-quartett-aktien.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Finanz-Quartett: 30 Unternehmen im Vergleich",
+  "description": "Interaktives Quartett-Kartenspiel zur Finanzbildung: 30 Unternehmen, verglichen nach Marktkapitalisierung, Umsatz, Mitarbeiterzahl, Gründungsjahr, Dividendenrendite und KGV.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/finanzbildung-quartett-aktien.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Depot-Aufteilung: Allokations-Balken ===== */
+.alloc-block{ margin:22px 0; }
+.alloc-label{ font-size:.78rem; color:var(--ink-soft); margin-bottom:5px; font-weight:600; }
+.alloc-bar{
+  display:flex; height:34px; border-radius:8px; overflow:hidden;
+  border:1px solid var(--line); margin:0 0 8px;
+}
+.alloc-seg{ display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:.72rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; }
+.alloc-seg.aktien{ background:var(--green); }
+.alloc-seg.anleihen{ background:var(--blue); }
+.alloc-seg.cash{ background:var(--ink-soft); }
+.alloc-seg.em{ background:#8a6fd6; }
+.alloc-legend{ display:flex; flex-wrap:wrap; gap:14px 20px; margin:14px 0 26px; font-size:.78rem; color:var(--ink-soft); }
+.alloc-legend span{ display:inline-flex; align-items:center; gap:6px; }
+.alloc-legend .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; flex:none; }
+
+/* ===== Recherche-Box ===== */
+.research-box{
+  margin:26px 0; padding:18px 22px; border-radius:var(--radius-lg);
+  background:var(--bg-raised); border:1px solid var(--line); border-left:3px solid var(--blue);
+  box-shadow:var(--shadow);
+}
+.research-box-label{
+  font-family:'JetBrains Mono',monospace; font-size:.68rem; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--blue); margin-bottom:8px;
+}
+.research-box p{ margin:0 0 10px; font-size:.88rem; line-height:1.6; }
+.research-box p:last-child{ margin-bottom:0; }
+.research-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:14px 0; }
+.research-stat{ background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:10px 14px; }
+.research-stat-num{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.1rem; color:var(--ink); }
+.research-stat-label{ font-size:.72rem; color:var(--ink-soft); margin-top:2px; }
+
+/* ===== Risiko-Quiz ===== */
+.rq-box{
+  margin:28px 0; padding:22px; border-radius:var(--radius-lg);
+  background:var(--bg-raised); border:1px solid var(--line); box-shadow:var(--shadow);
+}
+.rq-question{ margin-bottom:20px; }
+.rq-question:last-of-type{ margin-bottom:0; }
+.rq-question-text{ font-weight:600; font-size:.92rem; margin-bottom:10px; }
+.rq-options{ display:flex; flex-direction:column; gap:8px; }
+.rq-option{
+  display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px;
+  border:1px solid var(--line); cursor:pointer; font-size:.85rem;
+  transition:border-color .15s ease;
+}
+.rq-option:hover{ border-color:var(--blue); }
+.rq-option input{ flex:none; }
+.rq-result{
+  margin-top:20px; padding:16px 18px; border-radius:10px; background:var(--green-soft);
+  border-left:3px solid var(--green); display:none;
+}
+.rq-result.is-visible{ display:block; }
+.rq-result-title{ font-weight:700; color:var(--ink); margin-bottom:6px; }
+.rq-result p{ margin:0; font-size:.85rem; color:var(--ink); line-height:1.55; }
+.rq-btn{
+  margin-top:16px; padding:10px 20px; border-radius:8px; border:none; background:var(--green);
+  color:#fff; font-weight:700; font-size:.85rem; cursor:pointer; font-family:inherit;
+}
+.rq-btn:hover{ opacity:.9; }
+
+/* ===== Rebalancing-Drift ===== */
+.drift-compare{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:22px 0; }
+@media(max-width:560px){ .drift-compare{ grid-template-columns:1fr; } }
+.drift-card{ border:1px solid var(--line); border-radius:10px; padding:16px; }
+.drift-card h4{ margin:0 0 10px; font-size:.8rem; color:var(--ink-soft); font-weight:700; }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/finanzbildung-quartett-aktien.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/finanzbildung-quartett-aktien.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<style>
+/* ===== Finanz-Quartett ===== */
+.fq-wrap{ max-width:560px; margin:0 auto; }
+.fq-wrap:fullscreen{
+  background:var(--bg); padding:32px 20px; overflow-y:auto;
+  display:flex; flex-direction:column; align-items:center;
+}
+.fq-wrap:fullscreen > *{ width:100%; max-width:560px; }
+.fq-wrap:-webkit-full-screen{ background:var(--bg); padding:32px 20px; overflow-y:auto; }
+.fq-scoreboard{
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  margin:22px 0; padding:14px 18px; border-radius:12px;
+  background:var(--bg-raised); border:1px solid var(--line);
+}
+.fq-score{ text-align:center; }
+.fq-score.is-active{ position:relative; }
+.fq-score.is-active::after{
+  content:""; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%);
+  width:8px; height:8px; border-radius:50%; background:var(--green);
+}
+.fq-score-label{ font-family:'JetBrains Mono',monospace; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); }
+.fq-score-count{ font-family:'JetBrains Mono',monospace; font-size:1.4rem; font-weight:700; color:var(--ink); }
+.fq-vs{ font-family:'Space Grotesk'; color:var(--ink-soft); font-size:.9rem; }
+
+.fq-turn-banner{
+  text-align:center; font-family:'JetBrains Mono',monospace; font-size:.78rem;
+  text-transform:uppercase; letter-spacing:.08em; color:var(--green); margin-bottom:14px;
+}
+
+.fq-cards{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+.fq-card{
+  border:1px solid var(--line); border-radius:14px; background:var(--bg-raised);
+  padding:18px 16px; min-height:260px; display:flex; flex-direction:column;
+  box-shadow:var(--shadow);
+}
+.fq-card-back{
+  display:flex; align-items:center; justify-content:center; color:var(--line-strong);
+  font-family:'Space Grotesk'; font-weight:700; font-size:1.1rem; text-align:center;
+}
+.fq-card-owner{ font-family:'JetBrains Mono',monospace; font-size:.68rem; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+.fq-card-name{ font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; margin-bottom:2px; }
+.fq-card-sector{ font-size:.76rem; color:var(--ink-soft); margin-bottom:12px; }
+.fq-card-stats{ display:flex; flex-direction:column; gap:7px; margin-top:auto; }
+.fq-card-stat{ display:flex; justify-content:space-between; font-size:.82rem; padding:4px 0; border-top:1px dashed var(--line); }
+.fq-card-stat.is-picked{ background:var(--green-soft); border-radius:6px; padding:4px 8px; margin:0 -8px; }
+.fq-card-stat.is-winner{ color:var(--green); font-weight:700; }
+.fq-card-stat-val{ font-family:'JetBrains Mono',monospace; }
+.fq-dir-arrow{ display:inline-block; margin-right:5px; font-size:.72rem; }
+.fq-dir-arrow.is-up{ color:var(--ink-soft); }
+.fq-dir-arrow.is-down{ color:#C0392B; }
+
+.fq-categories{ display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
+.fq-cat-btn{
+  display:flex; justify-content:space-between; align-items:center; width:100%;
+  padding:11px 16px; border-radius:10px; border:1px solid var(--line-strong);
+  background:var(--bg-raised); cursor:pointer; font-family:inherit; font-size:.88rem;
+  color:var(--ink); text-align:left;
+}
+.fq-cat-btn.is-reversed{ border:2px solid #C0392B; }
+.fq-cat-btn:hover:not(:disabled){ border-color:var(--green); }
+.fq-cat-btn:disabled{ opacity:.5; cursor:not-allowed; }
+.fq-cat-btn .fq-cat-val{ font-family:'JetBrains Mono',monospace; font-weight:700; }
+.fq-cat-btn .fq-cat-dir{ font-size:.7rem; color:var(--ink-soft); margin-left:6px; }
+
+.fq-result{
+  text-align:center; padding:14px; border-radius:10px; margin-bottom:16px;
+  background:var(--green-soft); border-left:3px solid var(--green); font-size:.9rem; display:none;
+}
+.fq-result.is-visible{ display:block; }
+
+.fq-next-btn{
+  display:block; margin:0 auto 20px; padding:11px 26px; border-radius:8px; border:none;
+  background:var(--green); color:#fff; font-weight:700; font-family:inherit; cursor:pointer; display:none;
+}
+.fq-next-btn.is-visible{ display:block; }
+
+.fq-gameover{ text-align:center; padding:24px; display:none; }
+.fq-gameover.is-visible{ display:block; }
+.fq-gameover h3{ font-family:'Space Grotesk'; font-size:1.3rem; margin-bottom:8px; }
+
+.fq-data-table{ width:100%; border-collapse:collapse; font-size:.72rem; margin:20px 0; table-layout:fixed; }
+.fq-data-table th, .fq-data-table td{ padding:5px 4px; border-bottom:1px solid var(--line); text-align:right; overflow-wrap:break-word; }
+.fq-data-table th:first-child, .fq-data-table td:first-child{ text-align:left; width:22%; }
+.fq-data-table th{ font-family:'JetBrains Mono',monospace; font-size:.62rem; text-transform:uppercase; color:var(--ink-soft); font-weight:700; line-height:1.25; }
+
+@media(max-width:560px){
+  .fq-cards{ grid-template-columns:1fr; }
+  .fq-card{ min-height:auto; }
+}
+</style>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-lebensstil.html" data-en="Lifestyle">Lebensstil</a><span>/</span><a href="kat-minimalismus-motivation.html" data-en="Motivation">Motivation</a><span>/</span><span aria-current="page" data-en="Finance Quartet">Finanz-Quartett</span>
+    </nav>
+    <div class="eyebrow" data-en="Motivation · Game · 27 Jul 2026">Motivation · Spiel · 27.07.2026</div>
+    <h1 data-en="Finance Quartet: 30 Companies Compared">Finanz-Quartett: 30 Unternehmen im Vergleich</h1>
+    <p style="max-width:62ch;" data-en="The same game as the car top-trumps deck from your childhood &mdash; horsepower and engine size replaced by market cap, revenue, and dividend yield. Playable head-to-head, no download, no account.">Dasselbe Spiel wie das Auto-Quartett aus der Kindheit — PS und Hubraum ersetzt durch Marktkapitalisierung, Umsatz und Dividendenrendite. Spielbar zu zweit, kein Download, kein Konto.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="How to play: two people, one screen. Whoever's turn it is looks only at their own top card and picks a category. Both cards flip, the higher value wins &mdash; except for founding year, where older wins. The winner takes both cards and picks the next category. First to hold all 30 cards wins.">So wird gespielt: zwei Personen, ein Bildschirm. Wer am Zug ist, schaut nur auf die eigene oberste Karte und wählt eine Kategorie. Beide Karten werden aufgedeckt, der höhere Wert gewinnt — außer beim Gründungsjahr, da gewinnt das ältere Unternehmen. Der Gewinner nimmt beide Karten und wählt die nächste Kategorie. Wer zuerst alle 30 Karten hält, gewinnt.</p>
+
+    <div class="fq-wrap">
+      <p style="text-align:center;margin-bottom:14px;">
+        <button type="button" class="btn" id="fq-fullscreen-btn" style="font-size:.8rem;padding:8px 16px;" data-en="⛶ Full screen (hide browser bars)">⛶ Vollbild (Browser-Leisten ausblenden)</button>
+      </p>
+      <div class="fq-scoreboard" id="fq-scoreboard-wrap">
+        <div class="fq-score" id="fq-score-1">
+          <div class="fq-score-label" data-en="Player 1">Spieler 1</div>
+          <div class="fq-score-count" id="fq-count-1">15</div>
+        </div>
+        <div class="fq-vs">vs</div>
+        <div class="fq-score" id="fq-score-2">
+          <div class="fq-score-label" data-en="Player 2">Spieler 2</div>
+          <div class="fq-score-count" id="fq-count-2">15</div>
+        </div>
+      </div>
+
+      <div class="fq-turn-banner" id="fq-turn-banner"></div>
+
+      <div class="fq-cards">
+        <div class="fq-card" id="fq-card-1"></div>
+        <div class="fq-card" id="fq-card-2"></div>
+      </div>
+
+      <div class="fq-categories" id="fq-categories"></div>
+
+      <div class="fq-result" id="fq-result"></div>
+      <button type="button" class="fq-next-btn" id="fq-next-btn" data-en="Next round">Nächste Runde</button>
+
+      <div class="fq-gameover" id="fq-gameover">
+        <h3 id="fq-gameover-title"></h3>
+        <p id="fq-gameover-text"></p>
+        <button type="button" class="btn btn-green" id="fq-restart-btn" data-en="Play again">Nochmal spielen</button>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label" data-en="Why founding year and P/E work backwards">Warum Gründungsjahr und KGV umgekehrt zählen</div>
+      <p data-en="In most categories, the bigger number wins &mdash; marked with a small ▲ on the card. Two categories work the other way round: founding year (older/smaller wins) and P/E ratio (lower is typically cheaper/better in value terms) &mdash; both marked with a ▼, and the category button gets a red border when you're about to pick one of them. That's a deliberate reminder: &ldquo;bigger number = better&rdquo; doesn't automatically apply to every financial metric.">Bei den meisten Kategorien gewinnt die größere Zahl — auf der Karte mit einem kleinen ▲ markiert. Zwei Kategorien laufen andersrum: Gründungsjahr (älter/kleiner gewinnt) und KGV (niedriger gilt in der Value-Logik meist als günstiger/besser) — beide mit ▼ markiert, und der Kategorie-Button bekommt einen roten Rand, sobald du eine davon anwählst. Das ist eine bewusste Erinnerung: „größere Zahl = besser" gilt nicht automatisch für jede Finanzkennzahl.</p>
+    </div>
+
+    <h2 style="margin-top:36px;" data-en="All 30 companies and their figures">Alle 30 Unternehmen und ihre Zahlen</h2>
+    <p style="color:var(--ink-soft);font-size:.85rem;" data-en="Rounded approximate figures, as of roughly July 2026. Market cap and dividend yield move with the share price and can be noticeably different by the time you read this &mdash; that's normal, not an error.">Gerundete Näherungswerte, Stand ungefähr Juli 2026. Marktkapitalisierung und Dividendenrendite bewegen sich mit dem Aktienkurs und können beim Lesen spürbar anders sein — das ist normal, kein Fehler.</p>
+    <div style="overflow-x:auto;">
+      <table class="fq-data-table" id="fq-data-table"></table>
+    </div>
+
+    <div class="disclaimer-box" style="margin-top:24px;" data-en="This is an educational game, not investment advice or a stock recommendation. Appearing in this deck is not a recommendation to buy, and being excluded is not a warning to avoid. Figures are rounded approximations from public sources and change constantly.">
+      Dies ist ein Bildungsspiel, keine Anlageberatung und keine Kaufempfehlung. In diesem Deck zu sein ist keine Kaufempfehlung, nicht enthalten zu sein keine Warnung. Zahlen sind gerundete Näherungswerte aus öffentlichen Quellen und ändern sich laufend.
+    </div>
+
+    <p style="margin-top:20px;font-size:.88rem;"><a href="finanzbildung-quartett-etf.html" data-en="→ The sibling game: ETF Quartet with 30 ETFs">→ Das Geschwisterspiel: ETF-Quartett mit 30 ETFs</a></p>
+    <p style="margin-top:32px;"><a href="kat-minimalismus-motivation.html" data-en="← Back to Motivation">← Zurück zu Motivation</a></p>
+  </div>
+</article>
+
+<script>
+const FQ_CARDS = [
+  {name:'Nvidia', sector:'Tech', mcap:5100, revenue:130, employees:36000, founded:1993, dividend:0.03, kgv:35},
+  {name:'Apple', sector:'Tech', mcap:3900, revenue:391, employees:164000, founded:1976, dividend:0.4, kgv:35},
+  {name:'Alphabet (Google)', sector:'Tech', mcap:3900, revenue:350, employees:181000, founded:1998, dividend:0.4, kgv:28},
+  {name:'Microsoft', sector:'Tech', mcap:3000, revenue:245, employees:228000, founded:1975, dividend:0.7, kgv:34},
+  {name:'Amazon', sector:'Tech/Handel', mcap:2500, revenue:620, employees:1550000, founded:1994, dividend:0.0, kgv:33},
+  {name:'Meta (Facebook)', sector:'Tech', mcap:1600, revenue:164, employees:74000, founded:2004, dividend:0.3, kgv:24},
+  {name:'Tesla', sector:'Auto/Tech', mcap:1000, revenue:98, employees:125000, founded:2003, dividend:0.0, kgv:180},
+  {name:'Berkshire Hathaway', sector:'Finanzen', mcap:1000, revenue:370, employees:396000, founded:1965, dividend:0.0, kgv:11},
+  {name:'Samsung Electronics', sector:'Tech', mcap:350, revenue:210, employees:270000, founded:1938, dividend:2.0, kgv:14},
+  {name:'Sony', sector:'Tech/Medien', mcap:150, revenue:85, employees:113000, founded:1946, dividend:0.6, kgv:19},
+  {name:'Toyota', sector:'Auto', mcap:230, revenue:300, employees:380000, founded:1937, dividend:3.0, kgv:9},
+  {name:'Volkswagen', sector:'Auto', mcap:45, revenue:348, employees:680000, founded:1937, dividend:6.0, kgv:6},
+  {name:'BMW', sector:'Auto', mcap:51, revenue:154, employees:155000, founded:1916, dividend:5.0, kgv:7},
+  {name:'Mercedes-Benz Group', sector:'Auto', mcap:55, revenue:157, employees:175264, founded:1926, dividend:7.0, kgv:6},
+  {name:'Coca-Cola', sector:'Konsumgüter', mcap:290, revenue:46, employees:79000, founded:1892, dividend:2.8, kgv:24},
+  {name:'McDonald\'s', sector:'Konsumgüter', mcap:220, revenue:26, employees:150000, founded:1955, dividend:2.3, kgv:24},
+  {name:'Nike', sector:'Konsumgüter', mcap:110, revenue:46, employees:79000, founded:1964, dividend:2.0, kgv:28},
+  {name:'Starbucks', sector:'Konsumgüter', mcap:95, revenue:36, employees:360000, founded:1971, dividend:2.8, kgv:30},
+  {name:'LVMH', sector:'Luxus', mcap:320, revenue:91, employees:213000, founded:1987, dividend:2.0, kgv:22},
+  {name:'Nestlé', sector:'Konsumgüter', mcap:220, revenue:100, employees:275000, founded:1866, dividend:4.0, kgv:19},
+  {name:'Adidas', sector:'Konsumgüter', mcap:43, revenue:26, employees:62000, founded:1949, dividend:1.0, kgv:30},
+  {name:'JPMorgan Chase', sector:'Finanzen', mcap:850, revenue:180, employees:320000, founded:1799, dividend:1.9, kgv:13},
+  {name:'Visa', sector:'Finanzen', mcap:680, revenue:40, employees:31000, founded:1958, dividend:0.7, kgv:29},
+  {name:'ExxonMobil', sector:'Energie', mcap:490, revenue:340, employees:62000, founded:1999, dividend:3.5, kgv:14},
+  {name:'Shell', sector:'Energie', mcap:220, revenue:290, employees:96000, founded:1907, dividend:4.0, kgv:11},
+  {name:'Johnson & Johnson', sector:'Pharma', mcap:400, revenue:92, employees:132000, founded:1886, dividend:3.2, kgv:16},
+  {name:'Novo Nordisk', sector:'Pharma', mcap:350, revenue:42, employees:78000, founded:1923, dividend:2.0, kgv:18},
+  {name:'Pfizer', sector:'Pharma', mcap:140, revenue:63, employees:83000, founded:1849, dividend:6.5, kgv:9},
+  {name:'SAP', sector:'Tech', mcap:324, revenue:37, employees:110000, founded:1972, dividend:0.8, kgv:45},
+  {name:'Walt Disney', sector:'Medien', mcap:210, revenue:92, employees:225000, founded:1923, dividend:0.9, kgv:20},
+];
+
+const FQ_CATS = [
+  {key:'mcap', label:'Marktkapitalisierung', unit:'Mrd. $', dir:1},
+  {key:'revenue', label:'Jahresumsatz', unit:'Mrd. $', dir:1},
+  {key:'employees', label:'Mitarbeiter', unit:'', dir:1},
+  {key:'founded', label:'Gründungsjahr', unit:'', dir:-1},
+  {key:'dividend', label:'Dividendenrendite', unit:'%', dir:1},
+  {key:'kgv', label:'KGV (Kurs-Gewinn-Verhältnis)', unit:'', dir:-1},
+];
+
+(function(){
+  const en = (typeof frIsEn === 'function' && frIsEn());
+  let pile1, pile2, turn, pot, roundCard1, roundCard2, gameOver;
+
+  function fmtNum(n){ return n.toLocaleString(en ? 'en-US' : 'de-DE'); }
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function initGame(){
+    const deck = shuffle(FQ_CARDS);
+    pile1 = deck.slice(0, 15);
+    pile2 = deck.slice(15, 30);
+    turn = 1;
+    pot = [];
+    gameOver = false;
+    document.getElementById('fq-gameover').classList.remove('is-visible');
+    render();
+  }
+
+  function cardStatsHTML(card, ownerLabel, faceUp, pickedKey, winnerKey){
+    if(!faceUp){
+      return `<div class="fq-card-back">${en ? 'Hidden card' : 'Verdeckte Karte'}</div>`;
+    }
+    let html = `<div class="fq-card-owner">${ownerLabel}</div>
+      <div class="fq-card-name">${card.name}</div>
+      <div class="fq-card-sector">${card.sector}</div>
+      <div class="fq-card-stats">`;
+    FQ_CATS.forEach(cat => {
+      const isPicked = cat.key === pickedKey;
+      const isWinner = cat.key === winnerKey;
+      let cls = 'fq-card-stat';
+      if(isPicked) cls += ' is-picked';
+      if(isWinner) cls += ' is-winner';
+      const val = cat.key === 'employees' ? fmtNum(card[cat.key]) : card[cat.key] + (cat.unit ? ' ' + cat.unit : '');
+      const arrow = cat.dir === 1
+        ? `<span class="fq-dir-arrow is-up" title="${en?'higher wins':'höher gewinnt'}">▲</span>`
+        : `<span class="fq-dir-arrow is-down" title="${en?'lower wins':'niedriger gewinnt'}">▼</span>`;
+      html += `<div class="${cls}"><span>${arrow}${cat.label}</span><span class="fq-card-stat-val">${val}</span></div>`;
+    });
+    html += `</div>`;
+    return html;
+  }
+
+  function render(){
+    document.getElementById('fq-count-1').textContent = pile1.length;
+    document.getElementById('fq-count-2').textContent = pile2.length;
+    document.getElementById('fq-score-1').classList.toggle('is-active', turn === 1);
+    document.getElementById('fq-score-2').classList.toggle('is-active', turn === 2);
+
+    if(pile1.length === 0 || pile2.length === 0){
+      showGameOver();
+      return;
+    }
+
+    const p1Label = en ? 'Player 1' : 'Spieler 1';
+    const p2Label = en ? 'Player 2' : 'Spieler 2';
+    document.getElementById('fq-turn-banner').textContent =
+      (en ? `Player ${turn}'s turn — pick a category` : `Spieler ${turn} ist dran — Kategorie wählen`);
+
+    roundCard1 = pile1[0];
+    roundCard2 = pile2[0];
+
+    document.getElementById('fq-card-1').innerHTML = cardStatsHTML(roundCard1, p1Label, turn === 1, null, null);
+    document.getElementById('fq-card-2').innerHTML = cardStatsHTML(roundCard2, p2Label, turn === 2, null, null);
+
+    const activeCard = turn === 1 ? roundCard1 : roundCard2;
+    const catsEl = document.getElementById('fq-categories');
+    catsEl.innerHTML = '';
+    FQ_CATS.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'fq-cat-btn' + (cat.dir === -1 ? ' is-reversed' : '');
+      const val = cat.key === 'employees' ? fmtNum(activeCard[cat.key]) : activeCard[cat.key] + (cat.unit ? ' ' + cat.unit : '');
+      const dirNote = cat.dir === -1 ? (en ? '▼ lower wins' : '▼ niedriger gewinnt') : (en ? '▲ higher wins' : '▲ höher gewinnt');
+      btn.innerHTML = `<span>${cat.label} <span class="fq-cat-dir">(${dirNote})</span></span><span class="fq-cat-val">${val}</span>`;
+      btn.addEventListener('click', () => playRound(cat.key));
+      catsEl.appendChild(btn);
+    });
+
+    document.getElementById('fq-result').classList.remove('is-visible');
+    document.getElementById('fq-next-btn').classList.remove('is-visible');
+    catsEl.style.display = 'flex';
+  }
+
+  function playRound(catKey){
+    const cat = FQ_CATS.find(c => c.key === catKey);
+    const v1 = roundCard1[catKey];
+    const v2 = roundCard2[catKey];
+    let winner;
+    if(v1 === v2) winner = 0;
+    else if(cat.dir === 1) winner = v1 > v2 ? 1 : 2;
+    else winner = v1 < v2 ? 1 : 2;
+
+    document.getElementById('fq-card-1').innerHTML = cardStatsHTML(roundCard1, en ? 'Player 1' : 'Spieler 1', true, catKey, winner === 1 ? catKey : null);
+    document.getElementById('fq-card-2').innerHTML = cardStatsHTML(roundCard2, en ? 'Player 2' : 'Spieler 2', true, catKey, winner === 2 ? catKey : null);
+    document.getElementById('fq-categories').style.display = 'none';
+
+    const resultEl = document.getElementById('fq-result');
+    resultEl.classList.add('is-visible');
+
+    pile1.shift();
+    pile2.shift();
+
+    if(winner === 0){
+      pot.push(roundCard1, roundCard2);
+      resultEl.textContent = en
+        ? `Tie on ${cat.label}! Both cards go into the pot. Same player picks again.`
+        : `Unentschieden bei ${cat.label}! Beide Karten wandern in den Pott. Derselbe Spieler wählt erneut.`;
+    } else {
+      const wonCards = [roundCard1, roundCard2, ...pot];
+      pot = [];
+      if(winner === 1) pile1.push(...wonCards);
+      else pile2.push(...wonCards);
+      resultEl.textContent = en
+        ? `Player ${winner} wins with ${cat.label}! (${roundCard1.name}: ${roundCard1[catKey]} vs. ${roundCard2.name}: ${roundCard2[catKey]}) — takes ${wonCards.length} card(s).`
+        : `Spieler ${winner} gewinnt mit ${cat.label}! (${roundCard1.name}: ${roundCard1[catKey]} vs. ${roundCard2.name}: ${roundCard2[catKey]}) — nimmt ${wonCards.length} Karte(n).`;
+      turn = winner;
+    }
+
+    document.getElementById('fq-next-btn').classList.add('is-visible');
+  }
+
+  function showGameOver(){
+    gameOver = true;
+    const winner = pile1.length > 0 ? 1 : 2;
+    document.getElementById('fq-gameover').classList.add('is-visible');
+    document.getElementById('fq-gameover-title').textContent = en ? `Player ${winner} wins!` : `Spieler ${winner} gewinnt!`;
+    document.getElementById('fq-gameover-text').textContent = en
+      ? `Player ${winner} collected all 30 cards.`
+      : `Spieler ${winner} hat alle 30 Karten gesammelt.`;
+  }
+
+  document.getElementById('fq-next-btn').addEventListener('click', render);
+  document.getElementById('fq-restart-btn').addEventListener('click', initGame);
+
+  const fsBtn = document.getElementById('fq-fullscreen-btn');
+  const fsWrap = document.querySelector('.fq-wrap');
+  if(fsWrap.requestFullscreen || fsWrap.webkitRequestFullscreen){
+    fsBtn.addEventListener('click', () => {
+      const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+      if(!isFs){
+        (fsWrap.requestFullscreen || fsWrap.webkitRequestFullscreen).call(fsWrap);
+      } else {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      }
+    });
+    document.addEventListener('fullscreenchange', () => {
+      const isFs = document.fullscreenElement;
+      fsBtn.textContent = isFs ? (en ? '⛶ Exit full screen' : '⛶ Vollbild verlassen') : (en ? '⛶ Full screen (hide browser bars)' : '⛶ Vollbild (Browser-Leisten ausblenden)');
+    });
+  } else {
+    // iOS Safari & einige ältere Browser unterstuetzen die Fullscreen-API nicht
+    fsBtn.textContent = en ? '⛶ Full screen not supported on this browser' : '⛶ Vollbild wird von diesem Browser nicht unterstützt';
+    fsBtn.disabled = true;
+  }
+
+  // Datentabelle einmalig befüllen
+  const table = document.getElementById('fq-data-table');
+  const FQ_TABLE_LABELS = {
+    mcap: en ? 'Market<br>Cap' : 'Markt-<br>kapitalisierung',
+    revenue: en ? 'Revenue' : 'Umsatz',
+    employees: en ? 'Employees' : 'Mitarbeiter',
+    founded: en ? 'Founded' : 'Gründungs-<br>jahr',
+    dividend: en ? 'Div.<br>Yield' : 'Div.-<br>Rendite',
+    kgv: 'KGV',
+  };
+  let thead = '<thead><tr><th>' + (en ? 'Company' : 'Unternehmen') + '</th>';
+  FQ_CATS.forEach(c => thead += `<th>${FQ_TABLE_LABELS[c.key]}</th>`);
+  thead += '</tr></thead>';
+  let tbody = '<tbody>';
+  FQ_CARDS.slice().sort((a,b) => b.mcap - a.mcap).forEach(c => {
+    tbody += `<tr><td>${c.name}</td><td>${c.mcap}</td><td>${c.revenue}</td><td>${fmtNum(c.employees)}</td><td>${c.founded}</td><td>${c.dividend}%</td><td>${c.kgv}</td></tr>`;
+  });
+  tbody += '</tbody>';
+  table.innerHTML = thead + tbody;
+
+  initGame();
+})();
+</script>
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

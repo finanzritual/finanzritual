@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Withholding Tax on Dividends: The Invisible Tax — and How ETFs Solve Most of It — Finanzritual">Quellensteuer auf Dividenden erklärt — Finanzritual</title>
+<meta name="description" content="Quellensteuer auf Dividenden: was sie ist, warum Frankreich schwierig ist, und warum ETFs mit IE-Domizil den meisten Stress vermeiden." data-en-content="Withholding tax on dividends: what it is, why France is the most difficult country, why reclaiming small amounts rarely pays — and why IE-domiciled ETFs avoid most of the hassle automatically.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quellensteuer auf Dividenden: Die unsichtbare Steuer — und wie ETFs das meiste davon lösen" data-en-content="Withholding Tax on Dividends: The Invisible Tax — and How ETFs Solve Most of It">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Quellensteuer auf Dividenden: Die unsichtbare Steuer — und wie ETFs das meiste davon lösen",
+  "description": "Quellensteuer auf Dividenden erklärt: Grundlagen, Ländertabelle, Frankreich-Problem, Rückforderung, Irland-ETFs als Lösung.",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html" },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ── Ländertabelle ───────────────────────────────────────── */
+.qs-table-wrap {
+  overflow-x: auto;
+  margin: 28px 0;
+  border-radius: 12px;
+  border: 1.5px solid var(--line-strong);
+  box-shadow: var(--shadow);
+}
+.qs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8rem;
+  min-width: 520px;
+}
+.qs-table thead th {
+  background: var(--blue);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,.12);
+}
+.qs-table thead th:last-child { border-right: none; }
+.qs-table tbody tr { border-bottom: 1px solid var(--line); }
+.qs-table tbody tr:hover { background: var(--bg); }
+.qs-table tbody tr:last-child { border-bottom: none; }
+.qs-table td {
+  padding: 10px 14px;
+  border-right: 1px solid var(--line);
+  font-size: .79rem;
+  color: var(--ink);
+  vertical-align: middle;
+}
+.qs-table td:last-child { border-right: none; }
+.qs-table td:first-child { font-weight: 600; }
+.qs-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+.dot-green  { background: var(--green); }
+.dot-yellow { background: #F59E0B; }
+.dot-orange { background: #EA580C; }
+.dot-red    { background: #C0392B; }
+.qs-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: .82rem;
+}
+.qs-num.is-good   { color: var(--green); }
+.qs-num.is-ok     { color: #D97706; }
+.qs-num.is-bad    { color: #EA580C; }
+.qs-num.is-worst  { color: #C0392B; }
+.qs-form { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--ink-soft); }
+
+/* ── Rechenbeispiel-Box ─────────────────────────────────── */
+.calc-example {
+  background: var(--bg-raised);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 22px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .82rem;
+}
+.calc-example h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+}
+.calc-row:last-child { border-bottom: none; font-weight: 700; }
+.calc-row.is-minus { color: #C0392B; }
+.calc-row.is-plus  { color: var(--green); }
+.calc-row.is-total { color: var(--ink); border-top: 1.5px solid var(--line-strong); margin-top: 4px; padding-top: 8px; }
+.calc-label { color: var(--ink-soft); font-size: .78rem; }
+.calc-val   { color: inherit; font-weight: 600; white-space: nowrap; }
+
+/* ── Tipp-Box ───────────────────────────────────────────── */
+.tip-box {
+  margin: 22px 0; padding: 15px 20px 15px 17px;
+  border-radius: 10px; background: #F7DFA8; border-left: 3px solid #D97706;
+}
+[data-theme="dark"] .tip-box { background: #4A3410; }
+.tip-box-label {
+  font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: #92400E; margin-bottom: 7px;
+}
+[data-theme="dark"] .tip-box-label { color: #FCD34D; }
+.tip-box p { margin: 0 0 7px; font-size: .87rem; }
+.tip-box p:last-child { margin-bottom: 0; }
+.tip-box code {
+  font-family: 'JetBrains Mono', monospace; font-size: .82rem;
+  background: rgba(217,119,6,.1); border-radius: 3px; padding: 0 4px; color: #92400E;
+}
+[data-theme="dark"] .tip-box code { background: rgba(253,211,77,.12); color: #FCD34D; }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-quellensteuer-dividenden.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true"><span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span></span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></button>
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche"><a href="index.html#optionen">Optionen</a><a href="kat-technik.html" data-en="Tech">Technik</a><a href="shop.html" class="fr-secret-soon">Shop ✦</a><a href="vip.html" class="fr-secret-soon">VIP-Bereich ✦</a></nav>
+        <div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div>
+        <div class="fr-secret-coffee"><a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener"><span class="fr-coffee-cup" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/><path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/><path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/><path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/><path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M2 22h16"/></svg></span><span class="fr-coffee-text"><span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span><span class="fr-coffee-sub" id="fr-coffee-sub">Du hast das Versteck gefunden ☕</span></span></a></div>
+      </div>
+    </div>
+        <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control"><label for="font-slider">Aa</label><input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße" data-en-aria-label="Font size"></div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus" data-en-aria-label="Toggle dark mode"><span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" title="Switch to English"><span id="lang-toggle-text">EN</span></button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Vorschau"><span class="alert-test-dot"></span></button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-steuer.html" data-en="Taxes">Steuern</a><span>/</span><span aria-current="page" data-en="Withholding Tax on Dividends">Quellensteuer auf Dividenden</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · Tax · 13 Aug 2026">Finanzen · Steuern · 13.08.2026</div>
+    <div style="margin-bottom:8px;"><a href="beitrag-etf-sparplan-fuer-anfaenger.html" style="display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;letter-spacing:.06em;color:var(--blue);text-decoration:none;border:1.5px solid var(--blue);border-radius:4px;padding:3px 10px;" data-en="← Continues from: Which ETF? (ISIN tip)">← Fortsetzung von: Welcher ETF? (ISIN-Tipp)</a></div>
+    <h1 data-en="Withholding Tax on Dividends: The Invisible Tax — and How ETFs Solve Most of It">Quellensteuer auf Dividenden: Die unsichtbare Steuer — und wie ETFs das meiste davon lösen</h1>
+    <p style="max-width:62ch;" data-en="When a company pays a dividend, the country where it is headquartered takes a cut first — before your broker sees a single cent. This is called withholding tax. Sometimes it works cleanly in the background. Sometimes it ends up as a permanent double tax on your returns. The difference is mostly a question of which country is involved — and whether you hold individual stocks or ETFs.">Wenn ein Unternehmen eine Dividende zahlt, greift zuerst der Staat zu, in dem es seinen Sitz hat — bevor dein Broker einen Cent sieht. Das nennt sich Quellensteuer. Manchmal läuft das sauber im Hintergrund ab. Manchmal bleibt sie als dauerhafte Doppelbesteuerung an der Rendite hängen. Der Unterschied hängt vor allem davon ab, welches Land beteiligt ist — und ob man Einzelaktien oder ETFs hält.</p>
+  </div>
+</section>
+
+<!-- ARTIKEL -->
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+  <h2 data-en="What is withholding tax, exactly?">Was ist Quellensteuer, genau?</h2>
+
+  <p data-en="Withholding tax is a tax levied directly in the country where the income originates — hence &ldquo;at the source.&rdquo; When a US company like Apple pays a dividend, the US tax authority (IRS) first retains a percentage before the remaining amount is transferred abroad. The same happens in France, Switzerland, Canada — and almost every other country with a capital market.">Quellensteuer ist eine Steuer, die direkt im Land erhoben wird, in dem das Einkommen entsteht — daher an der „Quelle". Wenn ein US-Unternehmen wie Apple eine Dividende zahlt, behält die US-Steuerbehörde (IRS) zuerst einen Prozentsatz ein, bevor der Rest ins Ausland überwiesen wird. Dasselbe passiert in Frankreich, der Schweiz, Kanada — und fast jedem anderen Land mit Kapitalmarkt.</p>
+
+  <p data-en="As a German investor, you then also owe German capital gains tax (Abgeltungssteuer) on the income: 25 % plus 5.5 % solidarity surcharge, totalling 26.375 %. Without a mechanism to prevent double taxation, you would pay twice: once in the source country, once in Germany. That is exactly the problem that double taxation agreements (DBAs) exist to solve — partially.">Als deutsche Anlegerin oder deutscher Anleger schuldest du auf dieses Einkommen zusätzlich die deutsche Abgeltungssteuer: 25⁠% plus 5,5⁠% Solidaritätszuschlag, zusammen 26,375⁠%. Ohne einen Mechanismus zur Vermeidung der Doppelbesteuerung würdest du zweimal zahlen: einmal im Quellstaat, einmal in Deutschland. Genau das ist das Problem, das Doppelbesteuerungsabkommen (DBAs) lösen sollen — zumindest teilweise.</p>
+
+  <h2 data-en="How double taxation agreements work — and their limits">Wie Doppelbesteuerungsabkommen funktionieren — und wo sie enden</h2>
+
+  <p data-en="Germany has concluded DBAs with over 90 countries. These agreements regulate which country is allowed to tax how much, and to what extent foreign withholding tax can be offset against the German tax liability. The standard formula in most DBAs: a maximum of 15 % of the withholding tax is offset against the German Abgeltungssteuer. Any withholding tax above that threshold can in principle be reclaimed directly from the foreign tax authority — but that is where the practical difficulties begin.">Deutschland hat mit über 90 Ländern DBAs abgeschlossen. Diese Abkommen regeln, welches Land wie viel besteuern darf und inwiefern ausländische Quellensteuer auf die deutsche Steuerschuld angerechnet werden kann. Die Standardformel in den meisten DBAs: Maximal 15⁠% der Quellensteuer werden auf die deutsche Abgeltungssteuer angerechnet. Darüber hinausgehende Quellensteuer kann grundsätzlich direkt beim ausländischen Finanzamt zurückgefordert werden — aber da beginnen die praktischen Schwierigkeiten.</p>
+
+  <div class="calc-example" aria-label="Rechenbeispiel USA: 100 Euro Dividende">
+    <h4 data-en="Example — USA · 100 € dividend">Rechenbeispiel — USA · 100 € Dividende</h4>
+    <div class="calc-row is-minus"><span class="calc-label" data-en="Withholding tax USA (standard)">Quellensteuer USA (Standard)</span><span class="calc-val">− 30,00 €</span></div>
+    <div class="calc-row is-plus"><span class="calc-label" data-en="Offset against German tax (DBA, max. 15 %)">Anrechnung auf DE-Steuer (DBA, max. 15⁠%)</span><span class="calc-val">+ 15,00 €</span></div>
+    <div class="calc-row is-minus"><span class="calc-label" data-en="Remaining German Abgeltungssteuer incl. Soli">Verbleibende DE Abgeltungssteuer inkl. Soli</span><span class="calc-val">− 11,38 €</span></div>
+    <div class="calc-row is-total"><span class="calc-label" data-en="Net dividend received">Netto-Dividende erhalten</span><span class="calc-val">70,62 €</span></div>
+    <div style="font-size:.72rem;color:var(--ink-soft);margin-top:10px;font-family:inherit;" data-en="At 15 % withholding tax (with W-8BEN form): net 73,63 €, total tax burden 26,37 %">Bei 15⁠% Quellensteuer (mit W-8BEN-Formular hinterlegt): Netto 73,63 €, Gesamtsteuerlast 26,37⁠%</div>
+  </div>
+
+  <div class="tip-box" role="note">
+    <div class="tip-box-label" data-en="💡 TIP — W-8BEN form for US stocks">💡 TIPP — W-8BEN-Formular für US-Aktien</div>
+    <p data-en="Anyone holding US individual stocks should make sure their broker has a W-8BEN form on file. This form confirms that you are not a US tax resident — and automatically reduces the withholding tax from 30 % to 15 %. Most German brokers ask for this during account opening. Without it, the full 30 % is withheld and can only be reclaimed directly from the IRS — a complex and time-consuming process.">Wer US-Einzelaktien hält, sollte sicherstellen, dass beim Broker ein W-8BEN-Formular hinterlegt ist. Dieses Formular bestätigt, dass man kein US-Steuerinländer ist — und reduziert die Quellensteuer automatisch von 30⁠% auf 15⁠%. Die meisten deutschen Broker fragen das bei der Kontoeröffnung ab. Ohne dieses Formular werden 30⁠% einbehalten, die dann direkt beim IRS zurückgefordert werden müssten — ein aufwendiges Verfahren.</p>
+  </div>
+
+  <h2 data-en="Why ETFs largely solve the problem — and why the ISIN matters">Warum ETFs das Problem weitgehend lösen — und warum die ISIN dabei eine Rolle spielt</h2>
+
+  <p data-en="Here is the good news for ETF investors: since the Investment Tax Reform of 2018, the ETF fund company handles withholding tax at fund level. As an investor, you benefit from a 30 % partial tax exemption on equity ETF income instead — meaning 30 % of the distributions are tax-free in Germany. You do not have to deal with withholding tax claims yourself.">Hier die gute Nachricht für ETF-Anleger: Seit der Investmentsteuerreform 2018 kümmert sich die ETF-Fondsgesellschaft um die Quellensteuer auf Fondsebene. Als Anleger profitierst du stattdessen von einer 30⁠%igen Teilfreistellung auf Erträge aus Aktien-ETFs — das heißt, 30⁠% der Ausschüttungen sind in Deutschland steuerfrei. Du musst dich nicht selbst um Quellensteuer-Ansprüche kümmern.</p>
+
+  <p data-en="But the fund domicile still matters — and this is where the ISIN country code becomes relevant. A physically replicating MSCI World ETF domiciled in Ireland (ISIN starts with <code>IE</code>) benefits from Ireland's special double taxation agreement with the USA. Ireland-domiciled investment funds pay only 15 % US withholding tax on dividends from US companies — half the standard rate of 30 %. Since the USA makes up around 65–72 % of most global indices, this saves approximately 0.20–0.30 % per year in performance compared to a Luxembourg-domiciled ETF without an equivalent DBA.">Das Fondsdomizil spielt aber noch immer eine Rolle — und genau hier wird das ISIN-Länderkürzel relevant. Ein physisch replizierender MSCI-World-ETF mit Domizil Irland (ISIN beginnt mit <code>IE</code>) profitiert vom Sonder-DBA zwischen Irland und den USA. In Irland domizilierte Investmentfonds zahlen auf Dividenden von US-Unternehmen nur 15⁠% US-Quellensteuer — die Hälfte des Regelsatzes von 30⁠%. Da die USA rund 65–72⁠% der meisten globalen Indizes ausmachen, spart das gegenüber einem Luxemburger ETF ohne vergleichbares DBA rund 0,20–0,30⁠% Performance pro Jahr.</p>
+
+  <p data-en="This is one of the main structural reasons why almost every ETF recommendation in Germany starts with <code>IE</code> — including all the ETFs recommended in this blog.">Das ist einer der wesentlichen strukturellen Gründe, warum fast alle ETF-Empfehlungen in Deutschland mit <code>IE</code> beginnen — inklusive aller auf diesem Blog empfohlenen ETFs.</p>
+
+  <h2 data-en="Withholding tax for individual stock investors — the full picture">Quellensteuer für Einzelaktien-Anleger — das volle Bild</h2>
+
+  <p data-en="Anyone who holds individual foreign stocks encounters withholding tax directly, at investor level. The fund company is no longer involved. The amounts, the countries, the forms — that's your problem. And the countries differ enormously in terms of how easy or difficult the process is.">Wer ausländische Einzelaktien hält, begegnet der Quellensteuer direkt — auf Anlegerebene. Die Fondsgesellschaft ist nicht mehr zwischengeschaltet. Die Beträge, die Länder, die Formulare — das ist dann dein Problem. Und die Länder unterscheiden sich enorm darin, wie einfach oder aufwendig das ist.</p>
+
+  <div class="qs-table-wrap">
+    <table class="qs-table" aria-label="Quellensteuer-Übersicht wichtiger Anlageländer">
+      <thead>
+        <tr>
+          <th data-en="Country">Land</th>
+          <th data-en="QSt rate">QSt-Satz</th>
+          <th data-en="Offsettable (max.)">Anrechenbar (max.)</th>
+          <th data-en="Claimable back">Rückforderbar</th>
+          <th data-en="Effort">Aufwand</th>
+          <th data-en="Form">Formular</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🇬🇧 Großbritannien</td>
+          <td><span class="qs-num is-good">0⁠%</span></td>
+          <td><span class="qs-num is-good">–</span></td>
+          <td><span class="qs-num is-good">–</span></td>
+          <td><span class="qs-dot dot-green"></span><span data-en="None">Kein</span></td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>🇮🇪 Irland</td>
+          <td><span class="qs-num is-good">0⁠%</span> <span style="font-size:.7rem;color:var(--ink-soft)">*</span></td>
+          <td><span class="qs-num is-good">–</span></td>
+          <td><span class="qs-num is-good">–</span></td>
+          <td><span class="qs-dot dot-green"></span><span data-en="None (with exemption)">Kein (mit Befreiung)</span></td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>🇩🇪 Deutschland</td>
+          <td><span class="qs-num is-good">0⁠%</span> <span style="font-size:.7rem;color:var(--ink-soft)">**</span></td>
+          <td>–</td>
+          <td>–</td>
+          <td><span class="qs-dot dot-green"></span><span data-en="None">Kein</span></td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>🇺🇸 USA</td>
+          <td><span class="qs-num is-ok">15⁠%</span> / 30⁠%</td>
+          <td><span class="qs-num is-ok">15⁠%</span></td>
+          <td>Nur bei 30⁠%-Einbehalt</td>
+          <td><span class="qs-dot dot-yellow"></span>Gering (W-8BEN)</td>
+          <td class="qs-form">W-8BEN</td>
+        </tr>
+        <tr>
+          <td>🇳🇱 Niederlande</td>
+          <td><span class="qs-num is-ok">15⁠%</span></td>
+          <td><span class="qs-num is-ok">15⁠%</span></td>
+          <td>–</td>
+          <td><span class="qs-dot dot-green"></span><span data-en="Automatic via broker">Automatisch</span></td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>🇫🇷 Frankreich</td>
+          <td><span class="qs-num is-bad">25–30⁠%</span></td>
+          <td><span class="qs-num is-ok">12,8⁠%</span></td>
+          <td><span class="qs-num is-bad">17,2⁠%</span></td>
+          <td><span class="qs-dot dot-red"></span><span data-en="Very high">Sehr hoch</span></td>
+          <td class="qs-form">5000-DE · 5001-DE</td>
+        </tr>
+        <tr>
+          <td>🇨🇭 Schweiz</td>
+          <td><span class="qs-num is-worst">35⁠%</span></td>
+          <td><span class="qs-num is-ok">15⁠%</span></td>
+          <td><span class="qs-num is-bad">20⁠%</span></td>
+          <td><span class="qs-dot dot-orange"></span><span data-en="High">Hoch</span></td>
+          <td class="qs-form">Formular 85</td>
+        </tr>
+        <tr>
+          <td>🇨🇦 Kanada</td>
+          <td><span class="qs-num is-bad">25⁠%</span></td>
+          <td><span class="qs-num is-ok">15⁠%</span></td>
+          <td><span class="qs-num is-bad">10⁠%</span></td>
+          <td><span class="qs-dot dot-orange"></span><span data-en="High, only via bank">Hoch, nur via Bank</span></td>
+          <td class="qs-form">NR7</td>
+        </tr>
+        <tr>
+          <td>🇫🇮 Finnland</td>
+          <td><span class="qs-num is-worst">35⁠%</span></td>
+          <td><span class="qs-num is-ok">15⁠%</span></td>
+          <td><span class="qs-num is-bad">20⁠%</span></td>
+          <td><span class="qs-dot dot-red"></span><span data-en="Very high">Sehr hoch</span></td>
+          <td class="qs-form">Auf Finnisch</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.72rem;color:var(--ink-soft);margin-top:-16px;margin-bottom:24px;" data-en="* Ireland 0 % requires prior exemption; without it 25 % is withheld. ** Germany: no withholding tax for foreign investors on German equity dividends via German custody accounts.">* Irland 0⁠% setzt Vorabbefreiung voraus; ohne sie werden 25⁠% einbehalten. ** Deutschland: keine Quellensteuer für ausländische Anleger auf deutsche Aktien-Dividenden via deutschem Depot.</p>
+
+  <h2 data-en="France: the most difficult country for German investors">Frankreich: das schwierigste Land für deutsche Anleger</h2>
+
+  <p data-en="France is a special case that deserves its own section. Interesting dividend companies — LVMH, TotalEnergies, Sanofi, Pernod Ricard, BNP Paribas — but a withholding tax system that is genuinely difficult to handle for private investors.">Frankreich ist ein Sonderfall, der einen eigenen Abschnitt verdient. Interessante Dividendenunternehmen — LVMH, TotalEnergies, Sanofi, Pernod Ricard, BNP Paribas — aber ein Quellensteuersystem, das für Privatanleger wirklich mühsam ist.</p>
+
+  <p data-en="France withholds 25–30 % withholding tax on dividends for foreign private investors. The DBA between France and Germany provides for a reduced rate of 12.8 %. The difference — approximately 17.2 % — can in principle be reclaimed. The key word is &ldquo;in principle.&rdquo;">Frankreich behält auf Dividenden für ausländische Privatanleger 25–30⁠% Quellensteuer ein. Das DBA zwischen Frankreich und Deutschland sieht einen reduzierten Satz von 12,8⁠% vor. Die Differenz — rund 17,2⁠% — kann grundsätzlich zurückgefordert werden. Das Schlüsselwort ist „grundsätzlich".</p>
+
+  <div class="calc-example" aria-label="Rechenbeispiel Frankreich: 100 Euro Dividende">
+    <h4 data-en="Example — France · 100 € dividend (without prior exemption)">Rechenbeispiel — Frankreich · 100 € Dividende (ohne Vorabbefreiung)</h4>
+    <div class="calc-row is-minus"><span class="calc-label" data-en="French withholding tax (standard)">Französische Quellensteuer (Standard)</span><span class="calc-val">− 30,00 €</span></div>
+    <div class="calc-row is-plus"><span class="calc-label" data-en="Offset against German tax (max. 12.8 %)">Anrechnung auf DE-Steuer (max. 12,8⁠%)</span><span class="calc-val">+ 12,80 €</span></div>
+    <div class="calc-row is-minus"><span class="calc-label" data-en="Remaining German Abgeltungssteuer incl. Soli">Verbleibende DE Abgeltungssteuer inkl. Soli</span><span class="calc-val">− 14,19 €</span></div>
+    <div class="calc-row is-bad" style="padding:6px 0;"><span class="calc-label" data-en="Theoretically claimable back (17.2 %)">Theoretisch rückforderbar (17,2⁠%)</span><span class="calc-val" style="color:#C0392B;">+ 17,20 €</span></div>
+    <div class="calc-row is-total"><span class="calc-label" data-en="Net without reclaim / with successful reclaim">Netto ohne / mit erfolgreicher Rückforderung</span><span class="calc-val">48,61 € / 65,81 €</span></div>
+  </div>
+
+  <p data-en="The reclaim looks good on paper. In practice, it involves: a French-language form (5000-DE: proof of residence, to be officially stamped by the German tax office), additionally form 5001-DE for dividends, a confirmation from the &ldquo;French custodian&rdquo; — which is not your German broker, but the French depository bank. Most German brokers do not provide this confirmation, or charge for it. The claim must be submitted to the French tax authority within two years of the end of the dividend year.">Die Rückforderung sieht auf dem Papier gut aus. In der Praxis bedeutet das: ein französischsprachiges Formular (5000-DE: Wohnsitzbescheinigung, vom deutschen Finanzamt abzustempeln), zusätzlich Formular 5001-DE für Dividenden, eine Bestätigung der „französischen auszahlenden Stelle" — das ist nicht deine deutsche Depotbank, sondern die französische Verwahrstelle. Die meisten deutschen Broker stellen diese Bestätigung nicht oder nur gegen Gebühr aus. Der Antrag muss innerhalb von zwei Jahren nach Ablauf des Dividendenjahres bei der französischen Finanzbehörde eingereicht werden.</p>
+
+  <p data-en="The critical question: is it worth it? At typical bank fees of 50 euros or more for the confirmation and processing, the reclaim only pays off from a gross dividend of around 290 euros from a single French company. Anyone holding LVMH in small amounts and receiving 40 euros in dividends per year should calculate carefully before investing 50 euros in fees and hours of bureaucracy.">Die entscheidende Frage: Lohnt es sich? Bei typischen Bankgebühren von 50 Euro oder mehr für die Bestätigung und Abwicklung rechnet sich die Rückforderung erst ab einer Bruttodividende von rund 290 Euro aus einem einzelnen französischen Unternehmen. Wer LVMH in kleiner Stückzahl hält und 40 Euro Dividende pro Jahr erhält, sollte gut abwägen, ob er 50 Euro Gebühren und Stunden Bürokratie investieren möchte.</p>
+
+  <div class="tip-box" role="note">
+    <div class="tip-box-label" data-en="💡 TIP — France: prior exemption beats reclaim">💡 TIPP — Frankreich: Vorabbefreiung schlägt Rückforderung</div>
+    <p data-en="The more efficient route for French stocks is the prior reduction (Vorabbefreiung): before the dividend is paid, you submit form 5000-DE (stamped by your German tax office) to your broker. The broker forwards it to the French custodian. From the next dividend, only 12.8 % is withheld instead of 30 %. The form is valid for three years. The catch: not all brokers offer this service — traditional banks such as Comdirect, DKB and S Broker do, but Neobroker such as Trade Republic and Scalable Capital generally do not. Clarify this with your broker before buying French stocks.">Die effizientere Route bei französischen Aktien ist die Vorabbefreiung (Vorabreduzierung): Vor der Dividendenauszahlung reichst du das Formular 5000-DE (vom deutschen Finanzamt abgestempelt) bei deinem Broker ein. Der Broker leitet es an die französische Verwahrstelle weiter. Ab der nächsten Dividende werden nur noch 12,8⁠% statt 30⁠% einbehalten. Das Formular gilt drei Jahre. Der Haken: nicht alle Broker bieten diesen Service an — klassische Banken wie Comdirect, DKB und S Broker tun es, Neobroker wie Trade Republic und Scalable Capital in der Regel nicht. Das vor dem Kauf französischer Aktien klären.</p>
+  </div>
+
+  <h2 data-en="Switzerland: 35 % — spectacular yield, spectacular withholding tax">Schweiz: 35⁠% — spektakuläre Renditen, spektakuläre Quellensteuer</h2>
+
+  <p data-en="Switzerland withholds 35 % on dividends — one of the highest rates in Europe. Of this, 15 % can be offset against German tax (DBA), and 20 % can be reclaimed via form 85 from the Swiss Federal Tax Administration (Eidgenössische Steuerverwaltung). The process is more manageable than in France — the form is available in German and the Swiss administration is considered reliable. However, the refund can take six to twelve months. Anyone holding Nestlé, Novartis, Roche or Swiss Re should deal with form 85 once — with recurring dividends, the effort amortises reasonably quickly.">Die Schweiz behält 35⁠% auf Dividenden ein — einer der höchsten Sätze in Europa. Davon lassen sich 15⁠% auf die deutsche Steuer anrechnen (DBA), und 20⁠% können via Formular 85 bei der Eidgenössischen Steuerverwaltung zurückgefordert werden. Der Prozess ist handhabbarer als in Frankreich — das Formular gibt es auf Deutsch, und die Schweizer Verwaltung gilt als verlässlich. Die Erstattung kann aber sechs bis zwölf Monate dauern. Wer Nestlé, Novartis, Roche oder Swiss Re hält, sollte sich einmal mit dem Formular 85 beschäftigen — bei wiederkehrenden Dividenden amortisiert sich der Aufwand einigermaßen.</p>
+
+  <h2 data-en="The practical conclusion: three clear rules">Die praktische Schlussfolgerung: drei klare Regeln</h2>
+
+  <p data-en="After working through the country table, three rules of thumb emerge that actually hold:">Nach dem Gang durch die Ländertabelle ergeben sich drei Faustregeln, die tatsächlich halten:</p>
+
+  <p data-en="&lt;strong&gt;Rule 1: ETFs first.&lt;/strong&gt; With a physically replicating equity ETF domiciled in Ireland, you hand the withholding tax problem largely to the fund company. You benefit from the Ireland-US DBA on the fund level, and you receive the 30 % partial tax exemption in Germany instead of having to manage country-specific reclaims. For most investors this is the cleaner, lower-maintenance solution."><strong data-en="Rule 1: ETFs first.">Regel 1: ETFs zuerst.</strong> Mit einem physisch replizierenden Aktien-ETF mit Domizil Irland überträgst du das Quellensteuerproblem weitgehend an die Fondsgesellschaft. Du profitierst vom Irland-USA-DBA auf Fondsebene, und du erhältst stattdessen die 30⁠%ige Teilfreistellung in Deutschland, ohne länder-spezifische Rückforderungen managen zu müssen. Für die meisten Anleger ist das die sauberere, wartungsärmere Lösung.</p>
+
+  <p data-en="&lt;strong&gt;Rule 2: For individual stocks, check the country code of the ISIN before you buy.&lt;/strong&gt; A UK stock (ISIN starts with <code>GB</code>) pays 0 % withholding tax — no further action required. A French stock (ISIN starts with <code>FR</code>) means forms, office stamps, French-language administration or at least a prior exemption process. Know this before you buy, not after the first dividend arrives."><strong data-en="Rule 2: For individual stocks, check the country code of the ISIN before you buy.">Regel 2: Bei Einzelaktien das Länderkürzel der ISIN vor dem Kauf prüfen.</strong> Eine britische Aktie (ISIN beginnt mit <code>GB</code>) zahlt 0⁠% Quellensteuer — kein weiterer Handlungsbedarf. Eine französische Aktie (ISIN beginnt mit <code>FR</code>) bedeutet Formulare, Amtsstempel, französischsprachige Verwaltung oder zumindest ein Vorabbefreiungsverfahren. Das vor dem Kauf wissen, nicht nach der ersten Dividende.</p>
+
+  <p data-en="&lt;strong&gt;Rule 3: Only reclaim what actually pays off.&lt;/strong&gt; The reclaim of withholding tax is only worthwhile when the reclaimable amount exceeds the costs and the time invested — which typically means: in France, only from a gross dividend of around 290 euros per company per year; in Switzerland, only for positions generating at least 50–100 euros per year in reclaimable withholding tax. For small positions with small dividends, the excess withholding tax is in practice a permanent extra cost — which is a strong argument for using a broad ETF instead of individual stock selection."><strong data-en="Rule 3: Only reclaim what actually pays off.">Regel 3: Nur zurückfordern, was sich wirklich lohnt.</strong> Die Rückforderung von Quellensteuer lohnt sich nur, wenn der rückforderbare Betrag die Kosten und die investierte Zeit übersteigt — was typischerweise bedeutet: In Frankreich erst ab rund 290 Euro Bruttodividende pro Unternehmen pro Jahr; in der Schweiz erst bei Positionen, die mindestens 50–100 Euro rückforderbare Quellensteuer pro Jahr erzeugen. Bei kleinen Positionen mit kleinen Dividenden ist die überschüssige Quellensteuer in der Praxis ein permanenter Zusatzaufwand — was ein starkes Argument für einen breiten ETF statt Einzeltitelauswahl ist.</p>
+
+  <div class="disclaimer-box" style="margin-top:32px;" data-en="All information as of September 2026 and without guarantee. DBA provisions and withholding tax rates can change. For larger dividend portfolios, always consult a tax advisor. This article is not tax advice.">Alle Angaben Stand September 2026 und ohne Gewähr. DBA-Regelungen und Quellensteuersätze können sich ändern. Bei größeren Dividendenportfolios immer steuerlichen Rat einholen. Dieser Artikel ist keine Steuerberatung.</div>
+
+  <p style="margin-top:32px;" data-en="Continue reading:">Weiterlesen:</p>
+  <ul>
+    <li><a href="beitrag-etf-sparplan-fuer-anfaenger.html" data-en="→ Which ETF? Guide for beginners (with ISIN tip)">→ Welcher ETF? Leitfaden für Anfänger (mit ISIN-Tipp)</a></li>
+    <li><a href="beitrag-kapitalertragsteuer-erklaert.html" data-en="→ Capital gains tax explained: Abgeltungssteuer, Soli, allowances">→ Kapitalertragsteuer erklärt: Abgeltungssteuer, Soli, Freibeträge</a></li>
+    <li><a href="beitrag-anlage-kap.html" data-en="→ Anlage KAP: how to declare investment income in your tax return">→ Anlage KAP: Kapitalerträge in der Steuererklärung angeben</a></li>
+    <li><a href="beitrag-startschuss-dividendenstrategie.html" data-en="→ My dividend strategy: how it started">→ Meine Dividendenstrategie: wie es begann</a></li>
+    <li><a href="beitrag-dividendenprojektion.html" data-en="→ Dividend projection: what the numbers look like year by year">→ Dividendenprojektion: wie die Zahlen Jahr für Jahr aussehen</a></li>
+    <li><a href="rechner-dividenden.html" data-en="→ Dividend calculator">→ Dividendenrechner</a></li>
+  </ul>
+
+  <p><a href="kat-finanzen-steuer.html" data-en="← All tax articles">← Alle Steuer-Artikel</a></p>
+
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

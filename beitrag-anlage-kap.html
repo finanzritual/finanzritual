@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="Anlage KAP Explained: When Filing for Capital Gains Actually Pays Off — Finanzritual">Anlage KAP: Lohnt sich die Steuererklärung? — Finanzritual</title>
+<meta name="description" content="Wann die Anlage KAP Pflicht ist, wann sie sich freiwillig lohnt — mit Rechner, ab welchem Einkommen sich die Günstigerprüfung auszahlt." data-en-content="When filing the Anlage KAP is mandatory, when it pays off voluntarily (favourable-treatment check, cross-bank loss offsetting) — with a calculator for the income level where it starts paying off.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-anlage-kap.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anlage KAP einfach erklärt: Wann sich die Steuererklärung für Kapitalerträge lohnt" data-en-content="Anlage KAP Explained: When Filing for Capital Gains Actually Pays Off">
+<meta property="og:description" content="Wann die Anlage KAP Pflicht ist, wann sie sich freiwillig lohnt (Günstigerprüfung, Verlustverrechnung über Banken hinweg) — mit Rechner, ab welchem Einkommen sich die Günstigerprüfung auszahlt." data-en-content="When filing the Anlage KAP is mandatory, when it pays off voluntarily (favourable-treatment check, cross-bank loss offsetting) — with a calculator for the income level where it starts paying off.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-anlage-kap.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Anlage KAP einfach erklärt: Wann sich die Steuererklärung für Kapitalerträge lohnt" data-en-content="Anlage KAP Explained: When Filing for Capital Gains Actually Pays Off">
+<meta name="twitter:description" content="Wann die Anlage KAP Pflicht ist, wann sie sich freiwillig lohnt (Günstigerprüfung, Verlustverrechnung über Banken hinweg) — mit Rechner, ab welchem Einkommen sich die Günstigerprüfung auszahlt." data-en-content="When filing the Anlage KAP is mandatory, when it pays off voluntarily (favourable-treatment check, cross-bank loss offsetting) — with a calculator for the income level where it starts paying off.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Anlage KAP einfach erklärt: Wann sich die Steuererklärung für Kapitalerträge lohnt",
+  "description": "Wann die Anlage KAP Pflicht ist, wann sie sich freiwillig lohnt (Günstigerprüfung, Verlustverrechnung über Banken hinweg) — mit Rechner, ab welchem Einkommen sich die Günstigerprüfung auszahlt.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-anlage-kap.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Anlage-KAP-Artikel (Namensraum kap-) ===== */
+.kap-cards{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+@media (max-width:700px){ .kap-cards{ grid-template-columns:1fr; } }
+.kap-card{ background:var(--bg-raised); border:1px solid var(--line-strong); border-radius:12px; padding:16px 18px; }
+.kap-card .name{ font-weight:700; font-size:.94rem; margin-bottom:6px; color:var(--blue); }
+.kap-card ul{ margin:0; padding-left:18px; font-size:.82rem; }
+.kap-card li{ margin-bottom:4px; }
+
+.kap-insight-box{ margin:22px 0; padding:20px 22px; border-radius:14px; background:var(--green-soft); border:1px solid rgba(30,142,90,.2); }
+.kap-warn-box{ margin:22px 0; padding:20px 22px; border-radius:14px; background:rgba(220,40,40,.06); border:1px solid rgba(220,40,40,.16); }
+
+/* ===== Rechner ===== */
+.kap-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.kap-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .kap-calc-inputs{ grid-template-columns:1fr; } }
+.kap-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.kap-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.kap-calc-results{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; }
+@media (max-width:640px){ .kap-calc-results{ grid-template-columns:1fr; } }
+.kap-calc-result{ border-radius:12px; padding:16px 18px; text-align:center; background:var(--bg); border:1px solid var(--line); }
+.kap-calc-result .lbl{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.kap-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; }
+.kap-calc-result--rate .num{ color:var(--blue); }
+.kap-calc-result--refund .num{ color:var(--green); }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-anlage-kap.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-anlage-kap.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-finanzen.html" data-en="Finance">Finanzen</a><span>/</span><a href="kat-finanzen-steuer.html" data-en="Taxes">Steuern</a><span>/</span><span aria-current="page" data-en="Anlage KAP explained">Anlage KAP einfach erklärt</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · 31 Jul 2026">Finanzen · 31.07.2026</div>
+    <h1 data-en="Anlage KAP Explained: When Filing for Capital Gains Actually Pays Off">Anlage KAP einfach erklärt: Wann sich die Steuererklärung für Kapitalerträge lohnt</h1>
+    <p style="max-width:60ch;" data-en="Most people never need it. When it becomes mandatory anyway, when the favourable-treatment check brings money back — with a calculator for the break-even point.">Die meisten brauchen sie nie. Wann sie trotzdem Pflicht wird, wann die Günstigerprüfung Geld zurückbringt — mit Rechner für den Umschlagpunkt.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="For most people with a German broker, the Anlage KAP form never comes up: the bank withholds 25⁠% flat tax (plus solidarity surcharge, plus church tax if applicable) automatically, and that's the end of it. But in a handful of situations, filing it anyway either becomes mandatory or hands you money back. Here's the short version.">Für die meisten Menschen mit einem deutschen Broker taucht die Anlage KAP nie auf: Die Bank behält automatisch 25⁠% Abgeltungsteuer ein (plus Soli, plus Kirchensteuer falls zutreffend), und die Sache ist erledigt. In ein paar Situationen wird sie aber entweder Pflicht oder bringt dir freiwillig Geld zurück. Hier die Kurzversion.</p>
+
+    <h2 data-en="When filing it is mandatory">Wann sie Pflicht ist</h2>
+    <div class="kap-cards">
+      <div class="kap-card">
+        <div class="name" data-en="Foreign broker">Ausländischer Broker</div>
+        <ul>
+          <li data-en="No German tax was withheld at source &ndash; you have to declare and pay it yourself.">Es wurde keine deutsche Steuer an der Quelle einbehalten — du musst sie selbst erklären und abführen.</li>
+        </ul>
+      </div>
+      <div class="kap-card">
+        <div class="name" data-en="Crypto gains under one year">Krypto-Gewinne unter einem Jahr</div>
+        <ul>
+          <li data-en="Held less than 12 months → taxed as other income, not covered by the flat withholding tax.">Haltefrist unter 12 Monaten → wird als sonstige Einkünfte besteuert, nicht durch die Abgeltungsteuer abgedeckt.</li>
+        </ul>
+      </div>
+      <div class="kap-card">
+        <div class="name" data-en="GmbH shareholder-managers">GmbH-Gesellschafter-Geschäftsführer</div>
+        <ul>
+          <li data-en="Hidden profit distributions (vGA) and disposal gains from GmbH shares must be declared here.">Verdeckte Gewinnausschüttungen (vGA) und Veräußerungsgewinne aus GmbH-Anteilen müssen hier deklariert werden.</li>
+        </ul>
+      </div>
+      <div class="kap-card">
+        <div class="name" data-en="Church tax correction">Kirchensteuer-Korrektur</div>
+        <ul>
+          <li data-en="Objected to automatic church-tax withholding but are liable → must self-report in line 6.">Dem automatisierten Kirchensteuerabzug widersprochen, aber kirchensteuerpflichtig → Meldepflicht in Zeile 6.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 data-en="When it's worth doing voluntarily">Wann sie sich freiwillig lohnt</h2>
+    <p data-en="Three situations come up often enough to check every year, even if none of the mandatory cases apply to you.">Drei Situationen kommen oft genug vor, um sie jedes Jahr zu prüfen — auch wenn keiner der Pflichtfälle auf dich zutrifft.</p>
+    <p data-en="<strong>1. Günstigerprüfung (favourable-treatment check).</strong> If your personal marginal tax rate (Grenzsteuersatz) is below the 25⁠% flat rate, you can ask the tax office to apply your personal rate instead &ndash; and get the difference refunded. This is common for students, people in their first job, retirees, and anyone in parental leave with low other income. Just tick the box in line 4; the tax office calculates automatically whether it helps, and never applies it if it would cost you money.">1. <strong>Günstigerprüfung.</strong> Liegt dein persönlicher Grenzsteuersatz unter dem Pauschalsatz von 25⁠%, kannst du beantragen, dass stattdessen dein persönlicher Satz gilt — und die Differenz zurückbekommen. Das betrifft häufig Studierende, Berufseinsteiger, Rentner und alle in Elternzeit mit niedrigem sonstigen Einkommen. Einfach das Kreuz in Zeile 4 setzen; das Finanzamt rechnet automatisch nach, ob es hilft, und wendet es nie an, wenn es dich schlechter stellen würde.</p>
+    <p data-en="<strong>2. Loss offsetting across banks.</strong> Each bank runs its own loss pot (Verlustverrechnungstopf) and only nets gains and losses within itself. If you made losses at broker A and gains at broker B, they don't cancel out automatically &ndash; you need a loss certificate (Verlustbescheinigung) from broker A and enter both in the Anlage KAP to offset them.">2. <strong>Verlustverrechnung über mehrere Banken.</strong> Jede Bank führt ihren eigenen Verlustverrechnungstopf und verrechnet Gewinne und Verluste nur bankintern. Hattest du Verluste bei Broker A und Gewinne bei Broker B, gleichen sie sich nicht automatisch aus — du brauchst eine Verlustbescheinigung von Broker A und trägst beides in die Anlage KAP ein, um sie zu verrechnen.</p>
+    <p data-en="<strong>3. Unused tax allowance.</strong> Forgot to set up your Freistellungsauftrag, or split it unevenly across accounts, and paid tax you shouldn't have? The Anlage KAP gets it back &ndash; see the linked article on the allowance for how to avoid this next year.">3. <strong>Ungenutzter Freibetrag.</strong> Freistellungsauftrag vergessen oder ungünstig auf mehrere Konten verteilt und dadurch zu viel Steuer gezahlt? Die Anlage KAP holt es zurück — wie du das im nächsten Jahr vermeidest, steht im verlinkten Freibetrag-Artikel.</p>
+
+    <h2 data-en="Estimate: is the Günstigerprüfung worth it for you?">Schätzung: Lohnt sich die Günstigerprüfung für dich?</h2>
+    <p data-en="Germany's tax zones are legally defined as linear &ndash; your marginal rate rises in a straight line within each zone. That makes a rough estimate possible without a full tax calculation. Enter your taxable annual income (zu versteuerndes Einkommen, not gross salary) to see roughly where your marginal rate lands.">Deutschlands Steuerzonen sind gesetzlich als linear definiert — dein Grenzsteuersatz steigt innerhalb jeder Zone auf einer Geraden. Das macht eine grobe Schätzung ohne vollständige Steuerberechnung möglich. Gib dein zu versteuerndes Jahreseinkommen ein (nicht das Bruttogehalt), um zu sehen, wo dein Grenzsteuersatz ungefähr liegt.</p>
+
+    <div class="kap-calc" id="kap-calc">
+      <div class="kap-calc-inputs">
+        <div class="row">
+          <label for="kap-income"><span data-en="Taxable annual income">Zu versteuerndes Jahreseinkommen</span> <span class="val" id="kap-income-val">20.000 €</span></label>
+          <input type="range" id="kap-income" class="calc-slider" min="10000" max="100000" step="1000" value="20000">
+        </div>
+        <div class="row">
+          <label for="kap-kapital"><span data-en="Capital gains above the allowance">Kapitalertrag über dem Freibetrag</span> <span class="val" id="kap-kapital-val">500 €</span></label>
+          <input type="range" id="kap-kapital" class="calc-slider" min="0" max="5000" step="100" value="500">
+        </div>
+      </div>
+      <p class="calc-note" data-en="Marginal-rate estimate for single filers, tax year 2025 (filed 2026), Grundtabelle, based on the official zone boundaries. Does not include church tax and simplifies the solidarity surcharge. For your exact figure, use ELSTER or tax software &ndash; this is a rough orientation only.">Grenzsteuersatz-Schätzung für Alleinstehende, Steuerjahr 2025 (Anlage KAP 2026), Grundtabelle, auf Basis der offiziellen Zonengrenzen. Ohne Kirchensteuer, Solidaritätszuschlag vereinfacht. Für die exakte Zahl ELSTER oder eine Steuersoftware nutzen — das hier ist nur eine grobe Orientierung.</p>
+      <div class="kap-calc-results">
+        <div class="kap-calc-result kap-calc-result--rate">
+          <div class="lbl" data-en="Estimated marginal rate">Geschätzter Grenzsteuersatz</div>
+          <div class="num" id="kap-rate">–</div>
+        </div>
+        <div class="kap-calc-result kap-calc-result--refund">
+          <div class="lbl" data-en="Possible refund via Günstigerprüfung">Möglicher Erstattungsbetrag</div>
+          <div class="num" id="kap-refund">–</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kap-insight-box">
+      <p style="margin:0;" data-en="The break-even point is worth remembering: for single filers in 2025, the marginal rate crosses the effective 26,375⁠% withholding rate (25⁠% plus solidarity surcharge) at roughly &euro;24,000 of taxable income. Below that, ticking the Günstigerprüfung box is very likely worth it. Above it, the flat rate is already the better deal, and the tax office's automatic check will simply confirm that &ndash; no harm in asking either way.">Der Umschlagpunkt lohnt sich zu merken: Für Alleinstehende liegt 2025 der Grenzsteuersatz bei rund 24.000 Euro zu versteuerndem Einkommen auf Höhe des effektiven Abzugssatzes von 26,375⁠% (25⁠% plus Solidaritätszuschlag). Darunter lohnt sich das Kreuz bei der Günstigerprüfung sehr wahrscheinlich. Darüber ist der Pauschalsatz bereits die bessere Wahl, und die automatische Prüfung des Finanzamts bestätigt das einfach — schaden kann das Ankreuzen so oder so nicht.</p>
+    </div>
+
+    <div class="kap-warn-box">
+      <p style="margin:0;" data-en="A Günstigerprüfung request applies to all your capital income for that year at once, for both partners if jointly assessed &ndash; you can't cherry-pick individual positions. And it must be filed before your tax assessment's appeal deadline expires; requesting it later, after a tax return was already final, generally isn't possible.">Ein Antrag auf Günstigerprüfung gilt für das ganze Jahr auf einmal, für alle Kapitalerträge, bei Zusammenveranlagung für beide Partner — einzelne Positionen kann man sich nicht aussuchen. Und er muss vor Ablauf der Einspruchsfrist für den Steuerbescheid gestellt werden; nachträglich, nach bestandskräftigem Bescheid, ist das in der Regel nicht mehr möglich.</p>
+    </div>
+
+    <p style="margin-top:8px;" data-en="This connects directly to the tax allowance article &ndash; setting up the Freistellungsauftrag correctly in the first place avoids needing most of this.">Das schließt direkt an den Freibetrag-Artikel an — den Freistellungsauftrag von Anfang an richtig einzurichten, erspart meist den Großteil davon.</p>
+    <ul>
+      <li><a href="beitrag-freibetrag.html" data-en="→ The €1,000 Tax Allowance: How to Get Every Cent Back">→ Der 1.000-Euro-Freibetrag: So holst du dir jeden Cent zurück</a></li>
+      <li><a href="beitrag-neobroker-etf-vergleich.html" data-en="→ ETF Savings Plan Compared: Trade Republic, Scalable, Consorsbank, Smartbroker+">→ ETF-Sparplan im Vergleich: Trade Republic, Scalable, Consorsbank, Smartbroker+</a></li>
+    </ul>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material, not tax advice. Figures reflect the official tax zone boundaries for the 2025 assessment year (Grundtabelle, single filers) as published by German tax authorities and may not include every individual circumstance (church tax, solidarity surcharge thresholds, joint assessment). The calculator gives a rough marginal-rate estimate only. For your actual tax situation, use ELSTER, tax software, or a tax advisor.">Dieser Beitrag ist Bildungsmaterial, keine Steuerberatung. Die Zahlen folgen den offiziellen Tarifzonen für den Veranlagungszeitraum 2025 (Grundtabelle, Alleinstehende) und decken nicht jede individuelle Situation ab (Kirchensteuer, Soli-Freigrenzen, Zusammenveranlagung). Der Rechner liefert nur eine grobe Grenzsteuersatz-Schätzung. Für deine tatsächliche Steuersituation ELSTER, eine Steuersoftware oder einen Steuerberater nutzen.</div>
+
+    <p style="margin-top:32px;"><a href="kat-finanzen.html" data-en="← Back to all Finance posts">← Zurück zu allen Finanzen-Beiträgen</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Anlage-KAP-Rechner: Grenzsteuersatz-Schaetzung + Erstattung ===== */
+(function(){
+  const incomeEl = document.getElementById('kap-income');
+  const kapitalEl = document.getElementById('kap-kapital');
+  const incomeVal = document.getElementById('kap-income-val');
+  const kapitalVal = document.getElementById('kap-kapital-val');
+  const rateEl = document.getElementById('kap-rate');
+  const refundEl = document.getElementById('kap-refund');
+  if(!incomeEl) return;
+
+  // Tarifzonen 2025 (Grundtabelle, Alleinstehende), § 32a EStG
+  function grenzsteuersatz(zve){
+    if(zve <= 12096) return 0;
+    if(zve <= 17443) return 14 + (24-14) * (zve-12096)/(17443-12096);
+    if(zve <= 66760) return 24 + (42-24) * (zve-17443)/(66760-17443);
+    if(zve <= 277825) return 42;
+    return 45;
+  }
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEuro(n){
+    const en = isEn();
+    const s = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 }).format(Math.round(n));
+    return en ? ('€' + s) : (s + '\u00A0€');
+  }
+
+  function compute(){
+    const income = parseFloat(incomeEl.value);
+    const kapital = parseFloat(kapitalEl.value);
+    incomeVal.textContent = fmtEuro(income);
+    kapitalVal.textContent = fmtEuro(kapital);
+
+    const rate = grenzsteuersatz(income);
+    rateEl.textContent = rate.toFixed(1).replace('.', isEn() ? '.' : ',') + '%';
+
+    const ABGELTUNG = 26.375; // 25% + 5,5% Soli darauf
+    const diff = ABGELTUNG - rate;
+    const refund = diff > 0 ? kapital * (diff/100) : 0;
+    refundEl.textContent = fmtEuro(refund);
+  }
+
+  incomeEl.addEventListener('input', compute);
+  kapitalEl.addEventListener('input', compute);
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+  compute();
+})();
+</script>
+</body>
+</html>

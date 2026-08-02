@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="The Cash Tree: A DIY Clothespin Board That Surrounds You With Money — Finanzritual">Der Cashbaum aus Wäscheklammern selbst gebaut — Finanzritual</title>
+<meta name="description" content="Ein Holzbrett, sieben Wäscheklammern, ein bisschen Sekundenkleber: Bau dir einen Cashbaum, an dem echte Scheinbündel hängen." data-en-content="One wooden board, seven clothespins, a bit of super glue: build yourself a cash tree with real bundles of banknotes clipped on &ndash; with instructions and an interactive bundle widget.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-cashbaum-waescheklammern.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Der Cashbaum: Ein Wäscheklammer-Brett, das dich mit Geld umgibt" data-en-content="The Cash Tree: A DIY Clothespin Board That Surrounds You With Money">
+<meta property="og:description" content="Ein Holzbrett, sieben Wäscheklammern, ein bisschen Sekundenkleber: Bau dir einen Cashbaum, an dem echte Scheinbündel hängen." data-en-content="One wooden board, seven clothespins, a bit of super glue: build yourself a cash tree with real bundles of banknotes clipped on.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-cashbaum-waescheklammern.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Der Cashbaum: Ein Wäscheklammer-Brett, das dich mit Geld umgibt" data-en-content="The Cash Tree: A DIY Clothespin Board That Surrounds You With Money">
+<meta name="twitter:description" content="Ein Holzbrett, sieben Wäscheklammern, ein bisschen Sekundenkleber — echte Scheinbündel, greifbar und sichtbar." data-en-content="One wooden board, seven clothespins &ndash; real bundles of banknotes, tangible and visible.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Der Cashbaum: Ein Wäscheklammer-Brett, das dich mit Geld umgibt",
+  "description": "Ein Holzbrett, sieben Wäscheklammern, ein bisschen Sekundenkleber: Bau dir einen Cashbaum, an dem echte Scheinbündel hängen — mit Anleitung und interaktivem Bündel-Widget.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-cashbaum-waescheklammern.html"
+  },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Materialliste / Anleitung ===== */
+.cb-steps{ counter-reset:cb-step; list-style:none; margin:22px 0; padding:0; }
+.cb-steps li{
+  counter-increment:cb-step; position:relative; padding:4px 0 14px 44px; font-size:.92rem;
+}
+.cb-steps li::before{
+  content:counter(cb-step); position:absolute; left:0; top:2px; width:30px; height:30px;
+  border-radius:50%; background:var(--green-soft); color:var(--green); border:2px solid var(--green);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-family:'JetBrains Mono',monospace; font-size:.85rem;
+}
+
+/* ===== Warnbox WG ===== */
+.cb-warn{
+  margin:22px 0; padding:16px 18px; border-radius:12px; display:flex; gap:12px; align-items:flex-start;
+  background:rgba(217,130,43,.12); border:1px solid rgba(217,130,43,.35);
+}
+.cb-warn-icon{ flex:none; font-size:1.3rem; line-height:1.3; }
+.cb-warn strong{ color:#d9822b; }
+
+/* ===== Der Cashbaum (schematisch + interaktiv) ===== */
+.cb-board{
+  margin:30px 0; padding:30px 16px 26px; border-radius:18px;
+  background:linear-gradient(180deg, rgba(176,141,87,.16), rgba(176,141,87,.06));
+  border:1px solid rgba(176,141,87,.3);
+}
+.cb-tree{ display:flex; flex-direction:column; align-items:center; gap:16px; }
+.cb-row{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.cb-pin{
+  display:flex; flex-direction:column; align-items:center; gap:3px; width:64px;
+}
+.cb-pin-clip{
+  width:24px; height:28px; border-radius:6px 6px 2px 2px; position:relative;
+  background:linear-gradient(180deg, #dcbd90, #c9a06a); box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);
+}
+.cb-pin-clip::after{
+  content:''; position:absolute; top:5px; left:50%; transform:translateX(-50%);
+  width:5px; height:5px; border-radius:50%; background:rgba(0,0,0,.28);
+}
+.cb-star{ font-size:.85rem; margin-bottom:-2px; }
+
+.cb-note-stack{ position:relative; width:40px; height:26px; margin-top:-4px; }
+.cb-note{
+  position:absolute; width:34px; height:16px; left:3px; border-radius:3px;
+  background:linear-gradient(135deg,#1E8E5A,#28a86b); box-shadow:0 1px 3px rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.25);
+}
+.cb-note-badge{
+  position:absolute; top:-5px; right:-2px; background:var(--ink); color:#fff;
+  font-size:.56rem; font-weight:700; border-radius:999px; padding:1px 5px;
+  font-family:'JetBrains Mono',monospace; box-shadow:0 1px 3px rgba(0,0,0,.25);
+}
+.cb-pin-amount{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.72rem; color:var(--ink-soft); }
+
+/* Kompakte Pille: Minus – Anzahl – Plus, alle in einem Kreis-Element */
+.cb-pin-controls{
+  display:flex; align-items:center; margin-top:2px; border-radius:999px;
+  border:1px solid var(--line-strong); background:var(--bg); overflow:hidden;
+}
+.cb-btn{
+  width:19px; height:19px; border:none; background:transparent; flex:none;
+  color:var(--ink); font-weight:700; cursor:pointer; font-size:.78rem; line-height:1;
+  display:flex; align-items:center; justify-content:center; font-family:inherit; padding:0;
+}
+.cb-btn:hover{ background:var(--green-soft); color:var(--green); }
+.cb-btn:active{ transform:scale(0.9); }
+.cb-pin-count{
+  font-family:'JetBrains Mono',monospace; font-weight:700; min-width:16px; text-align:center;
+  font-size:.74rem; padding:0 1px;
+}
+.cb-pin-subtotal{ font-size:.62rem; color:var(--green); font-weight:600; font-family:'JetBrains Mono',monospace; min-height:12px; }
+.cb-exchange-hint{
+  font-size:.58rem; color:#d9822b; font-weight:700; text-align:center; line-height:1.2; min-height:14px;
+}
+
+.cb-total{ margin-top:8px; text-align:center; }
+.cb-total-label{ font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); }
+.cb-total-amount{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:2rem; color:var(--green); margin-top:4px; }
+.cb-milestone{ margin-top:6px; font-size:.88rem; font-weight:600; color:var(--ink); min-height:22px; }
+
+.cb-auto-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:22px; justify-content:center; }
+.cb-auto-row label{ font-weight:600; font-size:.86rem; }
+.cb-auto-row input[type="number"]{
+  width:110px; padding:8px 10px; border-radius:8px; border:1px solid var(--line-strong);
+  background:var(--bg); color:var(--ink); font:inherit; font-family:'JetBrains Mono',monospace;
+}
+.cb-auto-note{ text-align:center; font-size:.78rem; color:var(--ink-soft); margin-top:8px; }
+
+.cb-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; justify-content:center; }
+
+@media(max-width:520px){
+  .cb-row{ gap:5px; }
+  .cb-pin{ width:52px; }
+  .cb-pin-clip{ width:20px; height:24px; }
+  .cb-note-stack{ width:34px; }
+  .cb-note{ width:28px; height:14px; }
+  .cb-btn{ width:17px; height:17px; font-size:.7rem; }
+  .cb-pin-count{ font-size:.68rem; min-width:14px; }
+}
+
+/* ===== Druckansicht ===== */
+@media print{
+  header.site, .page-hero .breadcrumb, footer.site, .alert-banner, .alert-bell, .scroll-top-btn,
+  .cb-actions, .cb-auto-row, #alert-test-btn { display:none !important; }
+  .cb-board{ break-inside:avoid; }
+  body{ background:#fff; color:#000; }
+}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-cashbaum-waescheklammern.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-cashbaum-waescheklammern.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-minimalismus.html" data-en="Minimalism">Minimalismus</a><span>/</span><a href="kat-minimalismus-budget.html" data-en="Budget">Budget</a><span>/</span><span aria-current="page" data-en="The cash tree">Der Cashbaum</span>
+    </nav>
+    <div class="eyebrow" data-en="Minimalism · 28 Jul 2026">Minimalismus · 28.07.2026</div>
+    <h1 data-en="The cash tree: a DIY clothespin board that surrounds you with money">Der Cashbaum: Ein Wäscheklammer-Brett, das dich mit Geld umgibt</h1>
+    <p style="max-width:60ch;" data-en="One board, seven wooden clothespins, a bit of super glue. No app, no login, no chart &ndash; just real bundles of cash you can see, touch and grow, hanging right on your wall.">Ein Brett, sieben Holz-Wäscheklammern, ein bisschen Sekundenkleber. Keine App, kein Login, kein Diagramm — einfach echte Geldbündel, die du siehst, anfassen und wachsen sehen kannst, direkt an deiner Wand.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+    <p data-en="The idea behind the cash tree is simple: surround yourself with the money you actually have. Not a number in a banking app &ndash; real notes you can see and hold. A €20 from your last shift, a €50 from grandma, a €200 you're setting aside for a trip: clip it straight onto the board, in full view. Watch the bundles grow, thicken, and climb from one peg to the next. That's the whole feeling this is built for &ndash; not restriction, but abundance you can actually see.">Die Idee hinter dem Cashbaum ist einfach: Umgib dich mit dem Geld, das du tatsächlich hast. Keine Zahl in einer Banking-App — echte Scheine, die du sehen und anfassen kannst. Ein 20er von der letzten Schicht, ein 50er von der Oma, 200 €, die du für einen Trip zur Seite gelegt hast: direkt sichtbar aufs Brett geklemmt. Sieh zu, wie die Bündel wachsen, dicker werden und von einer Klammer zur nächsten wandern. Genau um dieses Gefühl geht's — nicht um Verzicht, sondern um Fülle, die man tatsächlich sehen kann.</p>
+
+    <h2 data-en="Why a physical board beats an app">Warum ein physisches Brett einer App überlegen ist</h2>
+    <p data-en="A balance in a banking app is abstract &ndash; a number you have to actively open the app to even see. A cash tree hangs on the wall of your room. You walk past it every day, and every single time you register, half-consciously, &laquo;that's my money, right there&raquo;. That does two things at once: it takes the fear out of money by making it a normal, visible part of the room instead of a source of anxiety, and it lets you actually watch yourself get somewhere &ndash; which, once you've felt it, is genuinely satisfying.">Ein Kontostand in einer Banking-App ist abstrakt — eine Zahl, für die man die App aktiv öffnen muss, um sie überhaupt zu sehen. Ein Cashbaum hängt an der Wand im Zimmer. Man läuft täglich daran vorbei und registriert jedes Mal, halb unbewusst: „Das ist mein Geld, genau da." Das macht zwei Dinge gleichzeitig: Es nimmt dem Geld die Angst, weil es ein normaler, sichtbarer Teil des Zimmers wird statt eine Quelle der Sorge — und man sieht buchstäblich zu, wie man sich entwickelt, was, einmal erlebt, wirklich Spaß macht.</p>
+
+    <div class="cb-warn">
+      <span class="cb-warn-icon" aria-hidden="true">⚠️</span>
+      <div>
+        <strong data-en="Not for shared flats (WGs)">Nicht für WGs geeignet</strong><br>
+        <span data-en="Offen sichtbares Bargeld an der Wand funktioniert nur im eigenen, abschließbaren Zimmer &ndash; oder unter Menschen, denen du hundertprozentig vertraust. In einer WG mit wechselnden Besuchen ist das Risiko, dass etwas verschwindet, schlicht zu hoch. Nimm dafür lieber ein verschließbares Zimmer oder häng den Baum dort auf, wo wirklich nur du Zugang hast.">Offen sichtbares Bargeld an der Wand funktioniert nur im eigenen, abschließbaren Zimmer — oder unter Menschen, denen du hundertprozentig vertraust. In einer WG mit wechselnden Besuchen ist das Risiko, dass etwas verschwindet, schlicht zu hoch. Nimm dafür lieber ein verschließbares Zimmer oder häng den Baum dort auf, wo wirklich nur du Zugang hast.</span>
+      </div>
+    </div>
+
+    <h2 data-en="What you need">Was du brauchst</h2>
+    <ol class="cb-steps">
+      <li data-en="<strong>1 wooden board</strong>, roughly A4 to A3 size &ndash; a plain untreated board from any hardware store works fine."><strong data-en="1 wooden board">1 Holzbrett</strong>, etwa A4- bis A3-Größe — ein einfaches, unbehandeltes Brett aus dem Baumarkt reicht völlig.</li>
+      <li data-en="<strong>7 wooden clothespins</strong> &ndash; the plain, unpainted kind holds glue best."><strong data-en="7 wooden clothespins">7 Wäscheklammern aus Holz</strong> — die schlichten, unlackierten halten den Kleber am besten.</li>
+      <li data-en="<strong>Super glue</strong>, ideally gel-type so it doesn't run before it sets."><strong data-en="Super glue">Sekundenkleber</strong>, am besten als Gel, damit er vor dem Aushärten nicht verläuft.</li>
+      <li data-en="<strong>A wall hook or picture wire</strong> on the back, if you want to actually hang it up (recommended &ndash; that's the whole point)."><strong data-en="A wall hook or picture wire">Einen Wandhaken oder Bilderdraht</strong> auf der Rückseite, falls du ihn wirklich aufhängen willst (empfohlen — genau darum geht's ja).</li>
+    </ol>
+
+    <h2 data-en="The Christmas-tree layout — one denomination, many notes">Die Weihnachtsbaum-Anordnung — eine Stückelung, viele Scheine</h2>
+    <p data-en="Glue the seven clothespins onto the board in a pyramid: four across the bottom row, two above that, and one alone at the top &ndash; like a little Christmas tree. Each clothespin is assigned exactly one denomination, from &euro;5 at the wide base up to &euro;500 as the star on top:">Klebe die sieben Wäscheklammern in einer Pyramide aufs Brett: vier nebeneinander in der untersten Reihe, zwei darüber, eine ganz allein oben — wie ein kleiner Weihnachtsbaum. Jede Klammer bekommt genau eine Stückelung zugewiesen, von 5 € an der breiten Basis bis zu 500 € als Stern ganz oben:</p>
+    <ul>
+      <li data-en="<strong>Bottom row (base):</strong> €5 &middot; €10 &middot; €20 &middot; €50"><strong data-en="Bottom row (base):">Untere Reihe (Basis):</strong> 5 € · 10 € · 20 € · 50 €</li>
+      <li data-en="<strong>Middle row:</strong> €100 &middot; €200"><strong data-en="Middle row:">Mittlere Reihe:</strong> 100 € · 200 €</li>
+      <li data-en="<strong>Top (the star):</strong> €500"><strong data-en="Top (the star):">Oben (der Stern):</strong> 500 €</li>
+    </ul>
+    <p data-en="But here's the key part: each clothespin holds a whole bundle, not just one note. Got six or seven &euro;5 notes? Clip them all onto the same &euro;5 peg, stacked one behind the other &ndash; that's completely fine. Just keep an eye on the bundle every so often, and once it gets thick enough, swap a handful of them for a bigger note at your bank or a shop and move it up to the next peg. That upgrade moment, watching a fat bundle of small notes turn into one bigger one and climb the tree, is most of the fun.">Der entscheidende Punkt aber: Jede Wäscheklammer hält ein ganzes Bündel, nicht nur einen Schein. Hast du sechs oder sieben 5-Euro-Scheine? Klemm sie alle auf dieselbe 5-Euro-Klammer, hintereinander gestapelt — völlig in Ordnung. Schau einfach hin und wieder nach dem Bündel, und sobald es dick genug ist, tauschst du eine Handvoll davon bei deiner Bank oder im Laden gegen einen größeren Schein und lässt ihn eine Klammer höher wandern. Genau dieser Moment, in dem ein dickes Bündel kleiner Scheine zu einem größeren wird und den Baum hochklettert, macht den größten Spaß.</p>
+
+    <h2 data-en="Your cash tree, ready to try">Dein Cashbaum zum Ausprobieren</h2>
+    <p data-en="Here's a schematic, interactive version. Use the + and − buttons on each peg to add or remove notes &ndash; your bundles are saved automatically in this browser, and you can print the layout as a build reference for your real board.">Hier ist eine schematische, interaktive Version. Nutze die +/−-Knöpfe an jeder Klammer, um Scheine hinzuzufügen oder zu entfernen — deine Bündel werden automatisch in diesem Browser gespeichert, und du kannst dir das Layout als Bastel-Vorlage ausdrucken.</p>
+
+    <div class="cb-board">
+      <div class="cb-tree" id="cb-tree">
+        <div class="cb-row">
+          <div class="cb-pin" data-index="6" data-amount="500">
+            <span class="cb-star" aria-hidden="true">⭐</span>
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-6"></div>
+            <span class="cb-pin-amount">500 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="6" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-6">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="6" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-6"></div>
+            <div class="cb-exchange-hint" id="cb-hint-6"></div>
+          </div>
+        </div>
+        <div class="cb-row">
+          <div class="cb-pin" data-index="5" data-amount="200">
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-5"></div>
+            <span class="cb-pin-amount">200 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="5" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-5">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="5" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-5"></div>
+            <div class="cb-exchange-hint" id="cb-hint-5"></div>
+          </div>
+          <div class="cb-pin" data-index="4" data-amount="100">
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-4"></div>
+            <span class="cb-pin-amount">100 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="4" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-4">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="4" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-4"></div>
+            <div class="cb-exchange-hint" id="cb-hint-4"></div>
+          </div>
+        </div>
+        <div class="cb-row">
+          <div class="cb-pin" data-index="3" data-amount="50">
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-3"></div>
+            <span class="cb-pin-amount">50 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="3" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-3">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="3" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-3"></div>
+            <div class="cb-exchange-hint" id="cb-hint-3"></div>
+          </div>
+          <div class="cb-pin" data-index="2" data-amount="20">
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-2"></div>
+            <span class="cb-pin-amount">20 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="2" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-2">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="2" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-2"></div>
+            <div class="cb-exchange-hint" id="cb-hint-2"></div>
+          </div>
+          <div class="cb-pin" data-index="1" data-amount="10">
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-1"></div>
+            <span class="cb-pin-amount">10 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="1" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-1">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="1" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-1"></div>
+            <div class="cb-exchange-hint" id="cb-hint-1"></div>
+          </div>
+          <div class="cb-pin" data-index="0" data-amount="5">
+            <span class="cb-pin-clip"></span>
+            <div class="cb-note-stack" id="cb-stack-0"></div>
+            <span class="cb-pin-amount">5 €</span>
+            <div class="cb-pin-controls">
+              <button type="button" class="cb-btn cb-btn-minus" data-index="0" aria-label="Schein entfernen" data-en-aria-label="Remove note">−</button>
+              <span class="cb-pin-count" id="cb-count-0">0</span>
+              <button type="button" class="cb-btn cb-btn-plus" data-index="0" aria-label="Schein hinzufügen" data-en-aria-label="Add note">+</button>
+            </div>
+            <div class="cb-pin-subtotal" id="cb-subtotal-0"></div>
+            <div class="cb-exchange-hint" id="cb-hint-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cb-total">
+        <div class="cb-total-label" data-en="Currently on your cash tree">Aktuell an deinem Cashbaum</div>
+        <div class="cb-total-amount" id="cb-total-amount">0 €</div>
+        <div class="cb-milestone" id="cb-milestone"></div>
+      </div>
+
+      <div class="cb-auto-row">
+        <label for="cb-total-input" data-en="Enter what you already have and distribute it">Trag ein, was du schon hast, und verteil es</label>
+        <input type="number" id="cb-total-input" min="0" step="5" placeholder="z.B. 1000">
+        <button type="button" class="btn btn-outline" id="cb-auto-fill" data-en="Distribute automatically">Automatisch verteilen</button>
+      </div>
+      <p class="cb-auto-note" id="cb-auto-note"></p>
+
+      <div class="cb-actions">
+        <button type="button" class="btn btn-outline" id="cb-reset" data-en="Reset cash tree">Cashbaum zurücksetzen</button>
+        <button type="button" class="btn btn-primary" id="cb-print" data-en="Print cash tree 🖨️">Cashbaum drucken 🖨️</button>
+      </div>
+    </div>
+    <p class="calc-note" data-en="Schematic reference layout, not a scaled building plan. Each peg can hold as many notes of its denomination as you like &ndash; there's no upper limit here. When a bundle gets thick (roughly five notes or more), a small reminder appears suggesting you might want to exchange it for a bigger note.">Schematisches Referenz-Layout, kein maßstabsgetreuer Bauplan. Jede Klammer kann so viele Scheine ihrer Stückelung halten, wie du willst — hier gibt's keine Obergrenze. Wird ein Bündel dick (ab etwa fünf Scheinen), erscheint ein kleiner Hinweis, dass sich ein Umtausch gegen einen größeren Schein lohnen könnte.</p>
+
+    <h2 data-en="Why it actually works">Warum es tatsächlich funktioniert</h2>
+    <p data-en="Behavioral economists call it the endowment effect: things we can see and touch feel more real and more &laquo;ours&raquo; than things we only know about abstractly. A number in an app triggers almost no emotional response. A wall of real, thickening bundles of banknotes does. It also works as a buffer against panic &ndash; on a day when money feels tight, glancing at a well-filled tree is a concrete reminder of what you've already built, whether that's for investing later, a party, gifts for friends, or nothing in particular yet. And for anyone learning to handle money for the first time, that's often the bigger win: not the euros themselves, but the experience that money can be something visible, growing, and genuinely satisfying to watch, instead of something to be anxious about.">Verhaltensökonomen nennen es den Endowment-Effekt: Dinge, die wir sehen und anfassen können, fühlen sich realer und mehr „unser" an als Dinge, die wir nur abstrakt kennen. Eine Zahl in einer App löst kaum eine emotionale Reaktion aus. Eine Wand mit echten, dicker werdenden Geldbündeln schon. Es funktioniert außerdem als Puffer gegen Panik — an einem Tag, an dem Geld knapp wirkt, ist der Blick auf einen gut gefüllten Baum eine konkrete Erinnerung daran, was man sich schon aufgebaut hat, egal ob für spätere Investitionen, eine Fete, Geschenke für Freunde oder einfach noch für gar nichts Bestimmtes. Und für alle, die zum ersten Mal lernen, mit Geld umzugehen, ist oft genau das der größere Gewinn: nicht die Euro selbst, sondern die Erfahrung, dass Geld etwas Sichtbares, Wachsendes und wirklich Befriedigendes zum Zusehen sein kann, statt etwas, worüber man sich Sorgen macht.</p>
+
+    <p data-en="Once your bundles get sizeable, the natural next step is putting some of that money to work instead of just letting it hang on a wall &ndash; see the <a href=&quot;beitrag-singlehaushalt-budget-challenge.html&quot;>milestone thermometer</a> for what a growing budget can look like, or the <a href=&quot;beitrag-etf-sparplan.html&quot;>ETF savings plan</a> guide for turning cash on hand into a long-term plan.">Sobald deine Bündel eine ordentliche Größe erreichen, ist der nächste logische Schritt, einen Teil des Geldes arbeiten zu lassen, statt es nur an der Wand hängen zu haben — siehe das <a href="beitrag-singlehaushalt-budget-challenge.html">Meilenstein-Thermometer</a> für das, was ein wachsendes Budget bewirken kann, oder die Anleitung zum <a href="beitrag-etf-sparplan.html">ETF-Sparplan</a>, um aus vorhandenem Bargeld einen langfristigen Plan zu machen.</p>
+
+    <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material and a craft idea, not financial or safety advice. Storing cash visibly always carries some risk of loss or theft &ndash; use your own judgement about where and how you display it, and never rely on a cash tree as your only or primary place to keep money.">Dieser Beitrag ist Bildungsmaterial und eine Bastelidee, keine Finanz- oder Sicherheitsberatung. Sichtbar gelagertes Bargeld birgt immer ein gewisses Verlust- oder Diebstahlrisiko — triff selbst die Entscheidung, wo und wie du es zeigst, und verlass dich nie auf einen Cashbaum als einzigen oder wichtigsten Aufbewahrungsort für Geld.</div>
+
+    <p style="margin-top:32px;"><a href="kat-minimalismus-budget.html" data-en="← Back to all Budget posts">← Zurück zu allen Budget-Beiträgen</a></p>
+    <p><a href="beitrag-abreissblock-geldscheine.html" data-en="→ The tear-off block: turn cash into a notepad you peel bills from">→ Der Abreißblock: Dein Geld als Notizblock zum Abreißen</a></p>
+    <p><a href="beitrag-singlehaushalt-budget-challenge.html" data-en="→ What a single household really costs: milestones & the 1-euro challenge">→ Was ein Single-Haushalt wirklich kostet: Meilensteine & die 1-Euro-Challenge</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== Cashbaum: 7 Wäscheklammern, jede hält beliebig viele Scheine ihrer Stückelung ===== */
+(function(){
+  const tree = document.getElementById('cb-tree');
+  if(!tree) return;
+
+  /* Reihenfolge nach data-index: 0=5, 1=10, 2=20, 3=50, 4=100, 5=200, 6=500 */
+  const DENOMS = [5, 10, 20, 50, 100, 200, 500];
+  const LS_KEY = 'fr-cashbaum-counts';
+  const EXCHANGE_THRESHOLD = 5;
+
+  const MILESTONES = [
+    { min: 100,   de: "Los geht's! 🌱",                  en: "Off to a start! 🌱" },
+    { min: 500,   de: "Schön am Wachsen 🌳",              en: "Nicely growing 🌳" },
+    { min: 1000,  de: "Vierstellig! 💪",                  en: "Four figures! 💪" },
+    { min: 2500,  de: "Ordentliches Polster 🔥",          en: "A solid cushion 🔥" },
+    { min: 5000,  de: "Stattliche Summe 🚀",              en: "A serious sum 🚀" },
+    { min: 10000, de: "Fünfstellig! 👑",                  en: "Five figures! 👑" }
+  ];
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmt(n){
+    return isEn() ? '€' + n.toLocaleString('en-US') : n.toLocaleString('de-DE') + '\u00A0€';
+  }
+
+  function getCounts(){
+    try{
+      const raw = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+      if(Array.isArray(raw) && raw.length === DENOMS.length) return raw.map(v => Math.max(0, parseInt(v,10) || 0));
+    }catch(e){}
+    return DENOMS.map(() => 0);
+  }
+  function saveCounts(counts){
+    try{ localStorage.setItem(LS_KEY, JSON.stringify(counts)); }catch(e){}
+  }
+
+  function renderStack(index, count){
+    const el = document.getElementById('cb-stack-' + index);
+    el.innerHTML = '';
+    if(count <= 0) return;
+    const visible = Math.min(count, 4);
+    for(let i = 0; i < visible; i++){
+      const note = document.createElement('div');
+      note.className = 'cb-note';
+      note.style.top = (9 - i * 3) + 'px';
+      note.style.left = (3 + (i % 2) * 2) + 'px';
+      el.appendChild(note);
+    }
+    if(count > 4){
+      const badge = document.createElement('div');
+      badge.className = 'cb-note-badge';
+      badge.textContent = '×' + count;
+      el.appendChild(badge);
+    }
+  }
+
+  function render(){
+    const counts = getCounts();
+    let total = 0;
+    DENOMS.forEach(function(denom, idx){
+      const count = counts[idx];
+      total += count * denom;
+      renderStack(idx, count);
+      document.getElementById('cb-count-' + idx).textContent = String(count);
+      const subtotalEl = document.getElementById('cb-subtotal-' + idx);
+      subtotalEl.textContent = count > 0 ? fmt(count * denom) : '';
+      const hintEl = document.getElementById('cb-hint-' + idx);
+      const hasNext = idx < DENOMS.length - 1;
+      if(hasNext && count >= EXCHANGE_THRESHOLD){
+        hintEl.textContent = isEn() ? '🔄 Time to exchange?' : '🔄 Zeit zum Wechseln?';
+      } else {
+        hintEl.textContent = '';
+      }
+    });
+
+    document.getElementById('cb-total-amount').textContent = fmt(total);
+
+    let msg = '';
+    for(let i = MILESTONES.length - 1; i >= 0; i--){
+      if(total >= MILESTONES[i].min){
+        msg = isEn() ? MILESTONES[i].en : MILESTONES[i].de;
+        break;
+      }
+    }
+    document.getElementById('cb-milestone').textContent = msg;
+  }
+
+  function changeCount(index, delta){
+    const counts = getCounts();
+    counts[index] = Math.max(0, counts[index] + delta);
+    saveCounts(counts);
+    render();
+  }
+
+  tree.querySelectorAll('.cb-btn-plus').forEach(function(btn){
+    btn.addEventListener('click', function(){ changeCount(parseInt(btn.dataset.index, 10), 1); });
+  });
+  tree.querySelectorAll('.cb-btn-minus').forEach(function(btn){
+    btn.addEventListener('click', function(){ changeCount(parseInt(btn.dataset.index, 10), -1); });
+  });
+
+  const resetBtn = document.getElementById('cb-reset');
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    saveCounts(DENOMS.map(() => 0));
+    const totalInput = document.getElementById('cb-total-input');
+    if(totalInput) totalInput.value = '';
+    const autoNote = document.getElementById('cb-auto-note');
+    if(autoNote) autoNote.textContent = '';
+    render();
+  });
+
+  const printBtn = document.getElementById('cb-print');
+  if(printBtn) printBtn.addEventListener('click', function(){ window.print(); });
+
+  const autoBtn = document.getElementById('cb-auto-fill');
+  const totalInput = document.getElementById('cb-total-input');
+  const autoNote = document.getElementById('cb-auto-note');
+  if(autoBtn) autoBtn.addEventListener('click', function(){
+    let remaining = Math.max(0, Math.floor(parseFloat(totalInput.value) || 0));
+    const counts = DENOMS.map(() => 0);
+    for(let i = DENOMS.length - 1; i >= 0; i--){
+      const denom = DENOMS[i];
+      const count = Math.floor(remaining / denom);
+      counts[i] = count;
+      remaining -= count * denom;
+    }
+    saveCounts(counts);
+    render();
+    if(remaining > 0){
+      autoNote.textContent = isEn()
+        ? fmt(remaining) + " doesn't fit into a €5 note \u2013 round your amount to the nearest 5."
+        : fmt(remaining) + ' passt in keinen 5-Euro-Schein \u2013 rund deinen Betrag auf volle 5 € auf oder ab.';
+    } else {
+      autoNote.textContent = '';
+    }
+  });
+
+  render();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+</body>
+</html>

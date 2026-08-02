@@ -1,0 +1,297 @@
+================================================================================
+ FINANZRITUAL.DE — HOSTING ÜBER GITHUB PAGES
+ Kostenloses Hosting mit eigener Domain
+ Stand: Juli 2026
+================================================================================
+
+INHALT
+------
+  0. Warum GitHub Pages
+  1. Was du brauchst
+  2. Repository anlegen
+  3. Projekt hochladen (ohne docs/ tools/ logos/)
+  4. GitHub Pages aktivieren
+  5. Eigene Domain finanz-ritual.de einrichten
+  6. HTTPS aktivieren
+  7. Änderungen später hochladen (Workflow)
+  8. Automatisches Deployment (optional, für Fortgeschrittene)
+  9. Grenzen von GitHub Pages
+ 10. Checkliste
+
+
+================================================================================
+ 0. WARUM GITHUB PAGES
+================================================================================
+
+  GitHub Pages hostet statische Webseiten direkt aus einem GitHub-
+  Repository — genau das, was Finanzritual ist (reines HTML/CSS/JS,
+  keine Datenbank, kein PHP).
+
+  VORTEILE
+    - Komplett kostenlos, auch mit eigener Domain
+    - HTTPS automatisch inklusive (Let's Encrypt)
+    - Kein Server, keine Wartung, keine Angriffsfläche wie bei WordPress
+    - Versionsgeschichte: jede Änderung ist nachvollziehbar,
+      man kann jederzeit zu einer älteren Version zurück
+    - Gute Ausfallsicherheit (GitHubs eigene Infrastruktur)
+
+  UNTERSCHIED ZU NETLIFY (siehe BETRIEB.txt, Abschnitt 2)
+    - Netlify: etwas komfortabler beim Einrichten, Drag & Drop möglich
+    - GitHub Pages: du brauchst Git-Grundkenntnisse, dafür bleibt der
+      Code direkt beim Hoster deiner Wahl versioniert
+    Beide sind für Finanzritual technisch gleichwertig geeignet.
+    Diese Anleitung ist für alle, die lieber bei GitHub bleiben wollen
+    oder das Projekt ohnehin schon dort versionieren.
+
+
+================================================================================
+ 1. WAS DU BRAUCHST
+================================================================================
+
+  - Einen kostenlosen GitHub-Account (github.com)
+  - Git installiert (git-scm.com) ODER GitHub Desktop
+    (desktop.github.com — grafische Oberfläche, kein Terminal nötig)
+  - Zugriff auf deinen Domain-Registrar für finanz-ritual.de
+    (dort, wo du die Domain gekauft hast — DNS-Einträge ändern)
+
+
+================================================================================
+ 2. REPOSITORY ANLEGEN
+================================================================================
+
+  1. Bei github.com einloggen
+  2. Oben rechts "+" -> "New repository"
+  3. Repository-Name: finanzritual
+     (der Name ist frei wählbar, beeinflusst nur die Zwischen-URL,
+      siehe Abschnitt 4)
+  4. Sichtbarkeit: "Public" wählen
+     WICHTIG: GitHub Pages mit eigener Domain funktioniert im
+     kostenlosen Plan nur bei einem PUBLIC Repository. Der Code
+     (HTML/CSS/JS) ist ohnehin öffentlich einsehbar, sobald die Seite
+     live ist — das ist bei jeder Webseite so, unabhängig vom Hoster.
+  5. "Add a README file" NICHT anhaken (kommt gleich mit dem Projekt)
+  6. "Create repository" klicken
+
+
+================================================================================
+ 3. PROJEKT HOCHLADEN (OHNE docs/ tools/ logos/)
+================================================================================
+
+  Wie in BETRIEB.txt Abschnitt 2 beschrieben, gehören docs/, tools/
+  und logos/ NICHT auf den Server. Für ein GitHub-Repository heißt
+  das: entweder separat halten oder per .gitignore ausschließen.
+
+  WEG A — EINFACHSTER START: GitHub Desktop (ohne Terminal)
+  -------------------------------------------------------------
+  1. GitHub Desktop installieren und mit dem Account anmelden
+  2. "File" > "Add local repository" > deinen Projektordner wählen
+  3. GitHub Desktop erkennt die Dateien automatisch
+  4. Vor dem ersten Commit: eine Datei .gitignore im Projektordner
+     anlegen mit diesem Inhalt:
+
+         docs/
+         tools/
+         logos/
+
+  5. Commit-Nachricht eingeben (z.B. "Erste Veröffentlichung"),
+     "Commit to main" klicken
+  6. "Publish repository" klicken -> mit dem in Schritt 2 angelegten
+     Repository "finanzritual" verbinden
+  7. Fertig — alle Dateien sind jetzt bei GitHub, außer den drei
+     ausgeschlossenen Ordnern
+
+  WEG B — MIT TERMINAL (git)
+  -------------------------------
+      cd /pfad/zu/finanzritual
+
+      echo "docs/" >> .gitignore
+      echo "tools/" >> .gitignore
+      echo "logos/" >> .gitignore
+
+      git init
+      git add .
+      git commit -m "Erste Veröffentlichung"
+      git branch -M main
+      git remote add origin https://github.com/DEIN-BENUTZERNAME/finanzritual.git
+      git push -u origin main
+
+  WICHTIG — fonts/ NICHT vergessen:
+  Der Ordner fonts/ (die selbst gehosteten Schriftdateien, siehe
+  ANLEITUNG.txt Abschnitt 0) muss mit hochgeladen werden. Er gehört
+  NICHT in die .gitignore — ohne ihn greifen die System-Schriften
+  als Rückfalllösung.
+
+
+================================================================================
+ 4. GITHUB PAGES AKTIVIEREN
+================================================================================
+
+  1. Im Repository auf GitHub: "Settings" (Reiter oben)
+  2. Linkes Menü: "Pages"
+  3. Unter "Build and deployment" -> "Source": "Deploy from a branch"
+  4. "Branch": main auswählen, Ordner: "/ (root)"
+  5. "Save" klicken
+
+  Nach ein bis zwei Minuten ist die Seite erreichbar unter:
+
+      https://DEIN-BENUTZERNAME.github.io/finanzritual/
+
+  Diese Zwischen-URL funktioniert bereits vollständig — das ist der
+  Moment, um die Seite einmal komplett durchzuklicken und zu prüfen,
+  bevor die eigene Domain eingerichtet wird.
+
+  HINWEIS ZUR INDEX-DATEI: index.html muss im Root-Verzeichnis liegen
+  (ist bei Finanzritual bereits der Fall) — GitHub Pages sucht dort
+  automatisch danach.
+
+
+================================================================================
+ 5. EIGENE DOMAIN FINANZRITUAL.DE EINRICHTEN
+================================================================================
+
+  Zwei Teile sind nötig: (a) GitHub sagen, welche Domain benutzt wird,
+  und (b) beim Domain-Registrar die DNS-Einträge auf GitHub zeigen lassen.
+
+  SCHRITT A — Domain in GitHub eintragen
+  -----------------------------------------
+  1. Settings > Pages > Feld "Custom domain"
+  2. "finanz-ritual.de" eingeben, "Save" klicken
+  3. GitHub legt automatisch eine Datei namens CNAME im Repository an
+     (Inhalt: nur "finanz-ritual.de") — diese Datei bitte NICHT löschen,
+     sie wird bei jedem Deployment gebraucht
+
+  SCHRITT B — DNS beim Domain-Registrar setzen
+  ------------------------------------------------
+  Beim Anbieter, wo finanz-ritual.de gekauft wurde (z.B. IONOS, Strato,
+  INWX, Namecheap), in der DNS-Verwaltung folgende Einträge anlegen:
+
+  FÜR DIE NACKTE DOMAIN (finanz-ritual.de, ohne "www"):
+  Vier A-Records auf die IP-Adressen von GitHub Pages setzen:
+
+      Typ    Name    Wert
+      A      @       185.199.108.153
+      A      @       185.199.109.153
+      A      @       185.199.110.153
+      A      @       185.199.111.153
+
+  FÜR DIE WWW-VARIANTE (www.finanz-ritual.de) — empfohlen zusätzlich:
+
+      Typ     Name    Wert
+      CNAME   www     DEIN-BENUTZERNAME.github.io.
+                       (Punkt am Ende beachten, falls der Registrar
+                        ihn nicht automatisch ergänzt)
+
+  Diese vier IP-Adressen sind offizielle, feste GitHub-Pages-Adressen
+  und gelten unabhängig vom Repository-Namen.
+
+  WARTEZEIT: DNS-Änderungen brauchen zwischen 10 Minuten und (selten)
+  48 Stunden, bis sie überall greifen. Meist ist es nach 1-2 Stunden
+  erledigt. Prüfen lässt sich das z.B. mit:
+
+      https://dnschecker.org  ->  finanz-ritual.de eingeben
+
+  SCHRITT C — Prüfen
+  ----------------------
+  Settings > Pages: sobald DNS korrekt erkannt wird, erscheint dort
+  ein grünes Häkchen bei "DNS check successful". Erst dann lässt sich
+  auch "Enforce HTTPS" aktivieren (siehe Abschnitt 6).
+
+
+================================================================================
+ 6. HTTPS AKTIVIEREN
+================================================================================
+
+  Sobald der DNS-Check erfolgreich war (siehe oben):
+  1. Settings > Pages
+  2. Häkchen bei "Enforce HTTPS" setzen
+
+  GitHub besorgt automatisch ein kostenloses Let's-Encrypt-Zertifikat.
+  Das kann nach der DNS-Umstellung noch einmal bis zu 24 Stunden dauern,
+  meist geht es deutlich schneller. Danach ist finanz-ritual.de nur noch
+  über https:// erreichbar (http:// leitet automatisch weiter).
+
+
+================================================================================
+ 7. ÄNDERUNGEN SPÄTER HOCHLADEN (WORKFLOW)
+================================================================================
+
+  Für jede künftige Änderung (neuer Blogbeitrag, Korrektur, etc.):
+
+  MIT GITHUB DESKTOP:
+    1. Datei(en) lokal bearbeiten (z.B. script.js wie in BETRIEB.txt
+       Abschnitt 3 beschrieben)
+    2. GitHub Desktop öffnen — geänderte Dateien werden automatisch
+       erkannt und angezeigt
+    3. Commit-Nachricht eingeben (z.B. "Neuer Beitrag: ETF für
+       Einsteiger"), "Commit to main"
+    4. "Push origin" klicken
+
+  MIT TERMINAL:
+      cd /pfad/zu/finanzritual
+      git add .
+      git commit -m "Neuer Beitrag: ETF für Einsteiger"
+      git push
+
+  In beiden Fällen dauert es nach dem Push nur wenige Minuten, bis
+  die Änderung live auf finanz-ritual.de sichtbar ist. Den Fortschritt
+  sieht man im Reiter "Actions" des Repositories (grüner Haken =
+  erfolgreich veröffentlicht).
+
+
+================================================================================
+ 8. AUTOMATISCHES DEPLOYMENT (OPTIONAL, FÜR FORTGESCHRITTENE)
+================================================================================
+
+  Möchtest du z.B. tools/update_tarife.py automatisch wöchentlich
+  laufen lassen UND das Ergebnis automatisch veröffentlichen, geht das
+  über GitHub Actions (kostenlos im Rahmen des Public-Repo-Kontingents):
+
+    - Ordner .github/workflows/ anlegen
+    - Eine .yml-Datei definiert: "jeden Montag 6 Uhr ausführen,
+      Ergebnis committen und pushen"
+    - Das ersetzt den lokalen Cron-Job aus ANLEITUNG.txt Abschnitt 4
+
+  Das ist ein optionaler Ausbauschritt und für den Start nicht nötig —
+  bei Bedarf kann eine eigene, ausführliche Anleitung dafür erstellt
+  werden.
+
+
+================================================================================
+ 9. GRENZEN VON GITHUB PAGES
+================================================================================
+
+  - NUR statische Inhalte (HTML/CSS/JS) — das passt zu Finanzritual,
+    da es kein PHP/Datenbank braucht. Server-seitige Formulare
+    (Brevo-Anbindung etc.) laufen wie bisher über externe Dienste,
+    nicht über GitHub selbst.
+  - Empfohlenes Limit: Repository unter 1 GB, weniger als 100 GB
+    Datentransfer pro Monat (für einen Blog dieser Größe kein Thema).
+  - Kein server-seitiger Passwortschutz möglich (falls für "VIP"
+    später ein echter Login gebraucht wird, bräuchte es einen
+    Zusatzdienst wie Netlify Identity oder einen eigenen Server).
+  - Öffentliches Repository = der Quellcode ist für jeden einsehbar,
+    der die GitHub-Seite kennt. Enthält niemals Passwörter oder
+    API-Keys (siehe Sicherheitshinweis in BETRIEB.txt Abschnitt 8,
+    Schritt 7) — dieser Punkt gilt bei GitHub genauso wie überall sonst.
+
+
+================================================================================
+ 10. CHECKLISTE
+================================================================================
+
+  [ ] GitHub-Account erstellt
+  [ ] Repository "finanzritual" angelegt (Public)
+  [ ] .gitignore mit docs/, tools/, logos/ angelegt
+  [ ] Projekt hochgeladen (fonts/ nicht vergessen!)
+  [ ] GitHub Pages aktiviert (Settings > Pages > Branch main)
+  [ ] Zwischen-URL (…github.io/finanzritual/) getestet
+  [ ] Custom domain "finanz-ritual.de" in GitHub eingetragen
+  [ ] Vier A-Records beim Domain-Registrar gesetzt
+  [ ] CNAME-Eintrag für www gesetzt (optional, aber empfohlen)
+  [ ] DNS-Check in GitHub erfolgreich (grünes Häkchen)
+  [ ] "Enforce HTTPS" aktiviert
+  [ ] Alle Seiten unter https://finanz-ritual.de getestet
+  [ ] Restliche Punkte aus BETRIEB.txt Abschnitt 7
+      ("Checkliste vor dem Livegang") ebenfalls abgehakt
+
+================================================================================

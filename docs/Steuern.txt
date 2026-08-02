@@ -1,0 +1,184 @@
+FINANZRITUAL — STEUERN & MONETARISIERUNG
+Überblick zu Shop (CopeCart), Buy Me a Coffee, USt-ID
+Stand: Juli 2026
+====================================================
+
+WICHTIGER HINWEIS VORAB
+------------------------
+Dies ist eine strukturierte Übersicht zur Orientierung, KEINE
+Steuerberatung. Die konkrete Einordnung hängt von deiner
+persönlichen Situation ab (Haupt-/Nebenerwerb, bereits bestehendes
+Gewerbe, Höhe der übrigen Einkünfte). Für die verbindliche Klärung:
+Steuerberater oder Finanzamt. Dieses Dokument ersetzt das nicht,
+sondern bereitet das Gespräch vor, damit du die richtigen Fragen
+stellst.
+
+
+TEIL 1 — GRUNDSÄTZLICHES: GEWERBE ODER NICHT?
+-------------------------------------------------
+Ein Blog mit Affiliate-Links, eigenem Shop (auch über einen
+Reseller wie CopeCart) und Spenden-Button ist in aller Regel eine
+GEWERBLICHE Tätigkeit, keine freiberufliche. Das bedeutet:
+  - Gewerbeanmeldung beim zuständigen Gewerbeamt nötig, falls noch
+    nicht geschehen
+  - Anschließend automatisch Erfassung beim Finanzamt, das dir dann
+    einen "Fragebogen zur steuerlichen Erfassung" schickt
+  - Aus diesem Fragebogen ergibt sich auch die Steuernummer
+  - Gewerbesteuer fällt erst ab einem Gewinn von 24.500 €/Jahr an
+    (Freibetrag für Einzelunternehmer) — bei einem Blog dieser
+    Größe aktuell wahrscheinlich nicht relevant, aber im Auge
+    behalten falls der Shop gut läuft
+
+Falls du bereits ein Gewerbe angemeldet hast (z. B. für den Blog
+generell) und nur neue Einnahmequellen hinzukommen: keine neue
+Anmeldung nötig, die neuen Einnahmen laufen einfach mit rein.
+
+
+TEIL 2 — KLEINUNTERNEHMERREGELUNG (§ 19 UStG)
+-------------------------------------------------
+Seit der Reform zum 01.01.2025 gelten neue, zweistufige Grenzen:
+
+  Vorjahresumsatz  <= 25.000 €   UND
+  laufendes Jahr   <  100.000 €
+
+Beide Bedingungen müssen gleichzeitig erfüllt sein. Wichtig: Die
+100.000-€-Grenze wirkt SOFORT — überschreitest du sie unterjährig,
+greift die Umsatzsteuerpflicht ab genau der Rechnung, mit der die
+Grenze gerissen wird, nicht erst zum Jahresende.
+
+Solange du unter beiden Grenzen bleibst:
+  - Keine Umsatzsteuer auf deinen eigenen Rechnungen ausweisen
+  - Seit 2025 sind Kleinunternehmer-Umsätze ECHT umsatzsteuerfrei
+    (vorher: "wird nicht erhoben"). Kein Vorsteuerabzug im Gegenzug.
+  - Keine Umsatzsteuervoranmeldungen nötig
+  - Seit Besteuerungszeitraum 2024 entfällt auch die
+    Umsatzsteuerjahreserklärung (Ausnahmen: Aufforderung durch das
+    Finanzamt, oder Reverse-Charge-Fälle)
+  - Pflichthinweis auf eigenen Rechnungen: z. B. "Gemäß § 19 UStG
+    wird keine Umsatzsteuer berechnet."
+
+Falls du die Grenze überschreitest oder freiwillig verzichtest:
+  - Wechsel zur Regelbesteuerung, 19 % (oder 7 %) USt auf Rechnungen
+  - ACHTUNG: Freiwilliger Verzicht bindet dich 5 Kalenderjahre lang
+    an die Regelbesteuerung — das ist NICHT einfach rückgängig zu
+    machen. Vorher gut überlegen bzw. mit Steuerberater absprechen.
+
+
+TEIL 3 — STEUERNUMMER vs. UMSATZSTEUER-ID (USt-IdNr)
+--------------------------------------------------------
+Häufig verwechselt, sind aber zwei verschiedene Nummern:
+
+  Steuernummer (z. B. 12/345/67890)
+    - Vom Finanzamt vergeben, nach Gewerbeanmeldung/Fragebogen
+    - Gehört auf jede Rechnung (auch als Kleinunternehmer!)
+    - Gehört ins Impressum
+    - Wird für die eigene Steuererklärung / EÜR verwendet
+
+  Umsatzsteuer-Identifikationsnummer (USt-IdNr, z. B. DE123456789)
+    - Vom Bundeszentralamt für Steuern vergeben, auf Antrag
+    - NUR relevant für grenzüberschreitende B2B-Geschäfte innerhalb
+      der EU (Reverse-Charge-Verfahren)
+    - Als Kleinunternehmer i. d. R. NICHT nötig, außer du hast
+      grenzüberschreitende B2B-Fälle (z. B. Vorsteuer aus dem
+      EU-Ausland, digitale B2B-Dienstleistungen)
+    - Wird oft mit der Steuernummer verwechselt — ist aber eine
+      eigene, separate Nummer mit eigenem Antrag
+
+Für die "entsprechenden Felder" bei CopeCart o. ä.: Dort wird meist
+nach BEIDEM gefragt (Steuernummer für die Auszahlungsabwicklung,
+USt-IdNr optional/nur falls vorhanden). Als Kleinunternehmer trägst
+du dort i. d. R. nur die Steuernummer ein und lässt das USt-IdNr-Feld
+leer, falls du keine hast.
+
+
+TEIL 4 — SHOP ÜBER RESELLER (COPECART / DIGISTORE24)
+--------------------------------------------------------
+Deine Einschätzung ist grundsätzlich richtig: Der Reseller tritt
+gegenüber dem Endkunden als Verkäufer auf, stellt die Rechnung aus
+und kümmert sich um die Umsatzsteuer auf die Endkunden-Transaktion.
+Du selbst hast keinen direkten Rechnungskontakt zum Kunden.
+
+Was das für DICH steuerlich trotzdem bedeutet:
+  - Die Gutschrift/Auszahlung, die CopeCart dir überweist, ist eine
+    BETRIEBSEINNAHME und muss in deiner eigenen Steuererklärung
+    (EÜR) auftauchen — unabhängig davon, dass CopeCart die
+    Endkunden-Rechnung gestellt hat
+  - CopeCart erstellt dir i. d. R. eine eigene Abrechnung/Gutschrift
+    über deinen Anteil (sogenanntes Gutschriftverfahren) — diese
+    Belege brauchst du für deine Buchhaltung, unbedingt aufbewahren
+  - Ob auf DIESE interne Abrechnung (dein Anteil ggü. CopeCart)
+    selbst Umsatzsteuer anfällt, hängt von deinem eigenen
+    Kleinunternehmer-Status ab, nicht vom Reseller-Modell — bist du
+    Kleinunternehmer, bleibt auch dieser Teil ohne USt-Ausweis
+  - Kurz: Der Reseller nimmt dir die Endkunden-Rechnungsstellung ab,
+    NICHT die eigene Einkommensversteuerung der Erlöse
+
+
+TEIL 5 — BUY ME A COFFEE / SPENDEN-BUTTON
+----------------------------------------------
+Hier ist deine Einschätzung ebenfalls richtig, und der Punkt ist
+wichtig genug, um ihn klar festzuhalten:
+
+Sobald ein Spenden-/Coffee-Button auf einer Seite eingebunden ist,
+die erkennbar mit Gewinnabsicht betrieben wird (Blog mit Shop,
+Affiliate-Links, VIP-Bereich), zählt eingenommenes Geld über solche
+Buttons in aller Regel als BETRIEBSEINNAHME — nicht als
+steuerfreies privates Geschenk. Das Finanzamt schaut auf den
+Gesamtkontext der Seite, nicht isoliert auf den einzelnen Button.
+
+Umsatzsteuerlich gibt es eine Unterscheidung, die für die konkrete
+Einordnung wichtig ist:
+  - ECHTER Zuschuss/Spende ohne erkennbare Gegenleistung (Person
+    zahlt freiwillig, ohne dass sie dafür einen individualisierbaren
+    Vorteil bekommt) → oft nicht umsatzsteuerbar, da kein
+    Leistungsaustausch vorliegt
+  - Zahlung mit erkennbarer GEGENLEISTUNG (z. B. "für 5 € Kaffee
+    bekommst du Zugriff auf X" oder Naming/Erwähnung als Dank) →
+    das ist dann ein normaler umsatzsteuerlicher Umsatz wie jeder
+    andere, zählt in die Kleinunternehmer-Grenze mit rein
+
+Unabhängig von der USt-Frage: einkommensteuerlich sind beide
+Varianten Betriebseinnahmen und gehören in die EÜR. Der Unterschied
+liegt nur darin, ob sie umsatzsteuerlich mitzählen oder nicht.
+
+Praktisch: Am saubersten ist es, den Coffee-Button bewusst als
+"freiwillige Unterstützung ohne Gegenleistung" zu formulieren (kein
+Bonus-Content, kein Naming, keine Sonderleistung dafür) — das macht
+die umsatzsteuerliche Einordnung eindeutiger. Sobald irgendein
+"Dankeschön" mit Wert daran hängt, wird es zur normalen Leistung.
+
+
+TEIL 6 — ALLES ZUSAMMEN: WAS IN DIE EÜR GEHÖRT
+----------------------------------------------------
+Am Jahresende (bzw. laufend für die Buchhaltung) zählen ALLE
+Einnahmequellen zusammen in eine gemeinsame Einnahmenüberschuss-
+rechnung (EÜR), unabhängig vom Zahlungsweg:
+  - Auszahlungen von CopeCart/Digistore24 (Shop)
+  - Buy-Me-a-Coffee-Einnahmen
+  - Bestehende Affiliate-Provisionen (Consorsbank, Trade Republic
+    etc., sobald aktiv)
+  - Etwaige künftige VIP-Mitgliedsbeiträge, falls das mal
+    kostenpflichtig wird
+
+Für die Übersicht: Jede Auszahlungsquelle liefert eigene
+Abrechnungen/Reports (CopeCart-Dashboard, Buy-Me-a-Coffee-Export
+usw.) — diese regelmäßig herunterladen und sammeln, das erspart am
+Jahresende viel Sucherei.
+
+
+TEIL 7 — CHECKLISTE / NÄCHSTE SCHRITTE
+--------------------------------------------
+[ ] Klären: Gewerbe bereits angemeldet? Falls nein, jetzt anmelden
+[ ] Kleinunternehmer-Status: bewusst gewählt oder automatisch, weil
+    Umsatz bisher gering war? (Für 2026 im Blick behalten: 25.000 €
+    Vorjahresgrenze, 100.000 € laufendes Jahr)
+[ ] Steuernummer in CopeCart/Digistore24-Auszahlungsprofil eintragen
+[ ] USt-IdNr NUR eintragen, falls tatsächlich vorhanden und
+    grenzüberschreitende B2B-Fälle bestehen — sonst leer lassen
+[ ] Buy-Me-a-Coffee-Formulierung prüfen: klar als "ohne Gegenleistung"
+    kommunizieren, falls umsatzsteuerlich sauberer gewünscht
+[ ] Ordnersystem/Tool für Belege aller Auszahlungsquellen einrichten
+    (CopeCart, Buy Me a Coffee, Affiliate-Reports)
+[ ] Mit Steuerberater die konkrete Einordnung besprechen, bevor der
+    Shop live geht — besonders wichtig, falls parallel noch ein
+    Angestelltenverhältnis oder andere Einkünfte bestehen

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="The Six Steps to a Goal: Turning a Desire Into a Plan — Finanzritual">Die sechs Schritte zum finanziellen Ziel — Finanzritual</title>
+<meta name="description" content="Napoleon Hills Methode, ein finanzielles Ziel von der Idee zum schriftlichen Plan zu machen — mit FIRE-Tipps und eigenem Zieldeklarations-Tool." data-en-content="Napoleon Hill's concrete method from Think and Grow Rich for turning a financial goal from a vague idea into a written plan — with FIRE tips for each step and a generator for your own declaration of desire.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Die sechs Schritte zum Ziel: Aus einem Wunsch einen Plan machen" data-en-content="The Six Steps to a Goal: Turning a Desire Into a Plan">
+<meta property="og:description" content="Napoleon Hills konkrete Methode aus Think and Grow Rich, ein finanzielles Ziel von einer vagen Idee in einen schriftlich fixierten Plan zu verwandeln — mit FIRE-Tipps zu jedem Schritt und einem Generator für die eigene Zieldeklaration." data-en-content="Napoleon Hill's concrete method from Think and Grow Rich for turning a financial goal from a vague idea into a written plan — with FIRE tips for each step and a generator for your own declaration of desire.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Die sechs Schritte zum Ziel: Aus einem Wunsch einen Plan machen" data-en-content="The Six Steps to a Goal: Turning a Desire Into a Plan">
+<meta name="twitter:description" content="Napoleon Hills konkrete Methode aus Think and Grow Rich, ein finanzielles Ziel von einer vagen Idee in einen schriftlich fixierten Plan zu verwandeln — mit FIRE-Tipps zu jedem Schritt und einem Generator für die eigene Zieldeklaration." data-en-content="Napoleon Hill's concrete method from Think and Grow Rich for turning a financial goal from a vague idea into a written plan — with FIRE tips for each step and a generator for your own declaration of desire.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Die sechs Schritte zum Ziel: Aus einem Wunsch einen Plan machen",
+  "description": "Napoleon Hills konkrete Methode aus Think and Grow Rich, ein finanzielles Ziel von einer vagen Idee in einen schriftlich fixierten Plan zu verwandeln — mit FIRE-Tipps zu jedem Schritt und einem Generator für die eigene Zieldeklaration.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html"
+  },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Sechs-Schritte-Leiter ===== */
+.ss-ladder{ margin:34px 0 8px; position:relative; }
+.ss-step{
+  position:relative; display:flex; gap:16px; align-items:flex-start;
+  padding:18px 20px 18px 0; margin-left:22px; border-left:3px solid var(--accent, var(--line-strong));
+}
+.ss-step:last-child{ border-left-color:transparent; padding-bottom:0; }
+.ss-step-num{
+  flex:none; width:40px; height:40px; margin-left:-23px; border-radius:50%;
+  background:var(--bg-raised); border:3px solid var(--accent, var(--line-strong));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.92rem; color:var(--accent, var(--ink));
+}
+.ss-step-body{ flex:1; min-width:0; padding-top:4px; }
+.ss-step-title{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.02rem; color:var(--ink); }
+.ss-step-desc{ font-size:.9rem; color:var(--ink-soft); margin-top:5px; line-height:1.55; }
+.ss-step-tip{
+  margin-top:8px; padding:9px 13px; border-radius:9px; font-size:.86rem; line-height:1.45;
+  background:rgba(30,142,90,.08); border:1px solid rgba(30,142,90,.22); color:var(--ink);
+}
+.ss-step-tip strong{ color:var(--green); }
+
+/* ===== Deklarations-Generator ===== */
+.ss-gen{
+  margin:32px 0; padding:26px 22px; border-radius:16px;
+  background:linear-gradient(180deg, rgba(36,84,166,.09), rgba(30,142,90,.03));
+  border:1px solid rgba(36,84,166,.22);
+}
+.ss-gen-grid{ display:grid; gap:14px; grid-template-columns:1fr 1fr; margin-bottom:16px; }
+.ss-gen-grid label{ display:block; font-size:.78rem; font-weight:700; color:var(--ink-soft); margin-bottom:5px; text-transform:uppercase; letter-spacing:.03em; }
+.ss-gen-grid input, .ss-gen-grid textarea{
+  width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--line); background:var(--bg-raised);
+  color:var(--ink); font-family:inherit; font-size:.9rem;
+}
+.ss-gen-full{ grid-column:1 / -1; }
+.ss-gen-output{
+  margin-top:6px; padding:18px 20px; border-radius:12px; background:var(--bg-raised); border:1px solid var(--line);
+  font-size:.95rem; line-height:1.7; color:var(--ink); white-space:pre-line;
+}
+.ss-gen-output em{ color:var(--blue); font-style:normal; font-weight:700; }
+@media(max-width:640px){
+  .ss-gen-grid{ grid-template-columns:1fr; }
+  .ss-step{ margin-left:16px; padding-right:0; }
+  .ss-step-num{ width:34px; height:34px; margin-left:-20px; font-size:.8rem; }
+}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-sechs-schritte-zum-ziel.html">
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="var(--green)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="var(--green)"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        <div class="fr-secret-coffee">
+          <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
+            <span class="fr-coffee-cup" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
+                <path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>
+                <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+                <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
+                <path d="M2 22h16"/>
+              </svg>
+            </span>
+            <span class="fr-coffee-text">
+              <span class="fr-coffee-label" data-en="Buy me a coffee">Kaffee spendieren</span>
+              <span class="fr-coffee-sub" id="fr-coffee-sub" data-en="You found the hidden spot ☕">Du hast das Versteck gefunden ☕</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Finance">
+          Finanzen
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (41)">Alle Finanzen-Artikel (41)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link" data-en="CALC"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg>CALC</a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false" data-en="Lifestyle">
+          Lebensstil
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (28)">Alle Lebensstil-Artikel (28)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(6)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(7)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Books">Bücher<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(17)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.85" max="1.3" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Auf Englisch umschalten" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="wrap" style="max-width:780px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-fire.html" data-en="FIRE">FIRE</a><span>/</span><span aria-current="page" data-en="The six steps to a goal">Die sechs Schritte zum Ziel</span>
+    </nav>
+    <div class="eyebrow" data-en="FIRE &middot; 5 Aug 2026">FIRE · 05.08.2026</div>
+    <h1 data-en="The six steps to a goal: turning a desire into a plan">Die sechs Schritte zum Ziel: Aus einem Wunsch einen Plan machen</h1>
+    <p style="max-width:62ch;" data-en="&laquo;I want to be rich&raquo; is a wish. Napoleon Hill's six steps are the mechanical process for turning that wish into something a bank account can actually respond to &ndash; a number, a date, and a plan.">„Ich will reich werden" ist ein Wunsch. Napoleon Hills sechs Schritte sind der mechanische Prozess, der aus diesem Wunsch etwas macht, worauf ein Konto tatsächlich reagieren kann — eine Zahl, ein Datum und ein Plan.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:780px;">
+
+    <p data-en="In our overview of Hill's 13 success principles, the first one is &laquo;Desire&raquo; &ndash; the claim that a diffuse wish for &laquo;more money&raquo; moves nothing, while a precisely defined desire creates pressure to act. This article is the concrete method Hill gives for getting from one to the other: six steps, described in the first chapter of Think and Grow Rich, meant to turn a vague wish into a written, repeatable plan.">In unserer Übersicht zu Hills 13 Erfolgsgesetzen ist das erste „Verlangen" — die These, dass ein diffuser Wunsch nach „mehr Geld" nichts bewegt, während ein präzise definiertes Verlangen Handlungsdruck erzeugt. Dieser Artikel ist die konkrete Methode, die Hill dafür angibt: sechs Schritte aus dem ersten Kapitel von Think and Grow Rich, mit denen ein vager Wunsch zu einem schriftlichen, wiederholbaren Plan werden soll.</p>
+
+    <div class="ss-ladder">
+
+      <div class="ss-step" style="--accent:#c0392b;">
+        <span class="ss-step-num">1</span>
+        <div class="ss-step-body">
+          <span class="ss-step-title" data-en="Fix the exact amount">Genauen Betrag festlegen</span>
+          <p class="ss-step-desc" data-en="&laquo;I want to be wealthy&raquo; isn't a goal, it's a mood. Hill insists on an exact figure &ndash; not because the number itself is magic, but because a vague target can't be checked, planned around, or ever actually reached.">„Ich will wohlhabend werden" ist kein Ziel, sondern eine Stimmung. Hill besteht auf einer exakten Zahl — nicht weil die Zahl selbst magisch wäre, sondern weil ein vages Ziel sich weder überprüfen noch planen noch je wirklich erreichen lässt.</p>
+          <div class="ss-step-tip" data-en="&laquo;FIRE tip:&raquo; your number is your FIRE target &ndash; roughly 25 times your annual expenses (the 4⁠% rule). Calculate it once with our FIRE calculator, then stop rounding it up in your head."><strong data-en="FIRE-Tipp:">FIRE-Tipp:</strong> Deine Zahl ist dein FIRE-Zielvermögen — grob das 25-Fache der jährlichen Ausgaben (4-%-Regel). Einmal mit dem <a href="rechner-fire.html">FIRE-Rechner</a> berechnen, dann aufhören, sie im Kopf nach oben zu runden.</div>
+        </div>
+      </div>
+
+      <div class="ss-step" style="--accent:#d9822b;">
+        <span class="ss-step-num">2</span>
+        <div class="ss-step-body">
+          <span class="ss-step-title" data-en="Decide what you'll give in return">Gegenleistung festlegen</span>
+          <p class="ss-step-desc" data-en="&laquo;Nothing in life is handed to us for free,&raquo; as Hill puts it. Every financial goal has a price in effort, time, or forgone spending &ndash; and naming that price up front makes the goal far more concrete than the number alone.">„Im Leben wird uns nichts geschenkt", wie Hill es formuliert. Jedes finanzielle Ziel hat einen Preis in Aufwand, Zeit oder verzichtetem Konsum — und diesen Preis vorab zu benennen macht das Ziel deutlich greifbarer als die Zahl allein.</p>
+          <div class="ss-step-tip" data-en="&laquo;FIRE tip:&raquo; be specific &ndash; not &laquo;I'll save more&raquo;, but &laquo;I'll raise my savings rate to 35⁠% and take on one freelance project per quarter&raquo;."><strong data-en="FIRE-Tipp:">FIRE-Tipp:</strong> Konkret werden — nicht „ich spare mehr", sondern „ich erhöhe meine Sparquote auf 35⁠% und nehme ein Freelance-Projekt pro Quartal an".</div>
+        </div>
+      </div>
+
+      <div class="ss-step" style="--accent:#b08d57;">
+        <span class="ss-step-num">3</span>
+        <div class="ss-step-body">
+          <span class="ss-step-title" data-en="Set a firm deadline">Festen Zeitpunkt setzen</span>
+          <p class="ss-step-desc" data-en="Without a deadline, a goal stays permanently in the future &ndash; and a goal that's always in the future is, by definition, never reached. The date doesn't have to be perfectly accurate; it has to exist.">Ohne Frist bleibt ein Ziel dauerhaft in der Zukunft — und ein Ziel, das immer in der Zukunft liegt, wird per Definition nie erreicht. Das Datum muss nicht perfekt genau sein; es muss existieren.</p>
+          <div class="ss-step-tip" data-en="&laquo;FIRE tip:&raquo; put an actual calendar date on it, not a vague year &ndash; &laquo;1 January 2036&raquo;, not &laquo;sometime in my 40s&raquo;. A fuzzy date gets postponed; a fixed one gets tracked."><strong data-en="FIRE-Tipp:">FIRE-Tipp:</strong> Ein echtes Kalenderdatum setzen, kein vages Jahrzehnt — „1. Januar 2036", nicht „irgendwann Mitte 40". Ein unscharfes Datum wird verschoben, ein festes wird verfolgt.</div>
+        </div>
+      </div>
+
+      <div class="ss-step" style="--accent:var(--blue);">
+        <span class="ss-step-num">4</span>
+        <div class="ss-step-body">
+          <span class="ss-step-title" data-en="Draft a plan and start immediately">Plan entwerfen und sofort starten</span>
+          <p class="ss-step-desc" data-en="A plan doesn't need to be complete or perfect to be worth starting &ndash; Hill's actual point is that action begins the same day the plan is drafted, not once every detail is settled.">Ein Plan muss weder vollständig noch perfekt sein, um es wert zu sein, damit anzufangen — Hills eigentlicher Punkt ist, dass das Handeln am selben Tag beginnt, an dem der Plan entworfen wird, nicht erst, wenn jedes Detail steht.</p>
+          <div class="ss-step-tip" data-en="&laquo;FIRE tip:&raquo; the plan doesn't need to be original &ndash; a savings-rate target, an ETF savings plan, and a debt payoff order is already a complete plan. Set up the first standing order today, not next month."><strong data-en="FIRE-Tipp:">FIRE-Tipp:</strong> Der Plan muss nicht originell sein — ein Sparquoten-Ziel, ein ETF-Sparplan und eine Reihenfolge für die Schuldentilgung sind bereits ein vollständiger Plan. Den ersten Dauerauftrag heute einrichten, nicht nächsten Monat.</div>
+        </div>
+      </div>
+
+      <div class="ss-step" style="--accent:#1f7a7a;">
+        <span class="ss-step-num">5</span>
+        <div class="ss-step-body">
+          <span class="ss-step-title" data-en="Write it all down">Alles schriftlich festhalten</span>
+          <p class="ss-step-desc" data-en="The amount, the deadline, what you'll give in return, and the plan &ndash; all in one written statement. The act of writing forces a level of precision that thinking alone rarely reaches.">Der Betrag, die Frist, die Gegenleistung und der Plan — alles in einer einzigen schriftlichen Erklärung. Das Schreiben selbst erzwingt eine Präzision, die reines Nachdenken selten erreicht.</p>
+          <div class="ss-step-tip" data-en="&laquo;FIRE tip:&raquo; use the generator below to draft yours in under two minutes &ndash; then copy it somewhere you'll actually see it again."><strong data-en="FIRE-Tipp:">FIRE-Tipp:</strong> Den Generator unten nutzen, um deine in unter zwei Minuten zu entwerfen — und sie dann irgendwohin kopieren, wo du sie tatsächlich wiedersiehst.</div>
+        </div>
+      </div>
+
+      <div class="ss-step" style="--accent:var(--green);">
+        <span class="ss-step-num">6</span>
+        <div class="ss-step-body">
+          <span class="ss-step-title" data-en="Read it aloud, twice a day">Zweimal täglich laut vorlesen</span>
+          <p class="ss-step-desc" data-en="Once on waking, once before sleep, in a spot where the statement is unavoidable. Whether or not you buy Hill's subconscious-mind theory behind this, the practical effect is well documented: what you review daily stays a live priority instead of quietly slipping down the list.">Einmal nach dem Aufstehen, einmal vor dem Einschlafen, an einem Ort, an dem die Erklärung unübersehbar ist. Ob man Hills Unterbewusstseins-Theorie dahinter nun abkauft oder nicht — der praktische Effekt ist gut belegt: Was man täglich wiederholt, bleibt eine lebendige Priorität, statt leise in der Liste nach unten zu rutschen.</p>
+          <div class="ss-step-tip" data-en="&laquo;FIRE tip:&raquo; tape it to the bathroom mirror or set it as your phone lock screen &ndash; anywhere with genuinely unavoidable daily contact."><strong data-en="FIRE-Tipp:">FIRE-Tipp:</strong> An den Badezimmerspiegel kleben oder als Sperrbildschirm einrichten — irgendwohin mit wirklich unausweichlichem täglichem Kontakt.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <h2 style="margin-top:40px;" data-en="Try it: draft your own declaration">Zum Ausprobieren: Deine eigene Erklärung entwerfen</h2>
+    <p data-en="Fill in the four fields below and the generator assembles a statement in Hill's structure &ndash; amount, deadline, what you'll give in return, and the first concrete step of your plan. Nothing here is sent anywhere; it only lives in this page while you have it open.">Füll die vier Felder unten aus, und der Generator setzt daraus eine Erklärung in Hills Struktur zusammen — Betrag, Frist, Gegenleistung und der erste konkrete Schritt deines Plans. Nichts davon wird irgendwohin gesendet; es existiert nur auf dieser Seite, solange du sie geöffnet hast.</p>
+
+    <div class="ss-gen">
+      <div class="ss-gen-grid">
+        <div>
+          <label for="ss-amount" data-en="Target amount (&euro;)">Zielbetrag (€)</label>
+          <input type="text" id="ss-amount" placeholder="250.000" data-en-placeholder="250,000">
+        </div>
+        <div>
+          <label for="ss-date" data-en="Deadline">Zieldatum</label>
+          <input type="text" id="ss-date" placeholder="1. Januar 2036" data-en-placeholder="1 January 2036">
+        </div>
+        <div class="ss-gen-full">
+          <label for="ss-give" data-en="What you'll give in return">Deine Gegenleistung</label>
+          <input type="text" id="ss-give" placeholder="eine Sparquote von 35% und ein Freelance-Projekt pro Quartal" data-en-placeholder="a 35⁠% savings rate and one freelance project per quarter">
+        </div>
+        <div class="ss-gen-full">
+          <label for="ss-plan" data-en="The first concrete step">Der erste konkrete Schritt</label>
+          <input type="text" id="ss-plan" placeholder="ab dem 1. des Monats einen ETF-Sparplan über 600 € einrichten" data-en-placeholder="set up a &euro;600 monthly ETF savings plan starting the 1st">
+        </div>
+      </div>
+      <div class="ss-gen-output" id="ss-gen-output" data-en="Fill in the fields above &ndash; your declaration will appear here.">Füll die Felder oben aus — deine Erklärung erscheint hier.</div>
+    </div>
+
+    <p data-en="None of this replaces an actual financial plan &ndash; a written statement doesn't invest itself. But as a way of turning a vague wish into something specific enough to act on, Hill's six steps hold up nearly ninety years later, minus the mysticism he wrapped around them.">Nichts davon ersetzt einen tatsächlichen Finanzplan — eine schriftliche Erklärung investiert nicht von allein. Aber als Methode, einen vagen Wunsch in etwas so Konkretes zu verwandeln, dass man danach handeln kann, halten sich Hills sechs Schritte fast neunzig Jahre später noch, minus die Mystik, die er darum gewickelt hat.</p>
+
+    <p style="margin-top:20px;">
+      <a href="beitrag-13-erfolgsgesetze.html" data-en="&larr; The 13 success principles (Desire is #1)">← Die 13 Erfolgsgesetze (Verlangen ist Nr. 1)</a><br>
+      <a href="beitrag-buch-think-and-grow-rich.html" data-en="&rarr; Full review: Think and Grow Rich">→ Vollständige Rezension: Think and Grow Rich</a><br>
+      <a href="beitrag-erfolgreich-scheitern.html" data-en="&rarr; Failing successfully: what Germany can learn from US founder culture">→ Erfolgreich scheitern: Was Deutschland von der US-Gründerkultur lernen kann</a><br>
+      <a href="kat-fire.html" data-en="&larr; Back to FIRE">← Zurück zu FIRE</a>
+    </p>
+  </div>
+</article>
+
+<script>
+(function(){
+  const amountEl = document.getElementById('ss-amount');
+  const dateEl = document.getElementById('ss-date');
+  const giveEl = document.getElementById('ss-give');
+  const planEl = document.getElementById('ss-plan');
+  const outEl = document.getElementById('ss-gen-output');
+  if(!amountEl || !outEl) return;
+
+  const LS_KEY = 'fr-sechs-schritte-declaration';
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function render(){
+    const amount = amountEl.value.trim();
+    const date = dateEl.value.trim();
+    const give = giveEl.value.trim();
+    const plan = planEl.value.trim();
+
+    if(!amount && !date && !give && !plan){
+      outEl.textContent = isEn()
+        ? 'Fill in the fields above – your declaration will appear here.'
+        : 'Füll die Felder oben aus — deine Erklärung erscheint hier.';
+      return;
+    }
+
+    const a = amount || (isEn() ? '[amount]' : '[Betrag]');
+    const d = date || (isEn() ? '[date]' : '[Datum]');
+    const g = give || (isEn() ? '[what you will give in return]' : '[deine Gegenleistung]');
+    const p = plan || (isEn() ? '[first step]' : '[erster Schritt]');
+
+    outEl.textContent = isEn()
+      ? `By ${d}, I will have ${a} € in net worth.\nIn return, I will provide: ${g}.\nMy plan starts now: ${p}.\nI will read this declaration aloud every morning and every evening until it is true.`
+      : `Bis zum ${d} werde ich ${a} € Vermögen besitzen.\nAls Gegenleistung erbringe ich: ${g}.\nMein Plan beginnt jetzt: ${p}.\nIch werde diese Erklärung jeden Morgen und jeden Abend laut lesen, bis sie wahr ist.`;
+  }
+
+  function save(){
+    try{
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        amount: amountEl.value, date: dateEl.value, give: giveEl.value, plan: planEl.value
+      }));
+    }catch(e){}
+  }
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      if(!raw) return;
+      const d = JSON.parse(raw);
+      if(d.amount) amountEl.value = d.amount;
+      if(d.date) dateEl.value = d.date;
+      if(d.give) giveEl.value = d.give;
+      if(d.plan) planEl.value = d.plan;
+    }catch(e){}
+  }
+
+  [amountEl, dateEl, giveEl, planEl].forEach(el => {
+    el.addEventListener('input', function(){ render(); save(); });
+  });
+
+  load();
+  render();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

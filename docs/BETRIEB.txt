@@ -1,0 +1,576 @@
+================================================================================
+ FINANZRITUAL.DE — BETRIEBSANLEITUNG
+ Hosten, Veröffentlichen, Blogeinträge einfügen
+ Stand: Juli 2026
+================================================================================
+
+INHALT
+------
+  1. Verzeichnisstruktur
+  2. Webseite hosten — was auf den Server gehört
+  3. Neuen Blogeintrag einfügen (5 Minuten)
+  4. Tarife aktualisieren
+  5. Aufrufe und Besucherzähler
+  6. Domains und E-Mail
+  7. Checkliste vor dem Livegang
+  8. eBook und Excel-Tool verteilen (Lead-Magnet mit Brevo)
+
+
+================================================================================
+ 1. VERZEICHNISSTRUKTUR
+================================================================================
+
+  finanzritual/               <- Projektstamm (dieser Ordner)
+  │
+  ├── index.html              <- Startseite
+  ├── impressum.html
+  ├── datenschutz.html
+  ├── 404.html
+  ├── shop.html
+  ├── vip.html
+  ├── beitrag-*.html          <- Beitragsseiten
+  ├── style.css               <- gesamtes Design
+  ├── script.js               <- gesamte Logik
+  ├── favicon.svg
+  ├── robots.txt
+  ├── sitemap.xml
+  │
+  ├── fonts/                  <- Schriftdateien (lokal, DSGVO-konform)
+  │     inter-*.woff2
+  │     space-grotesk-*.woff2
+  │     jetbrains-mono-*.woff2
+  │
+  ├── logos/                  <- Logo-Varianten (nicht öffentlich nötig)
+  │     logo-full.svg
+  │     logo-compact.svg
+  │     logo-crossword.svg
+  │     logo-crossword-blue.svg
+  │
+  ├── docs/                   <- Anleitungen (nicht auf den Server)
+  │     BETRIEB.txt           <- diese Datei
+  │     GITHUB-HOSTING.txt    <- GitHub Pages hosten + eigene Domain
+  │     ANLEITUNG.txt         <- technische Entwicklungshistorie
+  │
+  └── tools/                  <- Hilfsskripte (nicht auf den Server)
+        scripts/
+          update_tarife.py    <- Tarifvergleich aktualisieren
+          fonts_holen.py      <- Schriften von Google holen (einmalig)
+        tests/
+          fixture_*.css/.html <- Testdaten für die Skripte
+
+
+================================================================================
+ 2. WEBSEITE HOSTEN — WAS AUF DEN SERVER GEHÖRT
+================================================================================
+
+  AUF DEN SERVER (öffentlich erreichbar):
+  ----------------------------------------
+  Alles im Projektstamm AUSSER docs/ tools/ logos/
+
+  Konkret hochladen:
+    *.html          (alle HTML-Seiten)
+    style.css
+    script.js
+    favicon.svg
+    robots.txt
+    sitemap.xml
+    fonts/          (gesamter Ordner — UNBEDINGT, sonst falsche Schriften!)
+
+  NICHT auf den Server (bleibt lokal bei dir):
+    docs/           Anleitungen
+    tools/          Python-Skripte
+    logos/          Logo-Rohversionen
+
+
+  EMPFOHLENE HOSTER FÜR EINEN STATISCHEN BLOG
+  --------------------------------------------
+  Da Finanzritual keine Datenbank und kein PHP braucht, genügt
+  ein einfaches statisches Hosting:
+
+  GitHub Pages (pages.github.com) — kostenlos, inkl. eigener Domain
+    - Projekt liegt in einem GitHub-Repository (Versionsgeschichte!)
+    - HTTPS automatisch inklusive (Let's Encrypt)
+    - Eigene Domain (finanz-ritual.de) per DNS-Einträgen einrichtbar
+    - Ausführliche Schritt-für-Schritt-Anleitung inkl. Domain-Setup:
+      docs/GITHUB-HOSTING.txt
+
+  Netlify (netlify.com) — kostenloser Einstieg, sehr einfach
+    - Ordner per Drag & Drop hochladen ODER
+    - GitHub-Repository verbinden (dann Auto-Deploy bei jedem Push)
+    - Eigene Domain einrichten: Site Settings > Domain Management
+    - HTTPS ist automatisch inklusive (Let's Encrypt)
+    Empfehlung: Für den Start der einfachste Weg.
+
+  Cloudflare Pages (pages.cloudflare.com) — kostenlos, sehr schnell
+    - Funktioniert wie Netlify, aber über Cloudflare CDN
+    - Vorteil: wenn du finanz-ritual.de bereits bei Cloudflare hostest
+
+  Strato / IONOS / All-Inkl (Deutschland)
+    - Klassisches Webhosting, FTP/SFTP zum Hochladen
+    - Vorteil: deutsches Unternehmen, einfache Abrechnung
+    - Nachteil: manuell hochladen bei jeder Änderung
+    - FTP-Client empfohlen: FileZilla (kostenlos, filezilla-project.org)
+
+
+  VORGEHEN MIT NETLIFY (Schritt für Schritt)
+  -------------------------------------------
+  1. netlify.com aufrufen, kostenlosen Account erstellen
+  2. "Add new site" -> "Deploy manually"
+  3. Den Projektordner (OHNE docs/ tools/ logos/) per Drag & Drop hinziehen
+  4. Netlify vergibt zunächst eine zufällige URL (z.B. rainbow-fox-42.netlify.app)
+  5. Domain ändern: Site Settings > Domain Management > Add custom domain
+     -> "finanz-ritual.de" eingeben
+  6. Bei deinem Domain-Registrar (wo du finanz-ritual.de gekauft hast)
+     die Nameserver auf Netlify umstellen ODER einen CNAME-Eintrag setzen
+     (Netlify erklärt das Schritt für Schritt im Dashboard)
+  7. HTTPS wird automatisch aktiviert (kann 10-30 Minuten dauern)
+
+  NACH JEDER ÄNDERUNG neu hochladen:
+    - Netlify: Site > Deploys > "Drag and drop your site folder here"
+    - SFTP/FTP: geänderte Dateien einzeln oder alles überschreiben
+
+
+================================================================================
+ 3. NEUEN BLOGEINTRAG EINFÜGEN
+================================================================================
+
+  STAND 26.07.2026: Es gab hier früher ein Sync-Script (posts_sync.py),
+  das eine separate Textdatei (posts.txt) nach script.js übertragen hat.
+  Entfernt, weil es in der Praxis nicht der tatsächliche Workflow war —
+  script.js wird ohnehin direkt gepflegt, und ein zweiter Datensatz parallel
+  zu pflegen war bei einem sich schnell verändernden Datenmodell (subcat,
+  cover, buyUrl kamen erst kürzlich dazu) mehr Aufwand als Nutzen.
+
+  Der tatsächliche Workflow: FR_POSTS direkt in script.js bearbeiten.
+
+
+  SCHRITT 1 — Eintrag in script.js ergänzen
+  --------------------------------------------
+  script.js öffnen, zum Block zwischen /* FR_POSTS_START */ und
+  /* FR_POSTS_END */ springen. Neuen Eintrag ganz oben einfügen (neueste
+  zuerst), als ein Objekt in derselben Form wie die bestehenden:
+
+      {   title:"Mein neuer Beitrag: Der beste ETF für Einsteiger",
+          titleEn:"My New Post: The Best ETF for Beginners",
+          cat:"Finanzen",
+          subcat:"etf",
+          date:"2026-08-01",
+          excerpt:"Warum ein einziger ETF oft besser ist als ein ganzes Depot.",
+          excerptEn:"Why a single ETF often beats a whole portfolio of them.",
+          tags:["Finanzen","ETF","Einsteiger"],
+          link:"beitrag-etf-einsteiger.html" },
+
+  Felder:
+    title     Pflicht. Vollständiger Titel.
+    cat       Pflicht. Eines von: Finanzen | FIRE | Minimalismus | Bücher
+    date      Pflicht. Format JJJJ-MM-TT.
+    excerpt   Pflicht. 1-2 Sätze Teaser für Feed und Kategorieliste.
+    titleEn / excerptEn  Optional. Ohne sie bleibt der deutsche Text auch
+              im Englischen stehen (kein Fehler, nur keine Übersetzung).
+    subcat    Optional. Schlüssel aus FR_SUBCATS (etwas weiter unten in
+              script.js) — steuert, auf welcher Unterkategorie-Seite der
+              Beitrag zusätzlich zur Hauptkategorie erscheint.
+    tags      Optional. Array von Schlagwörtern.
+    link      Optional. Dateiname der Beitragsseite. Ohne link landet ein
+              Klick beim Kategorie-Anker auf der Startseite statt auf
+              einer eigenen Seite.
+    cover / buyUrl  Nur bei cat Bücher relevant. cover = Pfad zum
+              Cover-Bild (z.B. img/covers/mein-buch.jpg), buyUrl =
+              Amazon-Link. Macht das Cover in Karten- und Listenansicht
+              zu einem eigenen Link direkt zu Amazon.
+
+  Kein Sync-Script mehr nötig — die Änderung ist sofort aktiv, sobald
+  script.js gespeichert und hochgeladen ist.
+
+
+  SCHRITT 2 — Beitragsseite anlegen (falls "link" gesetzt)
+  ------------------------------------------------------------
+    - Eine bestehende, thematisch ähnliche Beitragsseite kopieren
+    - Umbenennen, z.B. beitrag-etf-einsteiger.html
+    - Titel, Meta-Tags, JSON-LD und Inhalt darin anpassen
+    - Neuen Eintrag in sitemap.xml ergänzen (gleiches Format wie die
+      anderen <url>-Blöcke)
+    - Bei Bedarf: Zeile in _einrichtung/vgwort-pixel-codes.csv ergänzen
+
+
+  SCHRITT 3 — Hochladen
+  -------------------------
+  script.js, die neue beitrag-*.html und sitemap.xml gemeinsam hochladen.
+  Seite im Browser mit Strg+F5 / Cmd+Shift+R neu laden.
+
+
+================================================================================
+ 4. TARIFVERGLEICH AKTUALISIEREN
+================================================================================
+
+  Der Mobilfunk-Tarifvergleich holt die Daten von einer externen Quelle.
+  Empfohlen: einmal pro Woche oder vor einem Beitrag über Mobilfunk.
+
+      python3 tools/scripts/update_tarife.py
+
+  Vorher testen (nichts wird geschrieben):
+
+      python3 tools/scripts/update_tarife.py --dry-run
+
+  Danach script.js hochladen.
+
+  Affiliate-Links eintragen (einmalig, in script.js, Abschnitt FR_AFF_LINKS):
+
+      const FR_AFF_LINKS = {
+        "anbieter-tarif-id": "https://dein-affiliate-link.de/...",
+      };
+
+  Die IDs der Tarife siehst du mit:
+
+      python3 tools/scripts/update_tarife.py --verbose
+
+  Automatisch wöchentlich (Linux/Mac Cron, montags 6 Uhr):
+
+      0 6 * * 1 cd /pfad/zu/finanzritual && python3 tools/scripts/update_tarife.py >> tools/update.log 2>&1
+
+
+================================================================================
+ 5. AUFRUFE UND BESUCHERZÄHLER
+================================================================================
+
+  KURZE ANTWORT: Echte, geräteübergreifende Besucherzahlen hast du
+  im aktuellen Stand NICHT. Der Zähler oben im Banner zählt nur die
+  Aufrufe auf dem eigenen Gerät des jeweiligen Besuchers.
+
+  Das ist eine bewusste Entscheidung zugunsten der DSGVO-Konformität —
+  ein echter Zähler würde einen externen Dienst oder Server brauchen,
+  der Daten speichert.
+
+
+  WAS DU GERADE HAST
+  --------------------
+  Der Zähler im Warn-Banner ("Bisher X-mal aufgerufen") läuft
+  ausschließlich im localStorage des jeweiligen Browsers:
+    - Besucher A auf seinem Laptop sieht seine eigenen Aufrufe
+    - Besucher B auf seinem Handy sieht seine eigenen Aufrufe
+    - Du siehst deine eigenen Aufrufe
+  Die Zahlen werden nie an einen Server gesendet, nie addiert, nie
+  geteilt. Daher ist der Wert nicht aussagekräftig als Statistik.
+
+
+  ZÄHLER FÜR EINZELNE BEITRÄGE
+  ------------------------------
+  Beitrags-Einzelzähler existieren aktuell NICHT. Jede Beitragsseite
+  (beitrag-*.html) ist eine eigenständige HTML-Datei ohne Zähler-Logik.
+
+
+  OPTION 1: SERVER-LOGS AUSWERTEN (empfohlen, DSGVO-freundlich)
+  ---------------------------------------------------------------
+  Dein Hoster protokolliert automatisch jeden Seitenaufruf in
+  sogenannten Access-Logs. Darin stehen Datum, aufgerufene URL und
+  HTTP-Statuscode — ohne Cookies, ohne JavaScript, ohne Tracking-Pixel.
+
+  Diese Logs kannst du:
+    a) Im Hoster-Dashboard direkt auslesen (Netlify: Analytics-Tab,
+       Strato/IONOS: Statistiken-Bereich)
+    b) Mit einem Tool wie GoAccess (goaccess.io, kostenlos, Open Source)
+       selbst auswerten — läuft lokal auf deinem Rechner,
+       keine Daten verlassen deinen Server
+
+  Vorteil: Komplett ohne JavaScript, funktioniert auch mit Werbeblockern,
+  keine Datenschutz-Probleme. Die IPs werden dabei in der Regel nach
+  kurzer Zeit anonymisiert (abhängig vom Hoster).
+
+
+  OPTION 2: SELBST GEHOSTETES MATOMO (volle Kontrolle)
+  -------------------------------------------------------
+  Matomo (matomo.org) ist die DSGVO-konforme Alternative zu Google
+  Analytics. Du betreibst es auf deinem eigenen Server — kein Dritter
+  sieht deine Daten.
+
+  Aufwand: Ein PHP-fähiges Hosting wird benötigt (z.B. Strato, IONOS,
+  Hetzner). Einrichtung: ca. 30-60 Minuten.
+  Dann die Datenschutzerklärung entsprechend ergänzen.
+
+
+  OPTION 3: CLOUDFLARE ANALYTICS (einfachste Lösung)
+  ----------------------------------------------------
+  Falls du Cloudflare Pages oder Cloudflare als DNS nutzt:
+  Cloudflare Web Analytics ist kostenlos, cookielos, DSGVO-konform
+  und ohne JavaScript-Snippet nutzbar.
+  Einrichten: Cloudflare Dashboard > Web Analytics > Add a site.
+  Dann Datenschutzerklärung ergänzen (Verarbeitung durch Cloudflare).
+
+
+  EMPFEHLUNG
+  -----------
+  Für den Anfang: Hoster-Logs + GoAccess lokal auswerten.
+  Kein Zusatzaufwand beim Setup, kein Datenschutz-Risiko,
+  du siehst welche Beiträge wie oft aufgerufen werden.
+  Wenn du mehr Details willst: Matomo oder Cloudflare Analytics.
+
+
+================================================================================
+ 6. DOMAIN UND E-MAIL
+================================================================================
+
+  DOMAIN (finanz-ritual.de)
+  --------------------------
+  Wo du die Domain gekauft hast, kannst du sie auf deinen Hoster zeigen lassen.
+  Übliche Wege:
+    a) Nameserver umstellen (empfohlen bei Netlify/Cloudflare Pages):
+       Im Domain-Registrar die Nameserver auf die des Hosters setzen.
+       Netlify oder Cloudflare geben dir die genauen Adressen im Dashboard.
+    b) A-Record / CNAME setzen:
+       Bei Hostern wie Strato/IONOS trägst du die IP-Adresse des Servers
+       als A-Record ein.
+
+  HTTPS / SSL
+  ------------
+  Netlify, Cloudflare Pages: automatisch, kostenlos, nichts zu tun.
+  Strato/IONOS: meist ein Klick im Hosting-Panel ("SSL aktivieren").
+
+  E-MAIL (kontakt@finanz-ritual.de o.ä.)
+  ---------------------------------------
+  Ein statischer Blog hat keinen eigenen Mailserver. Optionen:
+    a) E-Mail-Hosting beim Domain-Registrar oder Hoster (kostenpflichtig)
+    b) Zoho Mail — kostenlose Business-E-Mail mit eigener Domain
+       (zoho.com/mail) — gute Option für den Anfang
+    c) Forwarder einrichten: E-Mails an kontakt@finanz-ritual.de werden
+       an deine private Gmail/Outlook-Adresse weitergeleitet
+
+
+================================================================================
+ 7. CHECKLISTE VOR DEM LIVEGANG
+================================================================================
+
+  PFLICHT (ohne diese Punkte nicht veröffentlichen):
+  [ ] Impressum: alle Platzhalter in [eckigen Klammern] befüllt
+      [Vor- und Nachname], [Straße und Hausnummer], [PLZ und Ort],
+      [Telefonnummer], [USt-IdNr. falls vorhanden]
+  [ ] Datenschutz Abschnitt 2: [Hosting-Anbieter einfügen] befüllt
+  [ ] Impressum und Datenschutz rechtlich prüfen lassen
+  [ ] HTTPS aktiv (kein "Nicht sicher" im Browser)
+  [ ] Alle Seiten im Browser getestet (Desktop + Mobilgerät)
+
+  EMPFOHLEN:
+  [ ] fonts/ hochgeladen (fehlt -> falsche Schriften)
+  [ ] robots.txt angepasst (aktuell erlaubt alles, was OK ist)
+  [ ] sitemap.xml bei Google Search Console einreichen
+      (search.google.com/search-console) damit Google die Seite findet
+  [ ] 404.html testen: finanz-ritual.de/gibts-nicht-seite aufrufen
+  [ ] Kontakt-E-Mail im Impressum ist eine erreichbare Adresse
+  [ ] Affiliate-Links als solche gekennzeichnet (bereits umgesetzt)
+  [ ] Datenschutzerklärung nennt tatsächlich eingesetzte Dienste
+      (Hoster, ggf. Analyse-Tool, ggf. Maildienstleister)
+
+  OPTIONAL / SPÄTER:
+  [ ] Google Search Console einrichten
+  [ ] Analyse-Tool nach Wahl einrichten (siehe Abschnitt 5)
+  [ ] Kontaktformular einbauen (braucht dann einen E-Mail-Dienst)
+  [ ] Brevo einrichten und Lead-Magnet aktivieren (siehe Abschnitt 8)
+      Das Formular ist bereits vorhanden — nur API-Key und Datei-URL eintragen
+
+
+
+================================================================================
+ 8. EBOOK UND EXCEL-TOOL VERTEILEN (LEAD-MAGNET MIT BREVO)
+================================================================================
+
+  DAS KONZEPT
+  -----------
+  Besucher geben ihre E-Mail-Adresse ein und erhalten:
+    1. Sofort eine Bestätigungs-E-Mail (Double Opt-in — DSGVO-Pflicht)
+    2. Nach Bestätigung automatisch eine zweite E-Mail mit Download-Link
+       zum eBook (PDF) und zum Excel-Toolset
+
+  Fake- und Wegwerf-E-Mails werden durch den Double-Opt-in-Prozess
+  weitgehend aussortiert: Wer die Bestätigungs-Mail nicht anklickt,
+  bekommt keinen Download-Link und landet nicht in deiner Liste.
+
+  Du brauchst:
+    - Einen kostenlosen Brevo-Account (brevo.com)
+    - Das eBook als PDF und das Excel-Tool als Datei
+    - Ca. 30-45 Minuten für die Einrichtung (einmalig)
+
+
+  SCHRITT 1 — Brevo-Account anlegen
+  ------------------------------------
+  1. brevo.com aufrufen -> "Kostenlos starten"
+  2. Mit deiner Geschäfts-E-Mail registrieren
+     (z.B. finanz-ritual@gmx.de — vorher einrichten, siehe Abschnitt 6)
+  3. Account bestätigen
+  4. Absender verifizieren: Brevo > Einstellungen > Absender & IPs
+     -> "Absender hinzufügen" -> finanz-ritual@gmx.de eintragen
+     -> Bestätigungs-E-Mail anklicken
+
+
+  SCHRITT 2 — Dateien hochladen
+  ------------------------------
+  Deine Dateien (PDF und Excel) müssen öffentlich erreichbar sein,
+  damit der Link in der E-Mail funktioniert. Zwei Wege:
+
+  WEG A — Auf deinen Webserver hochladen (empfohlen)
+    - Lege einen Ordner "downloads/" in deinem Projektordner an
+    - Dateien dort ablegen:
+        downloads/finanzritual-ebook.pdf
+        downloads/finanzritual-excel-toolset.xlsx
+    - Diesen Ordner mit auf den Server hochladen
+    - Links wären dann:
+        https://finanz-ritual.de/downloads/finanzritual-ebook.pdf
+        https://finanz-ritual.de/downloads/finanzritual-excel-toolset.xlsx
+    - WICHTIG: Der Ordner ist damit öffentlich — wer die URL kennt,
+      kann herunterladen. Das ist bei einem kostenlosen Lead-Magneten OK.
+      Für bezahlte Inhalte brauchst du einen anderen Weg (z.B. Brevo
+      Transaktions-Links mit Ablaufdatum).
+
+  WEG B — Über Brevo-Dateihosting
+    - Brevo > Inhalte > Dateien > "Datei hochladen"
+    - Brevo generiert einen öffentlichen Link
+    - Diesen Link in der E-Mail verwenden (siehe Schritt 4)
+
+
+  SCHRITT 3 — Kontaktliste anlegen
+  ----------------------------------
+  1. Brevo > Kontakte > Listen > "Liste erstellen"
+  2. Name: "Finanzritual Lead-Magneten"
+  3. Diese Listen-ID notieren (wird später gebraucht)
+
+
+  SCHRITT 4 — Double Opt-in E-Mails erstellen
+  ---------------------------------------------
+  Du brauchst zwei E-Mail-Vorlagen:
+
+  E-MAIL 1: Bestätigungs-E-Mail (automatisch von Brevo versendet)
+    Brevo > E-Mail-Vorlagen > "Neue Vorlage erstellen"
+    Betreff: "Bitte bestätige deine E-Mail-Adresse — Finanzritual"
+    Inhalt (Beispiel):
+      Hallo,
+      du hast das kostenlose Finanzritual-Paket angefordert.
+      Bitte bestätige deine E-Mail-Adresse mit einem Klick:
+      [Bestätigen-Button — Brevo fügt den Link automatisch ein]
+      Der Button ist 48 Stunden gültig.
+    -> Vorlage speichern, Vorlagen-ID notieren
+
+  E-MAIL 2: Download-E-Mail (nach erfolgreicher Bestätigung)
+    Brevo > E-Mail-Vorlagen > "Neue Vorlage erstellen"
+    Betreff: "Dein Finanzritual-Paket ist bereit"
+    Inhalt (Beispiel):
+      Hallo,
+      vielen Dank für deine Bestätigung. Hier sind deine Downloads:
+      [Button: eBook herunterladen]
+        -> Link: https://finanz-ritual.de/downloads/finanzritual-ebook.pdf
+      [Button: Excel-Toolset herunterladen]
+        -> Link: https://finanz-ritual.de/downloads/finanzritual-excel-toolset.xlsx
+      Viel Freude damit!
+    -> Vorlage speichern, Vorlagen-ID notieren
+
+
+  SCHRITT 5 — Double Opt-in in Brevo konfigurieren
+  --------------------------------------------------
+  Brevo > Kontakte > Einstellungen > Double Opt-in
+    1. "Double Opt-in aktivieren" einschalten
+    2. Bestätigungs-E-Mail: die Vorlage aus Schritt 4 (E-Mail 1) wählen
+    3. Weiterleitungs-URL nach Bestätigung: https://finanz-ritual.de/danke.html
+       (diese Seite legen wir im Blog an — zeigt "Schau in dein Postfach!")
+    4. Speichern
+
+  Für die Download-E-Mail (E-Mail 2):
+    Brevo > Automatisierungen > "Workflow erstellen"
+    Auslöser: "Kontakt hat Double Opt-in bestätigt"
+    Aktion: "E-Mail senden" -> Vorlage aus Schritt 4 (E-Mail 2) wählen
+    -> Workflow aktivieren
+
+
+  SCHRITT 6 — API-Key erstellen
+  ------------------------------
+  Brevo > Einstellungen > API-Schlüssel > "Neuen API-Schlüssel generieren"
+  Name: "Finanzritual Website"
+  Berechtigungen: "Vollzugriff" oder mindestens "Kontakte: Schreiben"
+
+  WICHTIG: Den API-Key NUR einmal angezeigt — sofort kopieren und
+  sicher aufbewahren (z.B. in einem Passwort-Manager).
+  NIEMALS in eine Datei schreiben, die auf den Server kommt!
+
+
+  SCHRITT 7 — Blog einrichten
+  ----------------------------
+  Im Projektordner die Datei docs/brevo-config.txt anlegen
+  (diese Datei kommt NICHT auf den Server):
+
+      BREVO_API_KEY    xkeysib-xxxxxxxxxxxxxxxxxxxxx
+      BREVO_LISTE_ID   12
+      BREVO_DOI_VORLAGE_ID   3
+
+  Diese Werte trägst du dann in script.js an der markierten Stelle ein:
+
+      /* ---- Brevo-Konfiguration ---- */
+      const FR_BREVO_KEY       = "xkeysib-xxxxxxxxxxxxxxxxxxxxx";
+      const FR_BREVO_LISTE_ID  = 12;
+      const FR_BREVO_DOI_ID    = 3;
+
+  SICHERHEITSHINWEIS: Ein API-Key im Frontend-JavaScript ist grundsätzlich
+  öffentlich lesbar. Deshalb:
+    - In Brevo unter Einstellungen > API-Schlüssel den Key auf
+      MINIMALE Berechtigungen beschränken: nur "Kontakte: Schreiben"
+    - Rate Limiting ist in Brevo bereits eingebaut
+    - Niemand kann mit diesem Key E-Mails lesen oder löschen —
+      er kann nur neue Kontakte hinzufügen
+  Für höhere Sicherheit (z.B. wenn du später bezahlte Inhalte anbietest)
+  sollte der API-Call über eine serverlose Funktion laufen
+  (Netlify Functions, Cloudflare Workers) — dann ist der Key unsichtbar.
+
+
+  SCHRITT 8 — Danke-Seite anlegen
+  ---------------------------------
+  Kopiere eine bestehende HTML-Seite, z.B. 404.html, und benenne sie
+  danke.html. Passe den Inhalt an:
+
+      Bestätigung erfolgreich!
+      Wir haben dir soeben deine Downloads per E-Mail zugeschickt.
+      Schau auch im Spam-Ordner nach, falls die Mail nicht ankommt.
+
+  Diese Seite auf den Server hochladen.
+
+
+  SCHRITT 9 — Testen
+  --------------------
+  1. Eigene E-Mail-Adresse ins Formular auf der Startseite eingeben
+  2. Bestätigungs-E-Mail muss ankommen (ggf. Spam prüfen)
+  3. Auf den Bestätigungs-Link klicken
+  4. Download-E-Mail muss ankommen
+  5. Beide Download-Links müssen funktionieren
+  6. In Brevo > Kontakte prüfen: Adresse ist als "bestätigt" markiert
+
+
+  LAUFENDER BETRIEB
+  ------------------
+  Newsletter versenden:
+    Brevo > Kampagnen > E-Mail > "Kampagne erstellen"
+    An: Liste "Finanzritual Lead-Magneten" (alle bestätigten Kontakte)
+    Brevo verwaltet Abmeldungen automatisch (Pflicht-Abmeldelink ist
+    in jeder Kampagne enthalten).
+
+  Abonnenten einsehen:
+    Brevo > Kontakte > nach Liste filtern
+
+  Statistiken (Öffnungsrate, Klicks):
+    Brevo > Kampagnen > abgeschlossene Kampagne anklicken
+
+  DSGVO:
+    - Double Opt-in ist dokumentierter Einwilligungsnachweis — gut so
+    - In der Datenschutzerklärung ergänzen:
+      "Für den Versand unseres Newsletters und die Bereitstellung
+       kostenloser Downloads nutzen wir Brevo (Sendinblue SAS,
+       55 rue d'Amsterdam, 75008 Paris, Frankreich). Rechtsgrundlage
+       ist Art. 6 Abs. 1 lit. a DSGVO (Einwilligung per Double Opt-in).
+       Datenschutzerklärung Brevo: https://www.brevo.com/de/legal/privacypolicy/"
+    - Auftragsverarbeitungsvertrag (AVV) mit Brevo abschließen:
+      Brevo > Einstellungen > Rechtliches > AVV herunterladen und unterschreiben
+
+================================================================================
+ NOTIZEN
+================================================================================
+
+  Python-Version: mindestens 3.8 (prüfen mit: python3 --version)
+  Abhängigkeiten: pip install requests beautifulsoup4
+
+  Alle Skripte laufen auf macOS, Linux und Windows (WSL).
+  Windows-Nutzer ohne WSL: Git Bash oder PowerShell mit Python funktionieren.
+
+================================================================================

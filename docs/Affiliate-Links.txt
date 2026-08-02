@@ -1,0 +1,106 @@
+FINANZRITUAL — AFFILIATE-LINKS (BÜCHER-KATEGORIE)
+Struktur, Anmeldung, Kennzeichnungspflicht
+Stand: Juli 2026
+====================================================
+
+WICHTIGER HINWEIS VORAB
+------------------------
+Keine Rechtsberatung. Die Kennzeichnungspflicht für Affiliate-Links
+ist in Deutschland Rechtsprechungssache (§ 5a UWG, diverse
+Gerichtsurteile) und wird von Gerichten im Einzelfall unterschiedlich
+streng ausgelegt. Diese Übersicht zeigt die gängige, sichere Praxis —
+bei Unsicherheit: kurz anwaltlich prüfen lassen, besonders bevor der
+Buch-Bereich mit echten Links live geht.
+
+
+TEIL 1 — AMAZON PARTNERNET: ANMELDUNG
+------------------------------------------
+1. Auf partnernet.amazon.de registrieren (kostenlos)
+   Benötigt: Website-URL (finanz-ritual.de), persönliche Daten,
+   Steuernummer, Auszahlungs-Bankverbindung
+2. Zusage erfolgt meist innerhalb von 1–3 Tagen
+3. WICHTIGE FRIST: Innerhalb von 180 Tagen nach Anmeldung müssen
+   mindestens 3 qualifizierte Verkäufe über deine Links zustande
+   kommen. Sonst wird das Konto automatisch geschlossen und eine
+   Neuanmeldung ist nötig.
+4. Auszahlung: ab 25 € per Überweisung, ab 5 € als Gutschein
+   (Amazon-Guthaben)
+
+
+TEIL 2 — WIE DIE PROVISION FUNKTIONIERT
+--------------------------------------------
+- Provisionshöhe variiert je nach Produktkategorie (grob 1–10 %,
+  aktuelle Sätze stehen im PartnerNet-Dashboard unter "Provisionen" —
+  Amazon ändert diese gelegentlich, daher nicht fest verlassen auf
+  Zahlen aus älteren Ratgebern)
+- WICHTIG für den Bücher-Bereich: Klickt jemand auf deinen
+  Buch-Link, landet aber am Ende im Warenkorb mit einem ganz anderen
+  Produkt (z. B. Kopfhörern), bekommst du trotzdem die Provision auf
+  ALLES, was innerhalb von 24 Stunden nach dem Klick gekauft wird —
+  nicht nur auf das verlinkte Buch selbst
+- Provisionen können storniert werden (z. B. bei Rückgabe des
+  Produkts) — das reduziert die tatsächliche Auszahlung nachträglich
+
+
+TEIL 3 — KENNZEICHNUNGSPFLICHT (WICHTIG, NICHT OPTIONAL)
+--------------------------------------------------------------
+Affiliate-Links müssen für Leser erkennbar als solche markiert sein.
+Das ist keine Kür, sondern in Deutschland eine rechtliche
+Anforderung (Transparenzgebot bei kommerzieller Kommunikation).
+
+Praktisch umgesetzt, wie es aktuell auch bei euch eingebaut ist:
+  - Klar sichtbarer Hinweis auf jeder Seite mit Affiliate-Links
+    (nicht nur einmal irgendwo im Footer versteckt)
+  - Formulierung wie: "Diese Seite enthält Amazon-Affiliate-Links.
+    Wenn du darüber kaufst, erhalte ich eine kleine Provision — ohne
+    Mehrkosten für dich."
+  - Der Hinweis muss VOR dem ersten Klick auf einen Affiliate-Link
+    sichtbar sein, nicht erst danach
+  - Zusätzlich üblich: ein Sternchen (*) direkt am Link selbst,
+    z. B. "Bei Amazon ansehen *"
+  - rel="sponsored" (bzw. "nofollow sponsored") im HTML-Attribut des
+    Links selbst — signalisiert auch Suchmaschinen, dass es sich um
+    einen bezahlten/kommerziellen Link handelt (technisch bereits so
+    umgesetzt in den neuen Buch-Seiten)
+
+Was NICHT reicht: Ein allgemeiner Disclaimer nur im Impressum. Der
+Hinweis muss dort stehen, wo die Links tatsächlich verwendet werden.
+
+
+TEIL 4 — AKTUELLER STAND AUF FINANZRITUAL.DE
+--------------------------------------------------
+Die neue Kategorie "Bücher" (kat-buecher.html) ist technisch fertig
+aufgebaut:
+  - 4 Start-Buchseiten mit Affiliate-Hinweis-Box direkt am
+    Seitenanfang, vor jedem Link
+  - Buy-Button mit Sternchen-Kennzeichnung ("Bei Amazon ansehen *")
+    und rel="sponsored"
+  - Amazon-Links sind aktuell PLATZHALTER (href="#") — sobald der
+    PartnerNet-Account steht, müssen die echten Tracking-Links
+    (mit deiner Partner-ID, z. B. ...?tag=finanzritual-21) eingesetzt
+    werden
+
+OFFEN / NÄCHSTE SCHRITTE:
+[ ] Amazon PartnerNet-Konto anlegen (siehe Teil 1)
+[ ] Die 180-Tage-Frist im Kalender vormerken (3 qualifizierte
+    Verkäufe nötig, sonst Konto-Reset)
+[ ] Platzhalter-Links (href="#") in den 4 Buchseiten durch echte
+    Partner-Links ersetzen, sobald die Partner-ID vorliegt
+[ ] Bei weiteren Büchern: gleiches Muster verwenden (Disclaimer-Box
+    + Sternchen + rel="sponsored")
+
+
+TEIL 5 — FALLS AMAZON NICHT DIE EINZIGE OPTION SEIN SOLL
+--------------------------------------------------------------
+Für Bücher speziell gibt es Alternativen zu Amazon, die teils auch
+gut zu einem bewusst konsumierenden Finanzblog passen:
+  - genialokal.de — Partnerprogramm, das den Kauf über lokale,
+    unabhängige Buchhandlungen vermittelt statt über einen
+    Großkonzern; kann inhaltlich besser zum "bewusster Konsum"-Ton
+    von Finanzritual passen
+  - Thalia-Partnerprogramm — deutscher Buchhändler, eigenes
+    Affiliate-Programm
+  - Diese Alternativen ließen sich später zusätzlich zu Amazon
+    anbieten (z. B. als zweiter, kleinerer Link "oder bei genialokal
+    kaufen") — für den Start reicht aber ein Anbieter, um es nicht
+    unnötig kompliziert zu machen

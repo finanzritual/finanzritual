@@ -1,0 +1,40 @@
+<svg viewBox="0 0 231 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Finanzritual Logo, Wortkasten-Variante">
+  <!-- Reihe 1: F I N A N Z -->
+  <g font-family="'Space Grotesk', Arial, sans-serif" font-weight="700" font-size="22" fill="#ffffff">
+    <g>
+      <rect x="0"   y="0" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="39"  y="0" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="78"  y="0" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="117" y="0" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="156" y="0" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="195" y="0" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+    </g>
+    <text x="18"  y="19" text-anchor="middle" dominant-baseline="central">F</text>
+    <text x="57"  y="19" text-anchor="middle" dominant-baseline="central">I</text>
+    <text x="96"  y="19" text-anchor="middle" dominant-baseline="central">N</text>
+    <text x="135" y="19" text-anchor="middle" dominant-baseline="central">A</text>
+    <text x="174" y="19" text-anchor="middle" dominant-baseline="central">N</text>
+    <text x="213" y="19" text-anchor="middle" dominant-baseline="central">Z</text>
+  </g>
+
+  <!-- Grüner Trennstrich -->
+  <rect x="0" y="38" width="231" height="4" fill="#1E8E5A"/>
+
+  <!-- Reihe 2: R I T U A L -->
+  <g font-family="'Space Grotesk', Arial, sans-serif" font-weight="700" font-size="22" fill="#ffffff">
+    <g>
+      <rect x="0"   y="44" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="39"  y="44" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="78"  y="44" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="117" y="44" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="156" y="44" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+      <rect x="195" y="44" width="36" height="36" fill="rgba(255,255,255,0.18)"/>
+    </g>
+    <text x="18"  y="63" text-anchor="middle" dominant-baseline="central">R</text>
+    <text x="57"  y="63" text-anchor="middle" dominant-baseline="central">I</text>
+    <text x="96"  y="63" text-anchor="middle" dominant-baseline="central">T</text>
+    <text x="135" y="63" text-anchor="middle" dominant-baseline="central">U</text>
+    <text x="174" y="63" text-anchor="middle" dominant-baseline="central">A</text>
+    <text x="213" y="63" text-anchor="middle" dominant-baseline="central">L</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+Shop und Warenkorb
+Ich hab kurz in shop.html reingeschaut, bevor ich antworte: Du hast aktuell 5-6 physische Produkte (T-Shirt, Tasse, Münzspender, Horizont-Quartett, u. a.), keine Digitalprodukte. Für den Fall passt CopeCart tatsächlich gut — die aktuellen Zahlen dazu:
+
+CopeCart: keine Monatsgebühr, ~4,9 % + 1 € pro Transaktion, wickelt sowohl physische als auch digitale Produkte ab, übernimmt Rechnung + Umsatzsteuer automatisch (du bist rechtlich Verkäufer über die von CopeCart als Reseller — spart dir die Buchhaltung)
+Digistore24: fast identisches Modell, DACH-etabliert, hat als einzigen echten Unterschied Rabattcode-Funktionalität, die CopeCart noch nicht hat
+
+Beide funktionieren aber nicht wie ein klassischer Online-Shop mit Warenkorb. Es läuft eins-zu-eins: pro Produkt ein "Jetzt kaufen"-Button, der auf eine gehostete Checkout-Seite des Anbieters verlinkt. Kunden kaufen ein Produkt pro Bestellvorgang, nicht mehrere zusammen in einem Warenkorb.
+Brauchst du also einen echten Warenkorb? Bei 5-6 Produkten: nein, wahrscheinlich nicht. Der Aufwand für einen "richtigen" Multi-Item-Warenkorb (Shopify, Snipcart, WooCommerce) lohnt sich meistens erst ab einer zweistelligen Zahl an SKUs oder wenn Leute regelmäßig mehrere Artikel gleichzeitig kaufen. Für euren Umfang: pro Produkt ein CopeCart-Buy-Button einbauen, fertig — deutlich weniger Wartungsaufwand, und ihr behaltet die statische Architektur der Seite bei.
+VIP-Bereich — anderes Problem als gedacht
+Ich hab auch in vip.html geschaut: Der VIP-Bereich ist aktuell als kostenlose E-Mail-Registrierung angelegt ("Login ist hier als Gestaltungs-Entwurf, noch ohne echtes Backend"), kein bezahltes Abo. Das heißt, dafür braucht ihr gar keinen Zahlungsanbieter — sondern ein E-Mail-Capture-Tool mit Inhalte-Freischaltung, z. B.:
+
+Beehiiv — hat eingebaute "Subscriber-only"-Beiträge, kostenloser Einstieg
+Brevo — DSGVO-freundlich, deutsche Rechenzentren optional, kostenloses Formular-Tool
+
+Falls VIP später doch mal kostenpflichtig werden soll (Mitgliedschaft statt freier Newsletter), wäre das nochmal ein anderer Baustein (z. B. Steady oder Memberful) — aber das ist ein Problem für später, nicht für jetzt.
+E-Mail-Konten
+Sobald ihr von IONOS/Strato weg zu Cloudflare Pages geht, entfällt das "E-Mail ist automatisch dabei". Steht im Detail in der Hosting.txt (Teil 3), kurz zusammengefasst: für reines Weiterleiten reicht Cloudflare Email Routing (kostenlos), für ein aktiv genutztes Postfach (z. B. für Shop- oder VIP-Support) Zoho Mail (kostenlos bis 5 Nutzer) oder Google Workspace.
+.com registrieren?
+Jetzt, wo Shop und VIP dazukommen und echtes Geld/echte E-Mail-Adressen an die Marke hängen: ja, macht Sinn. Nicht weil ihr die .com aktiv nutzen werdet, sondern als defensive Registrierung — verhindert, dass sich jemand anders finanzritual.com schnappt und eure Marke missbraucht oder euch Traffic abgräbt. Kostet bei INWX ~10-12 €/Jahr, einfach auf die .de weiterleiten lassen. Bei einem reinen Hobby-Blog ohne Geldfluss würde ich sagen: optional. Sobald Zahlungen laufen: würde ich es nicht mehr als optional behandeln.

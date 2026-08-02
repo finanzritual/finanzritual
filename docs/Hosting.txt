@@ -1,0 +1,109 @@
+FINANZRITUAL — HOSTING & DEPLOYMENT
+Schritt-für-Schritt-Anleitung
+Stand: Juli 2026
+====================================================
+
+ÜBERBLICK
+---------
+Domain-Kauf, Hosting und E-Mail sind drei getrennte Bausteine.
+Das ist bewusst so gewählt, nicht aus Versehen:
+
+  Domain-Registrar  -> INWX oder Cloudflare Registrar
+  Hosting            -> Cloudflare Pages (statische Seite, kostenlos)
+  E-Mail             -> Cloudflare Email Routing (kostenlos) oder Zoho Mail
+
+Warum nicht IONOS/Strato-Komplettpaket: Finanzritual ist eine reine
+HTML/CSS/JS-Seite ohne Datenbank und ohne PHP. Klassisches Shared
+Hosting ist dafür langsamer, teurer und unnötig komplex.
+
+
+TEIL 1 — DOMAIN KAUFEN
+-----------------------
+1. Bei INWX (inwx.de) oder Cloudflare Registrar (dash.cloudflare.com
+   -> Registrar) die Domain finanz-ritual.de registrieren.
+   Hinweis: Bei Cloudflare Registrar muss die Domain-Zone vorher in
+   Cloudflare angelegt sein (siehe Teil 2, Schritt 1) — sonst zuerst
+   bei INWX kaufen und danach zu Cloudflare umziehen (kostenlos,
+   dauert ca. 5-7 Tage wegen Auth-Code-Bestätigung).
+2. WHOIS-Datenschutz aktivieren (bei .de meist automatisch über die
+   DENIC-Datentreuhänder-Regelung abgedeckt).
+3. Auto-Renew aktivieren, damit die Domain nicht versehentlich abläuft.
+
+
+TEIL 2 — CLOUDFLARE PAGES EINRICHTEN
+--------------------------------------
+1. Kostenlosen Account auf cloudflare.com anlegen.
+2. Im Dashboard -> "Add a site" -> finanz-ritual.de eintragen.
+   Cloudflare zeigt dir zwei Nameserver (z. B. ana.ns.cloudflare.com,
+   bob.ns.cloudflare.com).
+3. Bei deinem Domain-Registrar (INWX o. ä.) die Nameserver der Domain
+   auf genau diese beiden Cloudflare-Nameserver umstellen.
+   Dauer bis zur Umstellung: meist 1-24 Stunden.
+4. Den Blog-Ordner ("blog/" mit allen HTML/CSS/JS-Dateien) in ein
+   GitHub-Repository packen:
+     - github.com -> New Repository -> z. B. "finanzritual-blog"
+     - Repo kann privat bleiben, das ist für Cloudflare Pages egal
+     - Lokal: git init, git add ., git commit -m "Initial commit",
+       git remote add origin <repo-url>, git push -u origin main
+5. Im Cloudflare-Dashboard -> "Workers & Pages" -> "Create" ->
+   "Pages" -> "Connect to Git" -> das eben erstellte Repo auswählen.
+6. Build-Einstellungen (wichtig, da reines Static HTML):
+     - Framework preset: "None"
+     - Build command: LEER LASSEN
+     - Build output directory: "/" (bzw. "blog" falls das Repo eine
+       übergeordnete Ordnerstruktur hat)
+7. "Save and Deploy" klicken. Cloudflare baut die Seite und stellt
+   sie unter einer *.pages.dev-Adresse bereit (z. B.
+   finanzritual-blog.pages.dev). Das ist der Testlink.
+8. Custom Domain verbinden:
+     - Im Pages-Projekt -> "Custom domains" -> "Set up a custom
+       domain" -> finanz-ritual.de eintragen
+     - Cloudflare setzt den nötigen DNS-Eintrag automatisch, weil
+       die Domain ja schon in derselben Cloudflare-Zone liegt
+     - Zusätzlich "www.finanz-ritual.de" als Alias eintragen, falls
+       gewünscht (Redirect auf die nackte Domain einrichten unter
+       "Rules" -> "Redirect Rules")
+9. SSL-Zertifikat wird automatisch ausgestellt (dauert meist wenige
+   Minuten, manchmal bis zu 24 Stunden).
+
+Ab jetzt gilt: Jeder "git push" auf den main-Branch löst automatisch
+ein neues Deployment aus. Kein FTP, kein manuelles Hochladen mehr.
+
+
+TEIL 3 — E-MAIL EINRICHTEN
+----------------------------
+Cloudflare Pages liefert kein Postfach mit — E-Mail muss separat
+eingerichtet werden.
+
+Variante A (kostenlos, nur Weiterleitung):
+  1. Cloudflare Dashboard -> Domain -> "Email" -> "Email Routing"
+  2. Adresse anlegen, z. B. kontakt@finanz-ritual.de
+  3. Weiterleitung auf die private Gmail/Outlook-Adresse einrichten
+  4. Cloudflare setzt die nötigen MX-Einträge automatisch
+  Nachteil: Man kann NICHT als kontakt@finanz-ritual.de senden, nur
+  empfangen/weiterleiten. Zum Antworten "Senden als" in Gmail
+  einrichten (Gmail-Einstellungen -> Konten -> "E-Mail-Adresse
+  hinzufügen", SMTP-Zugangsdaten des Providers nötig).
+
+Variante B (echtes Postfach, sendet + empfängt direkt):
+  1. Zoho Mail (kostenlos bis 5 Nutzer) oder Google Workspace
+     (kostenpflichtig, ca. 6-7 €/Monat/Nutzer) anlegen
+  2. Domain verifizieren (TXT-Eintrag in Cloudflare setzen)
+  3. MX-Einträge in Cloudflare DNS auf den Mail-Anbieter umstellen
+     (WICHTIG: nicht gleichzeitig mit Email Routing aus Variante A
+     nutzen — beide konkurrieren um dieselben MX-Einträge)
+  Empfehlung: Wenn nur gelegentlich empfangen/weitergeleitet werden
+  muss -> Variante A. Wenn aktiv aus dem Postfach heraus mit Kunden
+  kommuniziert wird (z. B. VIP-Support, Shop-Anfragen) -> Variante B.
+
+
+TEIL 4 — CHECKLISTE VOR DEM LIVE-GANG
+----------------------------------------
+[ ] Domain zeigt auf Cloudflare-Nameserver
+[ ] Pages-Deployment läuft unter *.pages.dev fehlerfrei durch
+[ ] Custom Domain verbunden, SSL aktiv (https:// ohne Warnung)
+[ ] www -> non-www (oder umgekehrt) Redirect eingerichtet
+[ ] E-Mail-Routing/Postfach eingerichtet und getestet
+[ ] robots.txt und sitemap.xml vorhanden (falls noch nicht: kurz
+    nachfragen, ist schnell ergänzt)
+[ ] Alte Hosting-Kündigung erst NACH erfolgreichem Umzug einreichen

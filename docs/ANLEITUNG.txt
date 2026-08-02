@@ -1,0 +1,531 @@
+================================================================================
+ FINANZRITUAL - KURZANLEITUNG
+ Mobilfunk-Tarifvergleich & Kaffee-Button
+ Stand: 15.07.2026  (inkl. Sicherheitspruefung)
+================================================================================
+
+INHALT
+  0. ZUERST AUSFUEHREN: Schriften holen
+  1. Was neu ist
+  2. Kaffee-Button
+  3. Affiliate-Links eintragen
+  4. Tarife aktualisieren (Python-Skript)
+  5. Was passiert, wenn die Quelle down ist
+  6. Stellschrauben
+  7. Sicherheit: was geprueft und behoben wurde
+  8. DSGVO: Zaehler und Schriften
+  9. Rechtliches
+ 10. Geaenderte Dateien
+
+
+================================================================================
+ 0. ZUERST AUSFUEHREN: SCHRIFTEN HOLEN
+================================================================================
+
+  EIN Befehl, einmalig, im Projektordner:
+
+      pip install requests          (falls noch nicht vorhanden)
+      python3 tools/fonts_holen.py
+
+  WARUM DAS NOETIG IST:
+  Die Schriften kamen bisher von Google-Servern. Das ist der DSGVO-Punkt,
+  den du beheben wolltest - also musste der Verweis raus. Herunterladen
+  konnte ich die Dateien nicht: dafuer braucht es Internetzugang, den ich
+  nicht habe. Das Skript erledigt es bei dir in ein paar Sekunden.
+
+  BIS DAHIN sieht die Seite anders aus: Sie faellt auf die
+  System-Schriften zurueck (Arial/Helvetica statt Inter usw.). Nichts ist
+  kaputt - es ist nur nicht dein Design. Nach dem Skriptlauf ist alles
+  wie vorher, nur ohne Google.
+
+  DANACH:
+    - Den neuen Ordner fonts/ mit auf den Server hochladen!
+      Wird er vergessen, greifen wieder die Fallback-Schriften.
+    - Im Browser einmal hart neu laden (Strg+F5 / Cmd+Shift+R).
+    - Das Skript wird nie wieder gebraucht (ausser du wechselst Schriften).
+
+
+================================================================================
+ 1. WAS NEU IST
+================================================================================
+
+  * Die Vergleich-Sektion auf der Startseite ("Kosten vergleichen, bevor du
+    dich bindest") enthaelt jetzt statt des Platzhalters eine echte
+    Tarif-Tabelle mit 20 Allnet Flats und vier Filtern.
+
+  * Im versteckten Logo-Panel (Doppelklick auf das Logo "Finanzritual" oben
+    links) gibt es unten einen Kaffee-Button. Die alte Kaffee-Box im Footer
+    wurde entfernt; ihr Link wurde in den neuen Button uebernommen.
+
+  * Unter dem Menue laeuft jetzt eine gruene Linie in der Systemfarbe
+    (var(--green)) - im Dark-Mode automatisch heller.
+
+  * logo-crossword-blue.svg: alle zwoelf Kaestchen sind jetzt in
+    Systemblau (#2454A6), nicht mehr nur die obere Zeile. Der gruene
+    Trennstrich bleibt. Der Beitrag "Kastenschrift" beschreibt die
+    Variante entsprechend neu.
+
+  * Neu: tools/update_tarife.py holt aktuelle Tarife und schreibt sie in
+    script.js - aber nur, wenn die Daten vollstaendig und plausibel sind.
+
+  Alles fuegt sich in dein bestehendes Design ein: deine CSS-Variablen,
+  Dark-Mode, Schriftgroessen-Slider und btn-Klassen greifen automatisch.
+
+
+================================================================================
+ 2. KAFFEE-BUTTON EINRICHTEN
+================================================================================
+
+  Der Button sitzt im Easter-Egg-Panel: Logo oben links ZWEIMAL klicken
+  -> Panel klappt auf -> unter dem Mini-Kalender steht "Kaffee spendieren".
+
+  EINGERICHTET IST BEREITS (script.js, ca. Zeile 272):
+
+      const FR_KAFFEE_LINK = "https://www.buymeacoffee.com/finanzritual";
+
+  Dieser Link stammt aus der alten Footer-Box und wurde uebernommen.
+  Aendern kannst du ihn dort jederzeit, z. B. auf:
+
+      const FR_KAFFEE_LINK = "https://www.buymeacoffee.com/deinname";
+      const FR_KAFFEE_LINK = "https://ko-fi.com/deinname";
+      const FR_KAFFEE_LINK = "https://paypal.me/deinname";
+
+  VERHALTEN:
+
+    Feld leer
+      -> Button ist ausgegraut, nicht klickbar, Untertitel "bald verfuegbar".
+         Es entsteht also kein toter Link, falls du den Link mal entfernst.
+
+    URL eingetragen
+      -> Button ist aktiv, oeffnet in neuem Tab,
+         rel="noopener noreferrer" wird automatisch gesetzt.
+
+  DESIGN-DETAILS:
+    - Warme Kaffee-Toene als eigene CSS-Variablen (--coffee, --coffee-soft,
+      --coffee-line), jeweils fuer Light- und Dark-Mode definiert.
+    - Der Dampf ueber der Tasse animiert nur beim Hover - im Panel waere
+      eine Dauer-Animation unruhig.
+    - Bei "prefers-reduced-motion" (Systemeinstellung des Nutzers) sind alle
+      Animationen aus.
+
+  Farben aendern: in style.css im Abschnitt "KAFFEE-BUTTON" die drei
+  --coffee-Variablen anpassen. Der Rest zieht automatisch nach.
+
+
+================================================================================
+ 3. AFFILIATE-LINKS EINTRAGEN
+================================================================================
+
+  Alle Links stehen an EINER Stelle: FR_AFF_LINKS in script.js
+  (im Abschnitt "MOBILFUNK-TARIFVERGLEICH", ca. Zeile 305).
+  Schluessel ist die id des Tarifs, Wert dein Partnerlink:
+
+      const FR_AFF_LINKS = {
+        "lyca-mobile-lyca-easy-s": "https://partner.example.com/klick?id=123",
+        "lebara-allnet-20-gb":     "https://dein-netzwerk.de/track?tid=456",
+      };
+
+  Die IDs findest du im Datenblock darunter (id:"...") oder in der
+  Browser-Konsole mit:
+
+      FR_TARIFE.map(t => t.id)
+
+  VERHALTEN:
+
+    Link gesetzt   -> Button verlinkt dorthin, rel="sponsored nofollow
+                      noopener", oeffnet neues Tab.
+    Kein Link      -> Button zeigt auf FR_AFF_FALLBACK
+                      (Standard: "#tarif-link-folgt"), ohne "sponsored".
+
+  WICHTIG - warum die Links nicht bei den Tarifdaten stehen:
+  Das Update-Skript ueberschreibt den Tarif-Datenblock komplett. Stuenden
+  die Links dort, waeren sie beim ersten Update weg. FR_AFF_LINKS liegt
+  deshalb ausserhalb und wird NIE angefasst - das Skript bricht sogar mit
+  Fehler ab, falls sich dieser Block veraendern wuerde.
+
+  Statt des Platzhalters lieber auf eine eigene Seite verlinken?
+  Dann FR_AFF_FALLBACK aendern.
+
+
+================================================================================
+ 4. TARIFE AKTUALISIEREN (PYTHON-SKRIPT)
+================================================================================
+
+  EINMALIG:
+      pip install requests beautifulsoup4
+
+  BENUTZUNG (im Projektordner):
+      python3 tools/update_tarife.py              Update ausfuehren
+      python3 tools/update_tarife.py --dry-run    nur ansehen, nichts schreiben
+      python3 tools/update_tarife.py -v           ausfuehrlich; zeigt auch alle
+                                                  Tarife ohne Affiliate-Link
+
+  WAS ES TUT:
+    1. Holt die Quelle (allnet-flat-vergleich-24.de).
+    2. Parst die Tabelle ueber die Spaltenueberschriften - nicht ueber
+       CSS-Klassen. Das ueberlebt Template-Aenderungen der Quelle besser.
+    3. Legt eine Sicherung in tools/backups/ ab.
+    4. Ersetzt in script.js den Block zwischen den Markern
+       FR_TARIFE_START und FR_TARIFE_END.
+    5. Setzt FR_TARIFE_STAND auf das heutige Datum (erscheint sichtbar
+       ueber der Tabelle als "Datenstand ...").
+
+  BITTE BEIM ERSTEN MAL:
+  Einmal mit --dry-run laufen lassen und pruefen, ob die Spalten korrekt
+  erkannt werden. Mit -v siehst du genau, was geparst wurde.
+
+  AUTOMATISCH PER CRON (Beispiel: montags 6:00 Uhr):
+
+      0 6 * * 1 cd /pfad/zu/finanzritual && /usr/bin/python3 \
+        tools/update_tarife.py >> tools/update.log 2>&1
+
+
+================================================================================
+ 5. WAS PASSIERT, WENN DIE QUELLE DOWN IST
+================================================================================
+
+  Grundprinzip: "FAIL CLOSED".
+  Geschrieben wird NUR bei einem vollstaendigen, plausiblen Datensatz.
+  In jedem anderen Fall bleibt script.js bitgenau unveraendert und die
+  bestehende Tabelle wird weiter ausgeliefert. Es gibt keinen Pfad, der
+  eine halbe oder leere Tabelle hinterlaesst.
+
+  +--------------------------------------------+------------------+------+
+  | Situation                                  | Verhalten        | Exit |
+  +--------------------------------------------+------------------+------+
+  | Timeout / keine Verbindung (Seite down)    | 3 Versuche, Stop |  1   |
+  | HTTP 403 / 404 / 410                       | sofort Stop      |  1   |
+  | HTTP 5xx (Serverfehler)                    | 3 Versuche, Stop |  1   |
+  | Antwort verdaechtig kurz (< 2.000 Zeichen) | Stop             |  1   |
+  | Layout geaendert, keine Tabelle gefunden   | Stop             |  1   |
+  | Weniger als 8 Tarife geparst               | Stop             |  1   |
+  | Unplausibler Preis (0 oder ueber 200 EUR)  | Zeile verworfen  |  -   |
+  | FR_AFF_LINKS wuerde sich aendern           | Stop             |  2   |
+  | Erfolg                                     | Backup + Update  |  0   |
+  +--------------------------------------------+------------------+------+
+
+  Zusaetzlich wird atomar geschrieben (erst temporaere Datei, dann
+  ersetzen). Selbst ein Absturz mitten im Schreibvorgang kann script.js
+  also nicht zerstoeren.
+
+  EXIT-CODE 1 IST KEIN DRAMA:
+  Er heisst nur "Quelle war gerade nicht verfuegbar". Deine Seite laeuft
+  mit den alten Daten normal weiter. Erst wenn sich die 1er ueber Wochen
+  haeufen, lohnt ein Blick ins Log - dann hat die Quelle vermutlich ihr
+  Layout geaendert.
+
+
+================================================================================
+ 6. STELLSCHRAUBEN
+================================================================================
+
+  In script.js:
+    FR_KAFFEE_LINK      Spenden-URL fuer den Kaffee-Button
+    FR_AFF_LINKS        deine Affiliate-Links (id -> URL)
+    FR_AFF_FALLBACK     Ziel, solange kein Affiliate-Link gesetzt ist
+    FR_TARIFE_STAND     Datenstand (setzt das Skript automatisch)
+
+  Im Kopf von tools/update_tarife.py:
+    QUELLE                     die zu parsende URL
+    TIMEOUT / VERSUCHE / PAUSE Netzwerkverhalten
+    MIN_TARIFE                 Untergrenze fuer plausible Daten (Standard 8)
+    MAX_PREIS / MAX_GB         Ausreisserfilter
+    NETZ_MAP                   Netz-Bezeichnung der Quelle -> deine Kurzform
+
+  ACHTUNG bei NETZ_MAP:
+  Aendere sie nur zusammen mit den <option value="..."> in index.html und
+  den .netz-*-Klassen in style.css. Diese drei muessen zueinander passen,
+  sonst laufen Filter oder Farb-Badges ins Leere.
+
+
+================================================================================
+ 7. SICHERHEIT: WAS GEPRUEFT UND BEHOBEN WURDE
+================================================================================
+
+  BEHOBEN - Stored XSS ueber die Tarifquelle (war kritisch)
+  ---------------------------------------------------------
+  Die Tarifdaten stammen von einer FREMDEN Website. Sie wurden per
+  innerHTML in die Seite geschrieben. Ein manipulierter Anbietername wie
+
+      <img src=x onerror=alert(document.cookie)>
+
+  waere dadurch als echter HTML-Code auf deiner Seite ausgefuehrt worden -
+  ohne dass du etwas davon merkst. Angreifbar waer damit jeder Besucher.
+
+  Jetzt zwei unabhaengige Schutzschichten:
+    1. update_tarife.py: saeubern() entfernt HTML und laesst nur eine
+       Whitelist harmloser Zeichen durch.
+    2. script.js: frEsc() escapt jeden Wert vor der Ausgabe,
+       frSafeUrl() blockt javascript:- und data:-Links.
+  Beide wurden mit echten Payloads getestet. Legitime Namen wie
+  "Normal GmbH & Co. KG (5G)" bleiben unveraendert.
+
+  Regel fuer die Zukunft: Jeder ${...}-Wert in einem innerHTML-Template
+  muss durch frEsc(), jede URL zusaetzlich durch frSafeUrl().
+
+  GEPRUEFT UND IN ORDNUNG
+  -----------------------
+    - Alle externen Links haben rel="noopener" (kein Tabnabbing).
+    - Warn-Banner und Tag-Cloud nutzen textContent statt innerHTML.
+    - Kein eval(), kein document.write(), kein innerHTML mit Nutzereingaben.
+    - Formulare (Newsletter, VIP, E-Book) sind Demos mit
+      onsubmit="return false". Es verlaesst nichts den Browser.
+    - localStorage speichert nur Theme und Schriftgroesse - keine
+      personenbezogenen Daten.
+
+
+================================================================================
+ 8. DSGVO: ZAEHLER UND SCHRIFTEN
+================================================================================
+
+  Ergebnis: Beim blossen Aufruf deiner Seite wird jetzt NICHTS mehr an
+  Dritte gesendet. Geprueft: keine automatischen Requests an fremde
+  Domains mehr (kein Google, kein countapi, keine CDNs, keine
+  Social-Plugins). Erst wenn ein Besucher SELBST einen Link anklickt,
+  verlaesst er die Seite - das ist unkritisch und normal.
+
+  A) BESUCHERZAEHLER — ERLEDIGT
+  ------------------------------
+     Entfernt: fetch('https://api.countapi.xyz/hit/...')
+
+     Das Problem war doppelt: Der Dienst existiert nicht mehr (der
+     Aufruf schlug bei jedem Seitenaufruf fehl), UND schon der Versuch
+     uebertrug die IP deiner Besucher an einen Drittanbieter - im
+     Widerspruch zu deiner eigenen Datenschutzerklaerung.
+
+     Jetzt: Der Zaehler laeuft rein lokal im Browser (localStorage) und
+     zeigt "(nur dieses Geraet)". Es verlaesst nichts das Geraet.
+     Zusaetzlich in try/catch gepackt: Im Privatmodus kann localStorage
+     blockiert sein - dann zeigt der Zaehler "-" statt einen Fehler zu
+     werfen.
+
+     WICHTIG - was du dadurch VERLIERST: Du hast jetzt keine echten
+     Besucherzahlen mehr. Der Zaehler zeigt nur die Aufrufe des jeweiligen
+     Besuchers auf dessen eigenem Geraet. Willst du echte Zahlen, brauchst
+     du eine serverseitige Loesung ohne Drittanbieter - am einfachsten die
+     Server-Logfiles deines Hosters auswerten (die fallen ohnehin an), oder
+     selbst gehostetes Matomo. Dann aber die Datenschutzerklaerung
+     entsprechend ergaenzen.
+
+  B) SCHRIFTEN — VORBEREITET, EIN BEFEHL FEHLT NOCH
+  --------------------------------------------------
+     Der @import auf fonts.googleapis.com ist raus. Er uebertrug die IP
+     deiner Besucher an Google; das LG Muenchen I (Az. 3 O 17493/20) hat
+     darin einen DSGVO-Verstoss gesehen - bei deutschem Publikum ein
+     reales Abmahnrisiko.
+
+     JETZT NOCH NOETIG:  python3 tools/fonts_holen.py     (siehe Punkt 0)
+
+     Das Skript laedt die Schriften von Google herunter, legt sie in
+     fonts/ ab und schreibt die @font-face-Regeln in style.css zwischen
+     die Marker FR_FONTS_START / FR_FONTS_END. Danach liefert dein eigener
+     Server die Schriften aus.
+
+     Die drei Schriften stehen unter der SIL Open Font License -
+     Selbsthosten ist ausdruecklich erlaubt.
+
+     Auch hier "fail closed": Klappt der Download nicht, bleibt style.css
+     unveraendert, statt eine halb kaputte CSS zu hinterlassen.
+
+  C) DATENSCHUTZERKLAERUNG — ANGEPASST
+  -------------------------------------
+     Abschnitt 3 und 8 in datenschutz.html beschreiben jetzt den echten
+     Zustand: keine externen Schriften, keine Zaehldienste, keine
+     Uebermittlung an Dritte beim Seitenaufruf.
+
+     ABER: Fuehre bitte zuerst fonts_holen.py aus. Bis dahin behauptet
+     die Datenschutzerklaerung etwas, das erst nach dem Skriptlauf zu
+     100% stimmt (aktuell laedt die Seite gar keine externen Schriften,
+     also stimmt es genau genommen auch jetzt - nur sieht sie anders aus).
+
+     Offen bleibt in datenschutz.html weiterhin der Platzhalter
+     "[Hosting-Anbieter einfuegen]" in Abschnitt 2. Den musst du fuellen.
+
+  D) KEINE SECURITY-HEADER (weiterhin offen)
+  ------------------------------------------
+     Es gibt keine Content-Security-Policy. Die wuerde im Ernstfall
+     (falls doch mal Fremdcode reinkommt) verhindern, dass er ausgefuehrt
+     wird - eine zweite Absicherung zusaetzlich zum Escaping.
+
+     Ehrlicher Hinweis: Eine strenge CSP laesst sich hier nicht einfach
+     einschalten. Die Seite nutzt Inline-Handler (onsubmit="return false")
+     und viele style="..."-Attribute. Eine CSP muesste dafuer
+     'unsafe-inline' erlauben, was den Nutzen stark schmaelert.
+     Sauberer Weg: erst Inline-Handler und Inline-Styles aufloesen, dann
+     CSP setzen - am besten als Header beim Hoster, nicht als meta-Tag.
+
+     Schnell umsetzbar sind beim Hoster ausserdem:
+       X-Content-Type-Options: nosniff
+       Referrer-Policy: strict-origin-when-cross-origin
+       X-Frame-Options: SAMEORIGIN
+
+
+================================================================================
+ 9. RECHTLICHES
+================================================================================
+
+  WICHTIG VORAB: Ich bin kein Anwalt. Was unten steht, ist der Versuch,
+  Impressum und Datenschutzerklaerung technisch korrekt zu beschreiben,
+  was die Seite tatsaechlich tut. Vor dem Livegang gehoert beides einmal
+  von jemandem geprueft, der das rechtlich beurteilen darf.
+
+  AKTUALISIERT AM 15.07.2026:
+
+  * TMG -> DDG (Impressum)
+    Das Telemediengesetz wurde am 14.05.2024 durch das
+    Digitale-Dienste-Gesetz (DDG) abgeloest. Dein Impressum verwies noch
+    durchgehend auf das TMG - also auf ein Gesetz, das es nicht mehr gibt.
+    Geaendert:
+      "Angaben gemaess § 5 TMG"   -> "§ 5 DDG"
+      "§ 7 Abs.1 TMG"             -> "§ 7 Abs. 1 DDG"
+      "§§ 8 bis 10 TMG"           -> "§§ 8 bis 10 DDG"
+      "Redaktionell verantwortlich" -> jetzt mit "§ 18 Abs. 2 MStV"
+    Inhaltlich aendert sich dadurch nichts - die Pflichtangaben sind
+    dieselben geblieben. Nur die Fundstelle stimmt jetzt wieder.
+
+  * NEU im Impressum: "Werbung und Affiliate-Links"
+    Der Tarifvergleich enthaelt Provisionslinks. Das gehoert offengelegt.
+
+  * NEU im Impressum: "Hinweis zu Finanzinhalten"
+    Klarstellung, dass Finanzritual Bildung ist und keine Anlageberatung.
+    Der kurze Kasten am Seitenende sagte das vorher schon - jetzt steht es
+    ausfuehrlicher als eigener Abschnitt, inkl. Spar-Rechner.
+
+  * NEU in der Datenschutzerklaerung: Abschnitt 9
+    "Affiliate-Links und externe Weiterleitungen" - beschreibt, dass vor
+    dem Klick nichts uebertragen wird und was beim Klick passiert.
+
+  NOCH ZU TUN (kann nur der Betreiber):
+    - Impressum: Platzhalter in eckigen Klammern fuellen
+      [Vor- und Nachname], [Strasse und Hausnummer], [PLZ und Ort],
+      [Telefonnummer], ggf. [USt-IdNr.]
+      Ohne diese Angaben ist das Impressum abmahnfaehig.
+    - Datenschutz Abschnitt 2: [Hosting-Anbieter einfuegen]
+    - Beides rechtlich pruefen lassen.
+
+  Umgesetzt ist bereits:
+    - Affiliate-Links werden mit rel="sponsored nofollow" ausgeliefert.
+      Das ist Googles Vorgabe fuer bezahlte Links.
+    - Der Transparenzhinweis steht direkt unter der Tabelle, also bei der
+      Kaufentscheidung - das ist die Anforderung an Werbekennzeichnung.
+    - Preise sind mit Datenstand und "ohne Gewaehr" ausgewiesen.
+
+  Bitte pruefe vor dem Livegang selbst:
+    1. Ob die Nutzungsbedingungen deiner Datenquelle das automatisierte
+       Auslesen erlauben.
+    2. Ob dein Partnerprogramm eine bestimmte Formulierung der
+       Kennzeichnung vorschreibt.
+
+
+================================================================================
+ 10. GEAENDERTE DATEIEN
+================================================================================
+
+  index.html    Vergleich-Sektion: Filter + Tabellencontainer
+                Logo-Panel: Kaffee-Button
+                Footer: Kaffee-Box entfernt
+  script.js     frEsc() + frSafeUrl() (XSS-Schutz)
+                countapi-Aufruf entfernt -> Zaehler rein lokal
+                FR_KAFFEE_LINK + frInitKaffeeButton()
+                FR_AFF_LINKS, FR_TARIFE (zwischen Markern), Tabellen-Builder
+  style.css     Google-Fonts-@import entfernt -> Marker FR_FONTS_START/END
+                gruene Linie unter dem Menue (header.site)
+                Footer-Grid 6 -> 5 Spalten, totes CSS entfernt
+                Abschnitte "MOBILFUNK-TARIFVERGLEICH" und "KAFFEE-BUTTON"
+  datenschutz.html
+                Abschnitt 3 (Zaehler/keine Dritt-Requests) und
+                Abschnitt 8 (Schriften selbst gehostet) neu formuliert
+                Abschnitt 9 (Affiliate-Links) neu
+  impressum.html
+                TMG -> DDG, § 18 Abs. 2 MStV ergaenzt
+                Abschnitte "Werbung und Affiliate-Links" und
+                "Hinweis zu Finanzinhalten" neu
+  logo-crossword-blue.svg
+                alle Kaestchen Systemblau
+  beitrag-logo-kastenschrift.html
+                Beschreibung der blauen Variante angepasst
+
+  NEU:
+  ANLEITUNG.txt                     diese Datei
+  tools/fonts_holen.py              Schriften selbst hosten (einmalig!)
+  tools/update_tarife.py            Tarif-Update-Skript
+  tools/tests/fixture_quelle.html   Testdaten Tarifquelle
+  tools/tests/fixture_google_fonts.css
+                                    Testdaten Google-Fonts-Antwort
+
+  ENTSTEHT ERST BEIM AUSFUEHREN von fonts_holen.py:
+  fonts/                            die Schriftdateien (.woff2)
+                                    -> unbedingt mit hochladen!
+
+  Unveraendert geblieben sind alle Beitragsseiten, shop.html, vip.html,
+  impressum.html, datenschutz.html, 404.html, sitemap.xml, robots.txt
+  und saemtliche SVGs.
+
+================================================================================
+
+  BEDIENUNG: DEUTSCH/ENGLISCH-SCHALTER
+  ------------------------------------
+  In der Kopfzeile sitzt (direkt vor dem roten Warnhinweis-Punkt) ein
+  runder Schalter mit der Aufschrift "EN" bzw. "DE". Ein Klick schaltet
+  die komplette Seite zwischen Deutsch und Englisch um. Die Wahl wird im
+  Browser gemerkt (localStorage, Schluessel "fr-lang") und gilt seiten-
+  uebergreifend.
+
+  Bereits vollstaendig uebersetzt: Kopf-/Fusszeile, Navigation, alle
+  Buttons und Formularfelder, sowie sämtliche Inhalte auf allen 11
+  Seiten (Startseite inkl. Rechner/Tarifvergleich/Blog-Feed, die vier
+  Blogartikel, Shop, VIP, Impressum, Datenschutz und die 404-Seite).
+
+  WICHTIG bei Impressum und Datenschutz: Die deutsche Fassung bleibt
+  rechtlich massgeblich (steht so auch im Text). Die englische Version
+  ist eine Uebersetzung zur Orientierung fuer internationale
+  Besucher:innen, ersetzt aber keine rechtliche Pruefung.
+
+  TECHNIK (fuer spaetere eigene Ergaenzungen):
+  - script.js enthaelt eine kleine Funktion translatePage(), die jedes
+    Element mit einem data-en="..."-Attribut beim Umschalten mit diesem
+    englischen Inhalt befuellt (bzw. beim Zurueckschalten wieder mit dem
+    urspruenglichen Deutsch, das automatisch als data-de gesichert wird).
+  - Fuer Attribute (title, aria-label, alt, placeholder, das content
+    einer <meta>) funktioniert das genauso ueber data-en-title,
+    data-en-aria-label, data-en-alt, data-en-placeholder, data-en-content.
+  - Neuer Text soll uebersetzt werden? Einfach dem Element in der HTML-
+    Datei ein data-en="Englischer Text" Attribut hinzufuegen - fertig.
+    Ohne dieses Attribut bleibt ein Text schlicht auf Deutsch stehen,
+    nichts geht kaputt.
+  - Die Blog-Kacheln (Feed, Tag-Cloud, Kategorie-Listen auf der
+    Startseite) und der Mobilfunk-Tarifvergleich werden aus script.js
+    heraus neu gerendert (frRenderDynamicSections), sobald die Sprache
+    wechselt - die englischen Texte dafuer liegen direkt in den
+    Datenobjekten FR_POSTS (titleEn/excerptEn), FR_CAT_EN, FR_TAG_EN.
+  - Der Schuldenrechner in beitrag-schulden.html hat seine eigene,
+    sprachabhaengige compute()-Funktion (inline-Script am Seitenende).
+  - Neue eigenstaendige Rechner-Seiten funktionieren nach demselben
+    Muster: eigene compute()-Funktion, die sich am Ende mit
+    window.frPageRecomputers.push(compute) registriert, damit sie beim
+    Sprachwechsel automatisch neu rechnet.
+
+================================================================================
+
+  NEU (Rechner unter "Technik"):
+  ------------------------------
+  Im Technik-Bereich der Startseite liegt jetzt ein Gitternetz mit
+  Buttons zu fuenf eigenstaendigen Rechner-Seiten (alle zweisprachig,
+  gleicher Baukasten wie der Schuldenrechner):
+
+  rechner-zinseszins.html   Allgemeiner Zinseszins-Rechner
+                            (Startkapital, Sparrate, Zins, Laufzeit)
+  rechner-dividenden.html   Dividenden-Rendite-Rechner
+                            (mit/ohne Reinvestition der Ausschuettungen)
+  rechner-fire.html         FIRE-Zielvermoegen-Rechner
+                            (25-fache Jahresausgaben, Zeit bis FIRE)
+  rechner-entnahme.html     Entnahmerechner
+                            (Entnahmerate vs. Rendite, wie lange reicht's)
+  rechner-inflation.html    Inflationsrechner
+                            (Kaufkraftverlust, noetiger Zukunftsbetrag)
+
+  Alle fuenf sind in sitemap.xml eingetragen und ueber ein Gitternetz
+  aus Buttons im Technik-Bereich (index.html#technik) erreichbar.
+
+================================================================================
+
