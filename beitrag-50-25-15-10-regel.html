@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="The 50-25-15-10 Rule: A Sharper Variant of 50/30/20 — Finanzritual">Die 50-25-15-10-Regel: Eine schärfere Variante der 50/30/20-Regel — Finanzritual</title>
+<meta name="description" content="50% Lebenshaltung, 25% ETF-Sparplan, 15% Notgroschen, 10% Freizeit — und warum Immobilienbesitzer eigentlich nicht wegen der Wertsteigerung reicher sind, sondern wegen der Spardisziplin, die ihnen der Kredit auferlegt." data-en-content="50% living costs, 25% ETF savings plan, 15% emergency fund, 10% leisure — and why homeowners aren't really wealthier because of appreciation, but because of the savings discipline their mortgage forces on them.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-50-25-15-10-regel.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Die 50-25-15-10-Regel: Eine schärfere Variante der 50/30/20-Regel" data-en-content="The 50-25-15-10 Rule: A Sharper Variant of 50/30/20">
+<meta property="og:description" content="50% Lebenshaltung, 25% ETF, 15% Notgroschen, 10% Freizeit — und die wahre Erklärung, warum Immobilienbesitzer wohlhabender sind." data-en-content="50% living costs, 25% ETF, 15% emergency fund, 10% leisure — and the real reason homeowners end up wealthier.">
+<meta property="og:site_name" content="Finanzritual">
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-50-25-15-10-regel.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Die 50-25-15-10-Regel: Eine schärfere Variante der 50/30/20-Regel",
+  "description": "50% Lebenshaltung, 25% ETF-Sparplan, 15% Notgroschen, 10% Freizeit — und warum Immobilienbesitzer wegen der Spardisziplin des Kredits reicher werden, nicht wegen der Wertsteigerung.",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.finanz-ritual.de/beitrag-50-25-15-10-regel.html" },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ===== Vier-Kategorien-Karten ===== */
+.qr-compare{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:24px 0; }
+@media (max-width:820px){ .qr-compare{ grid-template-columns:1fr 1fr; } }
+@media (max-width:460px){ .qr-compare{ grid-template-columns:1fr; } }
+.qr-card{ background:var(--bg-raised); border:1px solid var(--line-strong); border-radius:12px; padding:16px 17px; }
+.qr-card h3{ margin:0 0 3px; font-size:.92rem; }
+.qr-card .pct{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.5rem; margin-bottom:6px; }
+.qr-card p{ margin:0; font-size:.79rem; color:var(--ink-soft); }
+.qr-card--live .pct{ color:var(--blue); }
+.qr-card--invest .pct{ color:var(--green); }
+.qr-card--fund .pct{ color:#0EA5A4; }
+.qr-card--fun .pct{ color:#8B5CF6; }
+
+/* ===== Donut ===== */
+.qr-pie-wrap{ margin:26px 0; display:grid; grid-template-columns:240px 1fr; gap:22px; align-items:center; }
+@media (max-width:600px){ .qr-pie-wrap{ grid-template-columns:1fr; } }
+.qr-pie-wrap svg{ width:100%; height:auto; display:block; }
+.qr-pie-legend{ display:flex; flex-direction:column; gap:10px; }
+.qr-pie-legend .item{ display:flex; align-items:center; gap:9px; }
+.qr-pie-legend .dot{ width:12px; height:12px; border-radius:50%; flex:none; }
+.qr-pie-legend .txt{ font-size:.85rem; }
+.qr-pie-legend .txt b{ font-weight:700; }
+
+/* ===== Phasen-Umschaltung ===== */
+.qr-phase-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0; }
+@media (max-width:600px){ .qr-phase-grid{ grid-template-columns:1fr; } }
+.qr-phase-card{ border-radius:12px; padding:16px 18px; border:1.5px solid var(--line-strong); background:var(--bg); }
+.qr-phase-card h4{ margin:0 0 8px; font-size:.86rem; font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
+.qr-phase-row{ display:flex; justify-content:space-between; font-size:.82rem; padding:4px 0; border-bottom:1px dashed var(--line); }
+.qr-phase-row:last-child{ border-bottom:none; }
+.qr-phase-row b{ font-family:'JetBrains Mono',monospace; }
+
+/* ===== Rechner ===== */
+.qr-calc{ margin:26px 0 8px; padding:20px 22px 24px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.qr-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; margin-bottom:8px; }
+.qr-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.qr-pills{ display:flex; flex-wrap:wrap; gap:7px; margin:14px 0; }
+.qr-pill{ border:1.5px solid var(--line-strong); border-radius:20px; padding:6px 13px; font-size:.75rem; font-weight:600; color:var(--ink-soft); background:var(--bg); cursor:pointer; }
+.qr-pill.is-active{ border-color:var(--blue); color:var(--ink); background:var(--blue-soft); }
+.qr-results{ display:flex; flex-direction:column; gap:6px; margin-top:14px; border-top:1px solid var(--line); padding-top:12px; }
+
+/* ===== Balkendiagramm Vermögen ===== */
+.qr-bar-wrap{ margin:24px 0; }
+.qr-bar-wrap svg{ width:100%; height:auto; display:block; }
+
+.qr-insight-box{ margin:22px 0; padding:calc(20px * var(--step-user)) calc(22px * var(--step-user)); border-radius:14px; background:#D9F0E1; border-left:3px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .qr-insight-box{ background:#173828;  box-shadow:none;}
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-50-25-15-10-regel.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-50-25-15-10-regel.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<div class="alert-banner" id="alert-banner" role="alert"><div class="alert-banner-inner"><span class="alert-banner-text" id="alert-banner-text"></span><div class="alert-banner-right"><span class="alert-banner-counter" id="perf-counter" aria-hidden="true"><span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span></span><button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button></div></div></div>
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></button>
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></button>
+
+<div class="logo-band" id="logo-band">
+  <a href="index.html" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
+    <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-band-img">
+  </a>
+</div>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-crossword-img">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="#2454A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="#1E8E5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="#1E8E5A"/>
+      </svg>
+    </a>
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections"><a href="index.html#optionen">Optionen</a><a href="kat-technik.html" data-en="Tech">Technik</a></nav>
+        <div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div>
+        
+      </div>
+    </div>
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false">
+          <span data-en="Finance">Finanzen</span>
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(9)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(16)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(3)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg><span data-en="CALC">CALC</span></a>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Compare">Vergleich</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false">
+          <span data-en="Lifestyle">Lebensstil</span>
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (30)">Alle Lebensstil-Artikel (30)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control"><label for="font-slider">Aa</label><input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße"></div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus" data-en-aria-label="Toggle dark mode"><span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" title="Switch to English"><span id="lang-toggle-text">EN</span></button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Vorschau"><span class="alert-test-dot"></span></button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-minimalismus.html" data-en="Minimalism">Minimalismus</a><span>/</span><a href="kat-minimalismus-budget.html" data-en="Budget">Budget</a><span>/</span><span aria-current="page" data-en="The 50-25-15-10 Rule">Die 50-25-15-10-Regel</span>
+    </nav>
+    <div class="eyebrow" data-en="Lifestyle · Budget · 03 Aug 2026">Lebensstil · Budget · 03.08.2026</div>
+    <h1 data-en="The 50-25-15-10 Rule: A Sharper Variant of 50/30/20">Die 50-25-15-10-Regel: Eine schärfere Variante der 50/30/20-Regel</h1>
+    <p style="max-width:62ch;" data-en="50% living costs, 25% ETF savings plan, 15% emergency fund, 10% leisure. And the real answer to why homeowners tend to be wealthier &ndash; it's not the property's appreciation, it's the savings discipline a long loan term forces on them.">50 % Lebenshaltung, 25 % ETF-Sparplan, 15 % Notgroschen, 10 % Freizeit. Und die eigentliche Antwort darauf, warum Immobilienbesitzer meist wohlhabender sind — nicht wegen der Wertsteigerung, sondern wegen der Spardisziplin, die eine lange Kreditbindung erzwingt.</p>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+  <p data-en="The <a href='beitrag-50-30-20-regel.html'>50/30/20 rule</a> splits net income into needs, lifestyle and savings. It's a good starting point &ndash; but it treats 'savings' as one single bucket, which hides an important distinction: money for emergencies and money that's actually growing are not the same thing, and mixing them slows down both goals. Here's the four-way split I actually use.">Die <a href="beitrag-50-30-20-regel.html">50/30/20-Regel</a> teilt das Nettoeinkommen in Notwendiges, Lifestyle und Sparen. Guter Ausgangspunkt — aber „Sparen" wird darin als ein einziger Topf behandelt, und das verdeckt einen wichtigen Unterschied: Geld für den Notfall und Geld, das tatsächlich wächst, sind nicht dasselbe, und wer beides vermischt, verlangsamt beide Ziele. Hier die Vier-Wege-Aufteilung, die ich tatsächlich nutze.</p>
+
+  <div class="qr-compare">
+    <div class="qr-card qr-card--live">
+      <h3 data-en="Living costs">Lebenshaltung</h3>
+      <div class="pct">50⁠%</div>
+      <p data-en="Rent, groceries, insurance, transport &ndash; everything that keeps daily life running.">Miete, Lebensmittel, Versicherungen, Mobilität — alles, was den Alltag am Laufen hält.</p>
+    </div>
+    <div class="qr-card qr-card--invest">
+      <h3 data-en="Investing">Investieren</h3>
+      <div class="pct">25⁠%</div>
+      <p data-en="ETF savings plan on growth stocks &ndash; the actual wealth-building engine, untouched by short-term needs.">ETF-Sparplan auf Wachstumswerte — der eigentliche Vermögensaufbau, unangetastet von kurzfristigen Bedürfnissen.</p>
+    </div>
+    <div class="qr-card qr-card--fund">
+      <h3 data-en="Emergency fund">Notgroschen</h3>
+      <div class="pct">15⁠%</div>
+      <p data-en="To survive dry spells without touching the investments or going into debt. Temporary, not permanent &ndash; see below.">Um Durststrecken zu überstehen, ohne die Investitionen anzurühren oder Schulden zu machen. Befristet, nicht dauerhaft — siehe unten.</p>
+    </div>
+    <div class="qr-card qr-card--fun">
+      <h3 data-en="Leisure">Freizeit</h3>
+      <div class="pct">10⁠%</div>
+      <p data-en="Travel, going out, hobbies. Deliberately small, deliberately not zero &ndash; a budget nobody can stick to for years doesn't work.">Reisen, Ausgehen, Hobbys. Bewusst klein, bewusst nicht null — ein Budget, das niemand jahrelang durchhält, funktioniert nicht.</p>
+    </div>
+  </div>
+
+  <div class="qr-pie-wrap">
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Kuchendiagramm der 50-25-15-10-Regel"
+         data-en-aria-label="Pie chart of the 50-25-15-10 rule">
+      <path d="M150.0,10.0 A140,140 0 0 1 150.0,290.0 L150.0,222.0 A72,72 0 0 0 150.0,78.0 Z" fill="var(--blue)"/>
+      <path d="M150.0,290.0 A140,140 0 0 1 10.0,150.0 L78.0,150.0 A72,72 0 0 0 150.0,222.0 Z" fill="var(--green)"/>
+      <path d="M10.0,150.0 A140,140 0 0 1 67.7,36.7 L107.7,91.8 A72,72 0 0 0 78.0,150.0 Z" fill="#0EA5A4"/>
+      <path d="M67.7,36.7 A140,140 0 0 1 150.0,10.0 L150.0,78.0 A72,72 0 0 0 107.7,91.8 Z" fill="#8B5CF6"/>
+    </svg>
+    <div class="qr-pie-legend">
+      <div class="item"><span class="dot" style="background:var(--blue);"></span><span class="txt"><b>50⁠%</b> <span data-en="Living costs">Lebenshaltung</span></span></div>
+      <div class="item"><span class="dot" style="background:var(--green);"></span><span class="txt"><b>25⁠%</b> <span data-en="Investing (ETF)">Investieren (ETF)</span></span></div>
+      <div class="item"><span class="dot" style="background:#0EA5A4;"></span><span class="txt"><b>15⁠%</b> <span data-en="Emergency fund">Notgroschen</span></span></div>
+      <div class="item"><span class="dot" style="background:#8B5CF6;"></span><span class="txt"><b>10⁠%</b> <span data-en="Leisure">Freizeit</span></span></div>
+    </div>
+  </div>
+
+  <h2 data-en="The important part: this split isn't permanent">Der wichtige Teil: Diese Aufteilung ist nicht dauerhaft</h2>
+  <p data-en="The 15⁠% emergency-fund bucket has a finish line. Once it covers <a href='beitrag-notgroschen.html'>three to six net monthly salaries</a> in a deposit-guaranteed savings account, it's full &ndash; and that 15⁠% doesn't need a new home in a bigger pillow. It becomes leverage for faster capital building, since the discipline of setting it aside every month is already trained. Two ways to redeploy it:">Der 15-%-Notgroschen-Topf hat ein Ziel. Sobald er <a href="beitrag-notgroschen.html">drei bis sechs Netto-Monatsgehälter</a> auf einem einlagengesicherten Tagesgeldkonto abdeckt, ist er voll — und die 15 % brauchen kein neues, größeres Kissen. Sie werden zum Hebel für schnelleren Kapitalaufbau, weil die Disziplin, sie monatlich beiseitezulegen, bereits trainiert ist. Zwei Wege, sie neu einzusetzen:</p>
+
+  <div class="qr-phase-grid">
+    <div class="qr-phase-card">
+      <h4 data-en="PHASE 2 · CLASSIC (50/30/20)">PHASE 2 · KLASSISCH (50/30/20)</h4>
+      <div class="qr-phase-row"><span data-en="Living costs">Lebenshaltung</span><b>50⁠%</b></div>
+      <div class="qr-phase-row"><span data-en="Investing">Investieren</span><b>30⁠%</b></div>
+      <div class="qr-phase-row"><span data-en="Leisure">Freizeit</span><b>20⁠%</b></div>
+    </div>
+    <div class="qr-phase-card">
+      <h4 data-en="PHASE 2 · AGGRESSIVE (50/40/10)">PHASE 2 · AGGRESSIV (50/40/10)</h4>
+      <div class="qr-phase-row"><span data-en="Living costs">Lebenshaltung</span><b>50⁠%</b></div>
+      <div class="qr-phase-row"><span data-en="Investing">Investieren</span><b>40⁠%</b></div>
+      <div class="qr-phase-row"><span data-en="Leisure">Freizeit</span><b>10⁠%</b></div>
+    </div>
+  </div>
+  <p data-en="Both keep the emergency fund topped up automatically as a side effect &ndash; a savings account that already covers 3&ndash;6 months rarely needs active refilling, only the occasional top-up after it's actually used.">Beide halten den Notgroschen als Nebeneffekt automatisch gefüllt — ein Tagesgeldkonto, das bereits 3–6 Monate abdeckt, braucht selten aktives Nachfüllen, nur gelegentlich nach tatsächlicher Nutzung.</p>
+
+  <div class="qr-calc" id="qr-calc">
+    <div class="qr-calc-inputs">
+      <div class="row">
+        <label for="qr-income"><span data-en="Net monthly income">Monatliches Nettoeinkommen</span> <span class="val" id="qr-income-val">2.500 €</span></label>
+        <input type="range" id="qr-income" class="calc-slider" min="1000" max="6000" step="100" value="2500">
+      </div>
+    </div>
+    <div class="qr-pills" id="qr-pills">
+      <button type="button" class="qr-pill is-active" data-phase="p1" data-en="Phase 1 · Building emergency fund">Phase 1 · Notgroschen aufbauen</button>
+      <button type="button" class="qr-pill" data-phase="p2c" data-en="Phase 2 · Classic (50/30/20)">Phase 2 · Klassisch</button>
+      <button type="button" class="qr-pill" data-phase="p2a" data-en="Phase 2 · Aggressive (50/40/10)">Phase 2 · Aggressiv</button>
+    </div>
+    <div class="qr-results" id="qr-results"></div>
+    <p class="calc-note" data-en="Simplified example calculation, not financial advice. Adjust the percentages to your own situation, especially if living costs genuinely exceed 50⁠% of income.">Vereinfachte Beispielrechnung, keine Finanzberatung. Passe die Prozentsätze an deine eigene Situation an, besonders wenn Lebenshaltung bei dir tatsächlich mehr als 50 % einnimmt.</p>
+  </div>
+
+  <h2 style="margin-top:36px;" data-en="Why homeowners really end up wealthier">Warum Immobilienbesitzer wirklich wohlhabender werden</h2>
+  <p data-en="Here's the connection to the split above. 'Buy real estate, it builds wealth' is common advice &ndash; and the numbers back it up. The Bundesbank's 2023 household wealth survey found striking gaps in Germany's median net wealth:">Hier die Verbindung zur Aufteilung oben. „Kauf eine Immobilie, das baut Vermögen auf" ist ein gängiger Rat — und die Zahlen stützen ihn. Die Vermögensbefragung der Bundesbank 2023 fand deutliche Unterschiede beim Median-Nettovermögen in Deutschland:</p>
+
+  <div class="qr-bar-wrap">
+    <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Median-Nettovermögen: Mieter 10.300 Euro, Eigentümer mit Kredit 160.200 Euro, Eigentümer schuldenfrei 255.600 Euro">
+      <line x1="40" y1="220" x2="400" y2="220" stroke="var(--line-strong)" stroke-width="1.5"/>
+      <rect x="70" y="212" width="70" height="8" rx="2" fill="var(--ink-soft)"/>
+      <text x="105" y="204" text-anchor="middle" font-size="12" font-family="JetBrains Mono, monospace" fill="var(--ink)" font-weight="700">10.300 €</text>
+      <text x="105" y="238" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Mieter</text>
+
+      <rect x="185" y="94.6" width="70" height="125.4" rx="2" fill="var(--blue)"/>
+      <text x="220" y="86.6" text-anchor="middle" font-size="12" font-family="JetBrains Mono, monospace" fill="var(--ink)" font-weight="700">160.200 €</text>
+      <text x="220" y="238" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Eigentümer, Kredit</text>
+
+      <rect x="300" y="20" width="70" height="200" rx="2" fill="var(--green)"/>
+      <text x="335" y="12" text-anchor="middle" font-size="12" font-family="JetBrains Mono, monospace" fill="var(--ink)" font-weight="700">255.600 €</text>
+      <text x="335" y="238" text-anchor="middle" font-size="10.5" fill="var(--ink-soft)">Eigentümer, schuldenfrei</text>
+    </svg>
+    <p class="cmp-muted" style="font-size:.75rem; color:var(--ink-soft);" data-en="Median net wealth by housing status, Germany 2023. Source: Deutsche Bundesbank, Vermögensbefragung PHF 2023.">Median-Nettovermögen nach Wohnstatus, Deutschland 2023. Quelle: Deutsche Bundesbank, Vermögensbefragung PHF 2023.</p>
+  </div>
+
+  <p data-en="A 15- to 25-fold gap between renters and mortgage-free owners. The tempting conclusion: real estate itself is the wealth machine. But the Bundesbank's own report adds an important caveat &ndash; owners and renters don't just differ in whether they own property. They typically differ in age, household size, income and family status too, so part of this gap reflects those other factors, not property appreciation alone.">Ein 15- bis 25-facher Unterschied zwischen Mietern und schuldenfreien Eigentümern. Die verlockende Schlussfolgerung: Die Immobilie selbst ist die Vermögensmaschine. Aber der Bericht der Bundesbank selbst fügt eine wichtige Einschränkung hinzu — Eigentümer und Mieter unterscheiden sich nicht nur darin, ob sie Eigentum besitzen. Sie unterscheiden sich typischerweise auch in Alter, Haushaltsgröße, Einkommen und Familienstand, sodass ein Teil dieser Lücke diese anderen Faktoren widerspiegelt, nicht allein die Wertsteigerung der Immobilie.</p>
+
+  <p data-en="Still, one mechanism holds up regardless of those confounders: a mortgage is a 20- to 30-year standing order that cannot be skipped, snoozed, or 'just this month, I'll catch up later'. Miss it and the bank calls. That single feature &ndash; enforced, non-negotiable monthly repayment &ndash; is a forced-savings machine that most renters never install for themselves. The house's appreciation is a bonus on top; the discipline is the actual engine underneath it.">Trotzdem hält ein Mechanismus unabhängig von diesen Störfaktoren stand: Ein Kredit ist ein 20- bis 30-jähriger Dauerauftrag, der nicht übersprungen, aufgeschoben oder auf „hole ich nächsten Monat nach" verschoben werden kann. Wird er verpasst, ruft die Bank an. Genau dieses eine Merkmal — erzwungene, nicht verhandelbare monatliche Tilgung — ist eine Zwangssparmaschine, die sich die meisten Mieter nie selbst einrichten. Die Wertsteigerung des Hauses ist der Bonus obendrauf; die Disziplin ist der eigentliche Motor darunter.</p>
+
+  <div class="qr-insight-box">
+    <p style="margin:0;" data-en="This is the actual punchline connecting both halves of this article: a homeowner doesn't out-save a renter because bricks are magic. They out-save them because the bank enforces a savings rate that most people would never enforce on themselves voluntarily. A percentage-based rule like 50-25-15-10, paired with an automatic standing order into an ETF savings plan on payday, manufactures that exact same enforced discipline &ndash; without needing a mortgage, a 20-year commitment, or a single property at all.">Das ist die eigentliche Pointe, die beide Hälften dieses Beitrags verbindet: Ein Immobilienbesitzer schlägt einen Mieter beim Sparen nicht, weil Backsteine magisch sind. Er schlägt ihn, weil die Bank eine Sparquote erzwingt, die sich die meisten Menschen niemals freiwillig selbst auferlegen würden. Eine prozentbasierte Regel wie 50-25-15-10, kombiniert mit einem automatischen Dauerauftrag in einen ETF-Sparplan am Gehaltstag, erzeugt genau dieselbe erzwungene Disziplin — ganz ohne Kredit, ohne 20-Jahres-Bindung, ohne eine einzige Immobilie.</p>
+  </div>
+
+  <p data-en="The practical consequence: set the standing order for the 25⁠% investing bucket to leave your account the day salary arrives &ndash; not at month's end, whatever is left over. That single change is what turns a percentage rule into a mortgage-grade forced-savings mechanism.">Die praktische Konsequenz: den Dauerauftrag für den 25-%-Investitions-Topf so einrichten, dass er am Tag des Gehaltseingangs abgeht — nicht am Monatsende, was gerade übrig ist. Genau diese eine Änderung macht aus einer Prozentregel einen Zwangsspar-Mechanismus auf Kredit-Niveau.</p>
+
+  <div class="disclaimer-box" style="margin-top:32px;" data-en="This article is educational material and reflects one personal perspective, not financial advice. The 50-25-15-10 split is a personal adaptation of the 50/30/20 rule, not an established academic standard; adjust percentages to your own income, region and life situation. Wealth figures for Germany 2023 (Bundesbank, Vermögensbefragung PHF): renters, mortgaged owners, and debt-free owners differ not only by homeownership status but also in age, income, household size and family status, which explains part of the gap shown.">Dieser Beitrag ist Bildungsmaterial und spiegelt eine persönliche Perspektive wider, keine Finanzberatung. Die 50-25-15-10-Aufteilung ist eine persönliche Abwandlung der 50/30/20-Regel, kein etablierter akademischer Standard; passe die Prozentsätze an dein eigenes Einkommen, deine Region und Lebenssituation an. Vermögenszahlen für Deutschland 2023 (Bundesbank, Vermögensbefragung PHF): Mieter, Eigentümer mit Kredit und schuldenfreie Eigentümer unterscheiden sich nicht nur im Wohnstatus, sondern auch in Alter, Einkommen, Haushaltsgröße und Familienstand, was einen Teil der gezeigten Lücke erklärt.</div>
+
+  <p style="margin-top:32px;" data-en="Continue reading:">Weiterlesen:</p>
+  <ul>
+    <li><a href="beitrag-50-30-20-regel.html" data-en="→ The 50/30/20 Rule: Your Budget in Three Simple Parts">→ Die 50/30/20-Regel: Dein Budget in drei einfachen Teilen</a></li>
+    <li><a href="beitrag-notgroschen.html" data-en="→ The Emergency Fund: How Much, and Where to Keep It">→ Der Notgroschen: Wie viel, und wo er liegen sollte</a></li>
+    <li><a href="beitrag-etf-sparplan-fuer-anfaenger.html" data-en="→ Which ETF? Beginner's guide with concrete recommendations">→ Welcher ETF? Anfängerleitfaden mit konkreten Empfehlungen</a></li>
+    <li><a href="beitrag-schulden.html" data-en="→ Debt Is the Biggest Trap Standing Between You and Investing">→ Schulden sind die größte Falle, um überhaupt investieren zu können</a></li>
+    <li><a href="beitrag-bargeld-budget.html" data-en="→ The 300-Euro Wallet with a Coin Dispenser: My Simple Trick Instead of an Envelope System">→ Die 300-Euro-Geldbörse mit Münzspender: Mein einfacher Trick statt Umschlagsystem</a></li>
+  </ul>
+
+  <p><a href="kat-minimalismus-budget.html" data-en="← Back to all Budget posts">← Zurück zu allen Budget-Beiträgen</a></p>
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ===== 50-25-15-10-Rechner ===== */
+(function(){
+  const incomeEl = document.getElementById('qr-income');
+  if(!incomeEl) return;
+  const incomeVal = document.getElementById('qr-income-val');
+  const pillsWrap = document.getElementById('qr-pills');
+  const resultsWrap = document.getElementById('qr-results');
+
+  const PHASES = {
+    p1:  [ ['Lebenshaltung','Living costs',50,'var(--blue)'], ['Investieren (ETF)','Investing (ETF)',25,'var(--green)'], ['Notgroschen','Emergency fund',15,'#0EA5A4'], ['Freizeit','Leisure',10,'#8B5CF6'] ],
+    p2c: [ ['Lebenshaltung','Living costs',50,'var(--blue)'], ['Investieren (ETF)','Investing (ETF)',30,'var(--green)'], ['Freizeit','Leisure',20,'#8B5CF6'] ],
+    p2a: [ ['Lebenshaltung','Living costs',50,'var(--blue)'], ['Investieren (ETF)','Investing (ETF)',40,'var(--green)'], ['Freizeit','Leisure',10,'#8B5CF6'] ]
+  };
+  let currentPhase = 'p1';
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+    const income = parseFloat(incomeEl.value);
+    incomeVal.textContent = fmtEUR(income);
+
+    resultsWrap.innerHTML = '';
+    PHASES[currentPhase].forEach(([labelDe, labelEn, pct, color]) => {
+      const row = document.createElement('div');
+      row.className = 'calc-stat';
+      row.innerHTML =
+        '<span class="dot" style="background:' + color + '"></span>' +
+        '<span class="label">' + (en ? labelEn : labelDe) + ' <span style="font-size:.7rem;color:var(--ink-soft);">(' + pct + '⁠%)</span></span>' +
+        '<span class="num">' + fmtEUR(income * pct / 100) + '</span>';
+      resultsWrap.appendChild(row);
+    });
+  }
+
+  pillsWrap.querySelectorAll('.qr-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      pillsWrap.querySelectorAll('.qr-pill').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      currentPhase = btn.dataset.phase;
+      compute();
+    });
+  });
+
+  incomeEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+</body>
+</html>

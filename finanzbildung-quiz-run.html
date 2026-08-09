@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="QUIZ RUN: The Finance Race for Two — Finanzritual">QUIZ RUN: Das Finanz-Wettrennen für zwei — Finanzritual</title>
+<meta name="description" content="QUIZ RUN: Zwei Spieler, ein Rennen. Wer Finanzfragen richtig beantwortet, kommt voran — wer daneben liegt, gibt die Runde ab. Drei Schwierigkeitsstufen, selbst wählbares Ziel." data-en-content="QUIZ RUN: Two players, one race. Answer finance questions correctly to advance — get one wrong and it's the other player's turn. Three difficulty levels, choose your own finish line.">
+<link rel="canonical" href="https://www.finanz-ritual.de/finanzbildung-quiz-run.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="QUIZ RUN: Das Finanz-Wettrennen für zwei" data-en-content="QUIZ RUN: The Finance Race for Two">
+<meta property="og:description" content="Zwei Spieler, ein Rennen — richtige Antworten bringen voran, eine falsche gibt die Runde an den anderen ab. Drei Schwierigkeitsstufen." data-en-content="Two players, one race — correct answers move you forward, one wrong answer passes the turn. Three difficulty levels.">
+<meta property="og:site_name" content="Finanzritual">
+
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/finanzbildung-quiz-run.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "QUIZ RUN: Das Finanz-Wettrennen für zwei",
+  "description": "Zwei-Spieler-Quiz-Wettrennen zu Finanzthemen, drei Schwierigkeitsstufen, kein Würfel nötig.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.finanz-ritual.de/finanzbildung-quiz-run.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rainer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Finanzritual"
+  },
+  "inLanguage": "de-DE"
+}
+</script>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/finanzbildung-quiz-run.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/finanzbildung-quiz-run.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
+<div class="alert-banner" id="alert-banner" role="alert">
+  <div class="alert-banner-inner">
+    <span class="alert-banner-text" id="alert-banner-text"></span>
+    <div class="alert-banner-right">
+      <span class="alert-banner-counter" id="perf-counter" aria-hidden="true">
+        <span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span>
+      </span>
+      <button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning" title="Warnhinweis anzeigen" data-en-title="Show warning">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+</button>
+
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<div class="logo-band" id="logo-band">
+  <a href="index.html" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
+    <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-band-img">
+  </a>
+</div>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
+      <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-crossword-img">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="#2454A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="#1E8E5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="#1E8E5A"/>
+      </svg>
+    </a>
+
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
+          <a href="index.html#optionen">Optionen</a>
+          <a href="kat-technik.html" data-en="Tech">Technik</a>
+          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
+          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
+        </nav>
+        <div class="fr-secret-calendar">
+          <div class="fr-cal-header" id="fr-cal-header"></div>
+          <div class="fr-cal-weekdays">
+            <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
+          </div>
+          <div class="fr-cal-days" id="fr-cal-days"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false">
+          <span data-en="Finance">Finanzen</span>
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(9)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(16)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(3)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg><span data-en="CALC">CALC</span></a>
+      
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false" data-en="Compare">Vergleich<svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false">
+          <span data-en="Lifestyle">Lebensstil</span>
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (30)">Alle Lebensstil-Artikel (30)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control">
+        <label for="font-slider">Aa</label>
+        <input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
+        <span class="dot" id="theme-toggle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" title="Switch to English">
+        <span id="lang-toggle-text">EN</span>
+      </button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+        <span class="alert-test-dot"></span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+<style>
+.qr-wrap{max-width:640px;margin:0 auto;text-align:center}
+.qr-intro{max-width:52ch;margin:0 auto 24px;color:var(--ink-soft);font-size:.92rem}
+
+/* ---- Setup ---- */
+.qr-setup{background:var(--bg-raised);border:1.5px solid var(--line-strong);border-radius:16px;padding:26px 24px;text-align:left}
+.qr-setup-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.qr-diff-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.qr-diff-tab{flex:1 1 100px;padding:12px 10px;border-radius:12px;border:1.5px solid var(--line-strong);background:var(--bg);cursor:pointer;text-align:center;transition:all .15s ease;font-family:'Inter',sans-serif}
+.qr-diff-tab strong{display:block;font-size:.9rem;color:var(--ink)}
+.qr-diff-tab span{display:block;font-size:.68rem;color:var(--ink-soft);margin-top:2px}
+.qr-diff-tab.is-active{border-color:var(--blue);background:var(--blue-soft)}
+.qr-diff-tab.is-active strong{color:var(--blue)}
+.qr-diff-tab[data-diff="mittel"].is-active{border-color:#D97706;background:#FAEEDA}
+.qr-diff-tab[data-diff="mittel"].is-active strong{color:#D97706}
+.qr-diff-tab[data-diff="schwer"].is-active{border-color:#C0392B;background:#FCEBEB}
+.qr-diff-tab[data-diff="schwer"].is-active strong{color:#C0392B}
+[data-theme="dark"] .qr-diff-tab[data-diff="mittel"].is-active{background:#4A3410}
+[data-theme="dark"] .qr-diff-tab[data-diff="schwer"].is-active{background:#4A1B1B}
+
+.qr-goal-row{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.qr-goal-row input[type="range"]{flex:1}
+.qr-goal-val{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);min-width:70px;text-align:right;font-size:.85rem}
+
+.qr-players-setup{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.qr-player-setup input{width:100%;padding:9px 10px;border-radius:var(--radius);border:1.5px solid var(--line-strong);background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:.85rem;box-sizing:border-box;text-align:center}
+.qr-player-setup label{display:block;font-size:.68rem;font-weight:700;color:var(--ink-soft);margin-bottom:5px;text-align:center}
+
+.qr-start-btn{width:100%;padding:14px;font-size:1.05rem;font-weight:700;text-align:center;justify-content:center;display:flex;}
+
+/* ---- Spielbereich ---- */
+.qr-game{background:var(--bg-raised);border:1.5px solid var(--line-strong);border-radius:16px;padding:26px 24px;text-align:left}
+
+.qr-track-block{margin-bottom:18px}
+.qr-track-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.qr-track-name{font-weight:700;font-size:.88rem}
+.qr-track-score{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--ink-soft)}
+.qr-track-bar{position:relative;height:34px;background:var(--bg);border:1.5px solid var(--line-strong);border-radius:17px;overflow:hidden}
+.qr-track-fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,var(--green),#55D99A);transition:width .5s cubic-bezier(.34,1.4,.64,1);border-radius:17px}
+.qr-track-token{position:absolute;top:50%;width:28px;height:28px;left:14px;transition:left .5s cubic-bezier(.34,1.4,.64,1);font-size:1.3rem;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));animation:qr-token-wiggle 1.1s ease-in-out infinite}
+@keyframes qr-token-wiggle{
+  0%,100%{transform:translate(-50%,-50%) scaleX(-1) rotate(-7deg);}
+  50%{transform:translate(-50%,-50%) scaleX(-1) rotate(7deg);}
+}
+@media (prefers-reduced-motion: reduce){
+  .qr-track-token{ animation:none; transform:translate(-50%,-50%) scaleX(-1); }
+}
+.qr-track-flag{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:.9rem;opacity:.6}
+.qr-track-block.is-turn .qr-track-bar{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+
+.qr-turn-banner{text-align:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--blue);margin:18px 0 14px;padding:8px;background:var(--blue-soft);border-radius:20px}
+
+.qr-card{background:var(--bg);border:1.5px solid var(--line-strong);border-radius:14px;padding:20px}
+.qr-card-diff{font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.qr-card-q{font-size:1.02rem;font-weight:700;line-height:1.4;margin-bottom:16px;min-height:2.8em}
+.qr-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.qr-options{grid-template-columns:1fr}}
+.qr-opt{padding:12px 14px;border-radius:10px;border:1.5px solid var(--line-strong);background:var(--bg-raised);cursor:pointer;text-align:left;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--ink);transition:all .15s ease}
+.qr-opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.qr-opt:disabled{cursor:default}
+.qr-opt.is-correct{border-color:var(--green);background:var(--green-soft);font-weight:700}
+.qr-opt.is-wrong{border-color:#C0392B;background:#FCEBEB}
+[data-theme="dark"] .qr-opt.is-wrong{background:#4A1B1B}
+
+.qr-feedback{margin-top:14px;padding:10px 14px;border-radius:10px;font-size:.85rem;font-weight:700;text-align:center;display:none}
+.qr-feedback.is-visible{display:block}
+.qr-feedback.is-correct{background:var(--green-soft);color:var(--green)}
+.qr-feedback.is-wrong{background:#FCEBEB;color:#C0392B}
+[data-theme="dark"] .qr-feedback.is-wrong{background:#4A1B1B;color:#F0999E}
+
+.qr-next-btn{width:100%;margin-top:14px;padding:13px}
+
+/* ---- Sieg ---- */
+.qr-win{text-align:center;padding:40px 24px;background:var(--bg-raised);border:1.5px solid var(--line-strong);border-radius:16px}
+.qr-trophy{font-size:4rem;line-height:1;margin-bottom:14px;display:inline-block;animation:qr-trophy-bounce 1s ease-in-out infinite}
+@keyframes qr-trophy-bounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(4deg)}}
+.qr-win-title{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+.qr-win-sub{color:var(--ink-soft);font-size:.88rem;margin-bottom:22px}
+.qr-confetti{position:relative;height:0;overflow:visible}
+.qr-confetti span{position:absolute;top:-20px;font-size:1.4rem;animation:qr-confetti-fall 2.6s ease-in forwards}
+@keyframes qr-confetti-fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(340px) rotate(360deg);opacity:0}}
+</style>
+
+<section class="page-hero" style="padding-bottom:20px;">
+  <div class="wrap qr-wrap" style="text-align:left;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-minimalismus-motivation.html" data-en="Motivation">Motivation</a><span>/</span><span aria-current="page" data-en="QUIZ RUN">QUIZ RUN</span>
+    </nav>
+    <div class="eyebrow" data-en="Motivation · Game · 06 Aug 2026">Motivation · Spiel · 06.08.2026</div>
+  </div>
+</section>
+
+<article class="section legal" style="border-bottom:none;padding-top:16px;">
+  <div class="wrap qr-wrap">
+
+    <div class="eyebrow" data-en="New: play & learn">Neu: Spielen &amp; Lernen</div>
+    <h1 data-en="QUIZ RUN">QUIZ RUN</h1>
+    <p class="qr-intro" data-en="Two players, one race. Answer a finance question correctly and you keep going &ndash; get one wrong, and it's the other player's turn. No dice, just knowledge. First to the finish line wins.">Zwei Spieler, ein Rennen. Eine Finanzfrage richtig beantwortet, und du bist weiter dran — eine falsch, und der andere Spieler ist am Zug. Kein Würfel, nur Wissen. Wer zuerst im Ziel ist, gewinnt.</p>
+
+    <!-- ===== Setup ===== -->
+    <div class="qr-setup" id="qr-setup">
+      <div class="qr-setup-label" data-en="1. Difficulty">1. Schwierigkeitsgrad</div>
+      <div class="qr-diff-tabs" id="qr-diff-tabs">
+        <button type="button" class="qr-diff-tab is-active" data-diff="leicht"><strong data-en="Easy">Leicht</strong><span data-en="Basics">Grundlagen</span></button>
+        <button type="button" class="qr-diff-tab" data-diff="mittel"><strong data-en="Medium">Mittel</strong><span data-en="For the practiced">Für Geübte</span></button>
+        <button type="button" class="qr-diff-tab" data-diff="schwer"><strong data-en="Hard">Schwer</strong><span data-en="Real experts">Echte Experten</span></button>
+      </div>
+
+      <div class="qr-setup-label" data-en="2. Finish line — how many correct answers to win?">2. Ziel — wie viele richtige Antworten zum Sieg?</div>
+      <div class="qr-goal-row">
+        <input type="range" id="qr-goal" min="5" max="15" step="1" value="8">
+        <span class="qr-goal-val" id="qr-goal-val" data-en="8 correct">8 Richtige</span>
+      </div>
+
+      <div class="qr-setup-label" data-en="3. Names (optional)">3. Namen (optional)</div>
+      <div class="qr-players-setup">
+        <div class="qr-player-setup">
+          <label data-en="Player 1">Spieler 1</label>
+          <input type="text" id="qr-name-1" placeholder="Spieler 1" data-en-placeholder="Player 1" maxlength="16">
+        </div>
+        <div class="qr-player-setup">
+          <label data-en="Player 2">Spieler 2</label>
+          <input type="text" id="qr-name-2" placeholder="Spieler 2" data-en-placeholder="Player 2" maxlength="16">
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-green qr-start-btn" id="qr-start-btn" data-en="Start game">Spiel starten</button>
+    </div>
+
+    <!-- ===== Spiel ===== -->
+    <div class="qr-game" id="qr-game" style="display:none;">
+      <div class="qr-track-block" id="qr-track-1">
+        <div class="qr-track-top">
+          <span class="qr-track-name" id="qr-name-display-1">Spieler 1</span>
+          <span class="qr-track-score" id="qr-score-1">0 / 8</span>
+        </div>
+        <div class="qr-track-bar">
+          <div class="qr-track-fill" id="qr-fill-1"></div>
+          <div class="qr-track-token" id="qr-token-1">🐢</div>
+          <span class="qr-track-flag">🏁</span>
+        </div>
+      </div>
+      <div class="qr-track-block" id="qr-track-2">
+        <div class="qr-track-top">
+          <span class="qr-track-name" id="qr-name-display-2">Spieler 2</span>
+          <span class="qr-track-score" id="qr-score-2">0 / 8</span>
+        </div>
+        <div class="qr-track-bar">
+          <div class="qr-track-fill" id="qr-fill-2"></div>
+          <div class="qr-track-token" id="qr-token-2">🐇</div>
+          <span class="qr-track-flag">🏁</span>
+        </div>
+      </div>
+
+      <div class="qr-turn-banner" id="qr-turn-banner"></div>
+
+      <div class="qr-card" id="qr-card">
+        <div class="qr-card-diff" id="qr-card-diff"></div>
+        <div class="qr-card-q" id="qr-card-q"></div>
+        <div class="qr-options" id="qr-options"></div>
+        <div class="qr-feedback" id="qr-feedback"></div>
+      </div>
+
+      <button type="button" class="btn btn-green qr-next-btn" id="qr-next-btn" style="display:none;" data-en="Next question →">Weiter zur nächsten Frage →</button>
+    </div>
+
+    <!-- ===== Sieg ===== -->
+    <div class="qr-win" id="qr-win" style="display:none;">
+      <div class="qr-confetti" id="qr-confetti"></div>
+      <div class="qr-trophy" id="qr-win-emoji">🏆</div>
+      <div class="qr-win-title" id="qr-win-title"></div>
+      <div class="qr-win-sub" id="qr-win-sub" data-en="Not financial advice &ndash; but a solid answer streak.">Keine Anlageberatung — aber eine solide Antwort-Serie.</div>
+      <button type="button" class="btn btn-green" id="qr-restart-btn" data-en="Play again">Nochmal spielen</button>
+    </div>
+
+    <div class="disclaimer-box" style="margin-top:24px;" data-en="Educational game, not financial advice. Questions are simplified general-knowledge facts, not a substitute for professional research.">Bildungsspiel, keine Anlageberatung. Die Fragen sind vereinfachtes Allgemeinwissen, kein Ersatz für eigene Recherche.</div>
+
+    <p style="margin-top:24px;" data-en="More games:">Weitere Spiele:</p>
+    <ul>
+      <li><a href="finanzbildung-quartett-aktien.html" data-en="→ Finance Quartet (companies)">→ Finanz-Quartett (Unternehmen)</a></li>
+      <li><a href="finanzbildung-quartett-etf.html" data-en="→ ETF Quartet">→ ETF-Quartett</a></li>
+      <li><a href="finanzbildung-quiz.html" data-en="→ Finance Quiz: 100 questions">→ Finanz-Quiz: 100 Fragen</a></li>
+    </ul>
+    <p><a href="kat-minimalismus-motivation.html" data-en="&larr; Back to Motivation">← Zurück zu Motivation</a></p>
+  </div>
+</article>
+
+<script>
+/* ===== QUIZ RUN: 48 kuratierte Fragen, 16 je Schwierigkeitsstufe, Multiple Choice ===== */
+const QR_QUESTIONS = {
+  leicht: [
+    {q:"Wofür steht die Abkürzung ETF?", qen:"What does the abbreviation ETF stand for?", o:["Exchange Traded Fund","Euro Trade Fund","Equity Transfer Fund","European Trust Fund"], oen:["Exchange Traded Fund","Euro Trade Fund","Equity Transfer Fund","European Trust Fund"], c:0},
+    {q:"Wie viele Cent hat ein Euro?", qen:"How many cents does one euro have?", o:["100","50","1000","10"], oen:["100","50","1000","10"], c:0},
+    {q:"Was ist eine Dividende?", qen:"What is a dividend?", o:["Gewinnbeteiligung für Aktionäre","Ein Kredit an die Bank","Eine Steuer auf Aktien","Ein Verlustausgleich"], oen:["A profit share paid to shareholders","A loan to the bank","A tax on shares","A loss offset"], c:0},
+    {q:"Welcher Index umfasst die 40 größten deutschen Unternehmen?", qen:"Which index tracks Germany's 40 largest companies?", o:["DAX","MDAX","TecDAX","Dow Jones"], oen:["DAX","MDAX","TecDAX","Dow Jones"], c:0},
+    {q:"Wofür steht FIRE in der Finanzcommunity?", qen:"What does FIRE stand for in the finance community?", o:["Financial Independence, Retire Early","Fast Income Rate Earnings","Fixed Interest Rate Exchange","Free Investment Retirement Estimate"], oen:["Financial Independence, Retire Early","Fast Income Rate Earnings","Fixed Interest Rate Exchange","Free Investment Retirement Estimate"], c:0},
+    {q:"Wie viele Bundesländer hat Deutschland?", qen:"How many federal states does Germany have?", o:["16","13","20","9"], oen:["16","13","20","9"], c:0},
+    {q:"Wer wird auch das „Orakel von Omaha\u201c genannt?", qen:"Who is also known as the \u201cOracle of Omaha\u201d?", o:["Warren Buffett","Bill Gates","Elon Musk","Jeff Bezos"], oen:["Warren Buffett","Bill Gates","Elon Musk","Jeff Bezos"], c:0},
+    {q:"Was misst das Bruttoinlandsprodukt (BIP)?", qen:"What does Gross Domestic Product (GDP) measure?", o:["Den Marktwert aller Endprodukte und Dienstleistungen eines Landes","Die Staatsverschuldung","Den Goldpreis","Die Inflation"], oen:["The market value of all final goods and services of a country","National debt","The gold price","Inflation"], c:0},
+    {q:"Wie hoch ist die reguläre Mehrwertsteuer in Deutschland?", qen:"What is the standard VAT rate in Germany?", o:["19 %","25 %","7 %","15 %"], oen:["19%","25%","7%","15%"], c:0},
+    {q:"Was ist ein Bärenmarkt?", qen:"What is a bear market?", o:["Ein Markt mit anhaltend fallenden Kursen","Ein Markt mit steigenden Kursen","Ein Rohstoffmarkt","Ein Kryptomarkt"], oen:["A market with sustained falling prices","A market with rising prices","A commodities market","A crypto market"], c:0},
+    {q:"Wer erfand Bitcoin (Pseudonym)?", qen:"Who invented Bitcoin (pseudonym)?", o:["Satoshi Nakamoto","Vitalik Buterin","Elon Musk","Craig Wright"], oen:["Satoshi Nakamoto","Vitalik Buterin","Elon Musk","Craig Wright"], c:0},
+    {q:"Wie viele Monate hat ein Geschäftsjahr normalerweise?", qen:"How many months does a fiscal year normally have?", o:["12","10","6","24"], oen:["12","10","6","24"], c:0},
+    {q:"Was bedeutet Inflation?", qen:"What does inflation mean?", o:["Anhaltender Kaufkraftverlust des Geldes","Anhaltender Wertzuwachs des Geldes","Ein Börsencrash","Eine Zinserhöhung"], oen:["A sustained loss of purchasing power","A sustained increase in money's value","A stock market crash","An interest rate hike"], c:0},
+    {q:"Wer legt den Leitzins für den Euro-Raum fest?", qen:"Who sets the key interest rate for the eurozone?", o:["Die Europäische Zentralbank (EZB)","Die Bundesbank","Die Bundesregierung","Der IWF"], oen:["The European Central Bank (ECB)","The Bundesbank","The federal government","The IMF"], c:0},
+    {q:"Was ist ein Notgroschen?", qen:"What is an emergency fund?", o:["Eine Rücklage für unvorhergesehene Ausgaben","Ein Aktienfonds","Eine Kryptowährung","Ein Steuerfreibetrag"], oen:["A reserve for unexpected expenses","A stock fund","A cryptocurrency","A tax allowance"], c:0},
+    {q:"Wie viele Nullen hat eine Milliarde?", qen:"How many zeros does a billion (US) have?", o:["9","6","12","3"], oen:["9","6","12","3"], c:0}
+  ],
+  mittel: [
+    {q:"Was besagt die „4-Prozent-Regel\u201c?", qen:"What does the \u201c4% rule\u201d state?", o:["Jährliche sichere Entnahmerate im Ruhestand","Maximale jährliche Inflation","Mindest-Sparquote für FIRE","Höchststeuersatz auf Kapitalerträge"], oen:["Annual safe withdrawal rate in retirement","Maximum annual inflation","Minimum savings rate for FIRE","Top tax rate on capital gains"], c:0},
+    {q:"Wie hoch ist die Kapitalertragsteuer in Deutschland (ohne Soli)?", qen:"What is the capital gains tax rate in Germany (excluding solidarity surcharge)?", o:["25 %","19 %","42 %","15 %"], oen:["25%","19%","42%","15%"], c:0},
+    {q:"Was macht ein Short Seller (Leerverkäufer)?", qen:"What does a short seller do?", o:["Setzt auf fallende Kurse","Kauft nur langfristig","Handelt nur mit Anleihen","Verkauft nur eigene Aktien"], oen:["Bets on falling prices","Only buys long-term","Only trades bonds","Only sells own shares"], c:0},
+    {q:"Was ist die „Market Capitalization\u201c eines Unternehmens?", qen:"What is a company's \u201cmarket capitalization\u201d?", o:["Gesamtwert aller Aktien des Unternehmens","Der Jahresgewinn des Unternehmens","Die Anzahl der Mitarbeiter","Der Jahresumsatz"], oen:["The total value of all its shares","Its annual profit","Its number of employees","Its annual revenue"], c:0},
+    {q:"Was ist Diversifikation?", qen:"What is diversification?", o:["Risikostreuung durch Verteilung auf verschiedene Anlagen","Alles in eine Aktie investieren","Nur in Gold investieren","Tägliches Handeln am Aktienmarkt"], oen:["Spreading risk across different investments","Putting everything into one stock","Investing only in gold","Trading daily"], c:0},
+    {q:"Was bedeutet Volatilität?", qen:"What does volatility mean?", o:["Die Schwankungsbreite eines Kurses","Die Dividendenhöhe","Der Unternehmensgewinn","Die Marktkapitalisierung"], oen:["The degree of price fluctuation","The dividend amount","Company profit","Market capitalization"], c:0},
+    {q:"Seit welchem Jahr gibt es den Euro als Bargeld?", qen:"Since which year has the euro existed as cash?", o:["2002","1999","1995","2005"], oen:["2002","1999","1995","2005"], c:0},
+    {q:"Wie viele Unternehmen umfasst der DAX seit September 2021?", qen:"How many companies has the DAX included since September 2021?", o:["40","30","50","25"], oen:["40","30","50","25"], c:0},
+    {q:"Was ist ein Margin Call?", qen:"What is a margin call?", o:["Aufforderung, mehr Kapital nachzuschießen","Eine Dividendenzahlung","Ein Börsenfeiertag","Ein Aktiensplit"], oen:["A demand to add more capital","A dividend payment","A stock exchange holiday","A stock split"], c:0},
+    {q:"Was ist Rebalancing in einem Depot?", qen:"What is rebalancing in a portfolio?", o:["Wiederherstellen der ursprünglichen Gewichtung","Erstkauf eines Portfolios","Verkauf des gesamten Depots","Steuererklärung für Kapitalerträge"], oen:["Restoring the original allocation","Buying a portfolio for the first time","Selling the entire portfolio","Filing a capital-gains tax return"], c:0},
+    {q:"Was ist eine Anleihe (Bond)?", qen:"What is a bond?", o:["Ein zinstragendes Wertpapier","Eine Aktie","Ein Rohstoff","Eine Währung"], oen:["An interest-bearing security","A stock","A commodity","A currency"], c:0},
+    {q:"Welche Institution überwacht den Wertpapierhandel in Deutschland?", qen:"Which institution supervises securities trading in Germany?", o:["Die BaFin","Die Deutsche Bundesbank","Eine Ratingagentur","Ein Börsenindex"], oen:["BaFin","The Deutsche Bundesbank","A rating agency","A stock index"], c:0},
+    {q:"Wie oft trifft die EZB im Regelfall Zinsentscheidungen pro Jahr?", qen:"How many main interest rate decisions does the ECB typically make per year?", o:["8","4","12","2"], oen:["8","4","12","2"], c:0},
+    {q:"Was bedeutet „Lean FIRE\u201c?", qen:"What does \u201cLean FIRE\u201d mean?", o:["Finanzielle Freiheit mit minimalistischem Lebensstil","Frühe Rente mit sehr hohem Vermögen","Teilzeitarbeit trotz hohem Vermögen","Investieren ausschließlich in ETFs"], oen:["Financial independence with a minimalist lifestyle","Early retirement with a very high net worth","Part-time work despite high net worth","Investing exclusively in ETFs"], c:0},
+    {q:"Was beschreibt „Coast FIRE\u201c?", qen:"What does \u201cCoast FIRE\u201d describe?", o:["Bereits genug investiert, damit das Depot von selbst wächst","Sofortiger Ruhestand ohne weiteres Sparen","Arbeiten bis zum 70. Lebensjahr","Investieren nur in Immobilien"], oen:["Already invested enough for the portfolio to grow on its own","Immediate retirement with no further saving","Working until age 70","Investing only in real estate"], c:0},
+    {q:"Bis zu welcher Höhe sind Bankeinlagen in der EU pro Kunde gesetzlich abgesichert?", qen:"Up to what amount are bank deposits in the EU legally protected per customer?", o:["100.000 €","50.000 €","250.000 €","10.000 €"], oen:["€100,000","€50,000","€250,000","€10,000"], c:0}
+  ],
+  schwer: [
+    {q:"Was ist ein „Dead Cat Bounce\u201c an der Börse?", qen:"What is a \u201cdead cat bounce\u201d in the stock market?", o:["Eine kurze, temporäre Erholung eines fallenden Kurses","Ein dauerhafter Kursanstieg","Ein plötzlicher Börsencrash","Eine Unternehmensinsolvenz"], oen:["A brief, temporary rebound of a falling price","A permanent price increase","A sudden market crash","A company insolvency"], c:0},
+    {q:"Wie heißt die akademische Studie hinter der 4-Prozent-Regel?", qen:"What is the name of the academic study behind the 4% rule?", o:["Die Trinity-Studie","Die Harvard-Sparraten-Studie","Die Bogleheads-Methode","Die Portfolio-Management-Analyse"], oen:["The Trinity Study","The Harvard Savings Rate Study","The Bogleheads Method","The Portfolio Management Analysis"], c:0},
+    {q:"Was passiert bei einem „Short Squeeze\u201c?", qen:"What happens in a \u201cshort squeeze\u201d?", o:["Leerverkäufer müssen panikartig zurückkaufen, der Kurs steigt stark","Die Zentralbank senkt überraschend die Zinsen","Ein Unternehmen meldet plötzlich Insolvenz an","Der Aktienkurs halbiert sich über Nacht"], oen:["Short sellers are forced to buy back in a panic, sending the price sharply up","The central bank unexpectedly cuts rates","A company suddenly files for insolvency","The stock price halves overnight"], c:0},
+    {q:"Was beschreibt „Stagflation\u201c?", qen:"What does \u201cstagflation\u201d describe?", o:["Hohe Inflation bei gleichzeitig stagnierendem Wachstum","Niedrige Inflation bei hohem Wachstum","Sinkende Preise bei starkem Wachstum","Steigende Zinsen bei sinkender Inflation"], oen:["High inflation alongside stagnant growth","Low inflation with high growth","Falling prices with strong growth","Rising rates with falling inflation"], c:0},
+    {q:"Wie berechnet sich das Kurs-Gewinn-Verhältnis (KGV)?", qen:"How is the price-earnings ratio (P/E) calculated?", o:["Aktienkurs geteilt durch Gewinn pro Aktie","Aktienkurs mal Anzahl der Aktien","Gewinn geteilt durch Umsatz","Dividende geteilt durch Kurs"], oen:["Share price divided by earnings per share","Share price times number of shares","Profit divided by revenue","Dividend divided by price"], c:0},
+    {q:"In welchem Jahr wurde die Frankfurter Wertpapierbörse erstmals urkundlich erwähnt?", qen:"In what year was the Frankfurt Stock Exchange first documented?", o:["1585","1685","1785","1492"], oen:["1585","1685","1785","1492"], c:0},
+    {q:"Nach der 72er-Regel: Wie viele Jahre dauert eine Geldverdopplung bei 7 % Rendite ungefähr?", qen:"Using the rule of 72: roughly how many years to double money at a 7% return?", o:["ca. 10 Jahre","ca. 20 Jahre","ca. 5 Jahre","ca. 15 Jahre"], oen:["about 10 years","about 20 years","about 5 years","about 15 years"], c:0},
+    {q:"Wie viele Mitgliedstaaten hat die Europäische Union?", qen:"How many member states does the European Union have?", o:["27","25","30","20"], oen:["27","25","30","20"], c:0},
+    {q:"Wer gilt historisch als Begründer der modernen Ökonomie („Der Wohlstand der Nationen\u201c)?", qen:"Who is historically considered the founder of modern economics (\u201cThe Wealth of Nations\u201d)?", o:["Adam Smith","John Maynard Keynes","Karl Marx","Milton Friedman"], oen:["Adam Smith","John Maynard Keynes","Karl Marx","Milton Friedman"], c:0},
+    {q:"Was ist die Kernfunktion einer Blockchain?", qen:"What is the core function of a blockchain?", o:["Ein dezentrales, fälschungssicheres digitales Register","Ein zentrales Bankensystem","Eine Kryptowährungsbörse","Ein Verschlüsselungsalgorithmus für E-Mails"], oen:["A decentralized, tamper-proof digital ledger","A centralized banking system","A cryptocurrency exchange","An email encryption algorithm"], c:0},
+    {q:"Was ist der „Spread\u201c beim Aktienkauf?", qen:"What is the \u201cspread\u201d when buying shares?", o:["Die Differenz zwischen Kauf- und Verkaufskurs","Die Gesamtrendite eines Jahres","Der Steuersatz auf Kursgewinne","Die Schwankungsbreite eines Index"], oen:["The difference between bid and ask price","The total return of a year","The tax rate on capital gains","An index's fluctuation range"], c:0},
+    {q:"In welchem Jahr wurde die Europäische Zentralbank (EZB) gegründet?", qen:"In what year was the European Central Bank (ECB) founded?", o:["1998","1999","1995","2002"], oen:["1998","1999","1995","2002"], c:0},
+    {q:"Wie viele Gründungsmitglieder hatte die OPEC bei ihrer Gründung 1960?", qen:"How many founding members did OPEC have when it was founded in 1960?", o:["5","3","8","12"], oen:["5","3","8","12"], c:0},
+    {q:"Was sind Opportunitätskosten?", qen:"What are opportunity costs?", o:["Der entgangene Nutzen einer nicht gewählten Alternative","Die Kosten für einen Aktienkauf","Klassische Bankgebühren","Die Kapitalertragsteuer"], oen:["The forgone benefit of an alternative not chosen","The cost of buying a stock","Standard bank fees","Capital gains tax"], c:0},
+    {q:"Wie viele regionale Federal-Reserve-Banken bilden das US-Notenbanksystem?", qen:"How many regional Federal Reserve Banks make up the US central bank system?", o:["12","8","15","20"], oen:["12","8","15","20"], c:0},
+    {q:"In welchem Jahr nahm die Welthandelsorganisation (WTO) ihre Arbeit auf?", qen:"In what year did the World Trade Organization (WTO) begin operations?", o:["1995","1990","2000","1985"], oen:["1995","1990","2000","1985"], c:0}
+  ]
+};
+
+(function(){
+  const diffTabs = document.querySelectorAll('.qr-diff-tab');
+  const goalSlider = document.getElementById('qr-goal');
+  const goalVal = document.getElementById('qr-goal-val');
+  const startBtn = document.getElementById('qr-start-btn');
+  const setupEl = document.getElementById('qr-setup');
+  const gameEl = document.getElementById('qr-game');
+  const winEl = document.getElementById('qr-win');
+  const nextBtn = document.getElementById('qr-next-btn');
+  const restartBtn = document.getElementById('qr-restart-btn');
+  const turnBanner = document.getElementById('qr-turn-banner');
+  const cardQ = document.getElementById('qr-card-q');
+  const cardDiff = document.getElementById('qr-card-diff');
+  const optionsEl = document.getElementById('qr-options');
+  const feedbackEl = document.getElementById('qr-feedback');
+
+  let selectedDiff = 'leicht';
+  let goal = 8;
+  let names = ['Spieler 1', 'Spieler 2'];
+  let scores = [0, 0];
+  let current = 0; // 0 = Spieler 1, 1 = Spieler 2
+  let pool = [];
+  let poolIdx = 0;
+  let answered = false;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  diffTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      diffTabs.forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      selectedDiff = tab.dataset.diff;
+    });
+  });
+
+  goalSlider.addEventListener('input', () => {
+    goal = parseInt(goalSlider.value, 10);
+    const en = isEn();
+    goalVal.textContent = goal + (en ? ' correct' : ' Richtige');
+  });
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function shuffleOptions(question){
+    const en = isEn();
+    const opts = en ? question.oen : question.o;
+    const indices = shuffle(opts.map((_, i) => i));
+    return {
+      texts: indices.map(i => opts[i]),
+      correctPos: indices.indexOf(question.c)
+    };
+  }
+
+  startBtn.addEventListener('click', () => {
+    const n1 = document.getElementById('qr-name-1').value.trim();
+    const n2 = document.getElementById('qr-name-2').value.trim();
+    const en = isEn();
+    names = [n1 || (en ? 'Player 1' : 'Spieler 1'), n2 || (en ? 'Player 2' : 'Spieler 2')];
+    document.getElementById('qr-name-display-1').textContent = names[0];
+    document.getElementById('qr-name-display-2').textContent = names[1];
+    scores = [0, 0];
+    current = 0;
+    pool = shuffle(QR_QUESTIONS[selectedDiff]);
+    poolIdx = 0;
+    updateTracks();
+    setupEl.style.display = 'none';
+    gameEl.style.display = 'block';
+    winEl.style.display = 'none';
+    showQuestion();
+  });
+
+  function nextFromPool(){
+    if(poolIdx >= pool.length){
+      pool = shuffle(QR_QUESTIONS[selectedDiff]);
+      poolIdx = 0;
+    }
+    return pool[poolIdx++];
+  }
+
+  let activeQuestion = null;
+  let activeShuffled = null;
+
+  function showQuestion(){
+    answered = false;
+    nextBtn.style.display = 'none';
+    feedbackEl.classList.remove('is-visible', 'is-correct', 'is-wrong');
+    const en = isEn();
+
+    document.querySelectorAll('.qr-track-block').forEach((el, i) => {
+      el.classList.toggle('is-turn', i === current);
+    });
+    turnBanner.textContent = (en ? names[current] + ' is up' : names[current] + ' ist dran');
+
+    activeQuestion = nextFromPool();
+    activeShuffled = shuffleOptions(activeQuestion);
+
+    cardDiff.textContent = (en
+      ? {leicht:'Easy', mittel:'Medium', schwer:'Hard'}[selectedDiff]
+      : {leicht:'Leicht', mittel:'Mittel', schwer:'Schwer'}[selectedDiff]);
+    cardQ.textContent = en ? activeQuestion.qen : activeQuestion.q;
+
+    optionsEl.innerHTML = '';
+    activeShuffled.texts.forEach((text, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'qr-opt';
+      btn.textContent = text;
+      btn.addEventListener('click', () => handleAnswer(i, btn));
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(i, btn){
+    if(answered) return;
+    answered = true;
+    const en = isEn();
+    const correct = i === activeShuffled.correctPos;
+    document.querySelectorAll('.qr-opt').forEach((el, idx) => {
+      el.disabled = true;
+      if(idx === activeShuffled.correctPos) el.classList.add('is-correct');
+    });
+    if(!correct) btn.classList.add('is-wrong');
+
+    feedbackEl.classList.add('is-visible', correct ? 'is-correct' : 'is-wrong');
+    feedbackEl.textContent = correct
+      ? (en ? 'Correct! One step forward.' : 'Richtig! Ein Schritt weiter.')
+      : (en ? 'Not quite — the other player is up next.' : 'Leider falsch — der andere Spieler ist als nächstes dran.');
+
+    if(correct){
+      scores[current]++;
+      updateTracks();
+      if(scores[current] >= goal){
+        setTimeout(showWin, 700);
+        return;
+      }
+    } else {
+      current = current === 0 ? 1 : 0;
+    }
+    nextBtn.style.display = 'block';
+  }
+
+  nextBtn.addEventListener('click', showQuestion);
+
+  function updateTracks(){
+    const en = isEn();
+    [0, 1].forEach(p => {
+      const pct = Math.min(100, (scores[p] / goal) * 100);
+      document.getElementById('qr-fill-' + (p + 1)).style.width = pct + '%';
+      document.getElementById('qr-token-' + (p + 1)).style.left = 'calc(14px + (100% - 28px) * ' + (pct / 100) + ')';
+      document.getElementById('qr-score-' + (p + 1)).textContent = scores[p] + ' / ' + goal;
+    });
+  }
+
+  function showWin(){
+    gameEl.style.display = 'none';
+    winEl.style.display = 'block';
+    const en = isEn();
+    const winnerName = names[current];
+    document.getElementById('qr-win-title').textContent = en
+      ? winnerName + ' wins! 🎉'
+      : winnerName + ' gewinnt! 🎉';
+    const emojis = ['🏆','🎉','🥇','⭐','💰','🚀'];
+    document.getElementById('qr-win-emoji').textContent = emojis[0];
+
+    const confettiEl = document.getElementById('qr-confetti');
+    confettiEl.innerHTML = '';
+    const bits = ['🎉','🎊','⭐','💰','🥳','✨'];
+    for(let i = 0; i < 22; i++){
+      const span = document.createElement('span');
+      span.textContent = bits[Math.floor(Math.random() * bits.length)];
+      span.style.left = Math.random() * 100 + '%';
+      span.style.animationDelay = (Math.random() * 0.6) + 's';
+      span.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+      confettiEl.appendChild(span);
+    }
+  }
+
+  restartBtn.addEventListener('click', () => {
+    winEl.style.display = 'none';
+    setupEl.style.display = 'block';
+  });
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(() => {
+    const en = isEn();
+    goalVal.textContent = goal + (en ? ' correct' : ' Richtige');
+    if(gameEl.style.display !== 'none'){
+      document.getElementById('qr-name-display-1').textContent = names[0];
+      document.getElementById('qr-name-display-2').textContent = names[1];
+    }
+  });
+})();
+</script>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

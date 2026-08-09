@@ -90,10 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ---------- Nach-oben-Button ---------- */
+/* ---------- Nach-oben-Button + Menüzeile beim Scrollen (Handy) + Logo-Band ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   const btn    = document.getElementById('scroll-top-btn');
   const header = document.querySelector('header.site');
+  const logoBand = document.getElementById('logo-band');
+  let lastY = window.scrollY;
 
   const onScroll = () => {
     const y = window.scrollY;
@@ -105,6 +107,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if(header){
       header.classList.toggle('is-scrolled', y > 0);
     }
+    /* Großes Logo-Band: nur ganz oben sichtbar, kollabiert sobald
+       überhaupt gescrollt wird -- Desktop UND Handy gleichermaßen. */
+    if(logoBand){
+      logoBand.classList.toggle('is-collapsed', y > 4);
+    }
+    /* Menüzeile auf dem Handy beim Runterscrollen ausblenden, damit mehr
+       Platz für den Inhalt bleibt -- beim Hochscrollen (auch nur ein
+       Stück) taucht sie sofort wieder auf, ebenso ganz oben auf der
+       Seite. Nur unterhalb von 900px aktiv, am Desktop bleibt der
+       Header wie gewohnt immer sichtbar. */
+    if(header && window.innerWidth <= 900){
+      const scrollingDown = y > lastY;
+      const pastThreshold = y > 90;
+      header.classList.toggle('is-hidden', scrollingDown && pastThreshold);
+    } else if(header){
+      header.classList.remove('is-hidden');
+    }
+    lastY = y;
   };
 
   window.addEventListener('scroll', onScroll, { passive:true });
@@ -127,12 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // machen, statt das gesamte Theme-Skript (inkl. Klick-Handler weiter
     // unten) mit einer ungefangenen Exception abzubrechen.
   }
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  // Mobilgeräte starten immer hell (bessere Lesbarkeit/Kontrast), außer der Nutzer
-  // hat bereits selbst manuell umgeschaltet (dann zählt das gespeicherte fr-theme).
-  // Desktop respektiert weiterhin die Systemeinstellung.
-  const initial = saved || (isMobile ? 'light' : (prefersDark ? 'dark' : 'light'));
+  // Dunkelmodus ist jetzt der generelle Standard, auf allen Geraeten,
+  // unabhaengig von der Systemeinstellung -- eine bereits gespeicherte
+  // manuelle Wahl des Nutzers hat aber weiterhin immer Vorrang.
+  const initial = saved || 'dark';
   root.setAttribute('data-theme', initial);
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -266,9 +284,16 @@ document.addEventListener('DOMContentLoaded', () => {
    bis sie uebersetzt werden - nichts bricht dadurch. */
 (function langInit(){
   const root = document.documentElement;
-  let saved = 'de';
+  // Domain-Vorgabe: .com startet auf Englisch, .de (und alles andere) auf
+  // Deutsch -- aber nur als Standard fuer den allerersten Besuch. Hat der
+  // Nutzer schon einmal manuell umgeschaltet, gewinnt IMMER die gespeicherte
+  // Wahl aus localStorage, unabhaengig von der Domain (z.B. ein deutscher
+  // Leser, der ueber die .com-Domain kommt und lieber Deutsch liest).
+  const domainDefault = /(^|\.)finanz-ritual\.com$/i.test(location.hostname) ? 'en' : 'de';
+  let saved = domainDefault;
   try {
-    saved = localStorage.getItem('fr-lang') || 'de';
+    const stored = localStorage.getItem('fr-lang');
+    if(stored) saved = stored;
   } catch(e){ /* localStorage blockiert, s.o. */ }
   root.setAttribute('lang', saved);
   root.classList.toggle('lang-en', saved === 'en');
@@ -285,6 +310,8 @@ document.addEventListener('DOMContentLoaded', () => {
       try { localStorage.setItem('fr-lang', now); } catch(e){ /* s.o. */ }
       translatePage(now);
       updateToggleUI(now);
+      if(typeof frInitConstants === 'function') frInitConstants();
+      if(typeof frInitRelatedArticles === 'function') frInitRelatedArticles();
       if(typeof frRenderDynamicSections === 'function') frRenderDynamicSections();
       if(typeof window.frDebtCalcRecompute === 'function') window.frDebtCalcRecompute();
       if(Array.isArray(window.frPageRecomputers)){
@@ -298,8 +325,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const label = document.getElementById('lang-toggle-text');
     if(!btn) return;
     btn.setAttribute('aria-pressed', lang === 'en');
-    btn.title = lang === 'en' ? 'Auf Deutsch umschalten' : 'Switch to English';
-    btn.setAttribute('aria-label', lang === 'en' ? 'Auf Deutsch umschalten' : 'Auf Englisch umschalten');
+    // aria-label und lang IMMER in der Zielsprache setzen, die der Button
+    // anbietet -- nicht in der Sprache der aktuellen Seite. So findet ein
+    // Screenreader-Nutzer, der kein Deutsch versteht, den Umschalter
+    // trotzdem: die Aussprache folgt dem lang-Attribut des Elements, nicht
+    // dem der umgebenden Seite. Sichtbar aendert sich dadurch nichts.
+    if(lang === 'en'){
+      btn.title = 'Auf Deutsch umschalten';
+      btn.setAttribute('aria-label', 'Auf Deutsch umschalten');
+      btn.setAttribute('lang', 'de');
+    } else {
+      btn.title = 'Switch to English';
+      btn.setAttribute('aria-label', 'Switch to English');
+      btn.setAttribute('lang', 'en');
+    }
     if(label) label.textContent = lang === 'en' ? 'DE' : 'EN';
   }
 
@@ -339,10 +378,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('font-slider');
     if(!slider) return;
     slider.value = saved;
+
+    // Aa-Beschriftung direkt im Schiebeknopf statt als separates Label daneben:
+    // ein per JS erzeugtes Overlay, das der Reglerposition folgt. Zentral hier
+    // erzeugt, damit keine der über 160 Projektseiten einzeln angefasst werden muss.
+    let thumbLabel = slider.parentElement.querySelector('.font-slider-thumb-label');
+    if(!thumbLabel){
+      thumbLabel = document.createElement('span');
+      thumbLabel.className = 'font-slider-thumb-label';
+      thumbLabel.setAttribute('aria-hidden', 'true');
+      thumbLabel.textContent = 'Aa';
+      slider.insertAdjacentElement('afterend', thumbLabel);
+    }
+    function positionThumbLabel(){
+      const min = parseFloat(slider.min), max = parseFloat(slider.max);
+      const pct = (parseFloat(slider.value) - min) / (max - min);
+      const thumbPx = 22; // Breite des Schiebeknopfs (siehe style.css ::-webkit-slider-thumb)
+      const offset = (thumbPx / 2) - pct * thumbPx;
+      thumbLabel.style.left = 'calc(' + (pct * 100) + '% + ' + offset + 'px)';
+      const pctRound = Math.round(pct * 1000) / 10;
+      slider.style.background = 'linear-gradient(to right, var(--green) 0%, var(--green) ' + pctRound + '%, var(--line-strong) ' + pctRound + '%, var(--line-strong) 100%)';
+    }
+    positionThumbLabel();
     slider.addEventListener('input', (e) => {
       const val = e.target.value;
       root.style.setProperty('--step-user', val);
       try { localStorage.setItem('fr-fontscale', val); } catch(e){ /* s.o. */ }
+      positionThumbLabel();
     });
   }
   // script.js steht am Ende von <body>, das Slider-Element existiert also
@@ -406,6 +468,18 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================= */
 /* FR_POSTS_START */
 const FR_POSTS = [
+  {   title:"Warum +2% -2% +2% -2%... nie wieder 100 Euro erreicht",   titleEn:"Why +2% -2% +2% -2%... Never Gets You Back to 100 €",   cat:"Finanzen",   subcat:"rendite",   date:"2026-08-06",   excerpt:"Mathematischer Beweis des Volatilitätsverlusts: (1+x)(1-x)=1-x² ist immer kleiner als 1. Mit Vergleichstabelle, Grafik und einer ehrlichen Einordnung, warum das für normale Aktien kaum relevant ist.",   excerptEn:"Volatility drag, proven mathematically: (1+x)(1-x)=1-x² is always less than 1. With comparison table, chart, and an honest reality check on why this barely matters for ordinary stocks.",   tags:["Finanzen","Rendite","Volatilität"],   link:"beitrag-volatilitaetsverlust-mathematischer-beweis.html" },
+  {   title:"10.000 Euro in 2,5 Jahren: Der Speed-Run-Beweis, dass Sparen für dich funktioniert",   titleEn:"10,000 Euros in 2.5 Years: The Speed-Run Proof That You Can Save",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-08-06",   excerpt:"Nicht der langsame Weg zur ersten Million, sondern Geschwindigkeit: die ersten 10.000 Euro in 2,5 bis 3 Jahren. Die vier größten Ausgabenblöcke (Wohnen, Transport, Kleidung, Essen) plus die Einnahmenseite mit Side Hustles.",   excerptEn:"Not the slow path to the first million, but speed: the first €10,000 in 2.5 to 3 years. The four biggest expense blocks plus the income side with side hustles.",   tags:["Finanzen","Vermögensaufbau","Sparquote"],   link:"beitrag-10000-euro-sparen-schnell.html" },
+  {   title:"Minimalismus für Einsteiger: Definition, die Wissenschaft dahinter, und wie du wirklich anfängst",   titleEn:"Minimalism for Beginners: Definition, the Science, and How to Actually Start",   cat:"Minimalismus",   subcat:"budget",   date:"2026-08-06",   excerpt:"Was Minimalismus wirklich bedeutet, was Studien über den Zusammenhang zu Wohlbefinden sagen, und ein konkreter 5-Schritte-Einstieg plus die 30-Tage-Challenge zum sofort Loslegen.",   excerptEn:"What minimalism actually means, what research says about its link to wellbeing, and a concrete 5-step start plus the 30-day challenge to begin right away.",   tags:["Minimalismus","Budget","Motivation"],   link:"beitrag-minimalismus-einsteiger-guide.html" },
+  {   title:"7 Grundregeln des Vermögensaufbaus — und warum Side Hustles die unterschätzteste ist",   titleEn:"7 Rules for Building Wealth — and Why Side Hustles Are the Most Underrated One",   cat:"Finanzen",   subcat:"learning",   date:"2026-08-06",   excerpt:"Die sieben wissenschaftlich fundierten Grundregeln des Vermögensaufbaus, und ein genauer Blick auf die am meisten übersehene: die eigenen Einnahmen aktiv erhöhen. Sechs Side-Hustle-Kategorien im Realitätscheck.",   excerptEn:"The seven evidence-based rules of building wealth, and a closer look at the most overlooked one: actively increasing your own income. Six side hustle categories, reality-checked.",   tags:["Finanzen","Learning","FIRE"],   link:"beitrag-side-hustle-grundregeln.html" },
+  {   title:"Drei-Fonds-Portfolio: S&P 500, World ex-USA, Anleihen",   titleEn:"Three-Fund Portfolio: S&P 500, World ex-USA, Bonds",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-08-06",   excerpt:"Warum ein einzelner MSCI-World-ETF ein Klumpenrisiko von ~70% US-Gewicht mitbringt, und wie man mit S&P 500, World ex-USA und einem Anleihen-ETF die eigene Gewichtung selbst bestimmt. Mit Alters-Rechner.",   excerptEn:"Why a single MSCI World ETF carries a ~70% US concentration risk, and how splitting into S&P 500, World ex-USA and a bond ETF lets you set your own weighting. With an age calculator.",   tags:["Finanzen","ETF","Vermögensaufbau"],   link:"rechner-drei-fonds-portfolio.html" },
+  {   title:"The Bogleheads' Guide to Investing — Larimore, Lindauer, LeBoeuf",   titleEn:"The Bogleheads' Guide to Investing — Larimore, Lindauer, LeBoeuf",   cat:"Bücher",   cover:"img/covers/bogleheads-guide-to-investing.jpg",   buyUrl:"https://www.amazon.de/dp/1118921283",   subcat:"vermoegensaufbau-mindset",   date:"2026-08-06",   excerpt:"Das Standardwerk der Bogleheads-Community: einfache, kostengünstige Drei-Fonds-Portfolios statt Markttiming. Bisher nur auf Englisch erhältlich.",   excerptEn:"The Bogleheads community's standard reference: simple, low-cost three-fund portfolios instead of market timing. English only so far.",   tags:["Bücher","ETF","Vermögensaufbau"],   link:"beitrag-buch-bogleheads-guide-to-investing.html" },
+  {   title:"Die ILOG-Matrix: Vor Ort, Lokal, Online, Global",   titleEn:"The ILOG Matrix: Vor Ort, Lokal, Online, Global",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-08-06",   excerpt:"Vier Kategorien sortieren jede Geschäftsidee nach Geschwindigkeit und Skalierbarkeit — mit Beispielen von Autowäsche über Schinken aus der Region bis zur Microsoft-Ursprungsgeschichte.",   excerptEn:"Four categories sort any business idea by speed and scalability — with examples from car washing to regional ham to the Microsoft origin story.",   tags:["Finanzen","Vermögensaufbau","Unternehmertum"],   link:"beitrag-ilog-matrix.html" },
+  {   title:"Die vier Rollen: Arbeiter, Selbstständiger, Unternehmer, Investor",   titleEn:"The Four Roles: Arbeiter, Selbstständiger, Unternehmer, Investor",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-08-06",   excerpt:"Kiyosakis Cashflow-Quadrant im Detail: die vier Rollen, deutsch zuerst mit Originalbuchstaben in Klammern, und der typische Weg vom Arbeiter zum Investor.",   excerptEn:"Kiyosaki's Cashflow Quadrant in depth: the four roles, German-first with original letters in brackets, and the typical path from Arbeiter to Investor.",   tags:["Finanzen","Vermögensaufbau","FIRE"],   link:"beitrag-cashflow-quadrant-esbi.html" },
+  {   title:"Der Cashflow-Quadrant: Vom Hamsterrad zur finanziellen Freiheit",   titleEn:"The Cashflow Quadrant: From the Rat Race to Financial Freedom",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-08-06",   excerpt:"Kiyosakis Cashflow-Quadrant (E/S/B/I) erklärt: warum die linke Seite das Hamsterrad ist und die rechte die finanzielle Freiheit. Plus eine zweite Matrix — Skalierbarkeit vs. Geld-Geschwindigkeit —, mit der du entscheidest, welche Geschäftsidee sich lohnt.",   excerptEn:"Kiyosaki's Cashflow Quadrant (E/S/B/I) explained: why the left side is the rat race and the right side is financial freedom. Plus a second matrix — scalability vs. speed of money — to help pick which business idea is worth pursuing.",   tags:["Finanzen","Vermögensaufbau","FIRE","Unternehmertum"],   link:"beitrag-cashflow-quadrant.html" },
+  {   title:"DAX bei 26.000 Punkten — aber nur ~9.700 ohne Dividenden",   titleEn:"DAX at 26,000 Points — But Only ~9,700 Without Dividends",   cat:"Finanzen",   subcat:"rendite",   date:"2026-08-03",   excerpt:"Der DAX knackt heute die 26.000-Punkte-Marke. Der reine Kursindex läge nur bei rund 9.700 Punkten. Warum das so ist, wie die DAX-Regeln Linde nach New York getrieben haben, und wie viel Dividenden seit 1987 wirklich ausmachen.",   excerptEn:"The DAX breaks 26,000 points today. The pure price index would sit at only around 9,700 points. Why that is, how the DAX's own rules pushed Linde to New York, and how much dividends have really contributed since 1987.",   tags:["Finanzen","DAX","Index","Dividenden"],   link:"beitrag-dax-rekord-kursindex-dividenden.html" },
+  {   title:"Die 50-25-15-10-Regel: Eine schärfere Variante der 50/30/20-Regel",   titleEn:"The 50-25-15-10 Rule: A Sharper Variant of 50/30/20",   cat:"Minimalismus",   subcat:"budget",   date:"2026-08-03",   excerpt:"50% Lebenshaltung, 25% ETF-Sparplan, 15% Notgroschen, 10% Freizeit — und warum Immobilienbesitzer eigentlich nicht wegen der Wertsteigerung reicher sind, sondern wegen der Spardisziplin, die ihnen der Kredit auferlegt.",   excerptEn:"50% living costs, 25% ETF savings plan, 15% emergency fund, 10% leisure — and why homeowners aren't really wealthier because of appreciation, but because of the savings discipline their mortgage forces on them.",   tags:["Minimalismus","Budget","Sparquote","Immobilien"],   link:"beitrag-50-25-15-10-regel.html" },
+  {   title:"6–10 % pro Jahr? Was S&P 500, Nasdaq, DAX, Nikkei & China wirklich brachten",   titleEn:"6–10 % Per Year? What S&P 500, Nasdaq, DAX, Nikkei & China Actually Delivered",   cat:"Finanzen",   subcat:"rendite",   date:"2026-08-03",   excerpt:"Ist eine Durchschnittsrendite von 6–10 % pro Jahr realistisch? Fünf Indizes im historischen Vergleich — S&P 500, Nasdaq, DAX, Nikkei 225 und China (CSI 300) — mit Dividenden und Inflation eingerechnet, über 5 bis 150 Jahre. Und warum die Regel bei Japan zwei Jahrzehnte lang nicht galt.",   excerptEn:"Is an average return of 6–10 % per year realistic? Five indices compared historically — S&P 500, Nasdaq, DAX, Nikkei 225 and China (CSI 300) — with dividends and inflation accounted for, over 5 to 150 years. And why the rule didn't hold for Japan for two decades.",   tags:["Finanzen","Rendite","Index","Historie"],   link:"beitrag-index-durchschnittsrendite.html" },
   {   title:"VIX, Shiller-KGV & Korrekturen: Marktangst lesen, ohne in Panik zu verfallen",   titleEn:"VIX, Shiller P/E & Corrections: Reading Market Fear Without Panicking",   cat:"Finanzen",   subcat:"portfolio",   date:"2026-08-02",   excerpt:"Der VIX misst Marktangst, das Shiller-KGV misst Bewertung, und Korrekturen gehören zum Aktienmarkt wie das Wetter. Alle drei erklärt, mit einem wichtigen Update: das Shiller-KGV steht Mitte 2026 bei 41,3 — nahe am Dotcom-Rekord von 44,2.",   excerptEn:"The VIX measures market fear, the Shiller P/E measures valuation, and corrections are as normal to markets as weather. All three explained, with an important update: the Shiller P/E stands at 41.3 in mid-2026 — close to the dot-com record of 44.2.",   tags:["Finanzen","Börse","VIX","Marktrisiko"],   link:"beitrag-vix-shiller-kgv-korrekturen.html" },
   {   title:"Sparziele nach Alter: Die US-Faustregel und was in Deutschland wirklich zählt",   titleEn:"Savings Goals by Age: The US Rule and What Actually Matters in Germany",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-08-02",   excerpt:"Amerikanische Sparziel-Tabellen sagen: 3x Gehalt mit 40, 6x mit 50. Die USA haben aber kaum soziale Absicherung, Deutschland schon. Die echten deutschen Vermögenszahlen nach Alter (Bundesbank 2023) — und warum simpel starten wichtiger ist als jede Zahl treffen.",   excerptEn:"American savings-goal charts say: 3x salary by 40, 6x by 50. But the US has little social safety net, Germany does. The real German net-worth figures by age (Bundesbank 2023) — and why simply starting matters more than hitting any number.",   tags:["Finanzen","Vermögen","Einsteiger","ETF"],   link:"beitrag-sparziele-nach-alter.html" },
   {   title:"Börsenspiele, die man kennen sollte: Hochfrequenzhandel & der Preis eines Tweets",   titleEn:"Stock Market Games You Should Know About: Latency Arbitrage & the Price of a Tweet",   cat:"Finanzen",   subcat:"etf",   date:"2026-08-02",   excerpt:"Warum die Kabellänge zwischen Chicago und New York Millionen wert ist, wie ein einzelner Tweet Milliarden bewegen kann — und warum es kein legitimer Nebenverdienst ist, wenn Mächtige ihr eigenes Ankündigungs-Timing für sich nutzen, sondern klassischer Insiderhandel.",   excerptEn:"Why the cable length between Chicago and New York is worth millions, how a single post can move billions — and why it isn't a legitimate side income when powerful people trade on their own announcement timing, but textbook insider trading.",   tags:["Finanzen","Börse","Einsteiger","Recht"],   link:"beitrag-boersenspiele-hft-insiderhandel.html" },
@@ -428,12 +502,19 @@ const FR_POSTS = [
   {   title:"Aktien ohne Vorkenntnisse — Marian Sommer",   titleEn:"Aktien ohne Vorkenntnisse — Marian Sommer",   cat:"Bücher",   cover:"img/covers/aktien-ohne-vorkenntnisse.jpg",   buyUrl:"https://www.amazon.de/dp/B0FW9YF3G2",   subcat:"vermoegensaufbau-mindset",   date:"2026-07-26",   excerpt:"Wie du als Einsteiger mit Aktien und ETFs besser als die Profis an der Börse investierst — KGV, Dividenden und Marktkapitalisierung ohne Fachjargon, plus Marktpsychologie gegen Angst und Gier.",   excerptEn:"How to invest better than the pros as a beginner in stocks and ETFs — P/E ratio, dividends and market cap without the jargon, plus market psychology against fear and greed.",   tags:["Bücher","ETF","Aktien","Anfänger"],   link:"beitrag-buch-aktien-ohne-vorkenntnisse.html" },
   {   title:"Souverän investieren für Einsteiger — Gerd Kommer",   titleEn:"Souverän investieren für Einsteiger — Gerd Kommer",   cat:"Bücher",   cover:"img/covers/souveraen-investieren-einsteiger.jpg",   buyUrl:"https://www.amazon.de/dp/3593518686",   subcat:"vermoegensaufbau-mindset",   date:"2026-07-26",   excerpt:"Die einsteigerfreundliche Ausgabe des Kommer-Klassikers (3. Auflage): wie man mit ETFs Schritt für Schritt ein Vermögen aufbaut, ohne die Datendichte des großen Nachschlagewerks.",   excerptEn:"The beginner-friendly edition of the Kommer classic (3rd edition): how to build wealth with ETFs step by step, without the data density of the full reference work.",   tags:["Bücher","ETF","Geldanlage","Anfänger"],   link:"beitrag-buch-souveraen-investieren-einsteiger.html" },
   {   title:"Girokonto für Selbstständige: Was wirklich zählt",   titleEn:"Business Checking Account for the Self-Employed: What Actually Matters",   cat:"Finanzen",   subcat:"girokonto",   date:"2026-07-26",   excerpt:"Kein Geschäftskonto-Zwang für Einzelunternehmer und Freiberufler — trotzdem verbieten die meisten Banken die geschäftliche Nutzung eines Privatkontos in ihren AGB. Pflicht, Kosten, Buchungsgebühren und Funktionen im Überblick.",   excerptEn:"No legal requirement for a separate business account for sole proprietors and freelancers — yet most banks' terms forbid business use of a private account. Requirements, costs, per-transaction fees, and features at a glance.",   tags:["Finanzen","Girokonto","Selbstständige","Freiberufler","Steuern"],   link:"beitrag-girokonto-selbststaendige.html" },
+  {   title:"Girokonto vs. Geschäftskonto: Brauchen Freelancer wirklich zwei Konten?",   titleEn:"Personal vs. Business Account: Do Freelancers Really Need Two?",   cat:"Finanzen",   subcat:"girokonto",   date:"2026-08-07",   excerpt:"Gesetzlich keine Pflicht, aber Banken-AGB sagen etwas anderes. Warum die Trennung von privat und geschäftlich dein Business rettet, welche Fallstricke lauern, und wie du das richtige Konten-Modell findest.",   excerptEn:"No legal requirement, but bank terms say otherwise. Why separating private and business finances saves your business, what pitfalls to watch for, and how to find the right account model.",   tags:["Finanzen","Girokonto","Geschäftskonto","Freelancer","Selbstständige"],   link:"beitrag-girokonto-oder-geschaeftskonto-freelancer.html" },
+  {   title:"Die 4.000-Euro-Grenze: Warum du niemals mehr privat in deine Selbstständigkeit stecken solltest",   titleEn:"The €4,000 Limit: Why You Should Never Put More of Your Own Money Into Your Business",   cat:"Finanzen",   subcat:"girokonto",   date:"2026-08-07",   excerpt:"Rund 20-25 % aller Gründer scheitern im ersten Jahr am Cashflow, nicht an der Idee. Warum eine feste Obergrenze fürs private Startkapital deinen Schufa-Score schützt, und wie das 40/60-Gebot dein Erspartes strategisch aufteilt.",   excerptEn:"Roughly 20-25% of founders fail in year one from cash flow problems, not a bad idea. Why a firm cap on your own starting capital protects your Schufa score, and how the 40/60 rule splits your savings strategically.",   tags:["Finanzen","Startkapital","Schufa","Freelancer","Existenzgründung"],   link:"beitrag-4000-euro-grenze-startkapital.html" },
+  {   title:"Das 3-Konten-Modell: Wie du dir als Freelancer fehlerfrei dein „Gehalt“ überweist",   titleEn:"The 3-Account Model: How to Pay Yourself a Freelancer 'Salary' Without Mistakes",   cat:"Finanzen",   subcat:"girokonto",   date:"2026-08-07",   excerpt:"Fast ein Viertel aller Start-ups scheitert im ersten Jahr an Liquidität, nicht an der Idee. Warum das Zwei-Konten-Modell eine optische Täuschung ist, und wie das Drei-Konten-Modell dich vor der Privatentnahme-Falle schützt.",   excerptEn:"Nearly a quarter of all startups fail in year one due to liquidity, not a bad idea. Why the two-account model is an optical illusion, and how the three-account model protects you from the withdrawal trap.",   tags:["Finanzen","Girokonto","Privatentnahme","Freelancer","Liquidität"],   link:"beitrag-3-konten-modell-freelancer.html" },
+  {   title:"Das Kreditkarten-Dilemma: Warum du geschäftliche Ausgaben niemals über private Karten zahlen darfst",   titleEn:"The Credit Card Dilemma: Why You Should Never Pay Business Expenses on a Private Card",   cat:"Finanzen",   subcat:"girokonto",   date:"2026-08-08",   excerpt:"Miles & More oder Amex privat für Business-Ausgaben nutzen, um Punkte zu sammeln? Warum das gegen die AGB verstößt, Kontokündigung droht, Meilen steuerpflichtig sind, und wie echte Business-Kreditkarten das sauber lösen.",   excerptEn:"Using a private Miles & More or Amex card for business expenses to collect points? Why that breaks the terms and conditions, risks account closure, miles are taxable, and how real business credit cards solve it cleanly.",   tags:["Finanzen","Kreditkarte","Freelancer","AGB","Meilen"],   link:"beitrag-kreditkarten-dilemma-freelancer.html" },
   {   title:"Depot nach Alter und Risikoklasse: Vom World-ETF zu Anleihen oder Cash",   titleEn:"Portfolio by Age and Risk Class: From World ETF to Bonds or Cash",   cat:"Finanzen",   subcat:"rendite",   date:"2026-07-28",   excerpt:"Wie sich die Depot-Aufteilung vom reinen World-ETF über Kern-Satellit bis zur Cash-Quote verschiebt — plus warum die Anleihen-Sicherheitsmarge 2022 nicht gehalten hat, und ein kurzer Risikoklassen-Check.",   excerptEn:"How allocation shifts from a single World ETF to a core-satellite mix to a cash cushion as you age — plus why the bond safety margin failed in 2022, and a short risk-class self-check.",   tags:["Finanzen","Depot","Risiko","Rebalancing","ETF"],   link:"beitrag-depot-alter-risikoklasse.html" },
   {   title:"Tagesgeldkonto für Studenten: Was das BAföG-Darlehen damit zu tun hat",   titleEn:"Savings Account for Students: What Your BAföG Loan Has to Do With It",   cat:"Finanzen",   subcat:"girokonto",   date:"2026-07-26",   excerpt:"992 € BAföG-Höchstsatz, die Hälfte davon ein zinsloses Staatsdarlehen mit Deckel bei 10.010 € — und bis zu 26 % Nachlass bei vorzeitiger Rückzahlung. Warum das Geld dafür ins Tagesgeld gehört, nicht ins Depot.",   excerptEn:"€992 is the current BAföG maximum rate, half of it an interest-free loan capped at €10,010 — with up to a 26% discount for early repayment. Why that money belongs in a savings account, not a custody account.",   tags:["Finanzen","BAföG","Tagesgeld","Studenten","Kredit"],   link:"beitrag-depot-fuer-studenten.html" },
   {   title:"Riester oder ETF? Wann sich Riester wirklich lohnt — und was 2027 kommt",   titleEn:"Riester or ETF? When Riester Is Actually Worth It — and What Changes in 2027",   cat:"Finanzen",   subcat:"vergleich",   date:"2026-07-09",   excerpt:"2026 ist das letzte Jahr für neue Riester-Verträge. Wann Riester sich lohnt (Kinder, Geringverdiener, Steuer-Arbitrage), wann nicht — und warum das neue Altersvorsorgedepot ab 2027 die Debatte verändert.",   excerptEn:"2026 is the last year for new Riester contracts. When Riester is worth it (kids, low earners, tax arbitrage), when it isn't — and why the new Altersvorsorgedepot starting 2027 changes the debate.",   tags:["Finanzen","Riester","Altersvorsorge","ETF","Vergleich","ZERO_TO_HERO"],   link:"beitrag-riester-vs-etf.html" },
   {   title:"Bondora Go & Grow: Eine Zahl statt 30 Kredite",   titleEn:"Bondora Go & Grow: One Number Instead of 30 Loans",   cat:"Finanzen",   subcat:"vermoegen",   date:"2026-07-09",   excerpt:"Bondora Go & Grow erklärt: ~6% p.a., täglich gutgeschrieben, ohne einzelne Kredite oder Risikoklassen A–D auszusuchen. Funktionsweise, was es NICHT ist (kein Tagesgeld), und wie die Steuer läuft.",   excerptEn:"Bondora Go & Grow explained: ~6% p.a., credited daily, without picking individual loans or risk grades A–D. How it works, what it is NOT (not a savings account), and how the tax side works.",   tags:["Finanzen","P2P","Bondora","Passives Einkommen","Vermögensaufbau","ZERO_TO_HERO"],   link:"beitrag-bondora-go-and-grow.html" },
   {   title:"Die Gehaltsschraube: Was zwischen Berufseinstieg und Bundestrainer liegt",   titleEn:"The Salary Screw: What Lies Between Your First Job and the National Coach",   cat:"Minimalismus",   subcat:"motivation",   date:"2026-07-25",   excerpt:"Die deutsche Akademiker-Gehaltspreizung von 36.400 € bis 57.000 €, dann die andere Liga bis zu Elon Musk — plus Gender Pay Gap und warum turnusmäßiges Verhandeln kein Luxus ist.",   excerptEn:"Germany's academic salary spread from 36,400 € to 57,000 €, then the other league up to Elon Musk — plus the gender pay gap and why negotiating on a schedule isn't optional.",   tags:["Motivation","Gehalt","Gender Pay Gap","Verhandlung"],   link:"beitrag-gehaltsschraube.html" },
   {   title:"Die wichtigste Investition bist du selbst",   titleEn:"The Most Important Investment Is You",   cat:"Minimalismus",   subcat:"motivation",   date:"2026-07-24",   excerpt:"Persönlichkeitsentwicklung als Rendite-Hebel: Warum gezieltes Lernen mehr bringt als YouTube-Destillat, und welche Gewohnheiten wirklich den Unterschied machen — aus eigener Erfahrung.",   excerptEn:"Personal development as a return lever: why deliberate paid learning outperforms distilled YouTube, and which habits actually make the difference — from personal experience.",   tags:["Motivation","Mindset","Persönlichkeitsentwicklung","Unternehmertum"],   link:"beitrag-in-dich-selbst-investieren.html" },
+  {   title:"Der Kühlschrank-Test: Bist du ein kreatives Genie oder ein wandelndes Liquiditätsrisiko?",   titleEn:"The Fridge Test: Are You a Creative Genius or a Walking Liquidity Risk?",   cat:"Minimalismus",   subcat:"motivation",   date:"2026-08-08",   excerpt:"Notizzettel statt Magnete am Kühlschrank, kein gemachtes Bett, Kleiderstapel auf dem Stuhl? Warum kreatives Chaos im Business zur Kostenfalle wird — und wieso Auslagern klüger ist als Selbst-Optimierung.",   excerptEn:"Sticky notes instead of magnets on the fridge, unmade bed, clothes piled on the chair? Why creative chaos becomes an expensive trap in business — and why outsourcing beats trying to fix yourself.",   tags:["Motivation","Unternehmertum","Selbstständigkeit","Chaos","Steuerberater"],   link:"beitrag-kuehlschrank-test-gruender.html" },
+  {   title:"CASHFLOW schützen: Das eiserne Überlebensgesetz im Business",   titleEn:"Protecting Cash Flow: The Iron Law of Survival in Business",   cat:"Minimalismus",   subcat:"motivation",   date:"2026-08-08",   excerpt:"Bis zu 25 % aller Start-ups scheitern im ersten Jahr am Geldmangel, nicht an der Idee. Drei unumstößliche Regeln ab Tag eins: kurze Zahlungsziele, Meilenstein-Zahlungen statt Vorleistung, und dein rechtliches Schutzschild.",   excerptEn:"Up to 25% of all startups fail in year one from lack of money, not a bad idea. Three non-negotiable rules from day one: short payment terms, milestone payments instead of upfront work, and your legal shield.",   tags:["Motivation","Unternehmertum","Cashflow","Zahlungsziel","Rechtsschutz"],   link:"beitrag-cashflow-ueberlebensgesetz.html" },
+  {   title:"Ein Münchner Milliardär, Weißwurst, und acht Lektionen fürs Business",   titleEn:"A Munich Billionaire, Weisswurst, and Eight Business Lessons",   cat:"Minimalismus",   subcat:"motivation",   date:"2026-08-08",   excerpt:"Ich habe 22 Milliardäre angeschrieben, nur einer hat geantwortet. Seine Kernbotschaft beim Weißwurstfrühstück: Kauf ein funktionierendes Unternehmen statt bei Null zu starten — plus sieben weitere unverblümte Lektionen.",   excerptEn:"I contacted 22 billionaires, only one replied. His core message over a Bavarian breakfast: buy an already-working business instead of starting from zero — plus seven more blunt lessons.",   tags:["Motivation","Unternehmertum","Schufa","Cashflow","Bücher"],   link:"beitrag-milliardaer-weisswurst-lektionen.html" },
   {   title:"100 Millionen Dollar Geldmodelle — Alex Hormozi",   titleEn:"$100M Money Models — Alex Hormozi",   cat:"Bücher",   cover:"img/covers/100m-geldmodelle.jpg",   buyUrl:"https://www.amazon.de/dp/1963349911",   subcat:"unternehmertum",   date:"2026-07-24",   excerpt:"Hormazis dritter Band — Guinness-Weltrekord als am schnellsten verkauftes Sachbuch. Wie man Angebote so in Sequenzen aufbaut, dass jeder Kunde systematisch mehr ausgibt und länger bleibt.",   excerptEn:"Hormozi's third volume — Guinness World Record fastest-selling non-fiction. How to sequence offers so every customer systematically spends more and stays longer.",   tags:["Bücher","Unternehmertum","Vertrieb","Hormozi"],   link:"beitrag-buch-100m-geldmodelle.html" },
   {   title:"100 Millionen Dollar Angebote — Alex Hormozi",   titleEn:"$100M Offers — Alex Hormozi",   cat:"Bücher",   cover:"img/covers/100m-angebote.jpg",   buyUrl:"https://www.amazon.de/dp/196334913X",   subcat:"unternehmertum",   date:"2026-07-24",   excerpt:"Über 1 Million verkaufte Exemplare: Wie man ein Angebot so baut, dass der Preis für den Kunden zur Nebensache wird — durch wahrgenommenen Wert, Risikoumkehr und Stacking.",   excerptEn:"Over 1 million copies sold: how to build an offer so that price becomes secondary for the customer — through perceived value, risk reversal and stacking.",   tags:["Bücher","Unternehmertum","Vertrieb","Hormozi"],   link:"beitrag-buch-100m-angebote.html" },
   {   title:"PlayBook to Millions — Grant Cardone",   titleEn:"PlayBook to Millions — Grant Cardone",   cat:"Bücher",   cover:"img/covers/playbook-to-millions.jpg",   buyUrl:"https://www.amazon.com/dp/B09TPHWXT3",   subcat:"unternehmertum",   date:"2026-07-23",   excerpt:"Cardones umfassendstes Werk (400+ Seiten, Englisch): Strategie, Verkauf, Immobilien und Mindset als Nachschlagewerk für Unternehmer mit konkreten Checklisten und Übungen.",   excerptEn:"Cardone's most comprehensive work (400+ pages): strategy, sales, real estate and mindset as a reference guide for entrepreneurs with concrete checklists and exercises.",   tags:["Bücher","Unternehmertum","Cardone"],   link:"beitrag-buch-playbook-to-millions.html" },
@@ -509,16 +590,12 @@ const FR_POSTS = [
   {   title:"Die 7 Stufen der finanziellen Entwicklung",   titleEn:"The 7 Stages of Financial Independence",   cat:"FIRE",   subcat:"allgemein",   date:"2026-07-12",   excerpt:"Von finanzieller Abhängigkeit bis finanziellem Überfluss: sieben klar definierte Stufen — und wie sie sich vom Meilenstein-Fahrplan in Euro-Beträgen unterscheiden.",   excerptEn:"From financial dependency to financial abundance: seven clearly defined stages — and how they differ from the euro-amount milestone roadmap.",   tags:["FIRE", "Freiheit", "Meilenstein"],   link:"beitrag-finanzielle-freiheitsstufen.html" },
   {   title:"FIRE mit 40: Ein realistischer Fahrplan für Normalverdiener",   titleEn:"FIRE at 40: A Realistic Roadmap for Average Earners",   cat:"FIRE",   subcat:"allgemein",   date:"2026-06-26",   excerpt:"Warum finanzielle Freiheit kein Traum für Großverdiener bleiben muss — und kein Wettlauf gegen eine bestimmte Altersgrenze. Mit Link zum FIRE-Rechner für die eigene Zahl.",   excerptEn:"Why financial independence doesn't have to stay a dream reserved for high earners — or a race against a specific age. With a link to the FIRE calculator for your own numbers.",   tags:["FIRE", "Rente", "Sparquote"],   link:"beitrag-fire-mit-40.html" },
   {   title:"FIRE-Bewegung: Für jeden anders",   titleEn:"The FIRE Movement: Different for Everyone",   cat:"FIRE",   subcat:"allgemein",   date:"2026-07-11",   excerpt:"Lean, Fat, Barista oder Coast FIRE: vier sehr unterschiedliche Varianten derselben Bewegung — und warum die Sparquote überall der größte Hebel bleibt.",   excerptEn:"Lean, Fat, Barista, or Coast FIRE: four very different variants of the same movement — and why savings rate remains the biggest lever in every one of them.",   tags:["FIRE", "Frugalismus", "Sparquote", "Lean FIRE", "Fat FIRE"],   link:"beitrag-fire-bewegung-fuer-jeden-anders.html" },
-  {   title:"Warum ich meinen Kleiderschrank auf 33 Teile reduziert habe",   titleEn:"Why I Cut My Wardrobe Down to 33 Items",   cat:"Minimalismus",   date:"2026-06-23",   excerpt:"Weniger besitzen, mehr investieren – ein Selbstversuch mit Zahlen.",   excerptEn:"Owning less, investing more – a self-experiment with real numbers.",   tags:["Minimalismus", "Konsum"] },
   {   title:"ETF oder Einzelaktie? Eine ehrliche Kosten-Nutzen-Rechnung",   titleEn:"ETF or Individual Stocks? An Honest Cost-Benefit Analysis",   cat:"Finanzen",   subcat:"vergleich",   date:"2026-07-22",   excerpt:"Wann sich der Mehraufwand von Einzelaktien wirklich lohnt — mit echten Zahlen zu Kosten, Zeitaufwand und wie oft professionelle Fondsmanager den Index tatsächlich schlagen.",   excerptEn:"When the extra effort of picking individual stocks actually pays off — with real numbers on cost, time, and how often professional fund managers actually beat the index.",   tags:["ETF", "Aktien", "Dividenden"],   link:"beitrag-etf-oder-einzelaktie.html" },
   {   title:"Die 4-Prozent-Regel: Mythos oder verlässlicher Rentenplan?",   titleEn:"The 4% Rule: Myth or Reliable Retirement Plan?",   cat:"FIRE",   subcat:"allgemein",   date:"2026-07-21",   excerpt:"Was die Entnahmeregel wirklich hält – und wo ihre Grenzen liegen. Mit einem Rechner, der zeigt, wie dieselbe Durchschnittsrendite zu völlig unterschiedlichen Ergebnissen führen kann.",   excerptEn:"What the withdrawal rule really delivers – and where its limits lie. With a calculator showing how the same average return can lead to wildly different outcomes.",   tags:["Rente", "FIRE", "Entnahme"],   link:"beitrag-vier-prozent-regel.html" },
   {   title:"Minimalismus und Vermögensaufbau: zwei Seiten derselben Medaille",   titleEn:"Minimalism and Wealth Building: Two Sides of the Same Coin",   cat:"Minimalismus",   subcat:"sparquote",   date:"2026-07-22",   excerpt:"Wie bewusster Konsum automatisch die Sparquote erhöht — und warum Kostensenkung dabei nur der Motor ist, während Einkommenswachstum der eigentliche Turbo bleibt. Mit Säulendiagramm zum Nachvollziehen.",   excerptEn:"How mindful consumption automatically raises your savings rate — and why cutting costs is only the engine, while income growth is the real turbo. With a bar chart to see it for yourself.",   tags:["Minimalismus", "Sparquote"],   link:"beitrag-minimalismus-vermoegensaufbau.html" },
   {   title:"Dividendenkalender selbst bauen: So behältst du den Überblick",   titleEn:"Build Your Own Dividend Calendar to Stay on Top of Payouts",   cat:"Finanzen",   subcat:"etf",   date:"2026-07-21",   excerpt:"Eine einfache Tabelle für alle Ausschüttungstermine im Jahr — mit acht Beispieltiteln zum Reinschnuppern und der vollständigen Excel-Liste im Shop.",   excerptEn:"A simple spreadsheet for every payout date of the year — with eight example stocks to get a feel for it, and the full Excel list in the shop.",   tags:["Dividenden", "ETF"],   link:"beitrag-dividendenkalender-selbst-bauen.html" },
   {   title:"Warum die Sparrate wichtiger ist als die Rendite",   titleEn:"Why Your Savings Rate Matters More Than Your Returns",   cat:"FIRE",   subcat:"allgemein",   date:"2026-07-21",   excerpt:"Der am meisten unterschätzte Hebel beim Vermögensaufbau. Mit einem Rechner, der +2 Punkte Rendite gegen +10 Punkte Sparquote antreten lässt.",   excerptEn:"The most underrated lever in building wealth. With a calculator that pits +2 points of return against +10 points of savings rate.",   tags:["Sparquote", "Rente", "FIRE"],   link:"beitrag-sparrate-vs-rendite.html" },
   {   title:"Die Kapitalertragsteuer einfach erklärt",   titleEn:"Capital Gains Tax, Simply Explained",   cat:"Finanzen",   subcat:"steuer",   date:"2026-07-22",   excerpt:"Abgeltungssteuer, Soli, Sparerpauschbetrag und Verlusttopf — ein verständlicher Überblick für alle, die zum ersten Mal eine Steuerbescheinigung ihrer Depotbank in der Hand halten.",   excerptEn:"Withholding tax, solidarity surcharge, saver's allowance, and the loss-offset pot — a clear overview for anyone holding their first brokerage tax statement.",   tags:["Steuer", "Dividenden"],   link:"beitrag-kapitalertragsteuer-erklaert.html" },
-  {   title:"Digitaler Minimalismus: Weniger Apps, mehr Fokus aufs Depot",   titleEn:"Digital Minimalism: Fewer Apps, More Focus on Your Portfolio",   cat:"Minimalismus",   date:"2026-05-30",   excerpt:"Wie ich meine Finanz-Apps von zwölf auf drei reduziert habe.",   excerptEn:"How I cut my finance apps from twelve down to three.",   tags:["Minimalismus", "Konsum"] },
-  {   title:"Notgroschen zuerst: Warum Sicherheit vor Rendite kommt",   titleEn:"Emergency Fund First: Why Safety Comes Before Returns",   cat:"Finanzen",   date:"2026-05-24",   excerpt:"Die richtige Reihenfolge beim Vermögensaufbau.",   excerptEn:"Getting the order right when building wealth.",   tags:["Sparquote", "Steuer"] },
-  {   title:"Mein Weg zur ersten dividendenfinanzierten Rechnung",   titleEn:"My Journey to Paying My First Bill With Dividends",   cat:"FIRE",   date:"2026-05-20",   excerpt:"Wie der erste Meilenstein mein Sparverhalten verändert hat.",   excerptEn:"How that first milestone changed my saving habits.",   tags:["Dividenden", "FIRE", "Meilenstein"] },
 ];
 
 /* Kategorie- und Tag-Bezeichnungen auf Englisch (fuer den Sprachschalter) */
@@ -622,8 +699,9 @@ function frSafeUrl(url){
 }
 
 /* ---------- Tag-Cloud: Häufigkeit automatisch aus FR_POSTS berechnen ---------- */
-function frBuildTagCloud(targetId){
+function frBuildTagCloud(targetId, moreBtnId, pageSize=20){
   const el = document.getElementById(targetId);
+  let moreBtn = moreBtnId ? document.getElementById(moreBtnId) : null;
   if(!el) return;
   const counts = {};
   FR_POSTS.forEach(p => p.tags.forEach(t => { counts[t] = (counts[t]||0) + 1; }));
@@ -633,18 +711,34 @@ function frBuildTagCloud(targetId){
   const minSize = 0.85, maxSize = 2.2;
 
   el.innerHTML = '';
-  entries.forEach(([tag,count]) => {
-    const size = max === min ? (minSize+maxSize)/2
-      : minSize + (count-min)/(max-min) * (maxSize-minSize);
-    const a = document.createElement('a');
-    a.href = frSafeUrl(hrefForTag(tag));
-    a.style.fontSize = size.toFixed(2) + 'rem';
-    a.textContent = frTag(tag);
-    a.title = frIsEn()
-      ? count + (count===1 ? ' post' : ' posts')
-      : count + (count===1 ? ' Beitrag' : ' Beiträge');
-    el.appendChild(a);
-  });
+  /* Klon ohne alte Klick-Listener - wichtig, damit ein erneuter Aufruf
+     (z. B. beim Sprachwechsel) nicht mehrfach "Mehr laden" auslöst. */
+  if(moreBtn){
+    const clone = moreBtn.cloneNode(true);
+    moreBtn.parentNode.replaceChild(clone, moreBtn);
+    moreBtn = clone;
+  }
+  let shown = 0;
+
+  function renderNext(){
+    const slice = moreBtn ? entries.slice(shown, shown+pageSize) : entries;
+    slice.forEach(([tag,count]) => {
+      const size = max === min ? (minSize+maxSize)/2
+        : minSize + (count-min)/(max-min) * (maxSize-minSize);
+      const a = document.createElement('a');
+      a.href = frSafeUrl(hrefForTag(tag));
+      a.style.fontSize = size.toFixed(2) + 'rem';
+      a.textContent = frTag(tag);
+      a.title = frIsEn()
+        ? count + (count===1 ? ' post' : ' posts')
+        : count + (count===1 ? ' Beitrag' : ' Beiträge');
+      el.appendChild(a);
+    });
+    shown += slice.length;
+    if(moreBtn){ moreBtn.style.display = shown >= entries.length ? 'none' : 'inline-flex'; }
+  }
+  renderNext();
+  if(moreBtn){ moreBtn.addEventListener('click', renderNext); }
 }
 /* Verlinkt ein Tag auf die passendste Seite: Unterkategorie-Seite, falls der
    erste Treffer eine hat, sonst die Hauptkategorie-Seite. */
@@ -821,6 +915,100 @@ function frRenderDynamicSections(){
    Leer lassen -> Button wird ausgegraut und ist nicht klickbar.
    ========================================================= */
 const FR_KAFFEE_LINK = "https://www.buymeacoffee.com/finanzritual";
+
+/* ---------- Schwebender Kaffee-Button: taucht erst auf, wenn der
+   Artikeltext praktisch zu Ende gelesen ist -- keine der Projektseiten
+   muss dafuer angefasst werden, das Element wird komplett per JS erzeugt
+   und eingehaengt, wie das Glossar-System. Nur auf Seiten mit <article>. */
+/* ---------- Such-Icon in der Header-Controls-Leiste ----------
+   Komplett per JS erzeugt und an erster Stelle der Icon-Leiste eingefuegt,
+   damit keine der 268 Projektseiten einzeln angefasst werden muss. Fuehrt
+   zu suche.html, ausser man ist bereits dort (dann still ausgeblendet). */
+/* ---------- Schwebende Lupe, erscheint nur wenn der Header ausgeblendet ist ----------
+   Auf dem Handy verschwindet die Menüzeile beim Runterscrollen (siehe
+   scroll-Handler oben) -- damit die Suche trotzdem jederzeit erreichbar
+   bleibt, taucht oben rechts eine kleine schwebende Lupe auf, sobald der
+   Header weg ist, und verschwindet wieder, sobald er zurueckkommt. */
+function frInitFloatingSearch(){
+  const isSearchPage = /(^|\/)suche\.html$/.test(location.pathname);
+  if(isSearchPage) return;
+  const header = document.querySelector('header.site');
+  if(!header) return;
+
+  const link = document.createElement('a');
+  link.href = 'suche.html';
+  link.className = 'search-float';
+  link.setAttribute('aria-label', 'Suche öffnen');
+  link.setAttribute('data-en-aria-label', 'Open search');
+  link.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+  document.body.appendChild(link);
+
+  const sync = () => { link.classList.toggle('is-visible', header.classList.contains('is-hidden')); };
+  new MutationObserver(sync).observe(header, { attributes:true, attributeFilter:['class'] });
+  sync();
+}
+
+function frInitSearchIcon(){
+  const nav = document.getElementById('primary-nav');
+  if(!nav) return;
+  const isSearchPage = /(^|\/)suche\.html$/.test(location.pathname);
+  if(isSearchPage) return;
+
+  const link = document.createElement('a');
+  link.href = 'suche.html';
+  link.className = 'search-toggle';
+  link.setAttribute('aria-label', 'Suche öffnen');
+  link.setAttribute('data-en-aria-label', 'Open search');
+  link.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+  nav.appendChild(link);
+}
+
+function frInitFloatingCoffee(){
+  // article.legal deckt normale Blogbeitraege ab, section.legal die
+  // "Utility"-Seiten (Glossar, Impressum, Datenschutz) -- die nutzen
+  // bewusst <section> statt <article>, da es keine Artikel im
+  // redaktionellen Sinn sind. Ohne diese Erweiterung fehlte die
+  // Kaffeetasse auf allen dreien komplett.
+  const article = document.querySelector('article.legal, section.legal');
+  if(!article) return;
+
+  const btn = document.createElement('a');
+  btn.href = '#';
+  btn.className = 'fr-coffee-btn fr-coffee-float';
+  btn.setAttribute('aria-label', 'Kaffee spendieren');
+  btn.setAttribute('data-en-aria-label', 'Buy me a coffee');
+  btn.innerHTML =
+    '<span class="fr-coffee-cup" aria-hidden="true">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>' +
+    '<path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>' +
+    '<path class="fr-steam fr-steam-3" d="M16 2.5c-.6.8-.6 1.7 0 2.5"/>' +
+    '<path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>' +
+    '<path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>' +
+    '<path d="M2 22h16"/>' +
+    '</svg></span>';
+  document.body.appendChild(btn);
+
+  // Absolute Position des Artikelendes EINMAL berechnen, nicht bei jedem
+  // Scroll-Event neu -- getBoundingClientRect() ist bereits
+  // scrollpositions-relativ, ein zusaetzliches += window.scrollY bei jedem
+  // Aufruf wuerde den Wert mit fortschreitendem Scrollen immer weiter
+  // verfaelschen.
+  const articleBottom = article.getBoundingClientRect().bottom + window.scrollY;
+
+  const onScroll = () => {
+    const nearEnd = window.scrollY + window.innerHeight >= articleBottom - 260;
+    btn.classList.toggle('is-visible', nearEnd);
+  };
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  return btn;
+}
 
 function frInitKaffeeButton(){
   // Es kann mehrere Instanzen auf derselben Seite geben (Easter-Egg-Panel
@@ -1155,6 +1343,9 @@ document.addEventListener('DOMContentLoaded', () => {
   frInitHeroCounter();
   frInitEasterEgg();
   frInitSecretLogoPanel();
+  frInitSearchIcon();
+  frInitFloatingSearch();
+  frInitFloatingCoffee();
   frInitKaffeeButton();
   frInitInfoBanner();
   frInitRechnerOpenLink();
@@ -1353,24 +1544,12 @@ function frFireEasterEgg(){
   }, 3200);
 }
 
-/* ── Suche-Icon: in alle Navs injizieren ──────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-  const nav = document.getElementById('primary-nav');
-  if (!nav) return;
-  // Bereits vorhanden? Nichts tun.
-  if (nav.querySelector('[href="suche.html"]')) return;
-  const a = document.createElement('a');
-  a.href = 'suche.html';
-  a.setAttribute('data-en', 'Search');
-  a.setAttribute('aria-label', 'Suche öffnen');
-  a.setAttribute('data-en-aria-label', 'Open search');
-  a.className = 'nav-suche-link';
-  a.title = 'Suche';
-  a.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>';
-  // Vor dem ersten fr-secret o.ä., oder einfach am Ende der Nav
-  // Vor dem letzten <a> in der Nav anhängen
-  nav.appendChild(a);
-});
+/* Hinweis: Das alte Suche-Icon, das hier direkt in nav#primary-nav
+   injiziert wurde, ist entfernt -- frInitSearchIcon() (siehe oben,
+   erzeugt .search-toggle in der header-controls-Leiste) übernimmt diese
+   Aufgabe jetzt vollstaendig und funktioniert zusaetzlich auch auf dem
+   Handy, wo nav.primary ohnehin ausgeblendet ist. Beide gleichzeitig
+   fuehrten zu einer sichtbaren doppelten Lupe. */
 
 /* ── Zero-to-Hero-Button: einmaliger Puls, wenn er ins Blickfeld scrollt ── */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1486,7 +1665,65 @@ document.addEventListener('keydown', function(e){
    Beim Zurueckschalten auf Deutsch greift es wieder normal,
    da es ueber frPageRecomputers erneut ausgefuehrt wird. */
 
+/* ============================================================
+   FR_CONFIG — zentrale Konstanten-Tabelle
+   ============================================================
+   Wiederkehrende gesetzliche/wirtschaftliche Werte an EINER Stelle
+   pflegen, statt sie in jedem Artikel einzeln zu suchen und zu
+   ändern. Läuft nach demselben Prinzip wie FR_GLOSSARY weiter unten:
+   ein Element im Artikel bekommt statt der festen Zahl ein
+   data-fr-const-Attribut, z.B.
+     <span data-fr-const="mindestlohn"></span> €/Std.
+   frInitConstants() (siehe unten bei DOMContentLoaded) füllt beim
+   Laden automatisch den passenden Wert ein. Ändert sich ein Wert
+   (z.B. Mindestlohn-Erhöhung zum 1.1.2027), reicht EINE Änderung
+   hier — alle Artikel, die ihn per data-fr-const referenzieren,
+   ziehen beim nächsten Laden automatisch nach.
+   Quellen zuletzt geprüft: 06.08.2026. */
+const FR_CONFIG = {
+  mwst_regulaer: '19',                    // Regulärer Mehrwertsteuersatz in %
+  mwst_ermaessigt: '7',                   // Ermäßigter Mehrwertsteuersatz in %
+  sparerpauschbetrag: '1.000',            // Sparerpauschbetrag Single, in €/Jahr
+  sparerpauschbetrag_en: '1,000',         // dieselbe Zahl, englisches Tausendertrenner-Format
+  sparerpauschbetrag_paar: '2.000',       // Sparerpauschbetrag Ehepaar/eingetr. Lebenspartnerschaft, in €/Jahr
+  sparerpauschbetrag_paar_en: '2,000',    // dieselbe Zahl, englisches Tausendertrenner-Format
+  mindestlohn: '13,90',                   // Gesetzlicher Mindestlohn, €/Std., seit 01.01.2026
+  mindestlohn_ab_2027: '14,60',           // Gesetzlicher Mindestlohn, €/Std., ab 01.01.2027
+  abgeltungssteuer: '25',                 // Abgeltungssteuersatz auf Kapitalerträge, in %
+  soli: '5,5',                            // Solidaritätszuschlag auf die Abgeltungssteuer, in %
+  abgeltungssteuer_effektiv: '26,375',    // 25 % Abgeltungssteuer + 5,5 % Soli darauf, in %
+  ezb_leitzins: '2,25',                   // EZB-Einlagesatz (der für Sparer relevante Leitzins), in %, seit 11.06.2026
+  renteneintritt_regel: '67',             // Regelaltersgrenze ab Geburtsjahrgang 1964 (gleitend für ältere Jahrgänge)
+  kleinunternehmergrenze: '25.000',       // Vorjahresumsatz-Grenze für die Kleinunternehmerregelung (§19 UStG), in €/Jahr — seit 1.1.2025 (vorher 22.000 €)
+  kleinunternehmergrenze_hart: '100.000', // Neue harte Obergrenze im laufenden Jahr seit 1.1.2025 — wird sie gerissen, endet die Regelung sofort
+  gkv_beitragsbemessungsgrenze: '5.812,50', // GKV-Beitragsbemessungsgrenze, €/Monat, 2026
+  gkv_mindestbemessungsgrundlage: '1.318,33' // GKV-Mindestbemessungsgrundlage für freiwillig versicherte Selbstständige, €/Monat, 2026
+};
+
+/* Sonderfall Renteneintrittsalter: kein fester Wert, sondern eine
+   Gleitskala nach Geburtsjahrgang (66 Jahre + X Monate bis Jahrgang
+   1964, danach 67 Jahre). Deshalb keine einzelne Zahl in FR_CONFIG,
+   sondern data-fr-const="renteneintritt_regel" liefert bewusst nur
+   die END-Regelaltersgrenze "67" — für Artikel, die die genaue
+   Gleitskala erklären, weiterhin manuell mit Tabelle arbeiten. */
+
 const FR_GLOSSARY = {
+
+  'AGB': { id: 'agb',
+    de: `Allgemeine Geschaeftsbedingungen — das Vertrags-Kleingedruckte einer Bank oder eines Anbieters. Steht dort ein Verbot der geschaeftlichen Nutzung eines Privatkontos, ist das AGB-Recht, kein Gesetz.`,
+    en: `General terms and conditions — the fine print of a bank or provider's contract. A ban on business use of a private account there is contractual, not statutory law.` },
+  'Betriebsprüfung': { id: 'betriebspruefung',
+    de: `Pruefung durch das Finanzamt, ob Buchhaltung und Steuererklaerungen eines Betriebs korrekt sind. Der Pruefer erhaelt dabei Einblick in die betroffenen Konten — bei einem gemischt genutzten Konto also auch in private Ausgaben.`,
+    en: `A tax office audit checking whether a business's bookkeeping and tax returns are correct. The auditor gets access to the accounts involved — including private spending if the account is mixed-use.` },
+  'Bootstrapping': { id: 'bootstrapping',
+    de: `Ein Unternehmen ausschliesslich aus eigenen Ersparnissen und laufenden Einnahmen aufbauen, ohne Fremdkapital (Kredit, Investoren). Typisch fuer Solo-Freelancer mit geringem Startkapitalbedarf — bei Geschaeftsmodellen mit Personal und teurer Ausstattung stoesst reines Bootstrapping schnell an Grenzen.`,
+    en: `Building a business entirely from personal savings and ongoing revenue, without outside capital (loans, investors). Typical for solo freelancers with low starting-capital needs — for business models involving staff and expensive equipment, pure bootstrapping quickly hits its limits.` },
+  'bootstrappen': { id: 'bootstrapping',
+    de: `Ein Unternehmen ausschliesslich aus eigenen Ersparnissen und laufenden Einnahmen aufbauen, ohne Fremdkapital (Kredit, Investoren). Typisch fuer Solo-Freelancer mit geringem Startkapitalbedarf — bei Geschaeftsmodellen mit Personal und teurer Ausstattung stoesst reines Bootstrapping schnell an Grenzen.`,
+    en: `Building a business entirely from personal savings and ongoing revenue, without outside capital (loans, investors). Typical for solo freelancers with low starting-capital needs — for business models involving staff and expensive equipment, pure bootstrapping quickly hits its limits.` },
+  'FinTS': { id: 'fints',
+    de: `Deutscher Standard (frueher HBCI), ueber den Buchhaltungssoftware wie sevDesk oder Lexware Office Kontoumsaetze automatisch bei der Bank abruft, statt sie manuell einzutippen.`,
+    en: `A German banking standard (formerly HBCI) that lets bookkeeping software like sevDesk or Lexware Office pull account transactions automatically instead of typing them in by hand.` },
   'EBITDA': { id: 'ebit-ebitda',
     de: `EBIT plus wieder hinzugerechnete Abschreibungen — nuetzlich bei kapitalintensiven Geschaeften, kann aber echte Kosten verschleiern.`,
     en: `EBIT with depreciation added back — useful for capital-intensive businesses, but can mask real costs.` },
@@ -1532,6 +1769,317 @@ const FR_GLOSSARY = {
   'Rendite': { id: 'rendite',
     de: `Der Gewinn oder Verlust einer Geldanlage, meist als Prozentsatz pro Jahr.`,
     en: `The gain or loss on an investment, usually shown as a percentage per year.` },
+
+  /* -- Ergänzt 03.08.2026: aus glossar.html verdrahtet + neu recherchiert -- */
+  'Abgeltungssteuer': { id: 'abgeltungssteuer',
+    de: `Deutschlands pauschale Steuer auf Kapitalerträge: 25 % plus Solidaritätszuschlag und ggf. Kirchensteuer. Wird von der Bank automatisch vor der Auszahlung einbehalten.`,
+    en: `Germany's flat tax on capital gains: 25% plus solidarity surcharge and, if applicable, church tax.` },
+  'BDC': { id: 'bdc',
+    de: `Ein US-Unternehmenstyp, der kleinen und mittelständischen Unternehmen Kredite gewährt und gesetzlich verpflichtet ist, den Großteil der Erträge auszuschütten — daher oft hohe, teils monatliche Dividendenrenditen.`,
+    en: `A US company type that lends to small/mid-sized businesses and must pay out most of its taxable income to shareholders — often high, sometimes monthly, dividend yields.` },
+  'Beitragsbemessungsgrenze': { id: 'beitragsbemessungsgrenze',
+    de: `Einkommens-Obergrenze, bis zu der Kranken- und Pflegeversicherungsbeitraege berechnet werden. 2026: 5.812,50 EUR im Monat. Wer mehr verdient, zahlt trotzdem nicht mehr.`,
+    en: `The income ceiling up to which health and long-term-care insurance contributions are calculated. 2026: EUR 5,812.50 per month. Earning more than that doesn't raise the contribution further.` },
+  'CAGR': { id: 'cagr',
+    de: `Die durchschnittliche jährliche Wachstumsrate — rechnet eine holprige Mehrjahresrendite in eine einzige, vergleichbare Jahreszahl um.`,
+    en: `The annualized average growth rate — converts a bumpy, multi-year return into one single, comparable yearly figure.` },
+  'CEO': { id: 'ceo',
+    de: `Der oberste Manager eines Unternehmens — auf Deutsch: Vorstandsvorsitzender oder Vorstandschef.`,
+    en: `The company's top manager — in German, Vorstandsvorsitzender.` },
+  'DATEV': { id: 'datev',
+    de: `Marktfuehrende Software-Infrastruktur fuer deutsche Steuerberater. „DATEV-faehig" bedeutet, dass ein Buchhaltungstool Daten in einem Format exportiert, das Kanzleien direkt weiterverarbeiten koennen.`,
+    en: `Germany's dominant software infrastructure for tax advisory firms. A bookkeeping tool being &lsquo;DATEV-compatible&rsquo; means it exports data in a format tax firms can process directly.` },
+  'DAX': { id: 'dax',
+    de: `Der deutsche Leitindex, bildet die 40 größten börsennotierten deutschen Unternehmen ab.`,
+    en: `Germany's leading stock index, tracking the 40 largest publicly traded German companies.` },
+  'ESG': { id: 'esg',
+    de: `Sammelbegriff für „nachhaltige" Anlagekriterien — Umwelt, Soziales, Unternehmensführung. Kein geschütztes Gütesiegel: jeder Indexanbieter bewertet anders.`,
+    en: `Umbrella term for 'sustainable' investing criteria — environment, social issues, corporate governance. Not a protected seal with one fixed standard.` },
+  'ETF': { id: 'etf',
+    de: `Ein börsengehandelter Indexfonds — bildet einen Markt wie den MSCI World nach, statt einzelne Aktien auszuwählen.`,
+    en: `An index fund that trades on the stock exchange like a share, tracking a market such as the MSCI World.` },
+  'Einlagensicherung': { id: 'einlagensicherung',
+    de: `Gesetzlicher Schutz von Bankguthaben bis 100.000 € pro Kunde und Bank (EU-weit einheitlich). Gilt für Giro-, Tagesgeld- und Verrechnungskonten bei Banken — Wertpapiere im Depot sind ohnehin als Sondervermögen geschützt, P2P-Kredite (z. B. Bondora) fallen NICHT darunter.`,
+    en: `Statutory protection of bank deposits up to €100,000 per customer and bank (uniform across the EU). Covers checking, savings, and settlement accounts at banks — securities in a depot are protected separately as special assets anyway, but P2P loans (e.g. Bondora) are NOT covered.` },
+  'FIRE': { id: 'fire',
+    de: `Eine Bewegung, die auf einer ungewöhnlich hohen Sparquote (oft 40–70 %) aufbaut, um finanzielle Unabhängigkeit deutlich vor dem regulären Renteneintritt zu erreichen.`,
+    en: `A movement centered on saving an unusually high share of income (often 40-70%) to reach financial independence much earlier than the standard retirement age.` },
+  'Freelancer': { id: 'freelancer',
+    de: `Selbstständiger, der Auftragsarbeit für wechselnde Kunden leistet, meist projektbasiert. Kann rechtlich Freiberufler oder gewerblicher Einzelunternehmer sein — welches der beiden hängt von der konkreten Tätigkeit ab, nicht vom Begriff „Freelancer" selbst.`,
+    en: `A self-employed person doing project-based work for a rotating set of clients. Legally either a Freiberufler or a commercial sole proprietor in Germany — which one depends on the actual activity, not on the word "freelancer" itself.` },
+  'Freistellungsauftrag': { id: 'freistellungsauftrag',
+    de: `Ein Auftrag an die Bank, Kapitalerträge bis zum Sparerpauschbetrag steuerfrei auszuzahlen, statt automatisch Steuer einzubehalten.`,
+    en: `An instruction to your bank to pay out capital gains tax-free up to the Sparerpauschbetrag, instead of withholding tax automatically.` },
+  'Geldmarktfonds': { id: 'geldmarktfonds',
+    de: `Fonds, der in sehr kurzlaufende, hochliquide Zinsanlagen investiert und die Rendite eng am aktuellen Leitzins abbildet. Typisches Parkdepot fuer Geld, das nicht spekulativ, sondern sicher und jederzeit verfuegbar angelegt werden soll.`,
+    en: `A fund investing in very short-term, highly liquid interest-bearing instruments, tracking the current key interest rate closely. A typical parking spot for money that needs to stay safe and available, not invested speculatively.` },
+  'Gender Pay Gap': { id: 'gender-pay-gap',
+    de: `Der Lohnunterschied zwischen Frauen und Männern, meist sowohl unbereinigt als auch bereinigt (gleicher Job, Qualifikation, Erfahrung) ausgewiesen.`,
+    en: `The pay gap between women and men, usually reported both unadjusted and adjusted (same job, qualification, experience).` },
+  'Grundfreibetrag': { id: 'grundfreibetrag',
+    de: `Der Teil des Jahreseinkommens, der komplett steuerfrei bleibt, unabhängig von der Einkunftsart — zu unterscheiden vom Sparerpauschbetrag, der nur für Kapitalerträge gilt.`,
+    en: `The portion of annual income that is entirely tax-free regardless of source — different from the Sparerpauschbetrag, which applies only to capital gains.` },
+  'Günstigerprüfung': { id: 'guenstigerpruefung',
+    de: `Das Finanzamt prüft automatisch, ob dein persönlicher Einkommensteuersatz statt der pauschalen 25 % Abgeltungssteuer günstiger ist — und wendet die niedrigere Variante an.`,
+    en: `The tax office automatically checks whether your personal income tax rate works out cheaper than the flat 25% Abgeltungssteuer — and applies whichever is lower.` },
+  'Gewerbesteuer': { id: 'gewerbesteuer',
+    de: `Gemeindesteuer auf den Gewerbeertrag. Einzelunternehmer und Freiberufler zahlen sie erst ab einem Freibetrag von 24.500 EUR Jahresgewinn, und die Belastung wird bei Einzelunternehmen ueber die Einkommensteuer teilweise wieder angerechnet.`,
+    en: `A municipal tax on trade income. Sole proprietors only pay it above a EUR 24,500 annual profit allowance, and for sole proprietorships part of it is credited back against income tax.` },
+  'Home Bias': { id: 'home-bias',
+    de: `Die Neigung, überproportional im eigenen Heimatland zu investieren statt global zu streuen — konzentriert das Risiko auf eine einzelne Volkswirtschaft.`,
+    en: `The tendency to invest disproportionately in your own home country instead of spreading globally — concentrates risk in a single economy.` },
+  'IPO': { id: 'ipo',
+    de: `Der erste Börsengang eines Unternehmens. Davor werden seine Anteile nicht öffentlich gehandelt.`,
+    en: `A company's first listing on a stock exchange. Before that, its shares aren't publicly traded.` },
+  'ISIN': { id: 'isin',
+    de: `Ein eindeutiger, 12-stelliger Code, der ein bestimmtes Wertpapier weltweit identifiziert.`,
+    en: `A unique 12-character code that identifies a specific security worldwide.` },
+  'Anlage KAP': { id: 'kap',
+    de: `Eine Anlage zur Steuererklärung für Kapitalerträge. Nur in bestimmten Fällen Pflicht, freiwillig abgegeben kann sie sich über die Günstigerprüfung auszahlen.`,
+    en: `A supplementary form for the German tax return that reports capital income.` },
+  'KGV': { id: 'kgv',
+    de: `Aktienkurs geteilt durch Gewinn je Aktie. Eine grobe, weit verbreitete Kennzahl dafür, ob eine Aktie im Verhältnis zu ihrem Gewinn teuer oder günstig aussieht.`,
+    en: `Price-to-earnings ratio: share price divided by earnings per share.` },
+  'Kursindex': { id: 'kursindex-performanceindex',
+    de: `Ein Index, der nur Kursbewegungen abbildet und Dividenden ignoriert — Nikkei 225 und Nasdaq Composite funktionieren so, im Unterschied zu einem Performanceindex wie dem DAX.`,
+    en: `An index that tracks share prices only, ignoring dividends — the Nikkei 225 and Nasdaq Composite work this way, unlike a total-return index such as the DAX.` },
+  'Performanceindex': { id: 'kursindex-performanceindex',
+    de: `Ein Index, der Dividenden automatisch wieder in den Indexstand einrechnet — der DAX funktioniert seit 1988 so, im Unterschied zu einem reinen Kursindex.`,
+    en: `A total-return index that automatically reinvests dividends into the index level — the DAX has worked this way since 1988, unlike a pure price index.` },
+  'Leverage': { id: 'leverage',
+    de: `Mit geliehenem Geld eine Investition über das eigene Kapital hinaus vergrößern. Verstärkt Gewinne und Verluste gleichermaßen.`,
+    en: `Using borrowed money to increase the size of an investment beyond your own capital. Amplifies both gains and losses.` },
+  'Mindestbemessungsgrundlage': { id: 'mindestbemessungsgrundlage',
+    de: `Fiktives Mindesteinkommen, auf dessen Basis freiwillig gesetzlich versicherte Selbststaendige ihren Krankenkassenbeitrag zahlen muessen — auch wenn der tatsaechliche Gewinn niedriger ist. 2026: 1.318,33 EUR im Monat.`,
+    en: `A fictional minimum income that self-employed people with voluntary statutory health insurance must pay contributions on — even if actual profit is lower. 2026: EUR 1,318.33 per month.` },
+  'MdB': { id: 'mdb',
+    de: `Mitglied des Bundestages.`,
+    en: `Mitglied des Bundestages — member of the German federal parliament.` },
+  'MSCI': { id: 'msci',
+    de: `Ein Indexanbieter, dessen Indizes — allen voran MSCI World und MSCI ACWI — von vielen der beliebtesten ETFs nachgebildet werden.`,
+    en: `An index provider whose benchmarks — above all MSCI World and MSCI ACWI — are tracked by many of the most popular ETFs.` },
+  'Nettovermögen': { id: 'nettovermoegen',
+    de: `Vermögen abzüglich Schulden. Bei Milliardären fast immer der aktuelle Marktwert von Firmenanteilen — kein Geld auf dem Konto.`,
+    en: `Assets minus debts. For billionaires, almost always the current market value of company shares — not cash in a bank account.` },
+  'NV-Bescheinigung': { id: 'nv-bescheinigung',
+    de: `Eine Bescheinigung des Finanzamts, dass das Gesamteinkommen so niedrig ist, dass gar keine Steuer anfällt — erlaubt komplett steuerfreie Auszahlung, über den Sparerpauschbetrag hinaus.`,
+    en: `A certificate confirming your total income is so low that no tax is due at all — allows completely tax-free payout, beyond the Sparerpauschbetrag.` },
+  'OCR': { id: 'ocr',
+    de: `Optical Character Recognition — Texterkennung, mit der Buchhaltungs-Apps abfotografierte Belege automatisch auslesen (Betrag, Datum, Haendler), statt sie manuell eintippen zu muessen.`,
+    en: `Optical Character Recognition — the technology bookkeeping apps use to automatically read photographed receipts (amount, date, merchant) instead of requiring manual entry.` },
+  'Opportunitätskosten': { id: 'opportunitaetskosten',
+    de: `Das, worauf man verzichtet, wenn man sich für eine Option statt einer anderen entscheidet.`,
+    en: `What you give up by choosing one option over another.` },
+  'Privatentnahme': { id: 'privatentnahme',
+    de: `Geld, das ein Einzelunternehmer oder Freiberufler vom Geschaeftskonto aufs private Konto ueberweist. Rechtlich kein „Gehalt", sondern eine Entnahme aus dem eigenen Betriebsvermoegen — steuerlich unabhaengig vom versteuerten Gewinn.`,
+    en: `Money a sole proprietor or freelancer transfers from the business account to their private account. Legally not a &lsquo;salary&rsquo; but a withdrawal from their own business assets — tax treatment is independent of the taxed profit.` },
+  'PSD2': { id: 'psd2',
+    de: `EU-Zahlungsdiensterichtlinie, die Banken zwingt, Kontodaten ueber standardisierte Schnittstellen freizugeben — Grundlage dafuer, dass Buchhaltungssoftware Kontobewegungen automatisch abrufen kann.`,
+    en: `An EU payment services directive requiring banks to expose account data via standardized interfaces — the basis for bookkeeping software automatically pulling account transactions.` },
+  'Rebalancing': { id: 'rebalancing',
+    de: `Das periodische Zurücksetzen eines Depots auf die ursprüngliche Ziel-Gewichtung, nachdem Marktbewegungen sie verschoben haben.`,
+    en: `Periodically resetting a portfolio back to its original target weighting, after market movements have shifted it.` },
+  'Reverse-Charge-Verfahren': { id: 'reverse-charge',
+    de: `Umsatzsteuer-Mechanismus bei Rechnungen von auslaendischen Dienstleistern: Nicht der Anbieter, sondern der deutsche Kunde meldet und zahlt die Umsatzsteuer selbst beim eigenen Finanzamt an.`,
+    en: `A VAT mechanism for invoices from foreign service providers: instead of the provider, the German customer reports and pays the VAT to their own tax office.` },
+  'REIT': { id: 'reit',
+    de: `Ein börsennotiertes Unternehmen, das Immobilien besitzt und verwaltet und gesetzlich verpflichtet ist, den Großteil der Erträge auszuschütten.`,
+    en: `A publicly traded company that owns and operates income-producing real estate and must pay out most of its taxable income to shareholders.` },
+  'Schufa-Score': { id: 'schufa-score',
+    de: `Bonitaetswert der Schutzgemeinschaft fuer allgemeine Kreditsicherung. Beeinflusst, ob und zu welchen Konditionen Banken, Vermieter oder Mobilfunkanbieter einen Vertrag anbieten — bei Selbststaendigen oft empfindlicher gegenueber schwankendem Einkommen.`,
+    en: `A creditworthiness score from Germany's main credit bureau (Schufa). Influences whether and on what terms banks, landlords, or mobile carriers offer a contract — often more sensitive to fluctuating income for the self-employed.` },
+  'Sequenzrisiko': { id: 'sequenzrisiko',
+    de: `Das Risiko, dass die Reihenfolge guter und schlechter Jahre — nicht nur ihr Durchschnitt — das Ergebnis bestimmt, besonders kurz nach Entnahmebeginn.`,
+    en: `The risk that the order of good and bad years, not just their average, determines your outcome — especially right after withdrawals begin.` },
+  'Side Hustle': { id: 'side-hustle',
+    de: `Ein Nebenjob neben der Haupttätigkeit für zusätzliches Einkommen — manche bleiben klein, andere wachsen zu einem tragfähigen Geschäft heran, das den Hauptjob finanziell vollständig überholt.`,
+    en: `A side job pursued alongside a main occupation for extra income — some stay small, others grow into a viable business that ends up financially overtaking the main job.` },
+  'Shiller-KGV': { id: 'shiller-kgv',
+    de: `Wie das reguläre KGV, aber geteilt durch die durchschnittlichen, inflationsbereinigten Gewinne der letzten 10 Jahre — glättet kurzfristige Gewinnschwankungen.`,
+    en: `Like the regular P/E ratio, but divided by average inflation-adjusted earnings over the past 10 years — smooths out short-term profit swings.` },
+  'Sparerpauschbetrag': { id: 'sparerpauschbetrag',
+    de: `Der steuerfreie Freibetrag für Kapitalerträge: 1.000 € pro Jahr für Singles, 2.000 € für gemeinsam veranlagte Ehepaare.`,
+    en: `The tax-free allowance for capital gains: 1,000 € per year for singles, 2,000 € for married couples filing jointly.` },
+  'Sparquote': { id: 'sparquote',
+    de: `Der Anteil des Einkommens, der gespart statt ausgegeben wird.`,
+    en: `The share of income that is saved rather than spent.` },
+  'Sondervermögen': { id: 'sondervermoegen',
+    de: `Fondsvermögen, das rechtlich getrennt vom Vermögen des Fondsanbieters gehalten wird — geht der Anbieter pleite, sind Anteile geschützt.`,
+    en: `Fund assets legally kept separate from the fund provider's own assets — if the provider goes bankrupt, your shares are protected.` },
+  'TER': { id: 'ter',
+    de: `Die jährlichen Gesamtkosten eines Fonds, als Prozentsatz der Anlagesumme.`,
+    en: `A fund's total annual running cost, as a percentage of your invested amount.` },
+  'VIX': { id: 'vix',
+    de: `Ein Maß für die erwartete Volatilität des S&P 500 über die nächsten 30 Tage — oft der „Angstindex" der Märkte genannt. Unter 15 ruhig, 15–30 normal, über 30 erhöhter Stress.`,
+    en: `A measure of expected S&P 500 volatility over the next 30 days — often called the market's 'fear gauge'. Below 15 is calm, 15-30 normal, above 30 elevated stress.` },
+  'Volatilitätsverlust': { id: 'volatilitaetsverlust',
+    de: `Der mathematische Grund, warum abwechselnde Gewinne und Verluste derselben Prozenthöhe einen Wert nie zum Ausgangspunkt zurückführen: (1+x)(1-x)=1-x², und x² ist immer positiv.`,
+    en: `The mathematical reason why alternating gains and losses of the same percentage never bring a value back to its starting point: (1+x)(1-x)=1-x², and x² is always positive.` },
+  'Vorabpauschale': { id: 'vorabpauschale',
+    de: `Eine deutsche Besonderheit: Auch thesaurierende ETFs werden einmal im Jahr auf einen fiktiven, berechneten Gewinn besteuert.`,
+    en: `A German quirk: even accumulating ETFs are taxed once a year on a notional, calculated gain.` },
+  'Zahlungsziel': { id: 'zahlungsziel',
+    de: `Die Frist, innerhalb derer eine Rechnung bezahlt werden muss. Lange Zahlungsziele von Großkunden (60-90 Tage) koennen die Liquiditaet von Freelancern erheblich belasten.`,
+    en: `The deadline by which an invoice must be paid. Long payment terms from large clients (60-90 days) can put significant strain on a freelancer's cash flow.` },
+  'WKN': { id: 'wkn',
+    de: `Eine rein deutsche, 6-stellige Wertpapierkennnummer, das ältere heimische Pendant zur internationalen ISIN.`,
+    en: `A German-only 6-character security code, the older domestic sibling of the international ISIN.` },
+  'Girokonto': { id: 'girokonto',
+    de: `Das normale Bankkonto fuer den taeglichen Zahlungsverkehr — Gehalt/Honorar rein, Miete und Einkaeufe raus. Kein Wertpapierdepot und keine Geldanlage, sondern reine Abwicklungsstelle.`,
+    en: `The normal bank account for everyday payments — salary or fees in, rent and purchases out. Not a securities account and not an investment vehicle, just the settlement layer.` },
+  'Depot': { id: 'depot',
+    de: `Ein Konto speziell zur Verwahrung von Wertpapieren wie Aktien und ETFs — getrennt vom Girokonto, meist mit einem angeschlossenen Verrechnungskonto fuer den Geldfluss.`,
+    en: `An account specifically for holding securities like stocks and ETFs — separate from your checking account, usually paired with a settlement account for the cash side.` },
+  'Festgeld': { id: 'festgeld',
+    de: `Geld, das für eine feste Laufzeit (z.B. 6 oder 12 Monate) zu einem festen Zinssatz angelegt wird. Waehrend der Laufzeit kommst du normalerweise nicht ohne Weiteres an das Geld — im Gegensatz zum taeglich verfuegbaren Tagesgeld.`,
+    en: `Money locked in for a fixed term (e.g. 6 or 12 months) at a fixed interest rate. You typically can't access it early — unlike a Tagesgeld account, which stays available daily.` },
+  'Tagesgeldkonto': { id: 'tagesgeldkonto',
+    de: `Ein verzinstes Sparkonto ohne feste Laufzeit — das Geld bleibt taeglich verfuegbar, der Zinssatz kann sich aber jederzeit aendern, anders als beim Festgeld.`,
+    en: `An interest-bearing savings account with no fixed term — your money stays available daily, but unlike Festgeld, the rate can change at any time.` },
+  'Liquidität': { id: 'liquiditaet',
+    de: `Die Faehigkeit, fällige Zahlungen jederzeit begleichen zu koennen. Ein Unternehmen kann auf dem Papier profitabel sein und trotzdem insolvent gehen, wenn ihm schlicht das Geld zum richtigen Zeitpunkt fehlt.`,
+    en: `The ability to meet payment obligations as they come due. A business can be profitable on paper and still go bankrupt if it simply runs out of cash at the wrong moment.` },
+  'Insolvenz': { id: 'insolvenz',
+    de: `Die Zahlungsunfaehigkeit oder Ueberschuldung eines Unternehmens oder einer Privatperson — der rechtliche Zustand, der ein Insolvenzverfahren ausloest.`,
+    en: `The state of being unable to pay debts or being over-indebted — the legal condition that triggers formal insolvency proceedings.` },
+  'Rechtsform': { id: 'rechtsform',
+    de: `Der rechtliche Rahmen eines Unternehmens (z.B. Einzelunternehmen, GbR, GmbH) — bestimmt vor allem, wie du haftest: mit deinem Privatvermoegen oder nur mit dem Firmenvermoegen.`,
+    en: `A business's legal structure (sole proprietorship, GbR, GmbH, etc.) — determines above all how you're liable: with your personal assets, or only with the company's assets.` },
+  'Kleinunternehmerregelung': { id: 'kleinunternehmerregelung',
+    de: `Eine Vereinfachung nach § 19 UStG: Wer im Vorjahr unter 25.000 € Umsatz blieb (und im laufenden Jahr unter 100.000 € bleibt), muss keine Umsatzsteuer ausweisen und abfuehren — spart Buerokratie, aber auch den Vorsteuerabzug.`,
+    en: `A simplification under German tax law: businesses with under €25,000 revenue the prior year (and under €100,000 in the current year) don't charge or remit VAT — less paperwork, but no input-tax deduction either.` },
+  'VG Wort': { id: 'vg-wort',
+    de: `Die Verwertungsgesellschaft Wort schuettet Tantiemen an Autoren und Websitebetreiber aus, basierend auf Zaehlmarken (Pixeln), die an eine bestimmte URL gebunden sind und Zugriffszahlen erfassen — ab einer Mindestschwelle pro Zaehlmarke wird ausgezahlt.`,
+    en: `Germany's collecting society for text usage pays out royalties to authors and site owners, based on counting pixels tied to a specific URL that track visits — payout kicks in once a minimum threshold per pixel is reached.` },
+  'Leitzins': { id: 'leitzins',
+    de: `Der Zinssatz, zu dem sich Geschaeftsbanken bei der Zentralbank (in der Eurozone: EZB) Geld leihen koennen. Er wirkt sich indirekt auf so gut wie jeden anderen Zinssatz aus — Spareinlagen, Kredite, Baufinanzierung.`,
+    en: `The rate at which commercial banks can borrow from the central bank (the ECB in the eurozone). It indirectly influences almost every other interest rate — savings, loans, mortgages.` },
+  'Umsatzsteuer': { id: 'umsatzsteuer',
+    de: `Die Steuer auf den Verkauf von Waren und Dienstleistungen, in Deutschland meist 19 % oder ermaessigt 7 %. Wird vom Verkaeufer eingezogen und ans Finanzamt abgefuehrt — Kleinunternehmer sind davon befreit.`,
+    en: `The tax on sales of goods and services, usually 19% or a reduced 7% in Germany. Collected by the seller and remitted to the tax office — small-business-scheme entrepreneurs are exempt.` },
+  'Realzins': { id: 'realzins',
+    de: `Der Nominalzins abzueglich der Inflationsrate — zeigt, ob dein Geld nach Kaufkraft wirklich mehr wird oder trotz positivem Zinssatz real an Wert verliert.`,
+    en: `The nominal interest rate minus the inflation rate — shows whether your money is actually gaining purchasing power, or losing real value despite a positive rate.` },
+  'Nominalzins': { id: 'nominalzins',
+    de: `Der auf dem Papier vereinbarte Zinssatz, ohne Beruecksichtigung der Inflation — die Zahl, die in der Werbung steht, aber nicht die ganze Geschichte erzaehlt.`,
+    en: `The interest rate as stated in the contract, without accounting for inflation — the number in the advertisement, but not the whole story.` },
+  'Rating': { id: 'rating',
+    de: `Eine Einstufung der Kreditwuerdigkeit von Staaten oder Unternehmen durch Agenturen wie Moody's oder S&P — beeinflusst, zu welchem Zinssatz sich diese Geld leihen koennen.`,
+    en: `A creditworthiness assessment of countries or companies by agencies like Moody's or S&P — influences the interest rate at which they can borrow.` },
+  'ROI': { id: 'roi',
+    de: `Return on Investment — das Verhaeltnis von Gewinn zu eingesetztem Kapital, meist in Prozent. Eine der meistgenutzten, aber auch am haeufigsten unpraezise verwendeten Kennzahlen in der Wirtschaft.`,
+    en: `Return on Investment — the ratio of profit to capital invested, usually expressed as a percentage. One of the most-used, but also most loosely used, metrics in business.` },
+  'Portfolio': { id: 'portfolio',
+    de: `Die Gesamtheit aller Geldanlagen einer Person — Aktien, ETFs, Anleihen, Immobilien und mehr, zusammen betrachtet statt einzeln.`,
+    en: `The sum of all of a person's investments — stocks, ETFs, bonds, real estate and more, viewed together instead of in isolation.` },
+  'Spread': { id: 'spread',
+    de: `Die Differenz zwischen An- und Verkaufskurs eines Wertpapiers. Ein enger Spread bedeutet niedrige versteckte Handelskosten, ein weiter Spread verteuert jeden Kauf und Verkauf zusaetzlich zur sichtbaren Gebuehr.`,
+    en: `The gap between the buy and sell price of a security. A tight spread means low hidden trading costs; a wide one adds extra cost to every buy and sell beyond the visible fee.` },
+  'Fixkosten': { id: 'fixkosten',
+    de: `Kosten, die unabhaengig vom Umsatz konstant anfallen — Miete, Versicherung, feste Gehaelter. Sie laufen auch dann weiter, wenn im Business gerade nichts passiert.`,
+    en: `Costs that stay constant regardless of revenue — rent, insurance, fixed salaries. They keep running even when the business isn't generating income.` },
+  'Variable Kosten': { id: 'variable-kosten',
+    de: `Kosten, die mit der Produktions- oder Absatzmenge steigen und fallen — z.B. Material oder Versandkosten. Je mehr verkauft wird, desto hoeher diese Kosten, aber auch der Umsatz.`,
+    en: `Costs that rise and fall with production or sales volume — materials, shipping. The more you sell, the higher these costs, but also the higher the revenue.` },
+  'Handelsregister': { id: 'handelsregister',
+    de: `Ein oeffentliches Verzeichnis beim Amtsgericht, in dem Kaufleute und Kapitalgesellschaften eingetragen sind — relevant z.B. beim Kauf eines bestehenden Unternehmens, um dessen rechtlichen Status zu pruefen.`,
+    en: `A public register at the local court listing merchants and companies — relevant, for example, when buying an existing business, to check its legal status.` },
+  'Grenzsteuersatz': { id: 'grenzsteuersatz',
+    de: `Der Steuersatz, der auf den naechsten verdienten Euro faellig wird — anders als der Durchschnittssteuersatz, der sich ueber das gesamte Einkommen mittelt. Wichtig fuer die Frage, ob sich zusaetzliches Einkommen wirklich lohnt.`,
+    en: `The tax rate applied to your next earned euro — different from the average tax rate across your whole income. Key for judging whether extra income is actually worth it.` },
+  'Werbungskosten': { id: 'werbungskosten',
+    de: `Ausgaben, die im Zusammenhang mit einer nichtselbststaendigen Taetigkeit stehen und die Steuerlast senken — z.B. Fahrtkosten, Arbeitsmittel oder Fortbildungen. Ohne Nachweis zieht das Finanzamt automatisch die Werbungskostenpauschale ab.`,
+    en: `Expenses connected to employment that reduce your taxable income — commuting costs, work equipment, training. Without receipts, the tax office automatically applies a flat allowance instead.` },
+  'AfA': { id: 'afa',
+    de: `Absetzung fuer Abnutzung — die steuerliche Abschreibung eines Wirtschaftsguts (z.B. Laptop, Immobilie) ueber seine Nutzungsdauer, statt den vollen Kaufpreis sofort abzusetzen.`,
+    en: `The German term for depreciation — writing off an asset's cost over its useful life for tax purposes, instead of deducting the full purchase price immediately.` },
+  'Umsatzsteuervoranmeldung': { id: 'umsatzsteuervoranmeldung',
+    de: `Die regelmaessige (meist monatliche oder quartalsweise) Meldung der eingenommenen und gezahlten Umsatzsteuer ans Finanzamt — Kleinunternehmer sind davon befreit.`,
+    en: `The regular (usually monthly or quarterly) VAT return filed with the tax office — small-business-scheme entrepreneurs (Kleinunternehmer) are exempt from this.` },
+  'USt-IdNr': { id: 'ust-idnr',
+    de: `Die Umsatzsteuer-Identifikationsnummer, gebraucht fuer Geschaefte mit Kunden oder Dienstleistern im EU-Ausland — unterscheidet sich von der normalen Steuernummer.`,
+    en: `The EU VAT identification number, needed for business with customers or providers in other EU countries — distinct from your regular domestic tax number.` },
+  'Körperschaftsteuer': { id: 'koerperschaftsteuer',
+    de: `Die Ertragsteuer für Kapitalgesellschaften (GmbH, AG) — das Pendant zur Einkommensteuer bei Einzelunternehmern und Freiberuflern, die stattdessen ihren Gewinn direkt persoenlich versteuern.`,
+    en: `Corporate income tax for companies like a GmbH or AG — the equivalent of personal income tax, which sole proprietors and freelancers pay directly on their profits instead.` },
+  'Ausgabeaufschlag': { id: 'ausgabeaufschlag',
+    de: `Eine einmalige Gebuehr beim Kauf von Fondsanteilen, oft 3-5 % — bei ETFs ueber die Boerse ueblicherweise nicht faellig, kann aber bei manchen aktiv gemanagten Fonds oder Bankberatung anfallen.`,
+    en: `A one-time fee when buying fund shares, often 3-5% — typically not charged for ETFs bought on an exchange, but common for actively managed funds sold through a bank advisor.` },
+  'Fondsvolumen': { id: 'fondsvolumen',
+    de: `Das verwaltete Gesamtvermoegen eines Fonds. Ein groesseres Volumen senkt meist das Risiko einer Schliessung mangels Rentabilitaet, sagt aber nichts ueber die Qualitaet aus.`,
+    en: `The total assets managed by a fund. A larger volume usually lowers the risk of the fund closing due to low profitability, but says nothing about quality.` },
+  'Sparplanrabatt': { id: 'sparplanrabatt',
+    de: `Ein von manchen Brokern zeitlich begrenzt angebotener Nachlass auf die Ausfuehrungsgebuehr eines ETF-Sparplans, oft als Marketing-Aktion fuer bestimmte Partner-ETFs.`,
+    en: `A time-limited discount some brokers offer on ETF savings-plan execution fees, often as a marketing promotion for specific partner ETFs.` },
+  'Replikationsmethode': { id: 'replikationsmethode',
+    de: `Wie ein ETF seinen Index nachbildet: physisch (kauft die echten Wertpapiere) oder synthetisch (bildet die Wertentwicklung ueber einen Tauschvertrag/Swap nach). Physisch gilt gemeinhin als transparenter.`,
+    en: `How an ETF tracks its index: physically (buying the actual securities) or synthetically (replicating performance via a swap contract). Physical is generally considered more transparent.` },
+  'Fondsdomizil': { id: 'fondsdomizil',
+    de: `Das Land, in dem ein Fonds rechtlich aufgelegt ist (oft Irland oder Luxemburg für europaeische ETFs) — beeinflusst z.B. die Quellensteuer-Behandlung von US-Dividenden.`,
+    en: `The country where a fund is legally domiciled (often Ireland or Luxembourg for European ETFs) — affects things like withholding tax treatment on US dividends.` },
+  'Due Diligence': { id: 'due-diligence',
+    de: `Die sorgfaeltige Pruefung eines Unternehmens vor einem Kauf oder einer Investition — Buchhaltung, Vertraege, Mitarbeiter, Kundenbeziehungen. Wer eine bestehende Firma kauft, sollte hier nicht sparen.`,
+    en: `The careful review of a business before buying or investing in it — books, contracts, staff, client relationships. Not a place to cut corners when buying an existing company.` },
+  'Burn Rate': { id: 'burn-rate',
+    de: `Wie schnell ein Unternehmen sein verfuegbares Kapital fuer laufende Kosten verbraucht, meist pro Monat gemessen. Zusammen mit dem Runway zeigt sie, wie viel Zeit bis zur naechsten Finanzierung bleibt.`,
+    en: `How fast a company burns through its available capital on running costs, usually measured per month. Combined with runway, it shows how much time is left before the next funding round.` },
+  'Runway': { id: 'runway',
+    de: `Die verbleibende Zeit in Monaten, bis einem Unternehmen ohne neues Kapital das Geld ausgeht — berechnet aus dem aktuellen Kontostand geteilt durch die Burn Rate.`,
+    en: `The remaining time in months before a company runs out of money without new funding — current cash balance divided by the burn rate.` },
+  'Pitch Deck': { id: 'pitch-deck',
+    de: `Eine kurze, visuelle Praesentation (meist 10-15 Folien), mit der Gruender Investoren ihre Geschaeftsidee vorstellen — Problem, Loesung, Markt, Team, Zahlen.`,
+    en: `A short, visual presentation (typically 10-15 slides) founders use to pitch their business idea to investors — problem, solution, market, team, numbers.` },
+  'Skalierbarkeit': { id: 'skalierbarkeit',
+    de: `Wie gut ein Geschaeftsmodell wachsen kann, ohne dass die Kosten proportional mitwachsen. Software skaliert meist gut (ein Kunde mehr kostet fast nichts), ein Ein-Mann-Handwerksbetrieb kaum.`,
+    en: `How well a business model can grow without costs rising proportionally. Software usually scales well (one more customer costs almost nothing); a one-person trade business barely does.` },
+  'Working Capital': { id: 'working-capital',
+    de: `Das kurzfristig gebundene Netto-Betriebskapital eines Unternehmens (Umlaufvermoegen minus kurzfristige Schulden) — zeigt, wie viel finanziellen Spielraum ein Betrieb im Tagesgeschaeft hat.`,
+    en: `A company's short-term net operating capital (current assets minus current liabilities) — shows how much financial breathing room a business has for day-to-day operations.` },
+  'Unternehmensnachfolge': { id: 'unternehmensnachfolge',
+    de: `Die Uebergabe eines bestehenden Unternehmens an einen neuen Inhaber, oft weil der bisherige Besitzer in Rente geht und keinen familiaeren Nachfolger hat. IHKs betreiben eigene Nachfolgeboersen, die Kaeufer und Verkaeufer zusammenbringen.`,
+    en: `Transferring an existing business to a new owner, often because the current owner is retiring with no family successor. German chambers of commerce (IHK) run dedicated succession exchanges matching buyers and sellers.` },
+  'Wagniskapital': { id: 'wagniskapital',
+    de: `Deutsche Bezeichnung fuer Venture Capital — Eigenkapital, das Investoren wachstumsstarken, aber riskanten jungen Unternehmen zur Verfuegung stellen, im Tausch gegen Anteile.`,
+    en: `The German term for venture capital — equity that investors provide to high-growth, high-risk young companies in exchange for a stake.` },
+  'Selbstbeteiligung': { id: 'selbstbeteiligung',
+    de: `Der Betrag, den du im Schadensfall selbst zahlst, bevor die Versicherung einspringt. Eine hoehere Selbstbeteiligung senkt meist den Beitrag, erhoeht aber dein eigenes Risiko im Ernstfall.`,
+    en: `The amount you pay yourself in a claim before insurance kicks in. A higher deductible usually lowers your premium, but raises your own risk if something happens.` },
+  'Berufsunfähigkeitsversicherung': { id: 'berufsunfaehigkeitsversicherung',
+    de: `Eine Versicherung, die eine monatliche Rente zahlt, wenn du deinen Beruf aus gesundheitlichen Gruenden dauerhaft nicht mehr ausueben kannst. Fuer Selbststaendige besonders wichtig, da die gesetzliche Absicherung hier meist fehlt.`,
+    en: `Insurance paying a monthly pension if you can no longer work in your profession due to health reasons. Especially important for the self-employed, who usually lack statutory coverage for this.` },
+  'Betriebshaftpflichtversicherung': { id: 'betriebshaftpflichtversicherung',
+    de: `Versichert Schaeden, die dein Unternehmen bei Dritten verursacht — z.B. wenn ein Kunde in deinem Laden stolpert. Anders als die Vermoegensschadenhaftpflicht deckt sie Personen- und Sachschaeden, nicht reine Vermoegensschaeden.`,
+    en: `Covers damages your business causes to third parties — like a customer tripping in your shop. Unlike professional indemnity insurance, it covers bodily injury and property damage, not pure financial loss.` },
+  'Vermögensschadenhaftpflicht': { id: 'vermoegensschadenhaftpflicht',
+    de: `Versichert reine finanzielle Schaeden, die durch einen Beratungs- oder Arbeitsfehler entstehen — z.B. wenn eine falsche Empfehlung einen Kunden Geld kostet. Fuer Berater, Freelancer und Dienstleister oft wichtiger als die klassische Betriebshaftpflicht.`,
+    en: `Covers pure financial losses caused by a professional mistake — like bad advice costing a client money. Often more important for consultants, freelancers, and service providers than standard general liability.` },
+  'Deckungssumme': { id: 'deckungssumme',
+    de: `Der Hoechstbetrag, den eine Versicherung im Schadensfall zahlt. Liegt der tatsaechliche Schaden darueber, bleibst du auf dem Rest sitzen — bei Berufshaftpflicht sollte die Summe grosszuegig gewaehlt sein.`,
+    en: `The maximum amount an insurer pays out per claim. If the actual damage exceeds it, you're on the hook for the rest — for professional liability, it pays to choose a generous coverage limit.` },
+  'Karenzzeit': { id: 'karenzzeit',
+    de: `Die Wartezeit zwischen Vertragsabschluss (oder Eintritt eines Ereignisses) und dem Beginn der Leistungspflicht einer Versicherung — z.B. bei Berufsunfaehigkeit oft mehrere Monate.`,
+    en: `The waiting period between signing a policy (or an event occurring) and the start of the insurer's obligation to pay — often several months for disability insurance, for example.` },
+  'Grunderwerbsteuer': { id: 'grunderwerbsteuer',
+    de: `Eine Steuer beim Kauf eines Grundstuecks oder einer Immobilie, je nach Bundesland zwischen 3,5 % und 6,5 % des Kaufpreises — wird beim Budget fuer den Immobilienkauf leicht unterschaetzt.`,
+    en: `A tax paid on buying land or property, ranging by German state from 3.5% to 6.5% of the purchase price — easy to underestimate when budgeting for a property purchase.` },
+  'Tilgung': { id: 'tilgung',
+    de: `Der Teil der monatlichen Kreditrate, der die eigentliche Schuld reduziert (im Gegensatz zum Zinsanteil). Eine hoehere Anfangstilgung verkuerzt die Laufzeit eines Immobilienkredits deutlich.`,
+    en: `The part of a monthly loan payment that reduces the actual debt (as opposed to the interest portion). A higher initial repayment rate significantly shortens a mortgage's term.` },
+  'Annuitätendarlehen': { id: 'annuitaetendarlehen',
+    de: `Der ueblichste Immobilienkredit-Typ: Die monatliche Rate bleibt ueber die Zinsbindung konstant, aber der Zinsanteil sinkt und der Tilgungsanteil steigt mit der Zeit.`,
+    en: `The most common mortgage type: the monthly payment stays constant over the fixed-rate period, but the interest portion shrinks and the repayment portion grows over time.` },
+  'Beleihungswert': { id: 'beleihungswert',
+    de: `Der Wert, den eine Bank einer Immobilie fuer die Kreditvergabe zugrunde legt — meist vorsichtiger kalkuliert als der tatsaechliche Marktwert, um das Risiko der Bank abzufedern.`,
+    en: `The value a bank assigns to a property for lending purposes — usually calculated more conservatively than the actual market value, to cushion the bank's risk.` },
+  'Grundschuld': { id: 'grundschuld',
+    de: `Ein Grundpfandrecht, das die Bank als Sicherheit ins Grundbuch eintraegt, wenn sie einen Immobilienkredit vergibt. Anders als bei der Hypothek bleibt sie auch nach vollstaendiger Tilgung bestehen, bis sie aktiv geloescht wird.`,
+    en: `A land charge the bank registers in the property's land title as collateral for a mortgage. Unlike a mortgage lien, it remains registered even after full repayment, until actively cancelled.` },
+  'Mietrendite': { id: 'mietrendite',
+    de: `Das Verhaeltnis von jaehrlicher Netto-Kaltmiete zum Kaufpreis einer Immobilie, als grobe Kennzahl zur Einordnung, ob sich eine Vermietung wirtschaftlich lohnt.`,
+    en: `The ratio of annual net rental income to a property's purchase price — a rough metric for judging whether renting it out makes financial sense.` },
+  'Eigenkapitalquote': { id: 'eigenkapitalquote-immobilie',
+    de: `Der Anteil des Immobilienkaufpreises, den du aus eigenen Mitteln statt per Kredit finanzierst. Eine hoehere Quote senkt in der Regel den Zinssatz, den die Bank anbietet.`,
+    en: `The share of a property's purchase price you finance from your own funds rather than a loan. A higher share usually lowers the interest rate the bank offers.` },
 };
 
 /* Englisches Pendant zu FR_GLOSSARY -- gleiche Definitionen, aber mit
@@ -1544,6 +2092,25 @@ const FR_GLOSSARY = {
    Fliesstext haeufig falsch-positive Treffer ausserhalb des
    Finanzkontexts erzeugen wuerden. */
 const FR_GLOSSARY_EN = {
+  'agb': FR_GLOSSARY['AGB'],
+  'roi': FR_GLOSSARY['ROI'],
+  'portfolio': FR_GLOSSARY['Portfolio'],
+  'spread': FR_GLOSSARY['Spread'],
+  'rating': FR_GLOSSARY['Rating'],
+  'due diligence': FR_GLOSSARY['Due Diligence'],
+  'burn rate': FR_GLOSSARY['Burn Rate'],
+  'runway': FR_GLOSSARY['Runway'],
+  'pitch deck': FR_GLOSSARY['Pitch Deck'],
+  'working capital': FR_GLOSSARY['Working Capital'],
+  'bootstrapping': FR_GLOSSARY['Bootstrapping'],
+  'datev': FR_GLOSSARY['DATEV'],
+  'psd2': FR_GLOSSARY['PSD2'],
+  'ocr': FR_GLOSSARY['OCR'],
+  'schufa': FR_GLOSSARY['Schufa-Score'],
+  'schufa-score': FR_GLOSSARY['Schufa-Score'],
+  'reverse-charge': FR_GLOSSARY['Reverse-Charge-Verfahren'],
+  'fints': FR_GLOSSARY['FinTS'],
+  'freelancer': FR_GLOSSARY['Freelancer'],
   'ebitda': FR_GLOSSARY['EBITDA'],
   'ebit': FR_GLOSSARY['EBIT'],
   'diversification': FR_GLOSSARY['Diversifikation'],
@@ -1557,7 +2124,137 @@ const FR_GLOSSARY_EN = {
   'tracking difference': FR_GLOSSARY['Tracking Difference'],
   'insider trading': FR_GLOSSARY['Insiderhandel'],
   'compound interest': FR_GLOSSARY['Zinseszins'],
+  /* -- Ergänzt 03.08.2026 -- bewusst ausgelassen: 'fire' (zu generisches
+     Alltagswort im Englischen), 'spread'/'leverage'/'net worth'/'savings
+     rate' (dieselbe Genericity-Sorge wie bei 'return'), sowie alle rein
+     deutschen Steuer-/Rechtsbegriffe ohne sauberes 1:1-Englisch-Pendant
+     (Freistellungsauftrag, Grundfreibetrag, Günstigerprüfung, Anlage KAP,
+     MdB, NV-Bescheinigung, Sparerpauschbetrag, Sondervermögen,
+     Vorabpauschale). */
+  'bdc': FR_GLOSSARY['BDC'],
+  'cagr': FR_GLOSSARY['CAGR'],
+  'ceo': FR_GLOSSARY['CEO'],
+  'dax': FR_GLOSSARY['DAX'],
+  'esg': FR_GLOSSARY['ESG'],
+  'etf': FR_GLOSSARY['ETF'],
+  'gender pay gap': FR_GLOSSARY['Gender Pay Gap'],
+  'home bias': FR_GLOSSARY['Home Bias'],
+  'ipo': FR_GLOSSARY['IPO'],
+  'isin': FR_GLOSSARY['ISIN'],
+  'kgv': FR_GLOSSARY['KGV'],
+  'p/e ratio': FR_GLOSSARY['KGV'],
+  'price index': FR_GLOSSARY['Kursindex'],
+  'total return index': FR_GLOSSARY['Performanceindex'],
+  'msci': FR_GLOSSARY['MSCI'],
+  'opportunity cost': FR_GLOSSARY['Opportunitätskosten'],
+  'rebalancing': FR_GLOSSARY['Rebalancing'],
+  'reit': FR_GLOSSARY['REIT'],
+  'sequence-of-returns risk': FR_GLOSSARY['Sequenzrisiko'],
+  'side hustle': FR_GLOSSARY['Side Hustle'],
+  'shiller p/e': FR_GLOSSARY['Shiller-KGV'],
+  'cape ratio': FR_GLOSSARY['Shiller-KGV'],
+  'ter': FR_GLOSSARY['TER'],
+  'vix': FR_GLOSSARY['VIX'],
+  'volatility drain': FR_GLOSSARY['Volatilitätsverlust'],
+  'volatility drag': FR_GLOSSARY['Volatilitätsverlust'],
+  'wkn': FR_GLOSSARY['WKN'],
 };
+
+/* Fuellt alle [data-fr-const]-Elemente mit dem passenden Wert aus
+   FR_CONFIG. Laeuft beim Laden UND nochmal nach jedem Sprachwechsel
+   (Werte sind sprachneutral, aber die Funktion ist billig genug,
+   um sie im selben Rhythmus wie das Glossar einfach mitlaufen zu
+   lassen). Unbekannte Schluessel werden bewusst ignoriert statt
+   einen Fehler zu werfen -- ein Tippfehler im Artikel soll die Seite
+   nie zum Absturz bringen, hoechstens eine leere Stelle hinterlassen. */
+function frInitConstants(){
+  document.querySelectorAll('[data-fr-const]').forEach(el => {
+    const key = el.getAttribute('data-fr-const');
+    if(Object.prototype.hasOwnProperty.call(FR_CONFIG, key)){
+      el.textContent = FR_CONFIG[key];
+    }
+  });
+}
+
+/* ================================================================
+   AUTOMATISCH VERWANDTE ARTIKEL
+   ----------------------------------------------------------------
+   Loest ein wachsendes Problem bei > 100 Artikeln: von Hand
+   gepflegte "Verwandt"-Boxen veralten zwangslaeufig, sobald neue
+   Artikel dazukommen -- niemand denkt daran, alte Beitraege
+   rueckwirkend mit neuen zu verlinken. Diese Funktion braucht keine
+   Pflege: sie laeuft bei jedem Seitenaufruf automatisch, findet die
+   aktuelle Seite in FR_POSTS wieder und zeigt die passendsten
+   anderen Artikel an -- rueckwirkend fuer ALLE Artikel, sobald ein
+   neuer in FR_POSTS auftaucht, ohne dass irgendeine Datei angefasst
+   werden muss. Ergaenzt (ersetzt nicht) die weiterhin von Hand
+   gepflegten "Weiter"-Links fuer bewusste Lese-Reihenfolgen
+   innerhalb einer Artikel-Serie. */
+function frInitRelatedArticles(){
+  const container = document.querySelector('article.legal .wrap, article .wrap');
+  if(!container) return;
+  if(typeof FR_POSTS === 'undefined') return;
+
+  // Bereits vorhandene automatische Box zuerst entfernen (Selbstheilung
+  // bei Sprachwechsel, damit nicht doppelt gerendert wird).
+  const old = container.querySelector('.fr-related-auto');
+  if(old) old.remove();
+
+  const path = location.pathname.split('/').pop();
+  const current = FR_POSTS.find(p => p.link === path);
+  if(!current) return; // keine Artikelseite oder nicht in FR_POSTS gelistet
+
+  // Bereits im Artikel vorhandene Links sammeln (z.B. aus handverlesenen
+  // "Verwandt"/"Weiter"-Boxen) -- diese sollen in der automatischen Box
+  // nicht ein zweites Mal auftauchen. Einfacher, robuster Ansatz statt
+  // die verschiedenen handverlesenen Box-Varianten einzeln zu erkennen:
+  // wenn der Link schon irgendwo im Artikeltext als <a href> steht,
+  // gilt er als "schon gezeigt", egal in welcher Box.
+  const alreadyLinked = new Set(
+    [...container.querySelectorAll('a[href]')]
+      .map(a => a.getAttribute('href').split('/').pop())
+  );
+
+  const isEnglish = document.documentElement.getAttribute('lang') === 'en';
+  const currentTags = new Set((current.tags || []).map(t => t.toLowerCase()));
+
+  const scored = FR_POSTS
+    .filter(p => p.link !== current.link && p.link && !alreadyLinked.has(p.link))
+    .map(p => {
+      let score = 0;
+      if(p.subcat && p.subcat === current.subcat) score += 10;
+      else if(p.cat === current.cat) score += 1;
+      (p.tags || []).forEach(t => { if(currentTags.has(t.toLowerCase())) score += 3; });
+      return { post: p, score };
+    })
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score || new Date(b.post.date) - new Date(a.post.date))
+    .slice(0, 4);
+
+  // Bei zu wenig thematischer Naehe lieber gar keine Box zeigen als
+  // eine duenne, kaum relevante Liste.
+  if(scored.length < 2) return;
+
+  const box = document.createElement('div');
+  box.className = 'fr-related-auto';
+  const label = document.createElement('p');
+  label.className = 'fr-related-auto-label';
+  label.textContent = isEnglish ? 'Similar articles' : 'Ähnliche Artikel';
+  box.appendChild(label);
+  const ul = document.createElement('ul');
+  ul.className = 'fr-related-auto-list';
+  scored.forEach(({ post }) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = post.link;
+    a.textContent = '→ ' + (isEnglish && post.titleEn ? post.titleEn : post.title);
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+  box.appendChild(ul);
+
+  container.appendChild(box);
+}
 
 function frAutoLinkGlossary(){
   const container = document.querySelector('article.legal .wrap, article .wrap');
@@ -1615,57 +2312,90 @@ function frAutoLinkGlossary(){
   let node;
   while((node = walker.nextNode())){
     combinedPattern.lastIndex = 0;
-    const m = combinedPattern.exec(node.nodeValue);
-    const key = m ? m[1].toLowerCase() : null;
-    if(m && !already.has(key)){
-      // m[0] = kompletter Treffer inkl. optionalem Plural-s (falls englisch);
-      // m[1] = nur der reine Begriff, dient als Woerterbuch-Schluessel.
-      candidates.push({ node: node, fullMatch: m[0], lookupKey: isEnglish ? key : m[1], index: m.index });
-      already.add(key); // pro Begriff nur die erste Fundstelle auf der Seite
+    let m;
+    // Schleife statt einmaligem exec(): findet ALLE Treffer im selben
+    // Textknoten, nicht nur den ersten. Vorher brach ein Absatz mit
+    // zwei Glossar-Begriffen (z.B. "...als Freelancer... eine
+    // Privatentnahme...") die Verlinkung fuer den zweiten Begriff
+    // stillschweigend ab, da combinedPattern.exec() nur einmal
+    // aufgerufen wurde. Der Regex hat das "g"-Flag, exec() setzt
+    // combinedPattern.lastIndex nach jedem Treffer automatisch weiter.
+    while((m = combinedPattern.exec(node.nodeValue))){
+      const key = m[1].toLowerCase();
+      if(!already.has(key)){
+        candidates.push({ node: node, fullMatch: m[0], lookupKey: isEnglish ? key : m[1], index: m.index });
+        already.add(key); // pro Begriff weiterhin nur die erste Fundstelle auf der Seite
+      }
     }
   }
 
+  // Nach Textknoten gruppieren, damit mehrere Treffer im selben Absatz
+  // korrekt nacheinander verarbeitet werden -- ein einzelner Knoten
+  // kann jetzt mehrere Kandidaten haben, die sich sonst gegenseitig die
+  // Text-Indizes verschieben wuerden.
+  const byNode = new Map();
   candidates.forEach(function(c){
-    const info = dict[c.lookupKey];
-    if(!info) return;
-    const text = c.node.nodeValue;
-    const before = text.slice(0, c.index);
-    const matchText = text.slice(c.index, c.index + c.fullMatch.length);
-    const after = text.slice(c.index + c.fullMatch.length);
+    if(!dict[c.lookupKey]) return;
+    if(!byNode.has(c.node)) byNode.set(c.node, []);
+    byNode.get(c.node).push(c);
+  });
 
-    const wrapper = document.createElement('span');
-    wrapper.className = 'term-tip';
-    wrapper.tabIndex = 0;
-    wrapper.setAttribute('role', 'button');
-    wrapper.setAttribute('data-glossary-term', c.fullMatch);
-    wrapper.setAttribute('data-auto-glossary', 'true');
-    wrapper.setAttribute('aria-label', ariaPrefix + c.fullMatch + ariaSuffix);
-    wrapper.textContent = matchText;
+  byNode.forEach(function(nodeCandidates, textNode){
+    nodeCandidates.sort(function(a, b){ return a.index - b.index; });
+    const fullText = textNode.nodeValue;
+    const parent = textNode.parentNode;
+    let cursor = 0;
+    const pieces = [];
 
-    const popup = document.createElement('span');
-    popup.className = 'term-tip-popup';
-    popup.setAttribute('role', 'tooltip');
-    const label = document.createElement('span');
-    label.className = 'term-tip-label';
-    label.textContent = glossarLabel;
-    popup.appendChild(label);
-    popup.appendChild(document.createTextNode(info[defKey] + ' '));
-    const link = document.createElement('a');
-    link.href = 'glossar.html#' + info.id;
-    link.textContent = linkText;
-    popup.appendChild(link);
-    wrapper.appendChild(popup);
+    nodeCandidates.forEach(function(c){
+      if(c.index < cursor) return; // ueberlappender Treffer, ueberspringen
+      pieces.push({ type:'text', value: fullText.slice(cursor, c.index) });
+      pieces.push({ type:'term', c: c });
+      cursor = c.index + c.fullMatch.length;
+    });
+    pieces.push({ type:'text', value: fullText.slice(cursor) });
 
-    const parent = c.node.parentNode;
-    const afterNode = document.createTextNode(after);
-    parent.insertBefore(afterNode, c.node.nextSibling);
-    parent.insertBefore(wrapper, afterNode);
-    c.node.nodeValue = before;
+    pieces.forEach(function(piece){
+      if(piece.type === 'text'){
+        if(piece.value) parent.insertBefore(document.createTextNode(piece.value), textNode);
+        return;
+      }
+      const c = piece.c;
+      const info = dict[c.lookupKey];
+      const wrapper = document.createElement('span');
+      wrapper.className = 'term-tip';
+      wrapper.tabIndex = 0;
+      wrapper.setAttribute('role', 'button');
+      wrapper.setAttribute('data-glossary-term', c.fullMatch);
+      wrapper.setAttribute('data-auto-glossary', 'true');
+      wrapper.setAttribute('aria-label', ariaPrefix + c.fullMatch + ariaSuffix);
+      wrapper.textContent = c.fullMatch;
+
+      const popup = document.createElement('span');
+      popup.className = 'term-tip-popup';
+      popup.setAttribute('role', 'tooltip');
+      const label = document.createElement('span');
+      label.className = 'term-tip-label';
+      label.textContent = glossarLabel;
+      popup.appendChild(label);
+      popup.appendChild(document.createTextNode(info[defKey] + ' '));
+      const link = document.createElement('a');
+      link.href = 'glossar.html#' + info.id;
+      link.textContent = linkText;
+      popup.appendChild(link);
+      wrapper.appendChild(popup);
+
+      parent.insertBefore(wrapper, textNode);
+    });
+
+    parent.removeChild(textNode);
   });
 }
 
 document.addEventListener('DOMContentLoaded', function(){
+  frInitConstants();
   frAutoLinkGlossary();
+  frInitRelatedArticles();
 });
 if(Array.isArray(window.frPageRecomputers)){
   window.frPageRecomputers.push(frAutoLinkGlossary);

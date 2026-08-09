@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="6–10 % pro Jahr? What S&amp;P 500, Nasdaq, DAX, Nikkei &amp; China Actually Delivered — Finanzritual">6–10 % pro Jahr? Was S&amp;P 500, Nasdaq, DAX, Nikkei &amp; China wirklich brachten — Finanzritual</title>
+<meta name="description" content="Ist eine Durchschnittsrendite von 6–10 % pro Jahr realistisch? Fünf Indizes im historischen Vergleich — S&P 500, Nasdaq, DAX, Nikkei 225 und China (CSI 300) — mit Dividenden und Inflation eingerechnet, über 5 bis 150 Jahre." data-en-content="Is an average return of 6–10 % per year realistic? Five indices compared historically — S&P 500, Nasdaq, DAX, Nikkei 225 and China (CSI 300) — with dividends and inflation accounted for, over 5 to 150 years.">
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-index-durchschnittsrendite.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6–10 % pro Jahr? Was S&P 500, Nasdaq, DAX, Nikkei &amp; China wirklich brachten" data-en-content="6–10 % Per Year? What S&P 500, Nasdaq, DAX, Nikkei &amp; China Actually Delivered">
+<meta property="og:site_name" content="Finanzritual">
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg">
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-index-durchschnittsrendite.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "6–10 % pro Jahr? Was S&P 500, Nasdaq, DAX, Nikkei & China wirklich brachten",
+  "description": "Fünf Indizes im historischen Renditevergleich über 5 bis 150 Jahre, mit Dividenden und Inflation eingerechnet — und warum die 6–10%-Faustregel nicht für jeden Index gilt.",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.finanz-ritual.de/beitrag-index-durchschnittsrendite.html" },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ── Vergleichstabellen ──────────────────────────────────── */
+.cmp-table-wrap {
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 12px;
+  border: 1.5px solid var(--line-strong);
+  box-shadow: var(--shadow);
+}
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8rem;
+  min-width: 460px;
+}
+.cmp-table thead th {
+  background: var(--blue);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+.cmp-table thead th:last-child { border-right: none; }
+.cmp-table tbody tr { border-bottom: 1px solid var(--line); }
+.cmp-table tbody tr:hover { background: var(--bg); }
+.cmp-table tbody tr:last-child { border-bottom: none; }
+.cmp-table td {
+  padding: 10px 14px;
+  border-right: 1px solid var(--line);
+  font-size: .79rem;
+  color: var(--ink);
+  vertical-align: middle;
+}
+.cmp-table td:last-child { border-right: none; }
+.cmp-table td:first-child { font-weight: 700; }
+.cmp-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.cmp-green { color: var(--green); }
+.cmp-blue  { color: var(--blue); }
+.cmp-red   { color: #C0392B; }
+.cmp-muted { color: var(--ink-soft); }
+
+/* ── Highlight-Box ──────────────────────────────────────── */
+.hl-box {
+  margin: 20px 0; padding: 15px 18px;
+  border-radius: 10px; border-left: 3px solid var(--blue);
+  background: var(--blue-soft);
+}
+.hl-box.is-green { border-left-color: var(--green); background: var(--green-soft); }
+.hl-box.is-amber { border-left-color: #D97706; background: #F7DFA8; }
+[data-theme="dark"] .hl-box.is-amber { background: #4A3410; }
+.hl-box-label {
+  font-family: 'JetBrains Mono', monospace; font-size: .67rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 6px;
+}
+.hl-box.is-green .hl-box-label { color: var(--green); }
+.hl-box.is-amber .hl-box-label { color: #92400E; }
+[data-theme="dark"] .hl-box.is-amber .hl-box-label { color: #FCD34D; }
+.hl-box p { margin: 0; font-size: .87rem; }
+
+/* ── Index-Karte visuell ─────────────────────────────────── */
+.idx-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+@media (max-width: 760px) { .idx-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .idx-cards { grid-template-columns: 1fr; } }
+.idx-card {
+  border-radius: 10px;
+  padding: 14px 15px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--bg-raised);
+}
+.idx-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: .82rem;
+  color: var(--ink); margin-bottom: 6px;
+}
+.idx-card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--blue); line-height: 1.1;
+}
+.idx-card-sub { font-size: .68rem; color: var(--ink-soft); margin-top: 2px; }
+</style>
+
+<link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/beitrag-index-durchschnittsrendite.html">
+<link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/beitrag-index-durchschnittsrendite.html">
+<link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+</head>
+<body>
+
+<div class="alert-banner" id="alert-banner" role="alert"><div class="alert-banner-inner"><span class="alert-banner-text" id="alert-banner-text"></span><div class="alert-banner-right"><span class="alert-banner-counter" id="perf-counter" aria-hidden="true"><span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span></span><button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button></div></div></div>
+<button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></button>
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></button>
+
+<div class="logo-band" id="logo-band">
+  <a href="index.html" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
+    <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-band-img">
+  </a>
+</div>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
+      <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-crossword-img">
+      <span class="logo-word">Finanz-Ritua</span>
+      <svg class="logo-l" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 2 V32 H40" stroke="#2454A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="#1E8E5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37" cy="5" r="3.2" fill="#1E8E5A"/>
+      </svg>
+    </a>
+    <div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true">
+      <div class="fr-secret-panel-inner">
+        <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
+        <nav class="fr-secret-nav" aria-label="Versteckte Bereiche"><a href="index.html#optionen">Optionen</a><a href="shop.html" class="fr-secret-soon">Shop ✦</a><a href="vip.html" class="fr-secret-soon">VIP-Bereich ✦</a></nav>
+        <div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div>
+        
+      </div>
+    </div>
+        <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle is-active" aria-expanded="false">
+          <span data-en="Finance">Finanzen</span>
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
+        <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
+        <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
+        <a href="kat-finanzen-immobilien.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><span class="nav-sub-label" data-en="Real Estate & REITs">Immobilien & REITs</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-finanzen-rendite.html" class="nav-sub-link is-active"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M12 20V4"/><path d="M20 20v-6"/></svg></span><span class="nav-sub-label" data-en="Portfolio & Returns">Depot & Rendite</span><span class="nav-sub-count">(9)</span></a>
+        <a href="kat-finanzen-vermoegen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(16)</span></a>
+        <a href="kat-finanzen-steuer.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+        <a href="kat-finanzen-learning.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"/></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(3)</span></a>
+        </div>
+      </div>
+      <a href="rechner.html" class="nav-rechner-link"><svg class="nav-rechner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="8" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="16" y1="18" x2="16" y2="18.01"/></svg><span data-en="CALC">CALC</span></a>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Compare">Vergleich</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-vergleich.html" class="nav-drop-all" data-en="All comparisons">Alle Vergleiche</a><a href="kat-vergleich.html#girokonto" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a href="kat-vergleich.html#mobilfunk" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a href="kat-vergleich.html#depot-broker" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a href="kat-vergleich.html#kredit" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a href="kat-vergleich.html#immobilien" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a href="kat-vergleich.html#etf-grundsatz" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a href="kat-vergleich.html#altersvorsorge" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"/></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a href="kat-vergleich.html#technik" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a href="kat-vergleich.html#p2p" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7l-3 7a3 3 0 0 0 6 0z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0z"/><path d="M5 7h14"/></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+      <div class="nav-drop">
+        <button type="button" class="nav-drop-toggle" aria-expanded="false">
+          <span data-en="Lifestyle">Lebensstil</span>
+          <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-drop-panel">
+        <a href="kat-lebensstil.html" class="nav-drop-all" data-en="All Lifestyle posts (30)">Alle Lebensstil-Artikel (30)</a>
+        <div class="nav-group-label" data-en="FIRE">FIRE</div>
+        <a href="kat-fire.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"/></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus.html" class="nav-group-label" data-en="MINIMALISM">MINIMALISMUS</a>
+        <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        </div>
+      </div>
+      <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="shop.html" data-en="Shop">Shop</a>
+      <a href="vip.html" data-en="VIP">VIP</a>
+    </nav>
+    <div class="header-controls">
+      <div class="control"><label for="font-slider">Aa</label><input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße"></div>
+      <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus" data-en-aria-label="Toggle dark mode"><span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+      <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" title="Switch to English"><span id="lang-toggle-text">EN</span></button>
+      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Vorschau"><span class="alert-test-dot"></span></button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap" style="max-width:760px;">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="von-zero-zum-hero.html" data-en="ZERO_TO_HERO">ZERO_TO_HERO</a><span>/</span><a href="kat-finanzen-rendite.html" data-en="Portfolio & Returns">Depot & Rendite</a><span>/</span><span aria-current="page" data-en="6–10 % per year? What five indices actually delivered">6–10 % pro Jahr? Was fünf Indizes wirklich brachten</span>
+    </nav>
+    <div class="eyebrow" data-en="Finance · Returns · 03 Aug 2026">Finanzen · Rendite · 03.08.2026</div>
+    <h1 data-en="6–10 % Per Year? What S&amp;P 500, Nasdaq, DAX, Nikkei &amp; China Actually Delivered">6–10 % pro Jahr? Was S&amp;P 500, Nasdaq, DAX, Nikkei &amp; China wirklich brachten</h1>
+    <p style="max-width:62ch;" data-en="A recurring number in finance content: an average return of 6–10 % per year, with dividends reinvested and after inflation. Is that a realistic long-term expectation — or does it only hold for one specific index? Five indices compared, over 5 to 150 years.">Eine Zahl, die in Finanz-Content ständig auftaucht: eine Durchschnittsrendite von 6–10 % pro Jahr, mit reinvestierten Dividenden und nach Inflation. Ist das eine realistische langfristige Erwartung — oder gilt das nur für einen ganz bestimmten Index? Fünf Indizes im Vergleich, über 5 bis 150 Jahre.</p>
+  </div>
+</section>
+
+<!-- ARTIKEL -->
+<article class="section legal" style="border-bottom:none;">
+  <div class="wrap" style="max-width:760px;">
+
+  <h2 data-en="The core question">Die Kernfrage</h2>
+
+  <p data-en="Finance content — YouTube videos, Instagram carousels, LinkedIn posts — loves this claim: 'the stock market returns 6–10 % per year on average'. It's usually true. But it's true for exactly one type of index: broad, long-established, developed-market indices, with dividends reinvested, measured over sufficiently long time windows. The moment you swap in a single country, a young index, or a short measurement period, the number can look completely different — including negative for a decade or more. This article walks through five indices to show where the rule holds, and where it quietly stops holding.">Finanz-Content — YouTube-Videos, Instagram-Karussells, LinkedIn-Posts — liebt diese Aussage: „Die Börse bringt im Schnitt 6–10 % pro Jahr.“ Meistens stimmt das. Aber es stimmt exakt für einen bestimmten Index-Typ: breit gestreut, lange etabliert, Industrieland, mit reinvestierten Dividenden, über ausreichend lange Zeiträume gemessen. Sobald man ein Einzelland, einen jungen Index oder einen kurzen Messzeitraum einsetzt, kann die Zahl völlig anders aussehen — auch negativ, über ein Jahrzehnt oder länger. Dieser Beitrag geht fünf Indizes durch, um zu zeigen, wo die Faustregel trägt — und wo sie leise aufhört zu gelten.</p>
+
+  <div class="hl-box" role="note">
+    <div class="hl-box-label" data-en="Two terms first">Zwei Begriffe vorab</div>
+    <p data-en="'Dividends reinvested' (total return) means: payouts are not withdrawn but immediately reinvested in the index — this is how index funds/ETFs work in practice, and it makes a huge difference over decades. 'Inflation-adjusted' (real return) means: the nominal percentage minus the loss of purchasing power in that period — the number that actually reflects growth in what your money can buy.">„Dividenden reinvestiert“ (Total Return) heißt: Ausschüttungen werden nicht entnommen, sondern sofort wieder im Index angelegt — genau so funktionieren Indexfonds/ETFs in der Praxis, und das macht über Jahrzehnte einen riesigen Unterschied. „Inflationsbereinigt“ (Realrendite) heißt: die nominale Prozentzahl abzüglich des Kaufkraftverlusts im selben Zeitraum — die Zahl, die tatsächlich widerspiegelt, wie viel mehr man sich am Ende leisten kann.</p>
+  </div>
+
+  <div class="idx-cards" aria-label="Übersicht der fünf Indizes">
+    <div class="idx-card">
+      <div class="idx-card-title">S&amp;P 500</div>
+      <div class="idx-card-num">USA</div>
+      <div class="idx-card-sub" data-en="Since 1926 · price index, dividends tracked separately">Seit 1926 · Kursindex, Dividenden separat erfasst</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-card-title">Nasdaq Composite</div>
+      <div class="idx-card-num">USA</div>
+      <div class="idx-card-sub" data-en="Since 1971 · tech-heavy, price index">Seit 1971 · techlastig, Kursindex</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-card-title">DAX</div>
+      <div class="idx-card-num">DE</div>
+      <div class="idx-card-sub" data-en="Since 1988 · total return index by design">Seit 1988 · Performanceindex per Konstruktion</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-card-title">Nikkei 225</div>
+      <div class="idx-card-num">JP</div>
+      <div class="idx-card-sub" data-en="Since 1949 · price index, dividends excluded">Seit 1949 · Kursindex, Dividenden ausgeschlossen</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-card-title">CSI 300</div>
+      <div class="idx-card-num">CN</div>
+      <div class="idx-card-sub" data-en="Since 2005 · young, highly volatile">Seit 2005 · jung, stark volatil</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TEIL 1: S&P 500 -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <h2 data-en="Part 1: S&amp;P 500 — where the 6–10 % rule comes from">Teil 1: S&amp;P 500 — wo die 6–10%-Regel eigentlich herkommt</h2>
+
+  <p data-en="The S&amp;P 500 has the longest, cleanest total-return dataset of any major index, going back to 1926. That is precisely why it is the go-to source for the '6–10 % per year' claim — and why it deserves a closer, honest look rather than being cited as a slogan.">Der S&amp;P 500 hat den längsten, saubersten Total-Return-Datensatz aller großen Indizes, zurückreichend bis 1926. Genau deshalb ist er die bevorzugte Quelle für die „6–10 % pro Jahr“-Aussage — und genau deshalb verdient er einen genaueren, ehrlichen Blick statt einer Zitat-Verwendung als Slogan.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table" aria-label="S&P 500 Durchschnittsrendite nach Zeitraum">
+      <thead>
+        <tr>
+          <th data-en="Period">Zeitraum</th>
+          <th data-en="Nominal (div. reinvested)">Nominal (Div. reinvestiert)</th>
+          <th data-en="Real (after inflation)">Real (nach Inflation)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="~150 years (back-extended index)">~150 Jahre (rückgerechnet)</td><td class="cmp-num">~9⁠%</td><td class="cmp-num cmp-green">~7⁠%</td></tr>
+        <tr><td data-en="100 years (since 1926)">100 Jahre (seit 1926)</td><td class="cmp-num">~10⁠%</td><td class="cmp-num cmp-green">~7⁠%</td></tr>
+        <tr><td data-en="50 years">50 Jahre</td><td class="cmp-num">~11–12⁠%</td><td class="cmp-num cmp-green">~8⁠%</td></tr>
+        <tr><td data-en="30 years">30 Jahre</td><td class="cmp-num">~10–11⁠%</td><td class="cmp-num cmp-green">~8⁠%</td></tr>
+        <tr><td data-en="20 years">20 Jahre</td><td class="cmp-num">~10⁠%</td><td class="cmp-num cmp-green">~7,5⁠%</td></tr>
+        <tr><td data-en="10 years">10 Jahre</td><td class="cmp-num">~12–13⁠%</td><td class="cmp-num cmp-green">~9,5⁠%</td></tr>
+        <tr><td data-en="5 years">5 Jahre</td><td class="cmp-num">~14⁠%</td><td class="cmp-num cmp-green">~9,5⁠%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cmp-muted" style="font-size:.78rem;" data-en="Values rounded, based on public long-run total-return series for the S&amp;P 500 (e.g. NYU Stern/Damodaran, official S&amp;P historical statistics). Short windows (5–10 years) are shaped heavily by the current bull market and should not be extrapolated.">Werte gerundet, auf Basis öffentlicher Total-Return-Langfristreihen zum S&amp;P 500 (u.a. NYU Stern/Damodaran, offizielle S&amp;P-Statistiken). Kurze Fenster (5–10 Jahre) sind stark vom aktuellen Bullenmarkt geprägt und sollten nicht fortgeschrieben werden.</p>
+
+  <p data-en="What jumps out: the nominal number swings a fair bit depending on the window (9–14 %), but the real, inflation-adjusted number stays remarkably stable — clustering between roughly 7 % and 9.5 % across every period from 20 to 150 years. That stability is exactly what the '6–10 %' rule of thumb is trying to capture, and for the S&amp;P 500 specifically, it holds up well.">Auffällig: Die nominale Zahl schwankt je nach Fenster deutlich (9–14 %), aber die reale, inflationsbereinigte Zahl bleibt bemerkenswert stabil — sie pendelt bei praktisch jedem Zeitraum zwischen 20 und 150 Jahren zwischen rund 7 % und 9,5 %. Genau diese Stabilität versucht die „6–10 %“-Faustregel einzufangen — und für den S&amp;P 500 konkret trägt sie gut.</p>
+
+  <div class="hl-box is-green" role="note">
+    <div class="hl-box-label" data-en="Why this works for the S&amp;P 500">Warum das beim S&amp;P 500 funktioniert</div>
+    <p data-en="Three ingredients: (1) 500 companies across every sector — no single company or industry can sink the whole index, (2) the US economy has grown almost uninterrupted for a century, (3) dividends reinvested compound on top of price gains. Remove any one of these three, and the number changes — which is exactly what happens with the other four indices below.">Drei Zutaten: (1) 500 Unternehmen über alle Branchen — kein einzelnes Unternehmen oder keine Branche kann den ganzen Index versenken, (2) die US-Wirtschaft ist fast ununterbrochen ein Jahrhundert lang gewachsen, (3) reinvestierte Dividenden zinsen sich zusätzlich zu den Kursgewinnen auf. Nimmt man eine dieser drei Zutaten weg, ändert sich die Zahl — genau das passiert bei den folgenden vier Indizes.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TEIL 2: NASDAQ -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <h2 style="margin-top:40px;" data-en="Part 2: Nasdaq Composite — higher return, higher swings, shorter history">Teil 2: Nasdaq Composite — mehr Rendite, mehr Ausschläge, kürzere Historie</h2>
+
+  <p data-en="The Nasdaq Composite has only existed since February 1971 — no 100- or 150-year comparison is possible. Within its 55-year history it has, on average, outgrown the S&amp;P 500 — but with visibly larger drawdowns, since it is far more concentrated in technology.">Der Nasdaq Composite existiert erst seit Februar 1971 — ein 100- oder 150-Jahre-Vergleich ist schlicht nicht möglich. Innerhalb seiner 55-jährigen Geschichte ist er im Schnitt stärker gewachsen als der S&amp;P 500 — allerdings mit sichtbar größeren Einbrüchen, weil er weit stärker auf Technologie konzentriert ist.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table" aria-label="Nasdaq Composite Durchschnittsrendite nach Zeitraum">
+      <thead>
+        <tr>
+          <th data-en="Period">Zeitraum</th>
+          <th data-en="Ø annual return (price index)">Ø jährliche Rendite (Kursindex)</th>
+          <th data-en="Note">Hinweis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="Since 1971 (~55 years)">Seit 1971 (~55 Jahre)</td><td class="cmp-num">~11–12⁠%</td><td class="cmp-muted" data-en="Includes dot-com bust (-78 %, 2000–2002)">Inkl. Dotcom-Crash (-78 %, 2000–2002)</td></tr>
+        <tr><td data-en="2008–2023 (15 years)">2008–2023 (15 Jahre)</td><td class="cmp-num cmp-green">~16,2⁠%</td><td class="cmp-muted" data-en="Post-financial-crisis bull run">Bullenmarkt nach Finanzkrise</td></tr>
+        <tr><td data-en="10 years">10 Jahre</td><td class="cmp-num cmp-green">~14–15⁠%</td><td class="cmp-muted" data-en="Driven by a handful of mega-cap tech names">Getrieben von wenigen Mega-Cap-Tech-Werten</td></tr>
+        <tr><td data-en="5 years">5 Jahre</td><td class="cmp-num cmp-green">~13–15⁠%</td><td class="cmp-muted" data-en="High volatility, wide range between years">Hohe Volatilität, große Spanne zwischen Jahren</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p data-en="A structural point that matters: the Nasdaq Composite is a price index, meaning dividends are not included in the number above. In practice this changes little, because most fast-growing tech companies pay small or no dividends and reinvest profits into growth instead — but it is a real methodological difference from a total-return figure like the S&amp;P 500's.">Ein struktureller Punkt, der zählt: Der Nasdaq Composite ist ein Kursindex, Dividenden sind in der obigen Zahl also nicht enthalten. In der Praxis ändert das wenig, weil die meisten schnell wachsenden Tech-Unternehmen kleine oder gar keine Dividenden zahlen und Gewinne stattdessen ins Wachstum reinvestieren — aber methodisch ist es ein echter Unterschied zu einer Total-Return-Zahl wie beim S&amp;P 500.</p>
+
+  <div class="hl-box is-amber" role="note">
+    <div class="hl-box-label" data-en="⚠ The other side: concentration risk">⚠ Die andere Seite: Konzentrationsrisiko</div>
+    <p data-en="During the dot-com crash (2000–2002) the Nasdaq Composite lost around 78 % from peak to trough — and needed 15 years to fully recover. A single-sector index can deliver a fantastic long-run average while still producing a decade-long stretch that tests every investor's nerve.">Beim Dotcom-Crash (2000–2002) verlor der Nasdaq Composite vom Hoch bis zum Tief rund 78 % — und brauchte 15 Jahre, um sich vollständig zu erholen. Ein Ein-Sektor-Index kann einen fantastischen Langfrist-Durchschnitt liefern und trotzdem eine jahrzehntelange Strecke produzieren, die jeden Anlegernerv testet.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TEIL 3: DAX -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <h2 style="margin-top:40px;" data-en="Part 3: DAX — dividends are already included, and few people know it">Teil 3: DAX — Dividenden sind schon drin, und kaum jemand weiß es</h2>
+
+  <p data-en="An important detail that surprises most beginners: unlike the S&amp;P 500 or Nasdaq, the DAX is constructed as a total return index from day one — dividend payouts are automatically factored back into the index level. When you see 'the DAX is at 24,000 points', dividends since 1988 are already baked into that number.">Ein wichtiges Detail, das die meisten Anfänger überrascht: Anders als S&amp;P 500 oder Nasdaq ist der DAX von Anfang an als Performanceindex konstruiert — Dividendenausschüttungen fließen automatisch wieder in den Indexstand ein. Wenn irgendwo steht „der DAX steht bei 24.000 Punkten“, sind darin die Dividenden seit 1988 bereits eingerechnet.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table" aria-label="DAX Durchschnittsrendite nach Zeitraum">
+      <thead>
+        <tr>
+          <th data-en="Period">Zeitraum</th>
+          <th data-en="Ø annual return (dividends included)">Ø jährliche Rendite (Dividenden inklusive)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="Since 1980 (back-extended, to end 2025)">Seit 1980 (rückgerechnet, bis Ende 2025)</td><td class="cmp-num cmp-green">~9,1⁠%</td></tr>
+        <tr><td data-en="Since 1988 (index launch)">Seit 1988 (Indexstart)</td><td class="cmp-num cmp-green">~8,5⁠%</td></tr>
+        <tr><td data-en="2008–2023 (15 years)">2008–2023 (15 Jahre)</td><td class="cmp-num">~9,3⁠%</td></tr>
+        <tr><td data-en="10 years (e.g. 2014–2023)">10 Jahre (z.B. 2014–2023)</td><td class="cmp-num cmp-muted">~5–7⁠%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cmp-muted" style="font-size:.78rem;" data-en="Sources: Deutsches Aktieninstitut (DAX return triangle), boerse.de. Values rounded.">Quellen: Deutsches Aktieninstitut (DAX-Rendite-Dreieck), boerse.de. Werte gerundet.</p>
+
+  <p data-en="The DAX lands comfortably inside the 6–10 % band as well — but with a smaller sample than the S&amp;P 500: only ~40 companies (before 2021: 30), overwhelmingly industrial and automotive-heavy, and a single-currency, single-country economy. It is diversified enough to work over multi-decade windows, but concentrated enough that a bad decade for German industry (as the 2014–2023 window shows, pulled down by 2018–2020) can visibly dent the number.">Auch der DAX liegt komfortabel innerhalb der 6–10%-Spanne — allerdings mit einer kleineren Stichprobe als der S&amp;P 500: nur ~40 Unternehmen (vor 2021: 30), stark Industrie- und Automobil-lastig, und eine Ein-Währungs-, Ein-Land-Wirtschaft. Er ist diversifiziert genug, um über Mehrjahrzehnt-Fenster zu funktionieren, aber konzentriert genug, dass ein schlechtes Jahrzehnt für die deutsche Industrie (wie das 2014–2023-Fenster zeigt, belastet durch 2018–2020) die Zahl sichtbar drückt.</p>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TEIL 4: NIKKEI -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <h2 style="margin-top:40px;" data-en="Part 4: Nikkei 225 — the cautionary example">Teil 4: Nikkei 225 — das mahnende Beispiel</h2>
+
+  <p data-en="Japan is the index that breaks the '6–10 % is just how stock markets work' assumption most dramatically — and it is the single best argument for spreading investments across countries instead of betting on one.">Japan ist der Index, der die Annahme „6–10 % ist einfach, wie Börsen funktionieren“ am dramatischsten widerlegt — und das beste Argument dafür, Anlagen über Länder zu streuen statt auf eines zu setzen.</p>
+
+  <p data-en="On 29 December 1989 the Nikkei 225 closed at an all-time high of 38,915.87 points. What followed was one of the largest asset bubbles in financial history bursting: by April 2003 the index had fallen roughly 80 % from that peak. It took until February 2024 — 34 years — for the Nikkei to close above its 1989 high again in nominal terms.">Am 29. Dezember 1989 schloss der Nikkei 225 auf seinem Allzeithoch von 38.915,87 Punkten. Was folgte, war das Platzen einer der größten Vermögensblasen der Finanzgeschichte: Bis April 2003 war der Index um rund 80 % von diesem Hoch gefallen. Erst im Februar 2024 — 34 Jahre später — schloss der Nikkei nominal wieder über seinem Hoch von 1989.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table" aria-label="Nikkei 225 Durchschnittsrendite nach Zeitraum">
+      <thead>
+        <tr>
+          <th data-en="Period">Zeitraum</th>
+          <th data-en="Ø annual return (price index)">Ø jährliche Rendite (Kursindex)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="~1990–2012 (two lost decades)">~1990–2012 (zwei verlorene Jahrzehnte)</td><td class="cmp-num cmp-red">~ -4,8⁠%</td></tr>
+        <tr><td data-en="2008–2023 (15 years)">2008–2023 (15 Jahre)</td><td class="cmp-num cmp-green">~9,3⁠%</td></tr>
+        <tr><td data-en="Last 10 years">Letzte 10 Jahre</td><td class="cmp-num cmp-green">~6–10⁠%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cmp-muted" style="font-size:.78rem;" data-en="Sources: boerse.de return triangle, Wikipedia (Nikkei 225 historical milestones), GuidingData (home bias analysis). The Nikkei is a price index — dividends are not included in these figures, unlike the DAX.">Quellen: boerse.de-Renditedreieck, Wikipedia (historische Nikkei-225-Marken), GuidingData (Home-Bias-Analyse). Der Nikkei ist ein Kursindex — Dividenden sind in diesen Zahlen anders als beim DAX nicht enthalten.</p>
+
+  <div class="hl-box is-amber" role="note">
+    <div class="hl-box-label" data-en="⚠ What this means in practice">⚠ Was das in der Praxis bedeutet</div>
+    <p data-en="Someone who invested only in Japan in 1989 was, on average, losing money every single year for two full decades — while a globally diversified investor over the same stretch earned a positive average return of around 5 % per year. Same era, same global economy, completely different outcome. This is the textbook definition of home bias / single-country risk, and it's why '6–10 % on average' is a statement about diversified, multi-decade portfolios — not a law of nature that applies to any index you pick.">Wer 1989 ausschließlich in Japan investierte, verlor im Schnitt zwei volle Jahrzehnte lang jedes einzelne Jahr Geld — während ein global diversifizierter Anleger im selben Zeitraum eine positive Durchschnittsrendite von rund 5 % pro Jahr erzielte. Gleiche Ära, gleiche Weltwirtschaft, komplett anderes Ergebnis. Das ist die Lehrbuch-Definition von Home Bias / Einzelland-Risiko — und der Grund, warum „im Schnitt 6–10 %“ eine Aussage über diversifizierte Mehrjahrzehnt-Portfolios ist, kein Naturgesetz, das für jeden beliebigen Index gilt.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TEIL 5: CHINA -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <h2 style="margin-top:40px;" data-en="Part 5: China (CSI 300) — too young and too volatile to draw firm conclusions">Teil 5: China (CSI 300) — zu jung und zu volatil für eine feste Aussage</h2>
+
+  <p data-en="The CSI 300, tracking the 300 largest companies on the Shanghai and Shenzhen exchanges, only exists since April 2005 — barely two decades of data, far too short to say anything meaningful about '20-year' or '50-year' averages.">Der CSI 300, der die 300 größten Unternehmen an den Börsen Shanghai und Shenzhen abbildet, existiert erst seit April 2005 — kaum zwei Jahrzehnte an Daten, deutlich zu kurz, um etwas Belastbares über „20-Jahres“- oder „50-Jahres“-Durchschnitte zu sagen.</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table" aria-label="CSI 300 Kennzahlen">
+      <thead>
+        <tr>
+          <th data-en="Metric">Kennzahl</th>
+          <th data-en="Value">Wert</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="Index base (31 Dec 2004)">Indexbasis (31.12.2004)</td><td class="cmp-num">1.000</td></tr>
+        <tr><td data-en="Level mid-2026">Stand Mitte 2026</td><td class="cmp-num">~4.600–4.800</td></tr>
+        <tr><td data-en="Implied Ø annual return (~21.5 years, price only)">Rechnerische Ø-Rendite (~21,5 Jahre, nur Kurs)</td><td class="cmp-num">~7⁠%</td></tr>
+        <tr><td data-en="52-week range">52-Wochen-Spanne</td><td class="cmp-num">3.827–5.065</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cmp-muted" style="font-size:.78rem;" data-en="Sources: Wikipedia (CSI 300 Index), GuruFocus, Yahoo Finance / Investing.com index data (mid-2026). Values rounded and approximate.">Quellen: Wikipedia (CSI 300 Index), GuruFocus, Yahoo Finance / Investing.com Indexdaten (Mitte 2026). Werte gerundet und näherungsweise.</p>
+
+  <p data-en="On the surface, ~7 % looks like it fits the pattern — but the path there was anything but smooth: a speculative bubble and crash in 2007/2008, another sharp correction in 2015, and a multi-year slump from 2021 to 2024 driven by the property-sector crisis and tighter regulation of Chinese tech companies. The 52-week range alone — a swing of over 30 % — shows a volatility level well above the S&amp;P 500 or DAX.">Auf den ersten Blick sieht ~7 % so aus, als würde es ins Muster passen — aber der Weg dorthin war alles andere als glatt: eine spekulative Blase und ihr Platzen 2007/2008, eine weitere scharfe Korrektur 2015, und eine mehrjährige Talfahrt von 2021 bis 2024, getrieben von der Immobilienkrise und schärferer Regulierung chinesischer Tech-Konzerne. Allein die 52-Wochen-Spanne — eine Schwankung von über 30 % — zeigt ein Volatilitätsniveau deutlich über S&amp;P 500 oder DAX.</p>
+
+  <div class="hl-box is-amber" role="note">
+    <div class="hl-box-label" data-en="⚠ Additional factors beyond the numbers">⚠ Zusätzliche Faktoren jenseits der Zahlen</div>
+    <p data-en="Chinese equity indices carry risks that don't show up in a return-per-year table: capital controls that can restrict moving money in or out, a comparatively short and weak dividend-payout culture, lower corporate transparency than in the US/EU, and direct political/regulatory intervention risk (e.g. the 2021 tech-sector crackdown). A 7 % headline average says little about whether that pattern will hold going forward.">Chinesische Aktienindizes tragen Risiken, die in einer Rendite-pro-Jahr-Tabelle nicht auftauchen: Kapitalverkehrskontrollen, die den Geldtransfer ein- oder ausschränken können, eine vergleichsweise kurze und schwache Dividendenkultur, geringere Unternehmenstransparenz als in USA/EU, und direktes politisches/regulatorisches Eingriffsrisiko (z.B. das Tech-Sektor-Durchgreifen 2021). Ein 7%-Schnitt an der Oberfläche sagt wenig darüber aus, ob sich dieses Muster fortsetzt.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- FAZIT -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <h2 style="margin-top:40px;" data-en="Bottom line: is 6–10 % realistic?">Fazit: Ist 6–10 % realistisch?</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table" aria-label="Fünf Indizes im Überblick">
+      <thead>
+        <tr>
+          <th data-en="Index">Index</th>
+          <th data-en="Fits the 6–10 % rule?">Passt zur 6–10%-Regel?</th>
+          <th data-en="Main caveat">Haupt-Einschränkung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>S&amp;P 500</td><td class="cmp-green" data-en="Yes — reliably, over 20+ years">Ja — verlässlich, über 20+ Jahre</td><td class="cmp-muted" data-en="Best-documented case, not a guarantee">Am besten belegter Fall, keine Garantie</td></tr>
+        <tr><td>Nasdaq Composite</td><td class="cmp-green" data-en="Yes, often above the range">Ja, oft über der Spanne</td><td class="cmp-muted" data-en="Higher swings, sector-concentrated">Größere Ausschläge, sektorkonzentriert</td></tr>
+        <tr><td>DAX</td><td class="cmp-green" data-en="Yes — over 30+ years">Ja — über 30+ Jahre</td><td class="cmp-muted" data-en="Smaller, single-country sample">Kleinere Stichprobe, ein Land</td></tr>
+        <tr><td>Nikkei 225</td><td class="cmp-red" data-en="No — not for a full generation">Nein — nicht für eine ganze Generation</td><td class="cmp-muted" data-en="Single-country bubble &amp; crash risk">Einzelland-Blasen- &amp; Crash-Risiko</td></tr>
+        <tr><td>CSI 300 (China)</td><td class="cmp-muted" data-en="Unclear — too little history">Unklar — zu wenig Historie</td><td class="cmp-muted" data-en="Only ~21 years, high volatility, political risk">Nur ~21 Jahre, hohe Volatilität, politisches Risiko</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="hl-box is-green" role="note">
+    <div class="hl-box-label" data-en="Bottom line">Fazit</div>
+    <p data-en="6–10 % per year (dividends reinvested, after inflation) is a historically well-supported expectation — but only for broad, diversified, long-established developed-market indices held over sufficiently long periods (20+ years). It is not a universal law of stock markets: pick a single country, a young index, or too short a window, and the same market can deliver a lost decade instead. The practical takeaway is not 'pick the best-performing index' — nobody can identify that in advance — but 'diversify across many countries and sectors', so that a Japan-style multi-decade slump in one region doesn't define your entire portfolio's outcome. See the <a href='beitrag-msci-world-vs-ftse-all-world.html'>MSCI World vs. FTSE All-World comparison</a> for how broad global ETFs actually spread this risk across all five markets discussed here.">6–10 % pro Jahr (Dividenden reinvestiert, nach Inflation) ist eine historisch gut belegte Erwartung — aber nur für breite, diversifizierte, lange etablierte Industrieland-Indizes, gehalten über ausreichend lange Zeiträume (20+ Jahre). Es ist kein universelles Gesetz der Börse: Wählt man ein einzelnes Land, einen jungen Index oder ein zu kurzes Fenster, kann derselbe Markt stattdessen ein verlorenes Jahrzehnt liefern. Die praktische Konsequenz ist nicht „den besten Index auswählen“ — das kann niemand im Voraus erkennen — sondern „über viele Länder und Branchen streuen“, damit eine Japan-artige Mehrjahrzehnt-Flaute in einer Region nicht das Ergebnis des gesamten Portfolios bestimmt. Siehe den <a href="beitrag-msci-world-vs-ftse-all-world.html">MSCI-World-vs.-FTSE-All-World-Vergleich</a> dafür, wie breite globale ETFs genau dieses Risiko über alle fünf hier besprochenen Märkte streuen.</p>
+  </div>
+
+  <div class="hl-box" role="note">
+    <div class="hl-box-label" data-en="Try it yourself">Selbst ausprobieren</div>
+    <p data-en="Toggle each index on and off, adjust starting capital, monthly contribution and horizon (up to 35 years), and switch inflation on or off — see the → <a href='rechner-index-renditen.html'>Index Return Simulator</a> to feel the difference a single index choice makes over time.">Jeden Index einzeln an- und ausschalten, Startkapital, Sparrate und Horizont (bis zu 35 Jahre) anpassen, Inflation ein- oder ausschalten — im → <a href="rechner-index-renditen.html">Index-Renditesimulator</a> lässt sich der Unterschied, den ein einzelner Index über die Zeit macht, direkt erfühlen.</p>
+  </div>
+
+  <div class="disclaimer-box" style="margin-top:32px;" data-en="All figures are rounded historical averages compiled from public sources (Deutsches Aktieninstitut, boerse.de, NYU Stern/Damodaran data, Wikipedia, GuruFocus) and are approximate. Past performance is not a reliable indicator of future results. This article is for educational purposes only and does not constitute investment advice. Stand: August 2026.">Alle Werte sind gerundete historische Durchschnittswerte, zusammengestellt aus öffentlichen Quellen (Deutsches Aktieninstitut, boerse.de, NYU-Stern/Damodaran-Daten, Wikipedia, GuruFocus) und näherungsweise zu verstehen. Die Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für zukünftige Ergebnisse. Dieser Beitrag dient ausschließlich der Bildung und ist keine Anlageberatung. Stand: August 2026.</div>
+
+  <p style="margin-top:32px;" data-en="Continue reading:">Weiterlesen:</p>
+  <ul>
+    <li><a href="rechner-index-renditen.html" data-en="→ Index Return Simulator: toggle indices, up to 35 years, with/without inflation">→ Index-Renditesimulator: Indizes an/aus, bis zu 35 Jahre, mit/ohne Inflation</a></li>
+    <li><a href="beitrag-msci-world-vs-ftse-all-world.html" data-en="→ MSCI World vs. FTSE All-World vs. ACWI — which world index actually includes what">→ MSCI World vs. FTSE All-World vs. ACWI — welcher Welt-Index deckt was ab</a></li>
+    <li><a href="beitrag-renditedreieck-rechner.html" data-en="→ Return triangle calculator: 15 asset classes compared (1973–2023)">→ Renditedreieck-Rechner: 15 Anlageklassen im Vergleich (1973–2023)</a></li>
+    <li><a href="beitrag-rendite-risiko.html" data-en="→ Return vs. risk: what's realistic long-term">→ Rendite vs. Risiko: was langfristig realistisch ist</a></li>
+    <li><a href="beitrag-vier-prozent-regel.html" data-en="→ The 4 % rule, explained">→ Die 4-Prozent-Regel erklärt</a></li>
+    <li><a href="beitrag-etf-sparplan-fuer-anfaenger.html" data-en="→ Which ETF? Beginner's guide with concrete recommendations">→ Welcher ETF? Anfängerleitfaden mit konkreten Empfehlungen</a></li>
+    <li><a href="rechner-zinseszins.html" data-en="→ Compound interest calculator">→ Zinseszinsrechner</a></li>
+  </ul>
+
+  <p><a href="von-zero-zum-hero.html" data-en="↑ Back to ZERO_TO_HERO">↑ Zurück zu ZERO_TO_HERO</a> · <a href="kat-finanzen-rendite.html" data-en="← All Return articles">← Alle Rendite-Artikel</a></p>
+
+  </div>
+</article>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken">
+      <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
+      <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
+    </div>
+    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a></span>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

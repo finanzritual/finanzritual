@@ -322,6 +322,25 @@ p{ margin:0 0 1em; color:var(--ink-soft); max-width:64ch; }
 }
 
 /* ============================= HEADER ============================= */
+/* ---------- Großes Logo-Band oberhalb der Menüzeile ----------
+   Zeigt die Crossword-Wortmarke groß und prominent, nur ganz oben auf
+   der Seite. Kollabiert beim Runterscrollen sanft auf 0 Höhe (siehe
+   onScroll in script.js) -- die darunterliegende, sticky positionierte
+   Menüzeile rueckt dadurch von selbst nach oben nach, kein zusaetzliches
+   JS zur Neupositionierung noetig. Gilt fuer Desktop UND Handy gleich. */
+.logo-band{
+  background:var(--bg); text-align:center; padding:20px 0;
+  overflow:hidden; max-height:170px;
+  transition:max-height .35s ease, padding .35s ease, opacity .3s ease;
+  opacity:1;
+}
+.logo-band.is-collapsed{ max-height:0; padding:0; opacity:0; }
+.logo-band-img{ height:88px; width:auto; display:inline-block; }
+@media (max-width:560px){
+  .logo-band{ padding:14px 0; }
+  .logo-band-img{ height:64px; }
+}
+
 header.site{
   position:sticky; top:0; z-index:40;
   background:color-mix(in srgb, var(--bg) 88%, transparent);
@@ -330,24 +349,60 @@ header.site{
      Wechselt zu grau sobald der Nutzer zu scrollen beginnt — per JS-Klasse
      .is-scrolled. Transition sorgt für einen weichen Farbübergang. */
   border-bottom:2px solid var(--green);
-  transition:border-color .35s ease;
+  transition:border-color .35s ease, transform .3s ease;
 }
 header.site.is-scrolled{
   border-bottom-color:var(--line);
+}
+/* Auf dem Handy verschwindet die Menüzeile beim Runterscrollen komplett
+   nach oben aus dem Bild, um mehr Platz für den Inhalt zu schaffen --
+   taucht beim Hochscrollen sofort wieder auf (siehe onScroll in script.js).
+   Nur unterhalb von 900px aktiv. */
+@media (max-width:900px){
+  header.site.is-hidden{ transform:translateY(-100%); }
 }
 .header-inner{
   display:flex; align-items:center; justify-content:space-between;
   gap:20px; padding:14px 24px; position:relative;
   max-width:var(--maxw); margin:0 auto;
 }
-.logo-mark{ display:inline-flex; align-items:flex-end; text-decoration:none; }
+/* Auf breiten Bildschirmen bleibt neben dem max-width-Container reichlich
+   Platz rechts frei. Die Icon-Leiste wird dort bewusst NICHT einfach im
+   Content-Bereich zentriert mitgezogen, sondern fix an die tatsaechliche
+   rechte Fensterkante verankert -- header.site (position:sticky) dient
+   als Bezugsrahmen, unabhaengig vom max-width-Container von .header-inner. */
+@media (min-width:1180px){
+  .header-controls{
+    position:fixed; right:24px; top:14px;
+  }
+}
+.logo-mark{ display:inline-flex; align-items:center; text-decoration:none; }
+/* Desktop: Crossword-Logo direkt in der kompakten Leiste, das alte
+   Text+Icon-Logo bleibt im Markup (fuer Barrierefreiheit/Fallback) aber
+   ausgeblendet -- kommt erst im mobilen Breakpoint weiter unten zurueck,
+   dort uebernimmt stattdessen das grosse Logo-Band die Wortmarke. */
 .logo-word{
   font-family:'Space Grotesk',sans-serif; font-weight:600;
   font-size:1.55rem; line-height:1; color:var(--blue); letter-spacing:-.01em;
-  white-space:nowrap;
+  white-space:nowrap; display:none;
 }
-.logo-l{ width:30px; height:auto; display:block; margin-left:1px; transform:translateY(-1px); flex:none; }
+.logo-l{ width:30px; height:auto; display:none; margin-left:1px; transform:translateY(-1px); flex:none; }
+.logo-crossword-img{ height:46px; width:auto; display:block; }
 #logo-btn{ cursor:pointer; }
+
+/* Logo-Umschaltung Desktop <-> Handy: oberhalb 900px (voller Nav sichtbar)
+   zeigt die kompakte Leiste das Crossword-Logo direkt, das grosse Band
+   bleibt aus. Unterhalb 900px (Hamburger-Modus) ist im Header wieder nur
+   das kleine Icon zu sehen, das grosse Crossword-Band oben uebernimmt
+   die Wortmarke -- fuer ein zweizeiliges Worträtsel-Logo ist in der
+   engen mobilen Leiste schlicht kein Platz. */
+@media (min-width:901px){
+  .logo-band{ display:none; }
+}
+@media (max-width:900px){
+  .logo-crossword-img{ display:none; }
+  .logo-l{ display:block; }
+}
 
 /* ---------- Secret Panel: per Doppelklick auf das Header-Logo ---------- */
 .fr-secret-panel{
@@ -401,7 +456,7 @@ header.site.is-scrolled{
 .logo-mark--lg .logo-word{ font-size:1.95rem; }
 .logo-mark--lg .logo-l{ width:38px; margin-left:2px; }
 
-nav.primary{ display:flex; gap:2px; }
+nav.primary{ display:flex; gap:2px; flex:1 1 auto; min-width:0; }
 nav.primary a{
   color:var(--ink-soft);
   font-size:.92rem;
@@ -429,20 +484,67 @@ nav.primary a.is-soon::after{ content:"·bald"; font-size:.65em; margin-left:4px
 
 .header-controls{ display:flex; align-items:center; gap:14px; }
 
-.control{ display:flex; align-items:center; gap:8px; }
-.control label{ font-size:.7rem; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; }
+.control{ display:flex; align-items:center; gap:8px; position:relative; }
+.control label{ display:none; }
+
+.search-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:none; border:none;
+  width:36px; height:36px; padding:0; cursor:pointer;
+  color:var(--ink-soft); transition:color .2s ease;
+  text-decoration:none; margin-left:10px; flex:none;
+}
+.search-toggle svg{ width:22px; height:22px; display:block; stroke-width:2.2; }
+.search-toggle:hover{ color:var(--blue); }
+
+/* Schwebende Lupe -- nur sichtbar auf dem Handy, wenn die Menüzeile
+   gerade ausgeblendet ist (siehe .is-visible-Umschaltung in script.js). */
+.search-float{
+  position:fixed; top:14px; right:14px; z-index:55;
+  width:38px; height:38px; border-radius:50%;
+  background:var(--bg-raised); border:1px solid var(--line-strong); box-shadow:var(--shadow);
+  display:none; align-items:center; justify-content:center; color:var(--ink-soft);
+  opacity:0; transform:translateY(-8px); transition:opacity .25s ease, transform .25s ease;
+  text-decoration:none;
+}
+.search-float svg{ width:17px; height:17px; }
+@media (max-width:900px){
+  .search-float.is-visible{ display:flex; opacity:1; transform:translateY(0); }
+}
 
 input[type="range"].font-slider{
-  width:76px; accent-color:var(--blue); cursor:pointer;
+  width:76px; height:4px; cursor:pointer; -webkit-appearance:none; appearance:none;
+  border-radius:2px; background:var(--line-strong);
+}
+input[type="range"].font-slider::-webkit-slider-runnable-track{
+  height:4px; border-radius:2px; background:transparent;
+}
+input[type="range"].font-slider::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none;
+  width:22px; height:22px; border-radius:50%;
+  background:#2454A6; border:none; margin-top:-9px; cursor:pointer;
+}
+input[type="range"].font-slider::-moz-range-track{
+  height:4px; border-radius:2px; background:transparent;
+}
+input[type="range"].font-slider::-moz-range-thumb{
+  width:22px; height:22px; border-radius:50%;
+  background:#2454A6; border:none; cursor:pointer;
+}
+.font-slider-thumb-label{
+  position:absolute; top:50%; pointer-events:none;
+  transform:translate(-50%,-50%);
+  font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700;
+  color:#fff; z-index:2; letter-spacing:-.02em;
 }
 
 .theme-toggle{
   display:inline-flex; align-items:center; justify-content:center;
-  background:var(--bg-raised); border:1px solid var(--line);
-  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+  border-radius:var(--radius-lg) 0 0 var(--radius-lg); width:34px; height:34px; padding:0; cursor:pointer;
   color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
 }
-.theme-toggle:hover{ border-color:var(--blue); color:var(--blue); }
+.theme-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
 .theme-toggle svg{ width:16px; height:16px; display:block; }
 /* Der Icon-Wrapper nutzt die generische .dot-Klasse (10x10px, für Legenden-Punkte
    gedacht), das SVG darin ist aber 16x16 – dadurch saß Sonne/Mond bisher sichtbar
@@ -455,35 +557,39 @@ input[type="range"].font-slider{
 
 .lang-toggle{
   display:inline-flex; align-items:center; justify-content:center;
-  background:var(--bg-raised); border:1px solid var(--line);
-  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+  border-radius:0 var(--radius-lg) var(--radius-lg) 0; width:34px; height:34px; padding:0; cursor:pointer;
   color:var(--ink-soft); font-family:'JetBrains Mono',monospace;
   font-size:.66rem; font-weight:600; letter-spacing:.02em;
   transition:border-color .2s ease, color .2s ease;
+  margin-left:-15px;
 }
-.lang-toggle:hover{ border-color:var(--blue); color:var(--blue); }
-.lang-toggle[aria-pressed="true"]{ border-color:var(--blue); color:var(--blue); }
+.lang-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
+.lang-toggle[aria-pressed="true"]{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
 
 .contrast-toggle{
   display:inline-flex; align-items:center; justify-content:center;
-  background:var(--bg-raised); border:1px solid var(--line);
-  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+  border-radius:0; width:34px; height:34px; padding:0; cursor:pointer;
   color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+  margin-left:-15px;
 }
 .contrast-toggle svg{ width:16px; height:16px; display:block; }
-.contrast-toggle:hover{ border-color:var(--blue); color:var(--blue); }
-.contrast-toggle[aria-pressed="true"]{ border-color:var(--green); color:var(--green); }
+.contrast-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
+.contrast-toggle[aria-pressed="true"]{ outline:1.5px solid var(--green); outline-offset:-1px; color:var(--green); position:relative; z-index:1; }
 
 .fullscreen-toggle{
   display:inline-flex; align-items:center; justify-content:center;
-  background:var(--bg-raised); border:1px solid var(--line);
-  border-radius:50%; width:34px; height:34px; padding:0; cursor:pointer;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+  border-radius:0; width:34px; height:34px; padding:0; cursor:pointer;
   color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+  margin-left:-15px;
 }
 .fullscreen-toggle svg{ width:16px; height:16px; display:block; }
-.fullscreen-toggle:hover{ border-color:var(--blue); color:var(--blue); }
-.fullscreen-toggle[aria-pressed="true"]{ border-color:var(--green); color:var(--green); }
+.fullscreen-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
+.fullscreen-toggle[aria-pressed="true"]{ outline:1.5px solid var(--green); outline-offset:-1px; color:var(--green); position:relative; z-index:1; }
 .fullscreen-toggle[hidden]{ display:none; }
+.fullscreen-toggle[hidden] + .lang-toggle{ margin-left:0; border-radius:var(--radius-lg); }
 
 .calc-link{
   display:inline-flex; align-items:center; justify-content:center;
@@ -599,9 +705,14 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
   background:var(--alert-bg); color:#fff;
   box-shadow:0 2px 10px rgba(0,0,0,.25);
   transform:translateY(-100%);
-  transition:transform .25s ease;
+  visibility:hidden;
+  transition:transform .25s ease, visibility 0s linear .25s;
 }
-.alert-banner.is-visible{ transform:translateY(0); }
+.alert-banner.is-visible{
+  transform:translateY(0);
+  visibility:visible;
+  transition:transform .25s ease, visibility 0s linear 0s;
+}
 .alert-banner-inner{
   max-width:1200px; margin:0 auto; padding:10px 16px;
   display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -634,9 +745,14 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
   background:var(--blue); color:#fff;
   box-shadow:0 2px 12px rgba(0,0,0,.25);
   transform:translateY(-100%);
-  transition:transform .35s cubic-bezier(.22,.68,0,1.2);
+  visibility:hidden;
+  transition:transform .35s cubic-bezier(.22,.68,0,1.2), visibility 0s linear .35s;
 }
-.info-banner.is-visible{ transform:translateY(0); }
+.info-banner.is-visible{
+  transform:translateY(0);
+  visibility:visible;
+  transition:transform .35s cubic-bezier(.22,.68,0,1.2), visibility 0s linear 0s;
+}
 .info-banner-inner{
   max-width:1200px; margin:0 auto; padding:13px 16px;
   display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -691,8 +807,11 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
 
 /* ---------- Easter-Egg-Button neben Sonne/Mond: zeigt den Banner testweise, ohne ihn scharf zu schalten ---------- */
 .alert-test-btn{
+  display:none; /* global ausgeblendet auf User-Wunsch — reine Spielerei,
+    keine echte Nutzer-Funktion, nur zum Vorschau-Testen der Warnbanner
+    gedacht. Einfach diese Zeile entfernen, um ihn wieder einzublenden. */
   width:30px; height:30px; border-radius:50%; border:1px solid var(--line);
-  background:transparent; display:flex; align-items:center; justify-content:center;
+  background:transparent; align-items:center; justify-content:center;
   cursor:pointer;
 }
 .alert-test-btn:hover{ border-color:var(--alert-bg); }
@@ -786,6 +905,47 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
 
 @media (max-width:560px){
   .scroll-top-btn{ width:40px; height:40px; right:14px; bottom:14px; }
+}
+
+/* ---------- Header-Controls auf schmalen Handy-Breiten kompaktieren ----------
+   Alle Icons nebeneinander (Regler, 4 Quadrate, roter Punkt, Hamburger)
+   passen unterhalb von ~560px nicht mehr in die verfuegbare Breite neben
+   dem Logo -- gemessen: bis zu 179px Ueberstand bei 360px Viewport-Breite.
+   Kontrast- und Vollbild-Toggle sind auf dem Handy am wenigsten essentiell
+   (Kontrast laesst sich meist ueber OS-Einstellungen abdecken, Vollbild-API
+   ist auf iOS ohnehin nicht verfuegbar) und wandern hier raus, dazu kleinere
+   Abstaende und ein schmalerer Regler. */
+@media (max-width:560px){
+  .header-controls{ gap:4px; }
+  input[type="range"].font-slider{ width:36px; }
+  .control{ gap:2px; }
+  .theme-toggle, .contrast-toggle, .fullscreen-toggle, .lang-toggle{ width:29px !important; height:29px !important; }
+  .theme-toggle svg, .contrast-toggle svg, .fullscreen-toggle svg{ width:14px !important; height:14px !important; }
+  .theme-toggle .dot{ width:14px !important; height:14px !important; }
+  /* Lupe raus aus der staendig sichtbaren mobilen Leiste -- spart Platz,
+     die schwebende Lupe (.search-float) uebernimmt diese Aufgabe schon,
+     sobald der Header beim Scrollen verschwindet. */
+  .search-toggle{ display:none !important; }
+  /* Die verbundenen Quadrate (Kontrast/Vollbild/EN) hatten ihre negativen
+     Raender noch von der Desktop-Groesse (34px Buttons, 14px Luecke) --
+     bei den kleineren mobilen 29px-Buttons und der auf 4px reduzierten
+     Luecke ueberkorrigierte das und liess die Quadrate ineinander rutschen.
+     Hier auf die tatsaechliche mobile Luecke neu kalibriert. */
+  .contrast-toggle, .fullscreen-toggle, .lang-toggle{ margin-left:-4px !important; }
+  /* Hamburger: groesser, ohne Kasten-Rahmen -- wie in den meisten Apps
+     ein reines, gut erkennbares Icon statt eines umrandeten Buttons,
+     dazu deutlich mehr Abstand zur Icon-Leiste, damit man beim Tippen
+     nicht aus Versehen "EN" danaben trifft. Echte Flex-Zentrierung statt
+     nur line-height, damit das Zeichen exakt mittig zur Leiste sitzt. */
+  .nav-toggle{
+    width:34px !important; height:34px !important; font-size:1.4rem !important; font-weight:700 !important;
+    border:none !important; background:none !important; padding:0 !important;
+    margin-left:18px; line-height:1;
+    display:flex !important; align-items:center; justify-content:center;
+  }
+}
+@media (max-width:340px){
+  .nav-toggle{ margin-left:12px !important; }
 }
 
 /* ============================= CALCULATOR ============================= */
@@ -936,11 +1096,27 @@ a.cat-row-cover:hover{ border-color:var(--green); }
   border:1px solid var(--line); border-radius:var(--radius-lg);
   padding:22px 28px; background:linear-gradient(120deg, var(--blue-soft), transparent 60%);
 }
-.ebook-strip form{ display:flex; gap:8px; }
+.ebook-strip form{ display:flex; gap:8px; flex-wrap:wrap; }
 .ebook-strip input[type="email"]{
   padding:10px 12px; border-radius:var(--radius); border:1px solid var(--line-strong);
   background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; min-width:220px;
+  flex:1 1 220px;
 }
+@media (max-width:480px){
+  .ebook-strip input[type="email"]{ min-width:0; flex-basis:100%; }
+  .ebook-strip form{ width:100%; }
+}
+
+.coffee-strip{
+  display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  border:1px solid var(--coffee-line); border-radius:var(--radius-lg);
+  padding:20px 28px; margin-top:14px;
+  background:linear-gradient(120deg, var(--coffee-soft), transparent 65%);
+}
+.coffee-strip .fr-coffee-cup{ flex:0 0 auto; }
+.coffee-strip .fr-coffee-cup svg{ width:30px; height:30px; }
+.coffee-strip-text{ flex:1 1 320px; margin:0; font-size:.86rem; line-height:1.55; color:var(--ink-soft); }
+.coffee-strip .fr-coffee-btn{ flex:0 0 auto; margin:0; }
 
 /* ============================= FOOTER ============================= */
 footer.site{ padding:48px 0 32px; }
@@ -961,10 +1137,11 @@ footer.site{ padding:48px 0 32px; }
 .social-links--compact a{ width:26px; height:26px; }
 .social-links--compact svg{ width:13px; height:13px; }
 
-.footer-newsletter{ display:flex; flex-direction:column; gap:8px; }
+.footer-newsletter{ display:flex; flex-direction:column; gap:8px; min-width:0; }
 .footer-newsletter input[type="email"]{
   padding:10px 12px; border-radius:var(--radius); border:1px solid var(--line-strong);
   background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; font-size:.85rem;
+  width:100%; box-sizing:border-box;
 }
 .footer-newsletter .btn{ justify-content:center; padding:9px 16px; font-size:.82rem; }
 .footer-bottom{
@@ -972,14 +1149,63 @@ footer.site{ padding:48px 0 32px; }
   display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
   font-size:.78rem; color:var(--ink-soft);
 }
+
+/* Automatisch generierte "Aehnliche Artikel"-Box, siehe
+   frInitRelatedArticles() in script.js. Bewusst dezenter als die
+   handverlesenen "Verwandt"-Boxen (grau statt farbig), damit klar
+   bleibt: das hier ist eine automatische Empfehlung, keine bewusste
+   redaktionelle Auswahl. */
+.fr-related-auto{
+  margin-top:28px; padding:16px 18px; border-radius:var(--radius);
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.fr-related-auto-label{
+  font-family:'JetBrains Mono',monospace; font-size:.68rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);
+  margin:0 0 10px;
+}
+.fr-related-auto-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+.fr-related-auto-list a{ font-size:.88rem; }
+
+/* Lektions-Navigation fuer zusammenhaengende Artikel-Serien (z.B. die
+   Freelancer-Konten-Reihe). Badge oben zur Orientierung, auffaelliger
+   Button am Ende haelt Leser im "Flow" statt sie nach dem Artikel
+   verloren gehen zu lassen -- Vorschlag aus dem Word-Dokument, den der
+   User ausdruecklich gut fand. */
+.fr-lesson-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--green);
+  background:var(--green-soft); padding:5px 10px; border-radius:20px;
+  margin-bottom:10px;
+}
+.fr-lesson-next{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  margin-top:28px; padding:18px 22px; border-radius:var(--radius);
+  background:var(--green); color:#08170F; text-decoration:none;
+  transition:transform .15s ease;
+}
+.fr-lesson-next:hover{ transform:translateY(-1px); text-decoration:none; }
+.fr-lesson-next-label{ font-size:.7rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.75; display:block; margin-bottom:4px; }
+.fr-lesson-next-title{ font-size:1.05rem; font-weight:700; color:inherit; }
+.fr-lesson-next-arrow{ font-size:1.6rem; flex:none; }
+/* --green ist nur im Hell-Modus mit hohem Kontrast dunkel (fuer Text auf
+   Weiss gedacht) -- als Button-Hintergrund wiederverwendet, braucht es
+   dort hellen statt dunklen Text. Gleiche Logik wie bei .btn-green oben. */
+html[data-theme="light"][data-contrast="high"] .fr-lesson-next{ color:#FFFFFF; }
+
 .disclaimer-box{
   margin-top:28px; padding:16px 18px; border-left:3px solid var(--green);
-  background:var(--green-soft); font-size:calc(.8rem * var(--step-user)); color:var(--ink-soft); border-radius:0 var(--radius) var(--radius) 0;
+  background:#D9F0E1; font-size:calc(.8rem * var(--step-user)); color:var(--ink-soft); border-radius:0 var(--radius) var(--radius) 0;
+  box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);
+  max-width:720px;
 }
+[data-theme="dark"] .disclaimer-box{ background:#173828; box-shadow:none; }
 
 .footer-about-note{
   margin-top:28px; padding:16px 18px; border-left:3px solid var(--blue);
   background:var(--blue-soft); border-radius:0 var(--radius) var(--radius) 0;
+  max-width:720px;
 }
 .footer-about-note h4{
   font-size:calc(.78rem * var(--step-user)); text-transform:uppercase; letter-spacing:.08em;
@@ -1098,7 +1324,11 @@ footer.site{ padding:48px 0 32px; }
 @media (max-width: 560px){
   .shop-grid{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr 1fr; }
+  .footer-grid > *{ min-width:0; }
   .header-controls .control label{ display:none; }
+}
+@media (max-width:420px){
+  .footer-grid{ grid-template-columns:1fr; }
 }
 
 /* ============================================================
@@ -1239,7 +1469,7 @@ html[data-theme="dark"] body{ font-weight:400; }
   color:var(--ink-soft); letter-spacing:.02em;
 }
 
-/* Dampf steigt erst beim Hover auf – sonst zu unruhig im Panel */
+/* Dampf steigt beim Hover auf – sonst zu unruhig im Panel/in der Coffee-Strip-Box */
 .fr-steam{ opacity:0; transform-origin:center bottom; }
 .fr-coffee-btn:hover .fr-steam{ animation:fr-steam-rise 2s ease-in-out infinite; }
 .fr-coffee-btn:hover .fr-steam-2{ animation-delay:.3s; }
@@ -1250,6 +1480,13 @@ html[data-theme="dark"] body{ font-weight:400; }
   100% { opacity:0;  transform:translateY(-3px) scaleY(1.15); }
 }
 
+/* Die rechte, mitlaufende (schwebende) Kaffeetasse dampft dauerhaft,
+   nicht erst bei Hover -- sie ist klein und weit genug vom Fließtext
+   entfernt, dass es nicht unruhig wirkt. */
+.fr-coffee-float .fr-steam{ animation:fr-steam-rise 2s ease-in-out infinite; }
+.fr-coffee-float .fr-steam-2{ animation-delay:.3s; }
+.fr-coffee-float .fr-steam-3{ animation-delay:.6s; }
+
 /* Button ohne hinterlegten Link: sichtbar, aber klar inaktiv */
 .fr-coffee-btn.is-disabled{
   opacity:.5; cursor:not-allowed; pointer-events:none; filter:grayscale(.5);
@@ -1259,6 +1496,34 @@ html[data-theme="dark"] body{ font-weight:400; }
   .fr-coffee-btn{ transition:none; }
   .fr-coffee-btn:hover{ transform:none; }
   .fr-coffee-btn:hover .fr-steam{ animation:none; opacity:.7; }
+  .fr-coffee-float .fr-steam{ animation:none; opacity:.7; }
+}
+
+/* ---------- Schwebender Kaffee-Button (erscheint erst am Textende) ----------
+   Teilt die Klasse .fr-coffee-btn mit dem Panel-Button (fuer Link-Setup /
+   Deaktiviert-Zustand in frInitKaffeeButton()), braucht aber ein komplett
+   anderes Layout (rund, fix positioniert statt Listenzeile im Panel).
+   Muss NACH der .fr-coffee-btn-Basis stehen und jede geteilte Eigenschaft
+   (margin, padding, background, border, border-radius) explizit
+   ueberschreiben, sonst gewinnt bei gleicher Spezifitaet die spaeter
+   stehende Basisregel und verschiebt den Kreis sichtbar aus der Flucht. */
+.fr-coffee-float{
+  position:fixed !important; right:20px !important; bottom:74px; left:auto; top:auto; z-index:60;
+  width:44px !important; height:44px !important; margin:0 !important; padding:0 !important;
+  border-radius:50% !important; gap:0;
+  background:var(--bg-raised) !important; border:1px solid var(--line) !important; box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:center; color:var(--coffee);
+  cursor:pointer; opacity:0; visibility:hidden; transform:translateY(8px) scale(.9);
+  transition:opacity .25s ease, transform .25s ease, border-color .2s ease;
+  text-decoration:none;
+}
+.fr-coffee-float.is-visible{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+.fr-coffee-float:hover{ transform:translateY(0) scale(1); border-color:var(--coffee) !important; box-shadow:var(--shadow); }
+.fr-coffee-float .fr-coffee-cup{ width:20px; height:20px; }
+.fr-coffee-float .fr-coffee-cup svg{ width:20px; height:20px; }
+.fr-coffee-float.is-disabled{ cursor:default; opacity:.5 !important; filter:none; }
+@media (max-width:560px){
+  .fr-coffee-float{ width:40px !important; height:40px !important; right:14px !important; bottom:74px; }
 }
 
 /* ============================================================
