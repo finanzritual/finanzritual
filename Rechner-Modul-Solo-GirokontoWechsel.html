@@ -1,0 +1,134 @@
+<!-- ===== Rechner-Modul: Girokonto-Wechsel-Ersparnis =====
+     Automatisch aus beitrag-girokonto-vergleich.html extrahiert (V883).
+     Vergleicht Ersparnis beim Wechsel zu einem gebuehrenfreien Konto:
+     ersparte Kontofuehrungsgebuehr + zusaetzliche Zinsertraege = Gesamt-
+     ersparnis. Globale CSS-Variablen, keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.gk-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.gk-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .gk-calc-inputs{ grid-template-columns:1fr; } }
+.gk-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.gk-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.gk-result-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:700px){ .gk-result-grid{ grid-template-columns:1fr; } }
+.gk-result-card{ border-radius:12px; padding:16px 18px; text-align:center; }
+.gk-result-card--fee{ background:rgba(192,57,43,.08); border:1px solid rgba(192,57,43,.25); }
+.gk-result-card--zins{ background:rgba(36,84,166,.08); border:1px solid rgba(36,84,166,.25); }
+.gk-result-card--total{ background:rgba(30,142,90,.1); border:1px solid rgba(30,142,90,.25); }
+.gk-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.gk-result-sub{ font-size:.68rem; color:var(--ink-soft); margin-top:4px; }
+.gk-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.4rem; }
+.gk-result-card--fee .gk-result-value{ color:#c0392b; }
+.gk-result-card--zins .gk-result-value{ color:var(--blue); }
+.gk-result-card--total .gk-result-value{ color:var(--green); }
+</style>
+<div class="gk-calc" id="gk-calc">
+<div class="gk-calc-inputs">
+<div class="row">
+<label for="gk-gebuehr"><span data-en="Current monthly account fee">Aktuelle monatliche Kontoführungsgebühr</span> <span class="val" id="gk-gebuehr-val">7,90 €</span></label>
+<input class="calc-slider" id="gk-gebuehr" max="20" min="0" step="0.5" type="range" value="7.9"/>
+</div>
+<div class="row">
+<label for="gk-guthaben"><span data-en="Average balance on the account">Durchschnittliches Guthaben auf dem Konto</span> <span class="val" id="gk-guthaben-val">3.000 €</span></label>
+<input class="calc-slider" id="gk-guthaben" max="15000" min="500" step="250" type="range" value="3000"/>
+</div>
+<div class="row">
+<label for="gk-zins"><span data-en="Interest rate at the new account p. a.">Zinssatz beim neuen Konto p. a.</span> <span class="val" id="gk-zins-val">2⁠%</span></label>
+<input class="calc-slider" id="gk-zins" max="3" min="0" step="0.25" type="range" value="2"/>
+</div>
+<div class="row">
+<label for="gk-jahre"><span data-en="Time horizon">Betrachtungszeitraum</span> <span class="val" id="gk-jahre-val">10 Jahre</span></label>
+<input class="calc-slider" id="gk-jahre" max="20" min="1" step="1" type="range" value="10"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not a financing offer. Assumes a constant fee, constant average balance, and constant interest rate over the whole period, and does not account for taxes (Kapitalertragsteuer) on the interest earned.">Vereinfachte Beispielrechnung, kein Angebot. Geht von konstanter Gebühr, konstantem Durchschnittsguthaben und konstantem Zinssatz über den gesamten Zeitraum aus und berücksichtigt keine Kapitalertragsteuer auf die Zinserträge.</p>
+<div class="gk-result-grid">
+<div class="gk-result-card gk-result-card--fee">
+<div class="gk-result-label" data-en="Fees saved">Ersparte Kontoführung</div>
+<div class="gk-result-value" id="gk-result-fee">–</div>
+<div class="gk-result-sub" data-en="over the whole period">über den gesamten Zeitraum</div>
+</div>
+<div class="gk-result-card gk-result-card--zins">
+<div class="gk-result-label" data-en="Interest earned">Zusätzliche Zinserträge</div>
+<div class="gk-result-value" id="gk-result-zins">–</div>
+<div class="gk-result-sub" data-en="before tax, on the balance">vor Steuern, auf das Guthaben</div>
+</div>
+<div class="gk-result-card gk-result-card--total">
+<div class="gk-result-label" data-en="Total benefit">Gesamtersparnis</div>
+<div class="gk-result-value" id="gk-result-total">–</div>
+<div class="gk-result-sub" data-en="fees + interest combined">Gebühr + Zinsen zusammen</div>
+</div>
+</div>
+</div>
+<script>
+(function(){
+  const gebuehrEl = document.getElementById('gk-gebuehr');
+  const guthabenEl = document.getElementById('gk-guthaben');
+  const zinsEl = document.getElementById('gk-zins');
+  const jahreEl = document.getElementById('gk-jahre');
+  if(!gebuehrEl) return;
+
+  const gebuehrVal = document.getElementById('gk-gebuehr-val');
+  const guthabenVal = document.getElementById('gk-guthaben-val');
+  const zinsVal = document.getElementById('gk-zins-val');
+  const jahreVal = document.getElementById('gk-jahre-val');
+
+  const resultFee = document.getElementById('gk-result-fee');
+  const resultZins = document.getElementById('gk-result-zins');
+  const resultTotal = document.getElementById('gk-result-total');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtPct(p){
+    const s = p.toFixed(2).replace(/0$/, '').replace(/\.$/, '');
+    return isEn() ? s : s.replace('.', ',');
+  }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+  function fmtEUR2(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
+    return (en ? '€' : '') + fmt.format(v) + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+    const gebuehr = parseFloat(gebuehrEl.value);
+    const guthaben = parseFloat(guthabenEl.value);
+    const zins = parseFloat(zinsEl.value);
+    const jahre = parseInt(jahreEl.value, 10);
+
+    gebuehrVal.textContent = fmtEUR2(gebuehr);
+    guthabenVal.textContent = fmtEUR(guthaben);
+    zinsVal.textContent = fmtPct(zins) + '%';
+    jahreVal.textContent = jahre + (en ? (jahre === 1 ? ' year' : ' years') : ' Jahre');
+
+    const feeSaved = gebuehr * 12 * jahre;
+    const interestEarned = guthaben * (zins / 100) * jahre;
+    const total = feeSaved + interestEarned;
+
+    resultFee.textContent = fmtEUR(feeSaved);
+    resultZins.textContent = fmtEUR(interestEarned);
+    resultTotal.textContent = fmtEUR(total);
+  }
+
+  [gebuehrEl, guthabenEl, zinsEl, jahreEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

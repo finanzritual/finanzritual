@@ -1,0 +1,105 @@
+<!-- ===== Rechner-Modul: Anlage-KAP-Guenstigerpruefung =====
+     Automatisch aus beitrag-anlage-kap.html extrahiert (V879).
+     Grenzsteuersatz-Schaetzung + moegliche Erstattung ueber die
+     Guenstigerpruefung. WICHTIGE ABHAENGIGKEIT: nutzt FR_CONFIG.
+     abgeltungssteuer_effektiv (zentral in script.js gepflegt, aktuell
+     '26,375' %) statt eines fest codierten Werts -- funktioniert
+     automatisch korrekt auf jeder Seite, die script.js einbindet, da
+     FR_CONFIG global definiert ist. Kein zusaetzliches Setup noetig,
+     aber gut zu wissen, falls sich der Wert je aendert. -->
+<style>
+.kap-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.kap-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .kap-calc-inputs{ grid-template-columns:1fr; } }
+.kap-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.kap-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.kap-calc-results{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; }
+@media (max-width:640px){ .kap-calc-results{ grid-template-columns:1fr; } }
+.kap-calc-result{ border-radius:12px; padding:16px 18px; text-align:center; background:var(--bg); border:1px solid var(--line); }
+.kap-calc-result .lbl{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.kap-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; }
+.kap-calc-result--rate .num{ color:var(--blue); }
+.kap-calc-result--refund .num{ color:var(--green); }
+</style>
+<div class="kap-calc" id="kap-calc">
+<div class="kap-calc-inputs">
+<div class="row">
+<label for="kap-income"><span data-en="Taxable annual income">Zu versteuerndes Jahreseinkommen</span> <span class="val" id="kap-income-val">20.000 €</span></label>
+<input class="calc-slider" id="kap-income" max="100000" min="10000" step="1000" type="range" value="20000"/>
+</div>
+<div class="row">
+<label for="kap-kapital"><span data-en="Capital gains above the allowance">Kapitalertrag über dem Freibetrag</span> <span class="val" id="kap-kapital-val">500 €</span></label>
+<input class="calc-slider" id="kap-kapital" max="5000" min="0" step="100" type="range" value="500"/>
+</div>
+</div>
+<p class="calc-note" data-en="Marginal-rate estimate for single filers, tax year 2025 (filed 2026), Grundtabelle, based on the official zone boundaries. Does not include church tax and simplifies the solidarity surcharge. For your exact figure, use ELSTER or tax software – this is a rough orientation only.">Grenzsteuersatz-Schätzung für Alleinstehende, Steuerjahr 2025 (Anlage KAP 2026), Grundtabelle, auf Basis der offiziellen Zonengrenzen. Ohne Kirchensteuer, Solidaritätszuschlag vereinfacht. Für die exakte Zahl ELSTER oder eine Steuersoftware nutzen — das hier ist nur eine grobe Orientierung.</p>
+<div class="kap-calc-results">
+<div class="kap-calc-result kap-calc-result--rate">
+<div class="lbl" data-en="Estimated marginal rate">Geschätzter Grenzsteuersatz</div>
+<div class="num" id="kap-rate">–</div>
+</div>
+<div class="kap-calc-result kap-calc-result--refund">
+<div class="lbl" data-en="Possible refund via Günstigerprüfung">Möglicher Erstattungsbetrag</div>
+<div class="num" id="kap-refund">–</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const incomeEl = document.getElementById('kap-income');
+  const kapitalEl = document.getElementById('kap-kapital');
+  const incomeVal = document.getElementById('kap-income-val');
+  const kapitalVal = document.getElementById('kap-kapital-val');
+  const rateEl = document.getElementById('kap-rate');
+  const refundEl = document.getElementById('kap-refund');
+  if(!incomeEl) return;
+
+  // Tarifzonen 2025 (Grundtabelle, Alleinstehende), § 32a EStG
+  function grenzsteuersatz(zve){
+    if(zve <= 12096) return 0;
+    if(zve <= 17443) return 14 + (24-14) * (zve-12096)/(17443-12096);
+    if(zve <= 66760) return 24 + (42-24) * (zve-17443)/(66760-17443);
+    if(zve <= 277825) return 42;
+    return 45;
+  }
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEuro(n){
+    const en = isEn();
+    const s = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 }).format(Math.round(n));
+    return en ? ('€' + s) : (s + '\u00A0€');
+  }
+
+  function compute(){
+    const income = parseFloat(incomeEl.value);
+    const kapital = parseFloat(kapitalEl.value);
+    incomeVal.textContent = fmtEuro(income);
+    kapitalVal.textContent = fmtEuro(kapital);
+
+    const rate = grenzsteuersatz(income);
+    rateEl.textContent = rate.toFixed(1).replace('.', isEn() ? '.' : ',') + '%';
+
+    const ABGELTUNG = parseFloat(FR_CONFIG.abgeltungssteuer_effektiv.replace(',', '.')); // 25% + 5,5% Soli darauf, zentral in FR_CONFIG gepflegt
+    const diff = ABGELTUNG - rate;
+    const refund = diff > 0 ? kapital * (diff/100) : 0;
+    refundEl.textContent = fmtEuro(refund);
+  }
+
+  incomeEl.addEventListener('input', compute);
+  kapitalEl.addEventListener('input', compute);
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+  compute();
+});
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

@@ -1,0 +1,139 @@
+<!-- ===== Rechner-Modul: Second-Hand-Ersparnis =====
+     Automatisch aus beitrag-second-hand-nachhaltigkeit.html extrahiert
+     (V888). Rechnet moegliche Ersparnis durch Second-Hand/Vintage-Anteil
+     an Kleidung/Moebel-Ausgaben hoch, plus 10-Jahres-Investitions-
+     projektion. Globale CSS-Variablen inkl. [data-theme="dark"]. Keine
+     FR_CONFIG-Abhaengigkeit. -->
+<style>
+.sh-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.sh-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.sh-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.sh-result-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:640px){ .sh-result-grid{ grid-template-columns:1fr; } }
+.sh-result-card{ border-radius:12px; padding:calc(16px * var(--step-user)) calc(18px * var(--step-user)); text-align:center; background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .sh-result-card{ background:#173828;  box-shadow:none;}
+.sh-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.sh-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.5rem; color:var(--green); }
+
+.sh-diff-box{
+  margin:24px 0 4px; padding:20px 22px; border-radius:14px; text-align:center;
+  background:var(--blue-soft);
+}
+.sh-diff-box .big{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.8rem; color:var(--blue); }
+.sh-diff-box .label{ font-size:.78rem; color:var(--ink-soft); margin-top:4px; }
+
+.sh-insight-box{
+  margin:22px 0; padding:20px 22px; border-radius:14px;
+  background:var(--blue-soft); border-left:3px solid var(--blue);
+}
+</style>
+<div class="sh-calc" id="sh-calc">
+<div class="sh-calc-inputs">
+<div class="row">
+<label for="sh-spend"><span data-en="Monthly spend on clothing/furniture/decor">Monatliche Ausgaben für Kleidung/Möbel/Deko</span> <span class="val" id="sh-spend-val">100 €</span></label>
+<input class="calc-slider" id="sh-spend" max="300" min="20" step="10" type="range" value="100"/>
+</div>
+<div class="row">
+<label for="sh-share"><span data-en="Share shifted to second-hand/vintage">Anteil auf Second-Hand/Vintage umgestellt</span> <span class="val" id="sh-share-val">40⁠%</span></label>
+<input class="calc-slider" id="sh-share" max="100" min="0" step="5" type="range" value="40"/>
+</div>
+<div class="row">
+<label for="sh-discount"><span data-en="Typical price advantage vs. new">Typischer Preisvorteil ggü. Neupreis</span> <span class="val" id="sh-discount-val">50⁠%</span></label>
+<input class="calc-slider" id="sh-discount" max="70" min="20" step="5" type="range" value="50"/>
+</div>
+</div>
+<p class="calc-note" data-en="Purely illustrative – a tool to play with your own assumptions, not a claim about what you personally spend or what discount you'll actually find. Real second-hand prices vary widely by item and condition.">Rein illustrativ — ein Werkzeug, um mit deinen eigenen Annahmen zu spielen, keine Aussage darüber, was du tatsächlich ausgibst oder welchen Rabatt du wirklich findest. Reale Second-Hand-Preise schwanken stark je nach Artikel und Zustand.</p>
+<div class="sh-result-grid">
+<div class="sh-result-card">
+<div class="sh-result-label" data-en="Possible savings per month">Mögliche Ersparnis pro Monat</div>
+<div class="sh-result-value" id="sh-result-monthly">–</div>
+</div>
+<div class="sh-result-card">
+<div class="sh-result-label" data-en="Possible savings per year">Mögliche Ersparnis pro Jahr</div>
+<div class="sh-result-value" id="sh-result-yearly">–</div>
+</div>
+</div>
+<div class="sh-diff-box">
+<div class="big" id="sh-result-invested">–</div>
+<div class="label" data-en="if invested monthly for 10 years at 5⁠% real return">wenn monatlich 10 Jahre lang bei 5⁠% realer Rendite investiert</div>
+</div>
+</div>
+<h2 data-en="Why older furniture often wins on durability, too">Warum ältere Möbel auch bei der Haltbarkeit oft gewinnen</h2>
+<p data-en="This isn't only about the purchase price. Furniture built a few decades ago was frequently made with solid wood, real joinery, and materials meant to be reassembled if you ever move. A lot of mass-market flat-pack furniture, by contrast, is designed for exactly one assembly – take it apart to move house, and the particleboard connections often don't survive a second build. An older, well-made piece can outlast several generations of cheaper replacements, which makes it cheaper again in the long run, on top of the lower price you paid for it.">Es geht nicht nur um den Kaufpreis. Möbel, die vor einigen Jahrzehnten gebaut wurden, bestanden häufig aus Massivholz, echten Verbindungen und Materialien, die für einen erneuten Aufbau gedacht waren. Viel Massenware-Flatpack-Möbel dagegen ist für genau einen Aufbau ausgelegt — nimmt man es für einen Umzug auseinander, überleben die Spanplatten-Verbindungen oft keinen zweiten Aufbau. Ein älteres, gut gebautes Stück kann mehrere Generationen billigerer Ersatzkäufe überdauern, was es langfristig noch einmal günstiger macht, zusätzlich zum niedrigeren Preis, den man dafür bezahlt hat.</p>
+<script>
+(function(){
+  const spendEl = document.getElementById('sh-spend');
+  if(!spendEl) return;
+  const shareEl = document.getElementById('sh-share');
+  const discountEl = document.getElementById('sh-discount');
+
+  const spendVal = document.getElementById('sh-spend-val');
+  const shareVal = document.getElementById('sh-share-val');
+  const discountVal = document.getElementById('sh-discount-val');
+
+  const resultMonthly = document.getElementById('sh-result-monthly');
+  const resultYearly = document.getElementById('sh-result-yearly');
+  const resultInvested = document.getElementById('sh-result-invested');
+
+  const REAL_RETURN = 0.05; /* 5% reale Rendite p.a., feste Annahme */
+  const YEARS = 10;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function fmtEUR(val, en){
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(val)) + (en ? '' : '\u00A0€');
+  }
+
+  function futureValueMonthly(pmt, annualRate, years){
+    const rMonthly = Math.pow(1 + annualRate, 1/12) - 1;
+    const n = years * 12;
+    if(rMonthly === 0) return pmt * n;
+    return pmt * ((Math.pow(1 + rMonthly, n) - 1) / rMonthly);
+  }
+
+  function compute(){
+    const en = isEn();
+
+    const spend = parseFloat(spendEl.value);
+    const sharePct = parseFloat(shareEl.value);
+    const discountPct = parseFloat(discountEl.value);
+
+    spendVal.textContent = fmtEUR(spend, en);
+    shareVal.textContent = sharePct + '%';
+    discountVal.textContent = discountPct + '%';
+
+    const monthly = spend * (sharePct / 100) * (discountPct / 100);
+    const yearly = monthly * 12;
+    const invested = futureValueMonthly(monthly, REAL_RETURN, YEARS);
+
+    resultMonthly.textContent = fmtEUR(monthly, en);
+    resultYearly.textContent = fmtEUR(yearly, en);
+    resultInvested.textContent = fmtEUR(invested, en);
+  }
+
+  spendEl.addEventListener('input', compute);
+  shareEl.addEventListener('input', compute);
+  discountEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

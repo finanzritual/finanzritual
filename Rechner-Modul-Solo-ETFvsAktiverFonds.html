@@ -1,0 +1,155 @@
+<!-- ===== Rechner-Modul: ETF-vs-Aktiver-Fonds-Kostenvergleich =====
+     Automatisch aus beitrag-etf-sparplan.html extrahiert (V883).
+     Vergleicht Endkapital ETF (feste 0,20% TER) vs. aktiver Fonds
+     (einstellbare TER) bei gleicher Sparrate/Rendite/Laufzeit. HINWEIS:
+     Im Original-Artikel verwenden zwei umgebende, NICHT zum Rechner
+     gehoerige Elemente (Diagramm-Anmerkung + Insight-Box) das CSS-Praefix
+     "hk-*" statt "et-*" -- vermutlich wiederverwendetes Styling aus dem
+     Erste-100k-Artikel. Bewusst NICHT mit uebernommen, da statischer
+     Begleittext, kein Teil des interaktiven Widgets. Globale CSS-
+     Variablen, keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.et-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.et-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .et-calc-inputs{ grid-template-columns:1fr; } }
+.et-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.et-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.et-result-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:640px){ .et-result-grid{ grid-template-columns:1fr; } }
+.et-result-card{ border-radius:12px; padding:16px 18px; text-align:center; }
+.et-result-card--etf{ background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .et-result-card--etf{ background:#173828;  box-shadow:none;}
+.et-result-card--active{ background:rgba(192,57,43,.08); border:1px solid rgba(192,57,43,.25); }
+.et-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.et-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.5rem; }
+.et-result-card--etf .et-result-value{ color:var(--green); }
+.et-result-card--active .et-result-value{ color:#c0392b; }
+
+.et-diff-box{
+  margin-top:16px; padding:16px 20px; border-radius:12px;
+  background:var(--blue-soft); text-align:center;
+}
+.et-diff-box .big{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.6rem; color:var(--blue); }
+.et-diff-box .label{ font-size:.78rem; color:var(--ink-soft); }
+</style>
+<div class="et-calc" id="et-calc">
+<div class="et-calc-inputs">
+<div class="row">
+<label for="et-rate"><span data-en="Monthly savings rate">Monatliche Sparrate</span> <span class="val" id="et-rate-val">400 €</span></label>
+<input class="calc-slider" id="et-rate" max="2000" min="50" step="50" type="range" value="400"/>
+</div>
+<div class="row">
+<label for="et-return"><span data-en="Expected return p.a. (before costs)">Erwartete Rendite p.a. (vor Kosten)</span> <span class="val" id="et-return-val">7⁠%</span></label>
+<input class="calc-slider" id="et-return" max="9" min="4" step="0.5" type="range" value="7"/>
+</div>
+<div class="row">
+<label for="et-years"><span data-en="Investment horizon">Anlagedauer</span> <span class="val" id="et-years-val">25 Jahre</span></label>
+<input class="calc-slider" id="et-years" max="40" min="5" step="1" type="range" value="25"/>
+</div>
+<div class="row">
+<label for="et-ter-active"><span data-en="Active fund TER">TER aktiver Fonds</span> <span class="val" id="et-ter-active-val">1,2⁠%</span></label>
+<input class="calc-slider" id="et-ter-active" max="1.5" min="0.8" step="0.1" type="range" value="1.2"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not investment advice. The ETF side uses a fixed 0,20⁠% TER for comparison; costs are modeled as a simple annual deduction from the gross return.">Vereinfachte Beispielrechnung, keine Anlageberatung. Die ETF-Seite rechnet zum Vergleich mit einer festen TER von 0,20⁠%; Kosten werden als einfacher jährlicher Abzug von der Bruttorendite modelliert.</p>
+<div class="et-result-grid">
+<div class="et-result-card et-result-card--etf">
+<div class="et-result-label" data-en="ETF (TER 0,20⁠%) – final capital">ETF (TER 0,20⁠%) — Endkapital</div>
+<div class="et-result-value" id="et-result-etf">–</div>
+</div>
+<div class="et-result-card et-result-card--active">
+<div class="et-result-label" data-en="Active fund – final capital">Aktiver Fonds — Endkapital</div>
+<div class="et-result-value" id="et-result-active">–</div>
+</div>
+</div>
+<div class="et-diff-box">
+<div class="big" id="et-diff-value">–</div>
+<div class="label" data-en="Difference caused purely by fees, on the exact same contributions and gross return">Unterschied, der allein durch die Kosten entsteht — bei identischen Einzahlungen und identischer Bruttorendite</div>
+</div>
+</div>
+<script>
+(function(){
+  const rateEl = document.getElementById('et-rate');
+  const returnEl = document.getElementById('et-return');
+  const yearsEl = document.getElementById('et-years');
+  const activeTerEl = document.getElementById('et-ter-active');
+  const rateVal = document.getElementById('et-rate-val');
+  const returnVal = document.getElementById('et-return-val');
+  const yearsVal = document.getElementById('et-years-val');
+  const activeTerVal = document.getElementById('et-ter-active-val');
+  const resultEtf = document.getElementById('et-result-etf');
+  const resultActive = document.getElementById('et-result-active');
+  const diffValue = document.getElementById('et-diff-value');
+  if(!rateEl) return;
+
+  const ETF_TER = 0.20; /* fest angenommene ETF-TER zum Vergleich, in Prozent */
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtPct(p){
+    const s = p.toFixed(1);
+    return isEn() ? s : s.replace('.', ',');
+  }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+
+  function finalBalance(pmt, grossPct, terPct, years){
+    const netAnnual = Math.max(0, grossPct - terPct) / 100;
+    const monthlyRate = netAnnual / 12;
+    const months = years * 12;
+    let balance = 0;
+    for(let m = 0; m < months; m++){
+      balance = balance * (1 + monthlyRate) + pmt;
+    }
+    return balance;
+  }
+
+  function compute(){
+    const en = isEn();
+    const pmt = parseFloat(rateEl.value);
+    const grossPct = parseFloat(returnEl.value);
+    const years = parseInt(yearsEl.value, 10);
+    const activeTer = parseFloat(activeTerEl.value);
+
+    rateVal.textContent = fmtEUR(pmt);
+    returnVal.textContent = grossPct + '%';
+    yearsVal.textContent = years + (en ? (years === 1 ? ' year' : ' years') : ' Jahre');
+    activeTerVal.textContent = fmtPct(activeTer) + '%';
+
+    const etfFinal = finalBalance(pmt, grossPct, ETF_TER, years);
+    const activeFinal = finalBalance(pmt, grossPct, activeTer, years);
+    const diff = etfFinal - activeFinal;
+    const diffPct = etfFinal > 0 ? (diff / etfFinal) * 100 : 0;
+
+    resultEtf.textContent = fmtEUR(etfFinal);
+    resultActive.textContent = fmtEUR(activeFinal);
+
+    const pctLabel = fmtPct(diffPct);
+    diffValue.textContent = fmtEUR(diff) + ' ' + (en ? `(${pctLabel}% less for the active fund)` : `(${pctLabel}% weniger beim aktiven Fonds)`);
+  }
+
+  [rateEl, returnEl, yearsEl, activeTerEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

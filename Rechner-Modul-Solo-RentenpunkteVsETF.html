@@ -1,0 +1,173 @@
+<!-- ===== Rechner-Modul: rentenpunkte-vs-etf =====
+     Neu erstellt (V1031), nicht aus einer vollen Seite extrahiert. Enthaelt NUR das reine
+     Rechner-Widget (Eingabefelder + Ergebnisanzeige) und sein
+     eigenstaendiges JavaScript -- KEIN umgebender Erklaertext, KEINE
+     Links zu anderen Seiten. Verwendet ausschliesslich CSS-Klassen aus
+     dem global geladenen style.css (.calc-card/.calc-slider etc.),
+     keine eigenen Styles noetig. Einbindbar in jede Seite, die
+     style.css und script.js laedt.
+     Deckt BEIDE Szenarien (Rentenpunkte-Kauf vs. ETF-Investment) in
+     einem Rechner ab, analog zur Vergleichstabelle im Artikel.
+     Beruecksichtigt Startalter (Laufzeit bis Rente = 65 - Startalter),
+     und berechnet die Rentenbesteuerungsquote DYNAMISCH nach dem
+     Renteneintrittsjahr (heutiges Jahr + Laufzeit), nicht als fixer
+     Wert -- da die Quote jaehrlich um 0,5 Prozentpunkte steigt
+     (Wachstumschancengesetz, ab 82,5% in 2023). -->
+<div class="calc-card" id="rpvsetfrechner">
+      <div class="calc-inputs">
+        <div class="row">
+          <label for="rpe-summe"><span data-en="One-time payment">Einmalzahlung</span> <span class="val" id="rpe-summe-val">9.662 €</span></label>
+          <input type="range" id="rpe-summe" class="calc-slider" min="2000" max="30000" step="100" value="9662">
+        </div>
+        <div class="row">
+          <label for="rpe-alter"><span data-en="Age at start (retirement fixed at 65)">Alter beim Start (Rente fix mit 65)</span> <span class="val" id="rpe-alter-val">60 Jahre</span></label>
+          <input type="range" id="rpe-alter" class="calc-slider" min="50" max="64" step="1" value="60">
+        </div>
+        <div class="row">
+          <label for="rpe-steuersatz-jetzt"><span data-en="Marginal tax rate now (working years)">Grenzsteuersatz jetzt (Erwerbsleben)</span> <span class="val" id="rpe-steuersatz-jetzt-val">30 %</span></label>
+          <input type="range" id="rpe-steuersatz-jetzt" class="calc-slider" min="14" max="45" step="1" value="30">
+        </div>
+        <div class="row">
+          <label for="rpe-steuersatz-rente"><span data-en="Personal tax rate in retirement">Persönlicher Steuersatz im Rentenalter</span> <span class="val" id="rpe-steuersatz-rente-val">18 %</span></label>
+          <input type="range" id="rpe-steuersatz-rente" class="calc-slider" min="0" max="42" step="1" value="18">
+        </div>
+        <div class="row">
+          <label for="rpe-etfrendite"><span data-en="ETF return p.a.">ETF-Rendite p.a.</span> <span class="val" id="rpe-etfrendite-val">6 %</span></label>
+          <input type="range" id="rpe-etfrendite" class="calc-slider" min="0" max="10" step="0.5" value="6">
+        </div>
+        <p class="calc-note" data-en="Simplified example calculation, not investment or tax advice. The taxable share of the pension is calculated dynamically for the actual retirement year (0.5 percentage points per year from 82.5% in 2023, per the Wachstumschancengesetz). KV/PV deduction on the pension approximated at 12.35% (8.75% health + 3.6% long-term care). ETF taxation uses the 26.375% Abgeltungsteuer with the 30% Teilfreistellung for equity ETFs (18.46% effective), church tax not included. Real outcomes vary and these rates change periodically.">Vereinfachte Beispielrechnung, keine Anlage- oder Steuerberatung. Der steuerpflichtige Rentenanteil wird dynamisch für das tatsächliche Renteneintrittsjahr berechnet (0,5 Prozentpunkte pro Jahr ab 82,5 % in 2023, laut Wachstumschancengesetz). KV/PV-Abzug auf die Rente mit rund 12,35 % angenähert (8,75 % Kranken- + 3,6 % Pflegeversicherung). Die ETF-Besteuerung nutzt die 26,375 % Abgeltungsteuer mit 30 % Teilfreistellung für Aktien-ETFs (effektiv 18,46 %), Kirchensteuer nicht enthalten. Reale Werte weichen ab, und diese Sätze ändern sich periodisch.</p>
+      </div>
+
+      <div class="calc-result">
+        <div class="calc-stat-row" style="margin-bottom:12px;">
+          <div class="calc-stat">
+            <span class="dot dot-blue"></span>
+            <span class="label" data-en="Rentenpunkte: net monthly payout">Rentenpunkte: Netto-Monatsrente</span>
+            <span class="big num" id="rpe-out-rentenpunkte-netto">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-green"></span>
+            <span class="label" data-en="ETF: net one-time payout at 65">ETF: Netto-Einmalauszahlung mit 65</span>
+            <span class="big num" id="rpe-out-etf-netto">–</span>
+          </div>
+        </div>
+        <div class="calc-stat-row">
+          <div class="calc-stat">
+            <span class="dot dot-start"></span>
+            <span class="label" data-en="Tax refund now (Rentenpunkte)">Steuererstattung jetzt (Rentenpunkte)</span>
+            <span class="num" id="rpe-out-erstattung">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-blue"></span>
+            <span class="label" data-en="Taxable pension share in the retirement year">Steuerpfl. Rentenanteil im Renteneintrittsjahr</span>
+            <span class="num" id="rpe-out-rentenquote">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-green"></span>
+            <span class="label" data-en="ETF gross value at 65">ETF-Bruttowert mit 65</span>
+            <span class="num" id="rpe-out-etf-brutto">–</span>
+          </div>
+        </div>
+      </div>
+<script>
+/* ===== Rentenpunkte-vs-ETF-Vergleichsrechner ===== */
+(function(){
+  const summeEl = document.getElementById('rpe-summe');
+  const alterEl = document.getElementById('rpe-alter');
+  const stJetztEl = document.getElementById('rpe-steuersatz-jetzt');
+  const stRenteEl = document.getElementById('rpe-steuersatz-rente');
+  const etfRenditeEl = document.getElementById('rpe-etfrendite');
+
+  const summeVal = document.getElementById('rpe-summe-val');
+  const alterVal = document.getElementById('rpe-alter-val');
+  const stJetztVal = document.getElementById('rpe-steuersatz-jetzt-val');
+  const stRenteVal = document.getElementById('rpe-steuersatz-rente-val');
+  const etfRenditeVal = document.getElementById('rpe-etfrendite-val');
+
+  const outRentenpunkteNettoEl = document.getElementById('rpe-out-rentenpunkte-netto');
+  const outEtfNettoEl = document.getElementById('rpe-out-etf-netto');
+  const outErstattungEl = document.getElementById('rpe-out-erstattung');
+  const outRentenquoteEl = document.getElementById('rpe-out-rentenquote');
+  const outEtfBruttoEl = document.getElementById('rpe-out-etf-brutto');
+
+  const AKTUELLES_JAHR = 2026;
+  const RENTENEINTRITTSALTER = 65;
+  const PREIS_PRO_PUNKT = 9661.58;
+  const RENTENWERT_PRO_PUNKT = 42.52; // Euro/Monat je vollem Punkt
+  const KV_PV_ABZUG = 0.1235; // 8,75% KV-Eigenanteil + 3,6% PV
+  const ABGELTUNGSTEUER = 0.26375;
+  const TEILFREISTELLUNG = 0.30; // 30% der ETF-Gewinne steuerfrei
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function rentenbesteuerungsquote(renteneintrittsjahr){
+    // 82,5% in 2023, +0,5 Prozentpunkte pro Jahr, gedeckelt bei 100%
+    const quote = 82.5 + 0.5 * (renteneintrittsjahr - 2023);
+    return Math.min(100, quote) / 100;
+  }
+
+  function compute(){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+    const fmt1 = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:1 });
+
+    const summe = parseFloat(summeEl.value);
+    const alter = parseInt(alterEl.value, 10);
+    const stJetzt = parseFloat(stJetztEl.value) / 100;
+    const stRente = parseFloat(stRenteEl.value) / 100;
+    const etfRendite = parseFloat(etfRenditeEl.value) / 100;
+
+    summeVal.textContent = eur(summe);
+    alterVal.textContent = alter + (en ? ' yrs' : ' Jahre');
+    stJetztVal.textContent = stJetztEl.value + '%';
+    stRenteVal.textContent = stRenteEl.value + '%';
+    etfRenditeVal.textContent = etfRenditeEl.value + '%';
+
+    const laufzeit = RENTENEINTRITTSALTER - alter;
+    const renteneintrittsjahr = AKTUELLES_JAHR + laufzeit;
+
+    // ----- Pfad 1: Rentenpunkte -----
+    const erstattung = summe * stJetzt;
+    const nettoInvestitionRP = summe - erstattung;
+    const anzahlPunkte = summe / PREIS_PRO_PUNKT;
+    const bruttoMonatsrente = anzahlPunkte * RENTENWERT_PRO_PUNKT;
+    const rentenquote = rentenbesteuerungsquote(renteneintrittsjahr);
+    const steuerpflichtigerTeil = bruttoMonatsrente * rentenquote;
+    const einkommensteuerAufRente = steuerpflichtigerTeil * stRente;
+    const kvPvAbzug = bruttoMonatsrente * KV_PV_ABZUG;
+    const nettoMonatsrente = Math.max(0, bruttoMonatsrente - einkommensteuerAufRente - kvPvAbzug);
+
+    // ----- Pfad 2: ETF -----
+    const nettoInvestitionETF = summe - erstattung; // gleiche Ausgangsbasis: Netto-Ersparnis nach Steuer wird investiert
+    const etfBrutto = nettoInvestitionETF * Math.pow(1 + etfRendite, laufzeit);
+    const etfGewinn = Math.max(0, etfBrutto - nettoInvestitionETF);
+    const effektiverSteuersatzETF = ABGELTUNGSTEUER * (1 - TEILFREISTELLUNG);
+    const steuerETF = etfGewinn * effektiverSteuersatzETF;
+    const etfNetto = etfBrutto - steuerETF;
+
+    outRentenpunkteNettoEl.textContent = eur(Math.round(nettoMonatsrente)) + (en ? ' / mo' : ' / Mon.');
+    outEtfNettoEl.textContent = eur(Math.round(etfNetto));
+    outErstattungEl.textContent = eur(Math.round(erstattung));
+    outRentenquoteEl.textContent = fmt1.format(rentenquote * 100) + '% (' + renteneintrittsjahr + ')';
+    outEtfBruttoEl.textContent = eur(Math.round(etfBrutto));
+  }
+
+  [summeEl, alterEl, stJetztEl, stRenteEl, etfRenditeEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+</div>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

@@ -1,0 +1,268 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alle Themen — FinanzRitual JugendBASISbildung</title>
+<meta name="description" content="Alle JugendBASISbildung-Artikel auf einen Blick, als Kacheln nach Kategorie filterbar.">
+<link rel="canonical" href="https://www.finanz-ritual.de/jugendbasisbildung/alle-themen.html">
+<style>
+:root{--yellow:#00c8ff;--bg:#070a10}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif}
+body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--yellow);z-index:9999;transition:background .35s ease}
+/* Nerd-Marker fuer Jugendseiten: gelber Balken nur im Ruhezustand (scrollY===0),
+   wechselt beim Scrollen zu einem neutralen Grau -- exakt dasselbe Prinzip wie
+   die gruene Header-Linie auf der Hauptseite (siehe header.site.is-scrolled in
+   style.css). Bleibt als Erkennungsmerkmal fuer den Jugendmodus da, stoert aber
+   nicht mehr dauerhaft die Aufmerksamkeit. */
+body.is-scrolled:before{background:#3a4356}
+header{position:sticky;top:0;z-index:20;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#05080dcc;backdrop-filter:blur(12px);border-bottom:1px solid #313744}
+.logo{font-weight:900;letter-spacing:.08em}.nav{display:flex;gap:20px}.nav a{color:#fff;text-decoration:none;font-size:.86rem}
+.switch{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;padding:8px 13px;text-decoration:none;font-size:.85rem;display:inline-block;cursor:pointer}
+.header-icon-btn{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+.header-icon-btn svg{width:17px;height:17px}
+.header-icon-btn[hidden]{display:none}
+main{max-width:1100px;margin:auto;padding:36px 4vw 70px}
+.eyebrow{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#57e0a7;font-weight:700;margin-bottom:10px}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.02;margin:0 0 14px}
+.lead{font-size:1.05rem;line-height:1.55;color:#d7dce5;max-width:64ch;margin:0 0 26px}
+
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filter-pill{border:1px solid #303847;background:#111722;color:#fff;border-radius:999px;padding:8px 16px;font-size:.83rem;cursor:pointer;font-family:inherit}
+.filter-pill.is-active{border-color:var(--yellow);background:#1c1f0c;color:var(--yellow);font-weight:700}
+
+.toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.view-toggle{display:inline-flex;border:1px solid #303847;border-radius:999px;padding:3px;background:#111722;flex:none}
+.view-toggle button{border:none;background:transparent;color:#8a93a3;border-radius:999px;padding:6px 12px;font-size:.8rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px}
+.view-toggle button svg{width:15px;height:15px}
+.view-toggle button.is-active{background:var(--yellow);color:#05080d;font-weight:700}
+
+.tile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tile-card{display:block;padding:18px 20px;border:1px solid #303847;border-radius:16px;background:#111722;text-decoration:none;color:#fff;transition:border-color .15s,transform .15s}
+.tile-card:hover,.tile-card:focus-visible{border-color:var(--yellow);transform:translateY(-2px)}
+.tile-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.tile-cat{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#1c1f0c;color:var(--yellow);border-radius:4px;padding:2px 7px}
+.tile-date{font-size:.68rem;color:#8a93a3;font-family:'JetBrains Mono',monospace}
+.tile-title{font-weight:700;font-size:1rem;line-height:1.35;margin-bottom:6px}
+.tile-excerpt{font-size:.85rem;color:#c3cad7;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
+.tile-arrow{font-size:.78rem;color:var(--yellow);font-weight:700}
+.tile-count{font-size:.85rem;color:#8a93a3;margin-bottom:16px}
+.empty-msg{color:#8a93a3;padding:30px 0;text-align:center}
+
+/* Listen-Modus: kompakte, einspaltige Zeilen statt Kacheln, damit man sich
+   bei vielen Artikeln (aktuell 70+) schneller orientieren kann -- kein
+   Exzerpt-Text, nur Titel + Kategorie + Datum auf einen Blick, mehr
+   Artikel gleichzeitig sichtbar ohne Scrollen. */
+.tile-grid.is-list{display:flex;flex-direction:column;gap:0;border:1px solid #303847;border-radius:16px;overflow:hidden}
+.tile-grid.is-list .tile-card{padding:12px 16px;border:none;border-radius:0;border-bottom:1px solid #303847;transform:none;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tile-grid.is-list .tile-card:last-child{border-bottom:none}
+.tile-grid.is-list .tile-card:hover,.tile-grid.is-list .tile-card:focus-visible{background:#161d2a;transform:none}
+.tile-grid.is-list .tile-eyebrow{margin-bottom:0;flex:none}
+.tile-grid.is-list .tile-title{margin-bottom:0;font-size:.92rem;flex:1 1 auto;min-width:200px}
+.tile-grid.is-list .tile-excerpt,.tile-grid.is-list .tile-arrow{display:none}
+
+@media(max-width:800px){header{height:54px;padding:0 12px}.nav{display:none}.logo{font-size:.8rem}}
+@media(max-width:640px){.tile-grid{grid-template-columns:1fr}.tile-grid.is-list .tile-card{flex-direction:column;align-items:flex-start;gap:4px}}
+
+/* Nach-oben-Button und schwebende Kaffeetasse, exakt nach dem Muster der
+   Hauptseite (style.css: .scroll-top-btn, .fr-coffee-float, .fr-coffee-cup)
+   -- diese Seite laedt style.css bewusst nicht (eigenstaendiges CSS), daher
+   hier lokal nachgebaut. Fund: Ohne diese Regeln blieb .fr-coffee-btn/
+   .fr-coffee-float komplett ungestylt -- die von script.js automatisch
+   injizierte Kaffeetasse (frInitFloatingCoffee) erschien dadurch mit
+   Browser-Standard-SVG-Groesse (~300x150px nativ) und Standard-Linkfarbe
+   statt der vorgesehenen 44px/20px-Kreisgroesse -- daher die riesigen,
+   lila wirkenden Flecken am Seitenende. */
+.scroll-top-btn{
+  position:fixed; right:20px; bottom:20px; z-index:60;
+  width:44px; height:44px; border-radius:50%;
+  background:#111722; border:1px solid #303847; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; color:#c3cad7;
+  cursor:pointer; opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .25s ease, transform .25s ease, border-color .2s ease, color .2s ease;
+}
+.scroll-top-btn.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
+.scroll-top-btn svg{ width:18px; height:18px; }
+.scroll-top-btn:hover{ border-color:var(--y, var(--yellow)); color:var(--y, var(--yellow)); }
+
+.fr-coffee-float{
+  position:fixed !important; right:20px !important; bottom:74px; left:auto; top:auto; z-index:60;
+  width:44px !important; height:44px !important; margin:0 !important; padding:0 !important;
+  border-radius:50% !important;
+  background:#111722 !important; border:1px solid #303847 !important; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; color:var(--y, var(--yellow));
+  cursor:pointer; opacity:0; visibility:hidden; transform:translateY(8px) scale(.9);
+  transition:opacity .25s ease, transform .25s ease, border-color .2s ease;
+  text-decoration:none;
+}
+.fr-coffee-float.is-visible{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+.fr-coffee-float:hover{ transform:translateY(0) scale(1); border-color:var(--y, var(--yellow)) !important; }
+.fr-coffee-cup{ flex:0 0 auto; display:flex; }
+.fr-coffee-float .fr-coffee-cup{ width:20px; height:20px; }
+.fr-coffee-float .fr-coffee-cup svg{ width:20px; height:20px; }
+.fr-steam{ opacity:0; transform-origin:center bottom; }
+.fr-coffee-float .fr-steam{ animation:fr-steam-rise 2s ease-in-out infinite; }
+.fr-coffee-float .fr-steam-2{ animation-delay:.3s; }
+.fr-coffee-float .fr-steam-3{ animation-delay:.6s; }
+@keyframes fr-steam-rise{
+  0%   { opacity:0;  transform:translateY(2px)  scaleY(.7); }
+  40%  { opacity:.85; }
+  100% { opacity:0;  transform:translateY(-3px) scaleY(1.15); }
+}
+@media(max-width:560px){
+  .fr-coffee-float{ width:40px !important; height:40px !important; right:14px !important; bottom:74px; }
+  .scroll-top-btn{ width:40px; height:40px; right:14px; bottom:14px; }
+}
+</style>
+</head><body>
+<button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header>
+<div class="logo">FINANZ RITUAL</div>
+<nav class="nav"><a href="index.html">Startseite</a><a href="alle-themen.html">Themen</a><a href="../glossar.html?audience=JugendBASISbildung">Glossar</a></nav>
+<a href="../suche.html?audience=JugendBASISbildung" class="header-icon-btn" aria-label="Jugendartikel durchsuchen" title="Suche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a><button id="fullscreen-toggle" class="header-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" title="Vollbildmodus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button><a class="switch" href="../index.html">← Mutterseite</a>
+</header>
+<main>
+<div class="eyebrow">JugendBASISbildung</div>
+<h1>Alle Themen</h1>
+<p class="lead">Jeder JugendBASISbildung-Artikel auf einen Blick — nach Kategorie filterbar. Klick auf eine Kachel öffnet den Artikel direkt.</p>
+
+<div class="filter-row" id="filter-row"></div>
+<div class="toolbar-row">
+  <p class="tile-count" id="tile-count" style="margin-bottom:0"></p>
+  <div class="view-toggle" id="view-toggle" role="group" aria-label="Ansicht wechseln">
+    <button type="button" id="view-btn-tile" class="is-active" aria-pressed="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Kacheln
+    </button>
+    <button type="button" id="view-btn-list" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      Liste
+    </button>
+  </div>
+</div>
+<div class="tile-grid" id="tile-grid"></div>
+<p class="empty-msg" id="empty-msg" style="display:none">Keine Artikel in dieser Kategorie.</p>
+
+</main>
+<script src="../script.js" defer></script>
+<script>
+(function(){
+  const CATEGORY_ORDER = [
+    { subcat: 'Mein erstes Geld & Banken', icon: '💳' },
+    { subcat: 'Verträge, Abo-Fallen & Konsum', icon: '⚠️' },
+    { subcat: 'Schülerjobs & eigenes Business', icon: '💼' },
+    { subcat: 'Sparen & Vermögen aufbauen', icon: '📈' },
+    { subcat: 'Familie, Auszug & die erste eigene Bude', icon: '🏠' },
+    { subcat: 'Mindset, Krypto-Scams & Schutz im Netz', icon: '🎓' },
+    { subcat: 'Versicherungen', icon: '🛡️' }
+  ];
+
+  const TODAY = new Date('2026-08-19T00:00:00');
+  function isNew(dateStr){
+    if (!dateStr) return false;
+    const d = new Date(dateStr + 'T00:00:00');
+    const diffDays = (TODAY - d) / (1000 * 60 * 60 * 24);
+    return diffDays >= 0 && diffDays <= 14;
+  }
+
+  let activeSubcat = null;
+  // Ansicht (Kachel/Liste) wird in localStorage gemerkt, damit die Wahl
+  // beim naechsten Besuch erhalten bleibt -- schnellere Orientierung ist
+  // der ganze Sinn des Umschalters, das soll sich nicht bei jedem Reload
+  // zuruecksetzen.
+  let viewMode = localStorage.getItem('fr-alle-themen-view') === 'list' ? 'list' : 'tile';
+
+  function render(posts){
+    const grid = document.getElementById('tile-grid');
+    const emptyMsg = document.getElementById('empty-msg');
+    const countEl = document.getElementById('tile-count');
+    const shown = activeSubcat ? posts.filter(p => p.subcat === activeSubcat) : posts;
+
+    countEl.textContent = shown.length + (shown.length === 1 ? ' Artikel' : ' Artikel');
+    grid.classList.toggle('is-list', viewMode === 'list');
+
+    if (shown.length === 0) {
+      grid.innerHTML = '';
+      emptyMsg.style.display = '';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    grid.innerHTML = shown.map(p => {
+      const catInfo = CATEGORY_ORDER.find(c => c.subcat === p.subcat);
+      const icon = catInfo ? catInfo.icon : '📄';
+      const badge = isNew(p.date) ? ' <span style="color:var(--yellow)">● NEU</span>' : '';
+      return `<a class="tile-card" href="../${p.link}">
+        <div class="tile-eyebrow"><span class="tile-cat">${icon} ${p.subcat || ''}</span><span class="tile-date">${(p.date||'').split('-').reverse().join('.')}</span></div>
+        <div class="tile-title">${p.title}${badge}</div>
+        <div class="tile-excerpt">${p.excerpt || ''}</div>
+        <div class="tile-arrow">Artikel lesen →</div>
+      </a>`;
+    }).join('');
+  }
+
+  function setViewMode(mode, posts){
+    viewMode = mode;
+    localStorage.setItem('fr-alle-themen-view', mode);
+    document.getElementById('view-btn-tile').classList.toggle('is-active', mode === 'tile');
+    document.getElementById('view-btn-tile').setAttribute('aria-pressed', mode === 'tile');
+    document.getElementById('view-btn-list').classList.toggle('is-active', mode === 'list');
+    document.getElementById('view-btn-list').setAttribute('aria-pressed', mode === 'list');
+    render(posts);
+  }
+
+  function buildFilters(posts){
+    const row = document.getElementById('filter-row');
+    const allBtn = document.createElement('button');
+    allBtn.type = 'button';
+    allBtn.className = 'filter-pill is-active';
+    allBtn.textContent = 'Alle';
+    allBtn.addEventListener('click', () => setFilter(null, allBtn));
+    row.appendChild(allBtn);
+
+    CATEGORY_ORDER.forEach(cat => {
+      const count = posts.filter(p => p.subcat === cat.subcat).length;
+      if (count === 0) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'filter-pill';
+      btn.textContent = cat.icon + ' ' + cat.subcat + ' (' + count + ')';
+      btn.addEventListener('click', () => setFilter(cat.subcat, btn));
+      row.appendChild(btn);
+    });
+
+    function setFilter(subcat, btn){
+      activeSubcat = subcat;
+      row.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      render(posts);
+    }
+  }
+
+  function waitFor(cb, n){
+    if (typeof FR_POSTS !== 'undefined') { cb(FR_POSTS); return; }
+    if ((n||0) > 40) return;
+    setTimeout(() => waitFor(cb, (n||0)+1), 100);
+  }
+
+  waitFor(function(allPosts){
+    const posts = allPosts.filter(p => p.cat === 'JugendBASISbildung')
+      .sort((a,b) => new Date(b.date||0) - new Date(a.date||0));
+    buildFilters(posts);
+    document.getElementById('view-btn-tile').addEventListener('click', () => setViewMode('tile', posts));
+    document.getElementById('view-btn-list').addEventListener('click', () => setViewMode('list', posts));
+    setViewMode(viewMode, posts);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body></html>

@@ -1,0 +1,125 @@
+<!-- ===== Rechner-Modul: 4-Prozent-Regel Reihenfolge-Risiko =====
+     Automatisch aus beitrag-vier-prozent-regel.html extrahiert (V890).
+     Vergleicht zwei Entnahme-Szenarien mit identischem 60-Jahres-
+     Renditeschnitt, aber unterschiedlicher Reihenfolge (gleichmaessig
+     vs. schwacher Start zuerst) -- isoliert das Sequence-of-Returns-
+     Risiko. Bewusst NUR das interaktive Widget extrahiert, nicht die
+     im Original danach folgenden statischen Vergleichstabellen
+     (dk-table, farblich hinterlegt, feste Werte -- kein Teil des
+     interaktiven Rechners). Globale CSS-Variablen, keine FR_CONFIG-
+     Abhaengigkeit. -->
+<style>
+.fp-calc{ margin:26px 0; padding:22px 20px; border-radius:16px; background:var(--bg-raised); border:2px solid var(--line-strong); box-shadow:var(--shadow); }
+.fp-calc .row{ margin-bottom:20px; }
+.fp-calc label{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--ink-soft); margin-bottom:8px; }
+.fp-calc label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:600; }
+.fp-scenarios{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
+.fp-scenario{ padding:16px; border-radius:12px; background:var(--bg); border:1px solid var(--line); text-align:center; }
+.fp-scenario-title{ font-size:.78rem; color:var(--ink-soft); margin-bottom:8px; font-weight:600; }
+.fp-scenario-desc{ font-size:.7rem; color:var(--ink-soft); margin-bottom:10px; line-height:1.4; }
+.fp-scenario-value{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.5rem; }
+.fp-scenario-value.fp-ok{ color:var(--green); }
+.fp-scenario-value.fp-warn{ color:#c0392b; }
+.fp-scenario-sub{ font-size:.72rem; color:var(--ink-soft); margin-top:4px; }
+@media(max-width:560px){ .fp-scenarios{ grid-template-columns:1fr; } }
+</style>
+<div class="fp-calc" id="fp-calc">
+<div class="row">
+<label for="fp-capital"><span data-en="Starting capital">Startkapital</span> <span class="val" id="fp-capital-val">800.000 €</span></label>
+<input class="calc-slider" id="fp-capital" max="2000000" min="200000" step="50000" type="range" value="800000"/>
+</div>
+<div class="row">
+<label for="fp-rate"><span data-en="Withdrawal rate">Entnahmerate</span> <span class="val" id="fp-rate-val">4,0⁠%</span></label>
+<input class="calc-slider" id="fp-rate" max="6" min="2.5" step="0.1" type="range" value="4"/>
+</div>
+<div class="fp-scenarios">
+<div class="fp-scenario">
+<div class="fp-scenario-title" data-en="Steady sequence">Gleichmäßige Reihenfolge</div>
+<div class="fp-scenario-desc" data-en="5⁠% real return every single year, for 60 years.">5⁠% Realrendite in jedem einzelnen Jahr, über 60 Jahre.</div>
+<div class="fp-scenario-value" id="fp-steady-result">–</div>
+<div class="fp-scenario-sub" id="fp-steady-sub"></div>
+</div>
+<div class="fp-scenario">
+<div class="fp-scenario-title" data-en="Weak start first">Schwacher Start zuerst</div>
+<div class="fp-scenario-desc" data-en="-2⁠% real for the first 10 years, then 6,4⁠% for the remaining 50 – same 60-year average as the steady scenario.">-2⁠% real in den ersten 10 Jahren, danach 6,4⁠% für die übrigen 50 — derselbe 60-Jahres-Schnitt wie im gleichmäßigen Szenario.</div>
+<div class="fp-scenario-value" id="fp-bad-result">–</div>
+<div class="fp-scenario-sub" id="fp-bad-sub"></div>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified illustration, not a market forecast. Real markets don't move in two neat phases – this exists purely to isolate the effect of return order from the effect of return size. For a fuller, adjustable simulation of your own numbers, see our withdrawal calculator." style="margin-top:16px;">Vereinfachte Illustration, keine Marktprognose. Echte Märkte bewegen sich nicht in zwei sauberen Phasen — das hier isoliert bewusst den Effekt der Reihenfolge vom Effekt der Höhe. Für eine ausführlichere, anpassbare Simulation deiner eigenen Zahlen: unser <a href="rechner-entnahme.html">Entnahmerechner</a>.</p>
+</div>
+<script>
+(function(){
+  var capEl = document.getElementById('fp-capital');
+  var capVal = document.getElementById('fp-capital-val');
+  var rateEl = document.getElementById('fp-rate');
+  var rateVal = document.getElementById('fp-rate-val');
+  var steadyResult = document.getElementById('fp-steady-result');
+  var steadySub = document.getElementById('fp-steady-sub');
+  var badResult = document.getElementById('fp-bad-result');
+  var badSub = document.getElementById('fp-bad-sub');
+  if(!capEl || !rateEl) return;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEuro(n){ return Math.round(n).toLocaleString('de-DE') + ' €'; }
+
+  function simulate(startCapital, rate, returnForYear){
+    var capital = startCapital;
+    var withdrawal = startCapital * rate;
+    for(var year = 1; year <= 60; year++){
+      capital -= withdrawal;
+      if(capital <= 0) return year;
+      capital *= (1 + returnForYear(year));
+    }
+    return null; // hat 60 Jahre ueberstanden
+  }
+
+  function render(){
+    var capital = parseFloat(capEl.value);
+    var rate = parseFloat(rateEl.value) / 100;
+    capVal.textContent = fmtEuro(capital);
+    rateVal.textContent = rateEl.value.replace('.', ',') + '%';
+
+    var steadyYears = simulate(capital, rate, function(){ return 0.05; });
+    var badYears = simulate(capital, rate, function(y){ return y <= 10 ? -0.02 : 0.064; });
+
+    if(steadyYears === null){
+      steadyResult.textContent = isEn() ? '60+ years' : '60+ Jahre';
+      steadyResult.className = 'fp-scenario-value fp-ok';
+      steadySub.textContent = isEn() ? 'never runs out within the simulated horizon' : 'geht im simulierten Zeitraum nie aus';
+    } else {
+      steadyResult.textContent = (isEn() ? steadyYears + ' years' : steadyYears + ' Jahre');
+      steadyResult.className = 'fp-scenario-value ' + (steadyYears >= 40 ? 'fp-ok' : 'fp-warn');
+      steadySub.textContent = isEn() ? 'until depleted' : 'bis aufgebraucht';
+    }
+
+    if(badYears === null){
+      badResult.textContent = isEn() ? '60+ years' : '60+ Jahre';
+      badResult.className = 'fp-scenario-value fp-ok';
+      badSub.textContent = isEn() ? 'never runs out within the simulated horizon' : 'geht im simulierten Zeitraum nie aus';
+    } else {
+      badResult.textContent = (isEn() ? badYears + ' years' : badYears + ' Jahre');
+      badResult.className = 'fp-scenario-value ' + (badYears >= 40 ? 'fp-ok' : 'fp-warn');
+      badSub.textContent = isEn() ? 'until depleted' : 'bis aufgebraucht';
+    }
+  }
+
+  capEl.addEventListener('input', render);
+  rateEl.addEventListener('input', render);
+  render();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

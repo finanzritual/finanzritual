@@ -1,0 +1,97 @@
+<!-- ===== Rechner-Modul: 50-25-15-10-Regel =====
+     Automatisch aus beitrag-50-25-15-10-regel.html extrahiert (V879).
+     Interaktiver Budget-Rechner mit 3 Phasen-Varianten (Pillen-Auswahl:
+     Notgroschen-Aufbau / Klassisch / Aggressiv), dynamisch generierte
+     Ergebniszeilen. Nutzt globale CSS-Variablen. Bewusst NUR das reine
+     Widget extrahiert -- das Balkendiagramm zum Bundesbank-Vermoegens-
+     vergleich im Original ist statischer Artikelinhalt, kein Teil des
+     interaktiven Rechners, deshalb nicht mit uebernommen. -->
+<style>
+.qr-calc{ margin:26px 0 8px; padding:20px 22px 24px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.qr-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; margin-bottom:8px; }
+.qr-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.qr-pills{ display:flex; flex-wrap:wrap; gap:7px; margin:14px 0; }
+.qr-pill{ border:1.5px solid var(--line-strong); border-radius:20px; padding:6px 13px; font-size:.75rem; font-weight:600; color:var(--ink-soft); background:var(--bg); cursor:pointer; }
+.qr-pill.is-active{ border-color:var(--blue); color:var(--ink); background:var(--blue-soft); }
+.qr-results{ display:flex; flex-direction:column; gap:6px; margin-top:14px; border-top:1px solid var(--line); padding-top:12px; }
+</style>
+<div class="qr-calc" id="qr-calc">
+<div class="qr-calc-inputs">
+<div class="row">
+<label for="qr-income"><span data-en="Net monthly income">Monatliches Nettoeinkommen</span> <span class="val" id="qr-income-val">2.500 €</span></label>
+<input class="calc-slider" id="qr-income" max="6000" min="1000" step="100" type="range" value="2500"/>
+</div>
+</div>
+<div class="qr-pills" id="qr-pills">
+<button class="qr-pill is-active" data-en="Phase 1 · Building emergency fund" data-phase="p1" type="button">Phase 1 · Notgroschen aufbauen</button>
+<button class="qr-pill" data-en="Phase 2 · Classic (50/30/20)" data-phase="p2c" type="button">Phase 2 · Klassisch</button>
+<button class="qr-pill" data-en="Phase 2 · Aggressive (50/40/10)" data-phase="p2a" type="button">Phase 2 · Aggressiv</button>
+</div>
+<div class="qr-results" id="qr-results"></div>
+<p class="calc-note" data-en="Simplified example calculation, not financial advice. Adjust the percentages to your own situation, especially if living costs genuinely exceed 50⁠% of income.">Vereinfachte Beispielrechnung, keine Finanzberatung. Passe die Prozentsätze an deine eigene Situation an, besonders wenn Lebenshaltung bei dir tatsächlich mehr als 50 % einnimmt.</p>
+</div>
+<script>
+(function(){
+  const incomeEl = document.getElementById('qr-income');
+  if(!incomeEl) return;
+  const incomeVal = document.getElementById('qr-income-val');
+  const pillsWrap = document.getElementById('qr-pills');
+  const resultsWrap = document.getElementById('qr-results');
+
+  const PHASES = {
+    p1:  [ ['Lebenshaltung','Living costs',50,'var(--blue)'], ['Investieren (ETF)','Investing (ETF)',25,'var(--green)'], ['Notgroschen','Emergency fund',15,'#0EA5A4'], ['Freizeit','Leisure',10,'#8B5CF6'] ],
+    p2c: [ ['Lebenshaltung','Living costs',50,'var(--blue)'], ['Investieren (ETF)','Investing (ETF)',30,'var(--green)'], ['Freizeit','Leisure',20,'#8B5CF6'] ],
+    p2a: [ ['Lebenshaltung','Living costs',50,'var(--blue)'], ['Investieren (ETF)','Investing (ETF)',40,'var(--green)'], ['Freizeit','Leisure',10,'#8B5CF6'] ]
+  };
+  let currentPhase = 'p1';
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+    const income = parseFloat(incomeEl.value);
+    incomeVal.textContent = fmtEUR(income);
+
+    resultsWrap.innerHTML = '';
+    PHASES[currentPhase].forEach(([labelDe, labelEn, pct, color]) => {
+      const row = document.createElement('div');
+      row.className = 'calc-stat';
+      row.innerHTML =
+        '<span class="dot" style="background:' + color + '"></span>' +
+        '<span class="label">' + (en ? labelEn : labelDe) + ' <span style="font-size:.7rem;color:var(--ink-soft);">(' + pct + '⁠%)</span></span>' +
+        '<span class="num">' + fmtEUR(income * pct / 100) + '</span>';
+      resultsWrap.appendChild(row);
+    });
+  }
+
+  pillsWrap.querySelectorAll('.qr-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      pillsWrap.querySelectorAll('.qr-pill').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      currentPhase = btn.dataset.phase;
+      compute();
+    });
+  });
+
+  incomeEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

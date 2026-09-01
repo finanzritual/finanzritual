@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Financial Scam Dodger — JugendBASISbildung — FinanzRitual">Finanz-Scam-Ausweicher — JugendBASISbildung — FinanzRitual</title>
+    <meta name="description" content="Finde die sicheren Investments, weiche den Krypto-Scams und Schuldenfallen aus. Ein Minen-Spiel für dein Finanz-Gehirn." data-en-content="Find the safe investments, dodge the crypto scams and debt traps. A minesweeper-style game for your finance brain.">
+    <link rel="canonical" href="https://www.finanz-ritual.de/YOUNG-Games-scam-ausweicher.html">
+<meta name="fr-video-id" content="1006">
+<meta name="fr-content-hash" content="e849a4b95f13efbc4a7b86186e1df0f38f8d7b59a531e141ec458737c1ba65dd">
+<meta name="fr-links-hash" content="c54582bf1c8b238d8d1d8b8f124b2be82d3d9e49b5cb5e62b0124bc70b346297">
+    <style>
+        :root {
+            --bg-color: #0c0f12;
+            --card-bg: #161b22;
+            --card-back: #21262d;
+            --text-color: #ffffff;
+            --accent-orange: #ffaa00;
+            --neon-green: #39ff14;
+            --danger-red: #ff3333;
+            --cyan-glow: #00f0ff;
+            --y: #eaff00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+        }
+        body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+        body.is-scrolled:before{background:#3a4356}
+
+        .y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+        .y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap;font-size:.95rem}
+        .y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}
+        .y-nav a{color:#fff;text-decoration:none;font-size:.9rem}
+        .y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+        .y-icon-btn svg{width:17px;height:17px}
+        .y-icon-btn[hidden]{display:none}
+        @media(max-width:700px){.y-header{min-height:54px;padding:0 12px}.y-nav a{display:none}}
+
+        .game-wrap{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 15px 50px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 10px 0 5px;
+            color: var(--accent-orange);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        /* Anleitung als natives <details>-Dropdown -- kein JS noetig,
+           auf Wunsch des Users ausblendbar, damit sie beim Spielen nicht
+           staendig im Weg ist. Folgt demselben <details>-Ausklapp-Muster,
+           das an anderer Stelle im Projekt schon fuer FAQ-Eintraege
+           verwendet wird. */
+        .rules-box{
+            width:100%; max-width: 420px; margin-bottom: 16px;
+            background: var(--card-bg); border: 1px solid #30363d; border-radius: 14px;
+            overflow: hidden;
+        }
+        .rules-box summary{
+            padding: 12px 16px; cursor: pointer; font-weight: 700; font-size: .92rem;
+            color: var(--accent-orange); list-style: none; display:flex; align-items:center; gap:8px;
+        }
+        .rules-box summary::-webkit-details-marker{ display:none; }
+        .rules-box summary:before{ content:"▶"; font-size:.7rem; transition: transform .15s; }
+        .rules-box[open] summary:before{ transform: rotate(90deg); }
+        .rules-box .rules-body{ padding: 0 16px 16px; font-size: .88rem; line-height: 1.55; color: #c3cad7; }
+        .rules-box .rules-body ul{ margin: 8px 0; padding-left: 20px; }
+        .rules-box .rules-body li{ margin-bottom: 6px; }
+        .rules-box .rules-body strong{ color: #fff; }
+
+        .status {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1 / 1;
+        }
+
+        .cell {
+            background-color: var(--card-back);
+            border: 2px solid #30363d;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1 / 1;
+            font-size: 1.8rem;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        @media (hover: hover) {
+            .cell:hover {
+                border-color: var(--cyan-glow);
+                transform: scale(1.02);
+            }
+        }
+
+        .cell:active { transform: scale(0.95); }
+
+        .cell.revealed {
+            background-color: var(--card-bg);
+            cursor: default;
+            transform: scale(1);
+        }
+
+        .cell.scam {
+            background-color: #3a1217;
+            border-color: var(--danger-red);
+            animation: shake 0.3s ease-in-out;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+        }
+
+        .cell.safe {
+            background-color: #0f2416;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.35);
+            animation: safePop 0.4s ease-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        @keyframes safePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); border-color: #fff; }
+            100% { transform: scale(1); }
+        }
+
+        button.restart-btn {
+            margin-top: 25px;
+            padding: 12px 28px;
+            background-color: var(--accent-orange);
+            border: 2px solid #000;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: transform 0.1s, box-shadow 0.1s;
+            font-family: inherit;
+        }
+
+        button.restart-btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        button.restart-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        .y-back{display:inline-block;margin-top:32px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none;font-size:.85rem}
+    
+.y-game-related{background:var(--card-bg);border:1px solid #303847;border-radius:16px;padding:20px 22px;margin:18px 0 10px;max-width:520px;margin-left:auto;margin-right:auto}
+.y-game-related-title{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-orange);margin-bottom:12px}
+.y-game-related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;text-align:left}
+.y-game-related-list a{color:var(--text-color);text-decoration:none;font-size:.9rem;display:flex;align-items:center;gap:8px}
+.y-game-related-list a:hover{color:var(--accent-orange)}
+</style>
+</head>
+<body>
+
+<header class="y-header">
+<a class="y-brand" href="jugendbasisbildung/index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="jugendbasisbildung/index.html" data-en="Home">Startseite</a>
+<a href="jugendbasisbildung/alle-themen.html" data-en="Topics">Themen</a>
+</nav>
+<a href="suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</header>
+
+<div class="game-wrap">
+    <h1 data-en="💣 SCAM DODGER">💣 SCAM-AUSWEICHER</h1>
+
+    <details class="rules-box">
+      <summary data-en="🕹️ How to play">🕹️ So zockst du den Finanz-Scam-Ausweicher!</summary>
+      <div class="rules-body" data-en="&lt;p&gt;There are 25 hidden boxes on the board. Your financial future is hiding behind them! Your job: make the right calls and dodge the nasty traps.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The goal:&lt;/strong&gt; find all 20 safe investments (like ETF savings plans or solid interest) 💰&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The danger:&lt;/strong&gt; 5 nasty crypto scams and debt traps are hiding in the grid 🚨 Click one, and you land flat on your face — your virtual savings are instantly gone!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Your reward:&lt;/strong&gt; every correct click earns you +€50 in your account.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Are you smarter than the scammers?&lt;/strong&gt; Click the first box and show what you've got! But remember: greed eats brains — watch carefully where you click! 🛹🔥&lt;/p&gt;">
+        <p>Auf dem Spielfeld siehst du 25 verdeckte Kisten. Dahinter versteckt sich deine finanzielle Zukunft! Deine Aufgabe: Triff die richtigen Entscheidungen und weiche den miesen Fallen aus.</p>
+        <ul>
+          <li><strong>Das Ziel:</strong> Finde alle 20 sicheren Investitionen (wie ETF-Sparpläne oder solide Zinsen) 💰</li>
+          <li><strong>Die Gefahr:</strong> Im Raster lauern 5 fiese Krypto-Scams und Schuldenfallen 🚨 Wenn du eine davon anklickst, fliegst du voll auf die Nase und dein virtuelles Erspartes ist sofort futsch!</li>
+          <li><strong>Deine Belohnung:</strong> Jeder richtige Klick bringt dir +50 € Guthaben auf dein Konto.</li>
+        </ul>
+        <p><strong>Bist du schlauer als die Betrüger?</strong> Klicke auf die erste Kiste und zeig, was du drauf hast! Aber denk dran: Gier frisst Hirn — pass gut auf, wo du hinklickst! 🛹🔥</p>
+      </div>
+    </details>
+
+    <div class="status" id="game-status">Guthaben: 0 €</div>
+
+    <div class="game-board" id="mines-board"></div>
+
+    <button type="button" class="restart-btn" onclick="restartGame()" data-en="New round 🛹">Neues Match 🛹</button>
+    <div class="y-game-related">
+      <div class="y-game-related-title" data-en="Learn more">Vertiefe dein Wissen</div>
+      <ul class="y-game-related-list">
+      <li><a href="YOUNG-geldwaesche-finanzagent-jugend.html" data-en="→ The money laundering trap: why you should never lend your account">→ Die Geldwäsche-Falle: Warum du niemals dein Konto verleihen darfst</a></li>
+      <li><a href="YOUNG-digitaler-selbstschutz-jugend.html" data-en="→ Watch out for the digital enemy: how to protect your identity">→ Achtung vor dem digitalen Feind: Wie du deine Identität schützt</a></li>
+      <li><a href="YOUNG-finfluencer-jugend.html" data-en="→ Financial influencers: who gives real tips, who's just after your money?">→ Finanz-Influencer: Wer gibt echte Tipps, wer will dich nur abzocken?</a></li>
+      </ul>
+    </div>
+
+
+    <a class="y-back" href="jugendbasisbildung/index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</div>
+
+    <script>
+        const BOARD_SIZE = 25;
+        const MINES_COUNT = 5;
+        let boardData = [];
+        let revealedCount = 0;
+        let gameOver = false;
+        let score = 0;
+
+        function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+        function initGame() {
+            const board = document.getElementById('mines-board');
+            board.innerHTML = '';
+            boardData = Array(BOARD_SIZE).fill('safe');
+            revealedCount = 0;
+            gameOver = false;
+            score = 0;
+            updateStatus();
+
+            let placedMines = 0;
+            while (placedMines < MINES_COUNT) {
+                let randomIndex = Math.floor(Math.random() * BOARD_SIZE);
+                if (boardData[randomIndex] !== 'scam') {
+                    boardData[randomIndex] = 'scam';
+                    placedMines++;
+                }
+            }
+
+            for (let i = 0; i < BOARD_SIZE; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleCellClick);
+                board.appendChild(cell);
+            }
+        }
+
+        function handleCellClick() {
+            if (gameOver || this.classList.contains('revealed')) return;
+
+            const index = parseInt(this.dataset.index);
+            this.classList.add('revealed');
+            const en = isEn();
+
+            if (boardData[index] === 'scam') {
+                gameOver = true;
+                this.classList.add('scam');
+                this.innerText = '🚨';
+                revealAll();
+                document.getElementById('game-status').style.color = 'var(--danger-red)';
+                document.getElementById('game-status').innerText = en
+                  ? `💥 BOOM! Fell for the trap. Savings gone!`
+                  : `💥 BOOM! In die Falle getappt. Erspartes verloren!`;
+            } else {
+                this.classList.add('safe');
+                this.innerText = '💰';
+                revealedCount++;
+                score += 50;
+                updateStatus();
+
+                if (revealedCount === BOARD_SIZE - MINES_COUNT) {
+                    gameOver = true;
+                    document.getElementById('game-status').style.color = 'var(--neon-green)';
+                    document.getElementById('game-status').innerText = en
+                      ? `🎉 Solid! €${score} safely invested and all scams cleared!`
+                      : `🎉 Stabil! ${score} € sicher investiert und alle Scams rasiert!`;
+                }
+            }
+        }
+
+        function revealAll() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach((cell, i) => {
+                if (boardData[i] === 'scam') {
+                    cell.classList.add('scam');
+                    cell.innerText = '🚨';
+                } else if (!cell.classList.contains('revealed')) {
+                    cell.classList.add('revealed');
+                    cell.classList.add('safe');
+                    cell.innerText = '💰';
+                }
+            });
+        }
+
+        function updateStatus() {
+            if (!gameOver) {
+                document.getElementById('game-status').style.color = 'var(--text-color)';
+                document.getElementById('game-status').innerText = (isEn() ? `Balance: €` : `Guthaben: `) + score + (isEn() ? `` : ` €`);
+            }
+        }
+
+        function restartGame() {
+            initGame();
+        }
+
+        initGame();
+    </script>
+
+
+<script>
+(function(){
+  var btn = document.getElementById('fullscreen-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var supported = root.requestFullscreen || root.webkitRequestFullscreen;
+  if (!supported) { btn.setAttribute('hidden', ''); return; }
+  var EXPAND_PATHS = '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
+  var COMPRESS_PATHS = '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M16 3v3a2 2 0 0 0 2 2h3"/><path d="M8 21v-3a2 2 0 0 0-2-2H3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>';
+  var svg = btn.querySelector('svg');
+  btn.addEventListener('click', function(){
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    }
+  });
+  var onChange = function(){
+    var active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    btn.setAttribute('aria-pressed', active);
+    btn.title = active ? 'Vollbild verlassen' : 'Vollbildmodus';
+    if (svg) svg.innerHTML = active ? COMPRESS_PATHS : EXPAND_PATHS;
+  };
+  document.addEventListener('fullscreenchange', onChange);
+  document.addEventListener('webkitfullscreenchange', onChange);
+})();
+</script>
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

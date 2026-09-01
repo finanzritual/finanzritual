@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-en="Lesson Plan Generator (Teachers Only) — JugendBASISbildung — FinanzRitual">Lernplan-Generator (nur für Lehrkräfte) — JugendBASISbildung — FinanzRitual</title>
+<meta name="description" content="Für Lehrkräfte: Artikel für den Unterricht ankreuzen, per Klick in die gewünschte Reihenfolge bringen, Bearbeitungszeit auf einen Blick sehen, direkt als PDF herunterladen." data-en-content="For teachers: check off the articles for your lesson, reorder them with a click, see the estimated working time at a glance, and download directly as a PDF.">
+<link rel="canonical" href="https://www.finanz-ritual.de/jugendbasisbildung/lernplan-generator.html">
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="../style.css">
+<script src="../script.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<style>
+:root{--y:#00c8ff;--bg:#070a10;--panel:#111722}
+html,body{margin:0;background:var(--bg);color:#f5f7fb}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+/* Nerd-Marker fuer Jugendseiten: gelber Balken nur im Ruhezustand (scrollY===0),
+   wechselt beim Scrollen zu einem neutralen Grau -- exakt dasselbe Prinzip wie
+   die gruene Header-Linie auf der Hauptseite (siehe header.site.is-scrolled in
+   style.css). Bleibt als Erkennungsmerkmal fuer den Jugendmodus da, stoert aber
+   nicht mehr dauerhaft die Aufmerksamkeit. */
+body.is-scrolled:before{background:#3a4356}
+.y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+.y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap}
+.y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}.y-nav a,.y-lang{color:#fff;text-decoration:none;font-size:.9rem}
+.y-lang{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;padding:7px 12px;cursor:pointer}
+.y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+.y-icon-btn svg{width:17px;height:17px}
+.y-icon-btn[hidden]{display:none}
+.y-wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+.y-kicker{font:700 .78rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.14em;color:#57e0a7;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.02;margin:14px 0 12px;letter-spacing:-.03em}
+.y-lead{font-size:1.08rem;line-height:1.55;color:#d7dce5;max-width:64ch}
+.lp-notice{background:#1a1210;border:1px solid #6b3b2d;border-left:4px solid #e2694b;border-radius:14px;padding:14px 18px;margin:22px 0;font-size:.92rem;line-height:1.5}
+
+.lp-list{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lp-item{background:var(--panel);border:1px solid #303847;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.lp-item.is-checked{border-color:var(--y)}
+.lp-check{width:20px;height:20px;flex:none;accent-color:var(--y);cursor:pointer}
+.lp-item-body{flex:1;min-width:0}
+.lp-item-title{font-weight:700;font-size:.98rem;line-height:1.35}
+.lp-item-meta{font-size:.78rem;color:#8a93a3;margin-top:3px}
+.lp-order-controls{display:flex;flex-direction:column;gap:2px;flex:none}
+.lp-order-btn{background:#1a2130;border:1px solid #3a4356;color:#fff;border-radius:6px;width:26px;height:22px;cursor:pointer;font-size:.7rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.lp-order-btn:disabled{opacity:.3;cursor:not-allowed}
+.lp-order-num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--y);color:#070a10;font-weight:800;font-size:.82rem;display:flex;align-items:center;justify-content:center;visibility:hidden}
+.lp-item.is-checked .lp-order-num{visibility:visible}
+.lp-empty-hint{color:#8a93a3;font-size:.86rem;margin:0 0 14px}
+.lp-empty-hint.is-hidden{display:none}
+.lp-cat-group{margin-bottom:22px}
+.lp-cat-heading{font-size:.92rem;font-weight:700;color:#f5f7fb;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.lp-cat-count{font-size:.74rem;font-weight:400;color:#8a93a3}
+
+.lp-summary{position:sticky;bottom:0;margin-top:28px;background:#0d1716;border:1px solid #2d6655;border-radius:16px;padding:18px 20px;box-shadow:0 -8px 24px rgba(0,0,0,.4)}
+.lp-summary-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.lp-summary-label{font-size:.82rem;color:#b9c2d0}
+.lp-summary-value{font-size:1.6rem;font-weight:800;color:#fff}
+.lp-summary-note{font-size:.86rem;margin-top:8px;padding:8px 12px;border-radius:8px}
+.lp-summary-note.is-ok{background:#12291f;color:#7ee6b0}
+.lp-summary-note.is-stretch{background:#1f2a14;color:#c8e67e}
+.lp-summary-note.is-warn{background:#2e2210;color:#f0c15a}
+.lp-summary-note.is-danger{background:#2e1414;color:#f0908a}
+.lp-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.lp-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;padding:10px 18px;cursor:pointer;font-size:.88rem;font-family:inherit}
+.lp-btn.is-primary{background:var(--y);color:#070a10;border-color:var(--y);font-weight:700}
+.lp-btn:disabled{opacity:.4;cursor:not-allowed}
+.lp-title-field{margin-top:16px}
+.lp-title-field label{display:block;font-size:.82rem;color:#b9c2d0;margin-bottom:6px}
+.lp-title-field input{width:100%;box-sizing:border-box;background:#151b25;border:1px solid #596274;border-radius:8px;color:#fff;font-family:inherit;font-size:.95rem;padding:9px 12px}
+.lp-title-field input:focus{outline:none;border-color:var(--y)}
+.lp-title-field input::placeholder{color:#5a6376}
+.lp-time-breakdown{background:#12291f;border:1px solid #2d6655;border-radius:8px;padding:10px 14px;font-size:.86rem;color:#7ee6b0;margin:0 0 16px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.lp-time-breakdown:empty{display:none}
+.lp-time-breakdown.is-over{background:#2e1414;border-color:#7a3a3a;color:#f0908a}
+.lp-klasse-badge{display:inline-block;background:#1a2434;border:1px solid #3a4661;color:#8fb3e0;border-radius:6px;padding:1px 7px;font-size:.72rem;margin-left:6px;white-space:nowrap;cursor:help}
+.lp-view-link{display:inline-block;text-decoration:none;font-size:.72rem;margin-left:6px;padding:1px 8px;border:1px solid #3a4661;border-radius:6px;background:#1a2434;color:#7ee6b0;font-weight:600;transition:background .12s,color .12s}
+.lp-view-link:hover,.lp-view-link:focus-visible{background:#22345a;color:#a8f0c6}
+.lp-klasse-filter-wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.lp-klasse-filter-wrap label{font-size:.85rem;color:#b9c2d0}
+.lp-klasse-filter-wrap select{background:#151b25;border:1px solid #596274;border-radius:8px;color:#fff;font-family:inherit;font-size:.88rem;padding:7px 10px}
+
+.lp-print-only{display:none}
+@media print{
+  .y-header,.lp-notice,.lp-actions,.lp-order-controls,.lp-check,.lp-view-link,body:before{display:none !important}
+  body{background:#fff;color:#000}
+  .y-wrap{max-width:none;padding:0}
+  .lp-item{background:#fff;border:1px solid #999;color:#000;break-inside:avoid}
+  .lp-item-meta{color:#333}
+  .lp-summary{position:static;background:#fff;border:2px solid #000;color:#000;box-shadow:none}
+  .lp-summary-label,.lp-summary-value{color:#000}
+  .lp-summary-note{border:1px solid #000;background:#fff !important;color:#000 !important}
+  .lp-print-only{display:block}
+  .lp-item.is-checked .lp-order-num{visibility:visible;background:#000;color:#fff}
+}
+@media(max-width:640px){.y-header{min-height:54px;padding:0 12px}.y-nav{display:none}.y-wrap{padding:26px 14px 60px}}
+</style>
+</head>
+<body>
+<header class="y-header">
+<a class="y-brand" href="index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="index.html" data-en="Home">Startseite</a>
+<a href="index.html#themen" data-en="Topics">Themen</a>
+</nav>
+<a href="../suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+<button id="lang-toggle" class="y-lang" type="button" aria-pressed="false"><span id="lang-toggle-text">EN</span></button>
+</header>
+<main class="y-wrap">
+<div class="y-kicker" data-en="FOR TEACHERS ONLY · LESSON PLAN GENERATOR">NUR FÜR LEHRKRÄFTE · LERNPLAN-GENERATOR</div>
+<h1 data-en="Build your lesson plan">Baue deinen Lernplan</h1>
+<p class="y-lead" data-en="Check off the articles you want to use, put them in the order you want with the arrows, and see the estimated working time update live (teacher view only). Download either a planning PDF for yourself, or a separate student guide with a QR code and short question per article — completely free of time estimates.">Kreuze die Artikel an, die du im Unterricht nutzen willst, bring sie mit den Pfeilen in die gewünschte Reihenfolge, und sieh die geschätzte Bearbeitungszeit live mitlaufen (nur in der Lehrer-Ansicht). Lade dir entweder einen Planungs-PDF für dich selbst herunter, oder einen eigenständigen Schüler-Leitfaden mit QR-Code und kurzer Frage pro Artikel — komplett ohne Zeitangaben.</p>
+
+<div class="lp-notice" data-en="Important: this time estimate is for teachers only. It's based on roughly 150 words per minute of reading time and does not appear anywhere on the student-facing article pages or in any student handout — showing a countdown to students tends to create pressure and demotivation instead of helping them. Treat these numbers as a rough planning aid, not a hard rule — actual time varies with discussion, exercises, and the group itself.">Wichtig: Diese Zeitschätzung ist ausschließlich für Lehrkräfte gedacht. Sie basiert auf etwa 150 Wörtern Lesezeit pro Minute und taucht nirgendwo auf den Artikelseiten für Schüler oder in einem Schüler-Handout auf — eine sichtbare Zeitangabe würde eher Druck und Demotivation erzeugen als helfen. Verstehe die Zahlen als groben Planungs-Anhaltspunkt, keine harte Vorgabe — die tatsächliche Zeit hängt von Diskussion, Übungen und der Gruppe selbst ab.</div>
+
+<h2 style="font-size:1.15rem;margin:28px 0 10px;" data-en="🗂️ Your selection (in teaching order)">🗂️ Deine Auswahl (in Unterrichtsreihenfolge)</h2>
+<p class="lp-empty-hint" id="lp-empty-hint" data-en="Nothing selected yet — check off articles below.">Noch nichts ausgewählt — kreuze unten Artikel an.</p>
+<ul class="lp-list" id="lp-selection-list"></ul>
+
+<h2 style="font-size:1.15rem;margin:32px 0 10px;" data-en="📚 All articles by category">📚 Alle Artikel nach Kategorie</h2>
+<div class="lp-klasse-filter-wrap">
+  <label for="lp-klasse-filter" data-en="Filter by grade level (rough estimate):">Nach Klassenstufe filtern (grobe Einschätzung):</label>
+  <select id="lp-klasse-filter">
+    <option value="" data-en="All grade levels">Alle Klassenstufen</option>
+    <option value="7-9">7-9</option>
+    <option value="9/10">9/10</option>
+    <option value="10 / Berufsschule">10 / Berufsschule</option>
+  </select>
+</div>
+<div id="lp-category-groups"></div>
+
+<div class="lp-summary" id="lp-summary">
+  <div class="lp-title-field">
+    <label for="lp-lesson-title" data-en="Lesson topic (optional, appears on the worksheet)">Thema der Stunde (optional, erscheint auf dem Arbeitsblatt)</label>
+    <input type="text" id="lp-lesson-title" placeholder="z. B. Konsumfallen &amp; Mein erstes Konto" data-en-placeholder="e.g. Consumer traps &amp; my first account" maxlength="80">
+  </div>
+  <div class="lp-summary-row">
+    <span class="lp-summary-label" data-en="Selection">Auswahl</span>
+    <span class="lp-summary-value" id="lp-count">0</span>
+  </div>
+  <p class="lp-time-breakdown lp-min-only" id="lp-time-breakdown"></p>
+  <div class="lp-summary-note is-ok lp-min-only" id="lp-note"></div>
+  <div class="lp-actions">
+    <button type="button" class="lp-btn" id="lp-reset" data-en="Reset">Reset</button>
+    <button type="button" class="lp-btn" id="lp-print" data-en="🖨️ Print">🖨️ Drucken</button>
+    <button type="button" class="lp-btn is-primary" id="lp-export" data-en="📥 Load PDF">📥 PDF laden</button>
+    <button type="button" class="lp-btn" id="lp-student-export" data-en="🎒 Student PDF">🎒 Schüler-PDF</button>
+  </div>
+</div>
+
+<div class="lp-print-only" style="margin-top:20px;font-size:.8rem;">
+  <span data-en="Generated with the FinanzRitual JugendBASISbildung lesson plan generator, teacher view only.">Erstellt mit dem FinanzRitual-JugendBASISbildung-Lernplan-Generator, ausschließlich Lehrer-Ansicht.</span>
+</div>
+
+</main>
+<script>
+(function(){
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  // Feste Daten fuer den Schueler-Leitfaden-Export: pro Artikel eine kurze
+  // Lernfrage (DE/EN) plus vorab generierter, per pyzbar zurueckgescannter
+  // QR-Code (PNG als Base64, direkt in dieses Objekt eingebettet -- gleicher
+  // Offline-Erzeugungsansatz wie beim Quiz und der Toolbox-Seite). So muss
+  // beim Erzeugen des PDFs kein externer QR-Dienst zur Laufzeit angefragt
+  // werden.
+  var LP_STUDENT_DATA = {
+    'YOUNG-arbeitsvertrag-jugend.html': { q: 'Welche Klausel zu Überstunden ist oft unwirksam, wenn keine Stundenzahl genannt wird?', qEn: 'Which overtime clause is often invalid if it doesn\'t name a specific number of hours?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB90lEQVR4nO2YPW7kMAyFP5kCXMrAHiBHoW+QIw1yM/koc4AAdDmABm8LOemyqRZhEcGFITYPxNPHnyK+PM/l6xj8Br8LogCwgNbBB4w28+0jndoFXBK47jcFqzpgkiJhbitQcNpbgedLlC0KO+dm70nVApw3na8Wx/iDjY/btGpbr+9HgcHB+fqDgr5VK6gcj4qgcANo4kyodoGjlMJ5W8PruVsAPEspW0K1aJ64OHDxQZKUj2AonNavD2hdkqmPjLydue0KRuuSrurQumXM7cK5PzdqkwWcZQ2vHJz7o+wpfduBgdMkySTw0TI7QSZNAyscGJBUbbjCB25TZ+sWPppGS+hbJgGAgV/plUw5XxkTtqOJpjEd2zpNKdUunHt50XovnPuqXqGC3cvPCfrXUbhJAzfpemVNFqT07QI8Nio8tutKwXPz+oOCvj6aBLjgcNnYwpMSTBrXr5u6qStcaZkQfBYvfSJXXZE0t7RuAU3S1dgkdkKXusItZjnz0WRB2v7WwmefYOpTKqTN7TU7jLn6wCccUqpdOEsppeIV1vDaetmouKnn4+3ysauB9jYADmBwlJKyGw+fpL26xOvayVp5Ac7bGgccpj7xq3vi3H6waxaIrFMkCp+TzrTBaJrVLWktCwCbW4U5kbU+lyH51JbfTf5/C/4F6f2hyCVZz5UAAAAASUVORK5CYII=' },
+    'YOUNG-banking-app-sicherheit-jugend.html': { q: 'Welches Gesetz verlangt eine zweite Bestätigung (2FA) beim Online-Banking?', qEn: 'Which law requires a second confirmation (2FA) for online banking?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACXUlEQVR4nO2ZQYrjQAxFX6UMvZRvkKPIN2v6ZvJR+gblZaDMn4WcLAamO9AwcUGLAoO18I/qS/pSivjK9suXbvj1/8yPGkCVugkLTFVRldfi/dX4nsDvkmojTzfV5mpeJbXz478ApSzg+1X7VWylW5QZtjKdBN9T/rVvS/0sE0xb6f//+z/0m2BN8tyuUdvZ8P3TDv5L3aLjVaqKfDMC/+/1p/lfBxih/lwwSeqsWNxmbjPAbUaSFCfA94096icmTOBVkQfT6eOPGt3UTUBVqIFFxzs+Bn4FeOZv5mxtYFEVfQD+I6kq+j3mktRcDTVGqD8XtrLP/vb5DtTGXhZgn30ynQPfN6bmWHRTh84hgYCeL1+N77n8DXAACzXu4pNB+B9w/IRM4SplFRqhfx38qQop1FwKHVra6wD5e68/kFW0Nu8WnaMpDIA/oy1JwlQb2bmqYoz4H6MW4JLAu0kKjaE/L1iwLWV2YJ/XDhMrMG1lshH0m6I2f6iglG1Y5L2cPv6pPwOLlG310D9ijPo/5UOs2maJfUKobEufToHvqf6LJ2HUOGQnfsw1r8b3ZP9So99nmZ7MsRiF/1UBpHLIzgtgGoH/KHUC3i0w5RVIkXPNEPiz2gBH21IA4GPgT2scLGr+WIGOkL8XtlJKmSz28o7pdv2YyC7MXpYT4PvGHvu3eghp1ebgaj6I/vSHctZdPAOD8P/hX7t9TKxvDUy5Ba3tRPi+9e8zt5nb7G+fpW9Lh30+E75/+7NgTniVpm3ZrwLYito58H1pj/1zDuzHFNxyF3F+/pff/09f6v8DJUQUFDXDG9kAAAAASUVORK5CYII=' },
+    'YOUNG-buy-now-pay-later-jugend.html': { q: 'Warum kann \'später zahlen\' schneller zu Schulden führen, als du denkst?', qEn: 'Why can \'pay later\' turn into debt faster than you\'d think?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACRUlEQVR4nO2ZUYrjQAxEX08b5lO+wRxFvtmSm7WPMjeQPwc61H6ok8CyOxsY2HHDimCH6MMVdXWpWi7is7i+fJqG//mv5VEA1HCFd+g41qpyWbx/N74n8LukGp6YuwmoUpUU58f/ApSywX5d6TjsWAM4ynISfM/krcG+2OX1fePYPsr2j5//1fyx1fcfCseapNc4G74/xQIIFhNcikXHiwWAieP78T2vP798gDn05xZAKmcNwPPHCfCHdwCXWjdJrUoKFD5J/VsN79a6NQVVTQHWOo7NUH81hVep8+i/HQefoX9xr7aCGgzkUrc2CX9UgyqBY1J4xzs+iX9AEviDNta6qYOCWfQHE9awhinJgw0VnQE/Cu+mrHzqZypSnYQ/HapaDapaVSNFNXn13fie8/8td0HNL9b6WIsZ+J+EySNM+s/cEfgk/Gl3tQEH79bIdZkCf3j2X6ll/0r9hFn0k2F+lNehpcmiKfCnbcvKSzfnZm0S/iSF6JDbtpvGFGIK/JLCgYd5vvufSfh/03/qcA4+7Ogk+OtQHjDpdn6ZqP8Oz8YwQtL4FzPw/wVQUNa9WytvjWOD/Vq2snJdz4Hv0xjThxhnrqR9jnNn0P8XjlJKWdhhX6C86WPdOyzQj+0E+P4S9/nzIPyYaHnuhQnq/5g/O/AaXFeHvaxwnL/+j3wNsEuHJadwutQ4E77fxzLuputbLLB0FXaOVcemE+B7Sj/VgOXYPlZyhPXx1oCyngPfp3GbP9N5nL/SVM/gP8v/96ffmv8JNGEe5pcQ5wsAAAAASUVORK5CYII=' },
+    'YOUNG-dauerauftrag-vs-lastschrift-jugend.html': { q: 'Wer entscheidet den Betrag bei einem Dauerauftrag — du oder der Empfänger?', qEn: 'Who decides the amount with a standing order — you or the recipient?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACQElEQVR4nO2ZQYobUQxEX883eKmGHCBH0dwszM3kAwXUy4CaykLtSQhkYpKF+0OEF7Zr4UKUyiX1Ij6q/eVDGP7j/4ajBBiJEkkFZVE4AF7P5vcA7pIwLatftgXTNbkqhqQ8Bb8P6wIsOCCAuNZtX3xfnG0dX5/P71F8W9hel+VL4djbyLPxewC3t+K2rLeCfX3C7/8VfgEEF7gUI9e6vI5iFBcT2/P5Pew//ssLmMF/UFdSUKYCTO81Af90pQOFF65kpJdFQzPwp0ASMBRYlAlc6WVz9B98pBeOBXcJlcUk+jkEz5EZGIeinCn6LykdC6V3ChrpUgxpDv9JpCiTFNU9N1XPxRT9T8rU/cdCSeFlPc4z8JekkIQFMJIehJpF/4nykE27qNr/LWbRPxaFl0W7aPt/vzk9/wum/RPXXIHablfd2Jb6FDtc6/n8HsoPirIoGAol/ec7pDn0rxjSUNAu9NPHOfwnHbyHtwCLDm+T6B/pUE4bznv4rHn8fyRlaiMt6ItE4bP451CMdEkjXUlfToZiFv4FhffCNfQj/8yRn6XCR1IW1fnnvr/Mwh84DL8PiVJ76Sz6aam37HWf5f7m9PxfMPXa/m1lX33/HHAD77k4Ab8/1E/3Hzr/97/AmEX/7Zx97bHo5KC7kU7BvxuOxZB6f7nfb88/v3fc3pSwvZYF9gaOxcjz8PttHf1XlGm0Zn6E0vPr5wWQArjmrSzYlmP/3V739Rz8Pqx3/6GffPXyeKTo8+t/+f/89Kn4d2U+GpakU6MYAAAAAElFTkSuQmCC' },
+    'YOUNG-digitaler-selbstschutz-jugend.html': { q: 'Nenne zwei Wege, wie Betrüger versuchen, an deine Zugangsdaten zu kommen.', qEn: 'Name two ways scammers try to get your login credentials.', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACXUlEQVR4nO2ZQW4bMQxFn6IBstTcoEfR3KBHCnozzlF8A84yAI3fBWW3mzpBWyQjIFrYBriYb4KffOIU8ehcnx6G4Sv+b3HkANWRd+jVezTJOwA9PlvfO+JdErCAZNeVBRaokvwU+t6Ml7LRdF0pZatOvRSacZTlJPoenWV8H9/FvrHzzTk+8Pn/K95sOV6imXwHrmX74Of/bRx5l1Rl0Uw388p7leRT+HcvpXC8PF9eFni+bOnfayllPYW+x0d5vNNUZTTRlE1J0unzj7zTjGY5AnQfBLKYoP8jGW3kP0BSNKuyaKLNkH8ZUJ3qnWZVRjNJcmapH8miWZJDuiCgyuoU+iVJNKuSZMkSVQZ9Bv5BsmiSFHToksl70IFJ/KsqQZenF7o84a1PUj8mWQD0yC4q0Szoc/hXgqSF0YWiWdCj2Rz9czAPObnSBdFGUZ1e/xPAsZW1L1BWaD+q77APBD2Fvkdn5F8mJ8euvFfv1Yk56icNq7sFgq7xef76ITMfkCO43u0gmyP/UkBiQ5Vp8M9tqH22vnfev5JCq1Sd6iROT9I/oRkQdJqA6hmZhX+UNZ+Grd6TqJmGf4wctU3Qgy5ZIvQk9dMTm6Mpk18lhq+nyH9e2y3JoToxlqKz8OfYP0TT7V9QfXjh9PqfOEopJdeIcWzV9/s697qeQd+b8bF/fr5syZxl5XUdE/kM+h6f27ZHv7C5KUfADP69xY8C+wIcG/C69ur92c+j709nuf+KBR3bdQX2jb1CYKd///Xb/hlGz4FIkJiifzqMhkm0vMiTIDcD/5Sv96efGv8JcRAff+MZxEMAAAAASUVORK5CYII=' },
+    'YOUNG-etf-erklaerung-jugend.html': { q: 'Was macht einen ETF sicherer als eine einzelne Aktie?', qEn: 'What makes an ETF safer than a single stock?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB3klEQVR4nO2YQWocUQxE3x81zFIDOUCO8vtmvpr6KL6BZmnQUFn8HieQmGQTrIW16QZtClG/SqUhPqzH5eMefDX/1kQJYAku5ZRUvuY9qx3aC0xJeMABx+PG9XU3SdlwthdgjB3Q6wse1zwKuI/tEwF9WNv5ve8wub88bvn4ntvnAfq35gTGDctj+735GYD+WOtlWWIKy1kuSSYpe76yY4yxaABcX/ftvj/GGLeWs12Vs5h4KFnjldRvtiincgJKyqOW9kJLJqAEj/IoFy5J5SFFS3dAiUmWSIGHSXiYorwlEyRTKDFFeeBhiZpqApJwwVzjLY/nf9PZcqpuwDQFHlJYU7RRLsuppMCk8sBFT97mNKlcyrl4CzRmwuIqSwpOPuRsqgk5tdaDdyYwO+ttMQHLudSgYJlFR7SSJeWxTE25LFhN0eY0CVctX0gsp2XjPYFzsYFTHzozoeAd8IrARVdNOPdbTMGptNFYwfhVCtZsV2zviPaZHaSoE/ZUTuv7yrDEci53UE5bItYO7eX9VlNwVbzdjg2KyX3vmCKfFrZymeUzl3Xk7fPU4RqwsRu8fdOArRom9J/NYi7htTxY/+3QPm81ClymOJ2i7z0B4MwOz21cipZ7wvi65P+35g/qQ758ZFekvgAAAABJRU5ErkJggg==' },
+    'YOUNG-finfluencer-jugend.html': { q: 'Woran erkennst du, ob ein Finanz-Influencer wirklich seriös berät?', qEn: 'How can you tell if a finance influencer is giving genuinely trustworthy advice?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAABzklEQVR4nO2YMW4dMQxEn74WcMl/gxyFezPDN6OP4htwywD6mBQU7CaOKyMsLGzH5mGWGg41xKfncfu8Bj/Fr4ooAWb6sgBfsKz09tWR1iXNZIGSKWGakrIh7Q0Y48QC/PFLv++s6+Qax38E+rJ4Pc/k6W0c8JQdgP5ZtJfDXrBYvPYA+us5AMEB6zqFD3MAE1dD2hu8jjG4ng/8uM75dgKPMca9IS2qkz4lKVYZgiSpnyegdCywAGYyFZKmYjX1W2Z6ua4UezpYzJ7aKsCxWKaZPpNlATTVVqGkvupYAOvaCdr/HdOykLRg9dVW4MtU8i4LpS/TspZ9mz4V4DN94UB5QtNblmCStExKL3lnelNaqSxX6VipGjNpSzvTK5Mvi5J6Jl37FvDyhOKc24Fb0pbfKoCZW+q6cR1pyxMslP6eE9TYE5So9DQtWBZT0XIv24mRwtaeZZiadoICkPbYrTzWODF6pS/Y2s4EvHMn6CMosidaR21vXGOMcVRCSD8sxp0Dn4p+e9kNvG5Z7Y/suPg6xtmPFqWDl2Vh7y+OXWdZ0SYAFrtjravfbtoaDa7crx9tN3RJs1o32dOhrYMlfLzfUhu6mqbx8fOS/23FP8nRw2jXoNTqAAAAAElFTkSuQmCC' },
+    'YOUNG-fitnessstudio-jugend.html': { q: 'Was solltest du vor der Unterschrift beim Fitnessstudio-Vertrag prüfen?', qEn: 'What should you check before signing a gym contract?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB+0lEQVR4nO2YQYrcQAxFX40MvZRv0BcJlG829JFyA/kofQN52VDmZ1HdA4FMZhWixQhvzN88xK8vVTXxaZ1vn2vwLX4tHq21thwbwLEB50prrbWtIi1dEn5rK8C5crlvJilL9hZa2wDdG3675D6Aoy3/EehL8XhvVy3H+7n2c60A9Hdx133Dw3LHowLQn2oBBAv9XDF4rMl9w8VRkPYN9tYacMnOsV3u2wJna20tSLvgAjgYB+f154+FsfQ5MipOh2Pj2NrKwj4AuOTeWuOombf7uTLYh8cCJj2uIUVJJyCFJFy4hssUw8MUwzUK0mYHJCk7HsPDspuk7CVpMYUppDDFAFyWSCV7q8BDE48+nTA8rCZtTjN06HhY9gHQqelbhZLhkjQ8bBqjrBOy2/w+PJDdshfNBGl4aJ6v6Vu6FFAyE6TZ2Ll6WQIMr5q30nDN1B0zHJLhqkob0txi+oxck4Cy02EOspdvNVyVnWDZcdlzBAezsRVp34DHymAH8GgrUrRrWJbcwRKT7JVjyhkLveh0mPWExJJBnyOjIm3ChHTNU6bs87ce7dvrrSYu9810e6w7MOglbzrPBcyyQx/PlQyoudW8RL9ZssDicV7FfGgoS/tRx7vlXgnot1J2SSZJmk6w7DMn6jnhIxP6mHcHxTx3JfeE9v2S/8/EX/yHl919m2TiAAAAAElFTkSuQmCC' },
+    'YOUNG-fixkosten-auszug-jugend.html': { q: 'Nenne drei feste monatliche Kosten, die beim Auszug auf dich zukommen.', qEn: 'Name three fixed monthly costs you\'ll face after moving out.', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACVUlEQVR4nO2ZQY7bQAwEa5YCchz9YJ8y+tkiP6Of4h9QRwMUOocZZ5GLvUiAWAMsT4b74DZFNptUEY/ieHsIwzf+bzgKAJNLgmbRLJrUH0vLV/P7Av8myeQJVM/qJmWVSYo5+Pe0Z1VW5ec32AT8f+MXuxa7lqUKLlQ/G7+neFlZaHbdjnfXdfvvv//3uOTQTDpWqP4jKO9OVZ6E3xP8UkoB2DcL2Df2D7tuRyllPQW/J3iVpORyvP88Vm4rCQmSJD8BvyehaIBJkkwCLBgfpCn0x6TbyrFebqVIyuq5b+rtcAZ+D0MBNKr3sdsfB9Wh5Rzzd1Q7YxZ7VinIOsn8lfdsW6AYf8TkwBz+R65hfmSBBVndev4n6N+uk4JGl81A0pDQSepH0RQkzeRdPLM6tEny7xbjc9J6OZncolGn4H+3zfK8t4BFy+o5Bf9oCTBmbla/7zKaQf/foGuOErJq2bfcP4AEi3PwexjdMHTZTEYXZ3WLNoP/GeZ/tG2MRVLR58IU/DWmbf28P/TlZZb6v62tV7uC20rWvj+2s/B7GJKSnvBx9rEY/nMO/zPEp3X97I2gifxPtLtnkCQLeuVYzOL/G/VTfCTvRlT9ovVqfl/ef70v7BrmDZjG/0hSjEJSMMxnN9Kv5vcc30sp/WzIsQJYNAsWWinbCfg9xZsk9q13wVJ92TcguShOwe9xfF6b5cM2D2QW/R/3c5P3K0pXzmFKX83v6/mXvA/iLp6SZrj///H+Jev9bAgWbYb9/W3cn/dtoS1cEo5SfsiBGe7P5fv96UvxX/M9HDHvUmv1AAAAAElFTkSuQmCC' },
+    'YOUNG-garantie-gewaehrleistung-jugend.html': { q: 'Was ist der Unterschied zwischen Garantie und gesetzlicher Gewährleistung?', qEn: 'What\'s the difference between a manufacturer\'s guarantee and legal warranty?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACS0lEQVR4nO2ZQcrcMAyFP/8KzNK5QY/i3KAnLmiO8h+goFkWPLwuZJduOh3a0onhFyGYaJEXWfJ7Uop4ZPe3h2748P+dHwWAyQFFMzlV1NyW1l+N7wl/kwRN0bbq950O/XaYpDgFvsemaNBM3quATjOJKgsszh//bS5aqVfdPpsALP7X+/+pv3zysl/v+/Vejle8/w/8KJokC6jqVR0UrVeZpAXy5w2upRRo9n5c3o9LtA0u78e9lLKfAt9j0zA3ueQAGXxJ0unjn9niFk3yLNueV10Ev6Sg0/I+gh8skv8keVkgea8aexFQfQX+RdEUSLJoisZUFMnLK+BnMi8dFOOiqi8Q/zfA4ppZdJGADbY6FqfA99AUpNShStF+kFenraB/kJzqQ7bRMouonry8An6Z3OSJuYPlXU5dAr+b1KtLyvMzM8eirVC/SN7BYmxEEplFSug18Gfz0ucTyxKOtkj+qFenuuSSOkiuaBb0NfB7pnqqiE7LUzQPpQXwR0ogTD4735brZfRbleb5afIs3nEcvRrfc/rHARv62RWzqJfInzn8ySoe8c8p1hL4s/+a4sGm/hl0/Gp8T/FXHZ2vRbYtmFaZP2S3kvM379X77CihrZE/aQEj/uqMdniF+L9xK6WULWFXz84d2OC+nwHfb2zO35pSvMmTwvJDTh//n+fPQ8hN8bmE/pn+2wHt2w63o8O3nX4ufL+yOT+vfulcvu4W+9ZVaAC348ur8T2b/0rO0iSCxirzw4DZf+UsSEGHHEGcHn/5+H/6Uv93B7ouzp++p8AAAAAASUVORK5CYII=' },
+    'YOUNG-geld-und-familie-jugend.html': { q: 'Bist du gesetzlich verpflichtet, deiner Familie mit eigenem Geld zu helfen?', qEn: 'Are you legally required to help your family with your own money?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACQklEQVR4nO2ZQWojQQxFX48aZlkNOUCOIt8s5Ei5QeUoOcCAvAyo+bNQ2TPMwjYExi5IYXBjLfxL9fXrS72IS2v/cTEM3/GvxVEAWACucAu3cKmOxfPe+G6IF1oHlue+b+wbK5ikeAh8V+PLcqC9WqDAAtMrwHFZHwTfpbWO7+PLvrE/ve3PwfHAFg+C79Z4e02wj4PiHeB4+M///5W41IGf6jTtG+AW0JQPgu/iOumP//MBZtAfVCucJoDWs6lESdIE+MNpnSZwC9cQfzf1nCL/4eDZZEGO4+i1i2xz5D9P/M/WTd3UJSVuc/AH8GQkvKrgtJEp8LuF07qkyjxg6sAs+mPhxfk6BQWJA9PUb5OFW9RFNh4snCnqd6xuAZR/U7ZeRTEB/nBwmhK3wMITstWOZsBfah/Q/pQATSbNUb9Btm5BNuVJOZPyb1Pg9yzxrPptyipn9VnuX+r+Va8qLjolrjn4Lzvx/+QipEDlIu6N75b8l9TYXxQ6E2kC/Gf/D7WFquVxEdwb363+B3JoJhaDS3PopzQ0ZyTfE2ocNAn+btK5bYTRBWTrc/if4gkAZUQZvZjPU78dKNtTU7hqambwPxX3mhxyXD43XzZf8ZqrPAi+S/HjsizLCvvG2rrFex1H/fIA+K7GzwMT2ccL+LLxuZEwyfzNa9pTF5aVeQ6YqH+syZV6ni3QeQR6b3zX4uv5aQH7tbHB89vKu0E+3R/fbf5Ngz81PwyknszifwBq2kDr4yIb7fzj83/5fn961/hvk34NssjV+swAAAAASUVORK5CYII=' },
+    'YOUNG-geldwaesche-finanzagent-jugend.html': { q: 'Warum ist es strafbar, dein Konto für Fremde zu \'verleihen\'?', qEn: 'Why is it a criminal offense to \'lend\' your bank account to a stranger?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACW0lEQVR4nO2ZQYrdMBBEn9KGWfaHHKh9s5CDBfSPMjdoLwP6VBZtT7KaMQnEXzBaGKxauNTqalXLTbw3Hl/eheET/1d8a621BdjWR1uBdgNorbW2PgG/D4YyJJlkWa9YxnCZpIxxNb8zeGsr2/q4BS68D1i2la0tT8LvHG6JvbaFeNzueP/v3/9H/D64/7zB1vCu1/V/f/8v8QUQLEQDy9ugvwya5+Jiu57fCfzeWgMsYyGW7Rvbaq/ro7V2ewp+7w/VSCxRAijDMmp6gvqzra21xTuwEMO1cAf2Q+F6fh8MSRX54R3vljG8K2N4x58//ihjP7NgEMNlCd7xPnj+8wtJtQQq4DBcyn1+Cv4DOHJmuABTB5gj/l3qwztH5RneLRk+Rf1BEgSUBMISUx+wy+FqfmfiP1xvyaPEpOEqLU/AP7EM27NIlvsWWOXS1fxO6dcldUsgpD6g8n+O+Ksrw9SHd1MvIzEOOUzAP7HfFiikXhV1wBz1P1EGVTz/3IsS8tX8zvgHKPMjO5pfJftGXM3vDP8SbHW+lUW7kZgj/2O4hnep7/5f2sU7Rf1JJFXBhzLPlJGeo/5nQJRsSwKH/9cs+h3eTTKp4m8ZAGUhruZ3rn+J/bT18tLVkcUs9UcSruG9mpfxdnk1Rfz/PHx3/y8IlQW6mt+Z+gO7haD852E+54h/3T9XC0xU21uvM+h3ARpRzx9fe6vpG42Y4f7nDb/j39majuZrv457Gn4f4WEZJrGtL3m3ZPj3Oe4/j/8vxxK6qeIfs/h/wA4XVP2XHe3k0/Nvn/9PL8V/AT3BG/4bSPUBAAAAAElFTkSuQmCC' },
+    'YOUNG-gez-kehrwoche-jugend.html': { q: 'Muss jede Wohnung einzeln Rundfunkbeitrag zahlen, auch in einer WG?', qEn: 'Does every apartment pay the broadcasting fee separately, even in a shared flat?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB8ElEQVR4nO2YQW7cMAxFHyMDs5SBHCBHkW+QI+VkBTRHmQMUoJcBaPwu6KTdTNNNMVxE8EI2Nw/0F/kpE3fX8XQ/Bt/Br4O7mdkCtnKsV2ABMzPbKtIyJLFvwfVye2M39q1J8pK5BbMNrkAAfR4vk92WBwLdXcvnrt1ef6wcC9q3BwL9E22XAd2Ncbz48jigL4PSBCQ1R05z6IoHAv0teDUz9m3JB5Z9O8xsLUiLcjlNaj5g0M9vUZDWR2oARtPMfdOkF6UNRuYWiC665DQfNWmlSZd8RArDaT6K5jZLgSZdCUmfQd3c0mfzfBuRjbhXPWWa9Kk8WQwgunJfj3YB4pkllKjaXy8/DSOeZz1/i5xgxJlSSeIUc8HcnsGL5gJwZd+ac9hWsvMiJ4tAMCJ1C02zFT1l0uf5guiTPqPPkkpAmtLMHiEfzUdkQavZHRxISEWfp1twoipt8yEJRpqENLdFu0P++qxdXZlYFfVgT8DFebeNfWu37X0dOa03L1rBctRtmsGQDzmUVcI5O4zmI8iJbKioY/y4q+kzMyy/Lp+TcDnaj0lHiq7oOk2jl623I2tsQHOiK3UbFR3j72BzjpVlt+NlRoqhMK2tnL7x9gajqgdL3c68bGw+lKqoWcEcIO+U9MewU9In2PdN/n8L/gJLT5PDE9uO5gAAAABJRU5ErkJggg==' },
+    'YOUNG-girokonto-jugend.html': { q: 'Ab welchem Alter darfst du dein Girokonto komplett allein verwalten?', qEn: 'At what age can you manage your checking account completely on your own?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB1ElEQVR4nO2YMY4bMQxFn6wBUso38FE4N8vV6KPsAQJwSgMyfgrKdooYmyZYFitMMRCbB+Lr80tNvF330/safBc/K6IA6PL8mdgc2W+bFWlNUpe6HKwHPaxLioK0J6C1nWO/n1HA8PvFOdr2hUBv1/b4ufZg+3Wd5+gf+xcC/WPxfr7eLuLYb+caQH9bS7dhCpuY5Cnjqrq9ttaADX4E2/FzO/Z7a+1csre5gomR3jXWXr3eojCgS5IYPodg7VSklTN8Du9hktZ0GF6UNjXAQk1V9DBGWVoUSAJ79Jle0RNIy2JIYXO4JGBmYChIG/mlIRhDjJUZStJalwDFcoYeALOmbqU5lKg9TJEuobKe0OU9bA7vcoX1YGIlJ2+6gc/hGW6BCXX9VgJ6APaURB63krSe0iVnRMBwoCzthJTBhDmUd7SinhAwtPCGeAHXPGW2zlQeNPnTxGrS5jhbSYal26KeEJbtnUNz5Vso67fr7mBzeBpCjoaqSgBeHpu5sWq+PWUO52hA/9jb+QpMrhx7xVtk2HPmZtB9zN+Cun0V5/B7axz77eIKSr4svYpb3nyD7djbxSWvR/vHG2O+LgaS9yjrtwB9MXsPAxgqmRPa90v+fyv+BlLPu7rqArlMAAAAAElFTkSuQmCC' },
+    'YOUNG-handyvertrag-jugend.html': { q: 'Wann lohnt sich SIM-only statt eines Handy-Bundles mit Gerät?', qEn: 'When is a SIM-only plan better than a bundled phone contract?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB8klEQVR4nO2YsW0kMQxFn5YCLuR24EYMcDq4kgx3pillCzDACQ1w8S/QeC8yfMnBCqxoMEweiM+vTzXx6blfPq/BT/GrIkoAk0wCCspnv6OWo71ASIIdKLAMu20mKdfsbUBYRrkswzTKZYnlgr3tj69fRfH6fM1e3wn0b7R7NSB2tvdrfiPQl7SCDpa/B3Bc7bbh4liQ9gJ7aw2iQz+2TnS4t9auC9KieRLLsAxL7Pyl9aZsegKmYZJpSLLzz5K0GkoklQ9J5+3gY1HaDNMwjQKIEz4DX5JWUkb5UFIEPvBTxmvSAhAT1SR8FNSKOQEluMplUrkgyodpLJlqJu2YnoBLGZYAtapueaiXqEcSW9MTNB7ApjF7W4QWnbJhH5Z7agBW9lslM+LiQxkmwbJ+O5SUq3xAWDIdbFValQ9LpIGPckmjlvWEBJ+DFjPPTL9ddMoycNk5YjGbLI0llXAB7NbeW/u4cOnQrnBs66XxC1BE9wGYXnFxbBwvi27o5+4Qpxhc82pYVAlHa611fy24P8ly749NeEHa+VZzvHA0u233K0CxL6nbDjQC6G8Ur8/9xd6uDaqv2dt5dnxwbMD705ir5Xq0f1+W7i12F6Kx4dm14PstypBk0twi8TGTw6oZDOBjXxgQZwBb0cHaz0v+fyv+ASuzlAXLHgwyAAAAAElFTkSuQmCC' },
+    'YOUNG-in-app-kaeufe-gaming-jugend.html': { q: 'Wie schützen dich Eltern-Freigaben vor teuren In-App-Käufen?', qEn: 'How do parental approval settings protect you from expensive in-app purchases?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACTUlEQVR4nO2ZQYrcQAxFn0cNWco3mKOor5Yj5Qaao8wBAuploMzPQtUZCKSnIYvughHGBmvzS1Z9/frexK04Xm6m4Sv/f3lUAFbgUoVVqEIVAMR4NL478iEJGJdte81jZ3vNE5ikegp8n+a37YzLKvR+tsLeNzy5bKcnwXcrTvN52e0nx+uP82sdJ469ngTfvXnPY+fb+1n1ZhVczk+G71ZeSgD//muPY4frdh5Pgu9mXPkn/rqAFfgHdRSSTInncA2iXy+AvwLPJn8IVUjCZcqxRP0rutWHJyBpeKpiuIavUH/lgB67w9OU9Cr6/mh899R/tjqBC5cVA/C0NfCjouevKVtLmBJiDf6pAKQ0Jd5cFIMA1ti/rdOaeQoIK0xpva8fje9e/vEcnnhaYRKeEIvUP62bpytfMTyHS8o16i8N15VCGV12V69oAfzNPwSeg+gWGrBM/1QMTykH0RQ0mPptkfkrK+altEIVAwahWqL+QLT+6fP78FQh5Sr6oQnTJubE+76Mfh7MDatqCu1vwSr8YxUmWTH8Kn48++UC+DUFpySb/hV4soz+STxNTaFA9ESec+3R+O7S/9fJ2xLaKqwH8QL4X9r5OXme4NgZl/PgbcCpva3H4/sk/vgPHxLiepy0BebXC5dt27ZpI17OVm99BOvP8QT4Ps1P/3kqf2LbOfZmpHwGfLejbR/7sLCEdzstwZ/X/DT/39q5PfZ2EZ8H3z9j1r9oCQRzeFmt5P+Ycvicv7PzWUQ/FLRhDniP4OvPowX6f/v6f/rQ/G8k7xP3zJ8JJgAAAABJRU5ErkJggg==' },
+    'YOUNG-inflation-jugend.html': { q: 'Warum wird dein gespartes Geld ohne Zinsen mit der Zeit weniger wert?', qEn: 'Why does your saved money lose value over time without interest?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB+0lEQVR4nO2YsY3cUAxE398v4EJeB9uIAaoDl3TYklyAAaqU7YAKDXAxDr7kbM9OjP3BMRI0yYAYDoe/iaf1uDzH4Av8G4gSoEvgZZLUNfrtNR3bC7gk9tZ1e7uvy76yr11STtjbC9DaCv54pwC7Pa7B3pYXEnpay/mx9fv3n9cf3xra1xcS+ifQAruBjyZPQOgpKAVQ+0e/r13RE0z1QkKfgVtrjf1jgQWWfV3g0Vp7n5AtGpWu9OFj2PFvPgdD6ZJ6uiQsygR0BTYlW4WSwpUOXhaYlPSccDugpEzgXSpcOqhO2ts8GUoHSVMxb2+x6FIB+CEJm3jK0suip/d0LDBhMWWqYRhXT8qia2SwAGpO3Uo9fczXSIxYFD6lbi/sDbstANtbbuwr+wpMuXmRohgmNsoLuqJPOmWUCVNPB8qiLLCYUglIqrHCTn/AQsm026FwLCQNSfSkpvWERIl0isGGJzDldriALxatrbW3xzs9t3EFT5pv0wuGwY5g0xNgWk8Y101XgCt99HZS3Z63Q1kU4yI7gs2MbBM4GntsXnzWfHs53mqg2BZobS0othcS+qTGgdMVNV7DTGPKasbE+Af0t6T2xt5+XaPwlxP6FNx+XbWMXXb/YDw5Tcf2vNAVwJgvnaqYTwmnJ6SXqSv6cadrSr9tXy/5/w38DWcfmsMXIsinAAAAAElFTkSuQmCC' },
+    'YOUNG-junior-depot-jugend.html': { q: 'Wer muss ein Junior-Depot für dich eröffnen, wenn du minderjährig bist?', qEn: 'Who has to open a junior custody account for you if you\'re a minor?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB9klEQVR4nO2YMW7kMAxFnywDU8o3mKNIN1vkZpqj5AALUGUAGn8LejZNNqkWYRHChSE2D8LX/5SK+Ged27978NP8qokMoGpWCXDwFvvdPR3tBl265OBQjfo6qiRLuLcbUMpgjfPgZn1v87xPVtm/EejrZpfh7eXt6DdLAfRp87GvUsqvfY23IwXQR7UDgh0cAayjGjSxEtJu8CilQN/X2NfY6fsaZynlSEiLogyaqvVq1GtJ+RwMWQeqJk1VU1K9VlLSasbnbUpyujfRZlraCDKHSIpqvVqnpaQ1ZN3brIbTaZM2ZVRLmLyxt4LOUwDEtJBzTljjPJBdhGcZNN00UyYvMqpmNUKrsl4NwHPqVpLhTU53uoc2rKf1BEnV8PBb63HclPaUGTKCGXDI7LeyDr0aHt6lGRaRkdZ6+C1t/mUGstIiqcZ40KY3XW6WlTaMy+kxz3ibcdzy0W7QgXJw08t5UI1qOJT7zJcOG6DXInucR8QZe9wo1shHe52yqlmv0fF6TEiphPe7Q+QvTRENKT1hY5VSyt7k9POuao9LCd8G9HmzS2INVtHrOA8A55FWtxEKIV3nOYPlnG+f5Wv4GsDbPbL4u4E+qP3973cvTYjCoBlK+H6LrEfyxi2SNp8WkdATnu+3EWHXYHMNDPloy89L/n9r/gEzaJQ2MHGdqAAAAABJRU5ErkJggg==' },
+    'YOUNG-kindergeld-jugend.html': { q: 'Wer bekommt das Kindergeld normalerweise ausgezahlt — du oder deine Eltern?', qEn: 'Who normally receives the child benefit payment — you or your parents?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAACCElEQVR4nO2YsY0cMQxFn5YCNuQALmAbMcDpwCUZV5I70JSyBRjghAto8B1ozo4Wd4mxCk6RZpg8COKjyCKeruPyPAZfwY+CKAFMggA6dB/nHX062guEJMDUOlhyva8mKSc82wtQysq+PhauGdXb49bYS30h0NNV/+6unc7b9yW5ry8E+iTtUYDYnOOW9XVAH9IKKhueAGxxX3GxT0h7ga2UAmH3te5r3X9WOEopy4S0aKxEGZZhiZ2/NJ/BUAZgarhMTe/itTlp1bqrE+ee6C68TUvLqGXeIEzNEmXgU9JmKJGaJZ3AGy4llhNWXiR1b5Zh0vhkvBbmfCfsa4XOdixbdx1l7a6r2pSVF+lMMcvohCRTA/qk9xagezMJV2fc4ZjVCYKwHCprnRjppkmzrHWXJMtQBkSHmX077CoJlzJGjZjUt0NcoyKMa+Ctw6S0CS5cluCtuyzP7mxK2vM87V1leDO1KbOsAo9vqh32xUT9vYitQ/Gcc55wze1RynFr7GuHslDK+kqg52sI4b2QNUmWMK9vz95hCAFvozRM6YTKvgDWBZSbYKtQf78M6KNgSGJfSyl2X48FoLOxr1PSnjmljO5vEJZbWegvBPpEsEJZqPv6uLXRWs5H+29W86hAaP9RWfFfpgnntyjPF/jobhiWyFk79ASwHLJtlsF4gM1osPI1yf9vwT9lA4fYjwJEjgAAAABJRU5ErkJggg==' },
+    'YOUNG-mahnung-inkasso-jugend.html': { q: 'Was ist der Unterschied zwischen einer Mahnung und einem Inkassobüro?', qEn: 'What\'s the difference between a payment reminder and a debt collection agency?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB7UlEQVR4nO2YQYobUQxEX1sNs/yGHMBHUUMOFuZIuYEMucgcYEC9NMhUFt/2ZJFhsgmjxQgvTGtTiFJV6S/i3boe3u/BV/OjJkoAkwrAC68x5+3VDu0BXBLAEGDJ08tmkrLhbA/AsmzsC2AJ4/lyCvZl/URA79Z6/+NPdWY8X1f/9bp9IqB/a56vR2r/scLlFB0A/a1WQLCCJddTwtkShtgbor1rQvqfP6ClJqxTCti5fMvl6NfTz+8wJayfO6B0wBTgjKghmF/Ub7YonREFlki6ucOIrmgpYGh6hCQlls5oiVYCrxE15mCDIUssG24Zc5JTteoGnoLqqAlIUSOkkKT0Oee5dB3RphdukqQaUroppjh0RCvNuKh0hpRIAd5VE9ykOU8pCgcKV9ctu2uspucW9NVbxcwGUjyYULTV2zDdDLdwJdPauqJV4Yx4eIQlBU01YdoWDj4zA7gpum6Zm8Kk+6IhxeRwP7QH4LJsxRnQy3Y5shxZjtjL1vJ2cEs3CZjrZsntYaEh2ll3I2NE3QjckAkr+xGwCvaFEQ5XWF8/DdCHTJBkedOBqQlK2mYwcEtmbrzztme+fWuu+Arrvl1PMc/2nkwAf5wP8wTum2ombxWWPo90KSzbXugw32oUNR6Y1TInLF8v+f+t+Rv5TpbgPTaTlgAAAABJRU5ErkJggg==' },
+    'YOUNG-mietkaution-jugend.html': { q: 'Wie viele Monatsraten darfst du für deine Mietkaution maximal nutzen?', qEn: 'How many monthly installments can you use for your security deposit at most?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAACCUlEQVR4nO2YsY0bMRBF34gEFHIBF6BShh24pINLcgfcUlSAATIUMIvvgKtzdD4nhhgcI2knefgY/vlDEx+e4/JxDb6KnxeHmVmGDMe2AxnMzKyuSItLYtRgv97fGMaoSVJfUlswq4BtBOTSjltjWH4h0IcnP3/sqXPcflZDo74Q6J9oi/LYAgc/bj2/DuhTWkFmB0/3KqBDEWNB2gvsZsZ4AzLkUfOoh5ltC9KiebonKUngqfv8FgvSdpeUukcRpUURkNQoa9ISRVJLEhClUaRO6r4iraTugLoHSEoddV9VW5dacPYDRVEUrKntBWDUDLAfGzHq9V6vUpS2oid0wAOntNQdmNcNFtQWqaVOUotnD59/F+1b1H2aAEWSklrgS/Yt0xBmbpTa1DZwrUmrlroHHqUFAAFJLa04yy7gj40M104GSqO0xwZjwd0BqaXZAOcVm+bAstMhSam71GZOmP6wridIUZ4+UETRdLMlac+5EEBR6khN62YwT2qSmK6FpzkvVnSwDHsYlK7xPf8CeBhsPL71Fd9qipKkuwGPjVx+TJEX3dDHBqRoBrk04IAp8nq0l/OtBmYAM6sZgv2FQH856g6eJIqkFkWpA8SKifG9uMeoh9U87LidgWE9bd+Lfu17Li2KdH+DNW/Zc0OXzrTQ/dzLFp1lAHMcJP1ZdpbMCfb1kv/fir8BJJ+LDROLGqQAAAAASUVORK5CYII=' },
+    'YOUNG-mietvertrag-check-jugend.html': { q: 'Was ist der Unterschied zwischen Kaltmiete und Warmmiete?', qEn: 'What\'s the difference between cold rent and warm rent?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACRklEQVR4nO2ZwWojQQxEX6cHcpRhP0jzZyF/1v4jzTEgU3tQO7dNDIH1NKQPBrsOrh6kqpKmia/O7eVLGH7xn+EoAHqg8DQlSAMcAM9n83uAv0vqGpKwkSagS11SnJ//C9DaDn67XDn217j2cICjbSfh9wh+tB4knjj2zrGfjN+3uG/H3vXeLnxcuF3++///AJfG/Hbseew9kAamPAm/b/Braw0A3/DXYDvetmO/tdYup+D35dkwARzcLujgYyP/BIyCT+9fKFzhQJoSLznFRkGn18/pVmkjoWtgo4eDTzt7Nr+H/NcGVuZ1b1tT4l0r8Nfo4dLonypkSlOXWOL5a0iDqp9Awf06WiP/SImnDQXgFYESFGiJ+gkSrxZIGwpPKP1Zof5fwLH3BMUV2GDD83gDv7X9DPy+PlXw4FUwmHp4mkpIT//80ZxcBnhFUEl1nTX0X8rpWfSgwlua0rRI/87KKSHt0w40O/rZ/B7MD8zJZVpwV32uwD/ApPAewDRfIFko/4hKO3iPGX5YQ//5VJv7FaYEJb5I/UvhXUpTD69xoBLRGvkn/HNsmW07f1mmftLUNSrFZa2wTNIi+iNJSgBPgIpz6rFI/QeJ93DFzP9pmu28RP6pEzUCTwurLl5G/6GeP/d27uGVIlbgX8pTgWfU2Kt5nfPXzwu1fz5awn3zvMO1XehxDn6P4KYNOPaP1tLetzLfE/H751F4JQdMPejh9Qqma538X1Y1aY/Eaym0iv4DPagVYpqo5GxL7H/a7/vTp+J/ASFVGE/kLG0UAAAAAElFTkSuQmCC' },
+    'YOUNG-minijob-jugend.html': { q: 'Wie hoch ist die aktuelle Minijob-Verdienstgrenze pro Monat?', qEn: 'What\'s the current monthly earnings limit for a minijob?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB+UlEQVR4nO2YMYrkQAxFX3UVOKyGOUAfRb7Zsjcrw16kDzAghw0yf4NyT7TDTLK0glFgCpQ8hPz1pSI+jePyeQ5+kl8lkQNUKQAIiD7rbZGO9gImCVgcsOos97VK8oS1vQClrOzluA059HHcBntpLwT6NNrzYX+c9r4db179lUDfo92iEG8qrI+rvxDoS1pBw+h+7KvY6n2liz0h7QW2Ugqw3NfFafuvBkcp5ZqQFs1wC4yu6kyVkJRRwfa1lNL6aADbFNtScmoCkuL8mjTO6dBHzVhbpEEfdEWfwKpu1Y2elFZ+QoLRB33IqZ5w8iKNKtEVWPTJTEDk9An7epQSbIvT9vW4El2LRta/bAQGBlRJUtUAImffulUNuc23NKRR3ZJqgkMX2FPBZt+akv5lAp61BQjIq7du0UfVoI+Y2iVBWr09fQJ9BFSfjUFa2irVqbqn5J7bWUZat+oWXXKbliY4VSInbcxpKz05p3lIWtvAYo6Jfu7pkNUnuFWNc3PsI56GPGnfnpoAmKZR/Hiko23sV6CGjrffx82b06C9vwzoq6RJYl/nleZx3QKCjX3NRztnrlWfDaznIpnV355hx3V7lBLwmCemVwP9Kz5uNSwCgdNY6WNRwvst51ImRR9yq440qpPVgwFMvKox97JzBU5HW34u+f8t+ReFxpn5vKgB2QAAAABJRU5ErkJggg==' },
+    'YOUNG-mobilitaet-jugend.html': { q: 'Welche Faktoren solltest du vor dem ersten eigenen Auto vergleichen?', qEn: 'What factors should you compare before getting your first car?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB60lEQVR4nO2YQWodQQxEX7t7rw//AD5K+wY5ksmRcoCA/lFyg57lBw2VhWZMFnbiTfhauBkYgTaFKFVVdxMfnv3p4x58Nf/d3FprbXBja/sFuA1orbX2Ug8tWlNSX7NLWmjNs55RDu0T0NoLsF8YzGHf78/O1sYDAX14xlnc+mK/EI0ejwT0qaaJrcEcpvulAqB3zwCUP9N+daCvBF8QLVoAPZfr/AAouGUDE8DG/braZQKYZ6+eO7wpGF3q8rN2TPVmixZdClMqQZhj0qJX1Nvk7ewS5jC7/KBuzdlKYa7TyDBhHlSdrbzLsw5TMBOzVHK2i0wFkksKCDtYURGtpBTYHKyUo46avF1IHqYwac0w9TOJVUQrBbMvwjzMj5pZMjHmbCV5XzOYQECX95pbJu9SXykIuWIK86JMWHR5mtdBV5MWZd3hLDzMc8uiribMFIQ4/PfIDFXdYUrC1E8Ca1GVCQPYrz+0vQB7m7HNEd4eB+hTd4eMtWsG84yOBWebYpvm+4f/lk2MC6BLyV7JoWy+fYIpCW57a8DeXgOC2wMB/eUkB3qarw69BaJiYnxr3lp7DRhbuz97FAD03nl7WZo92AdxXfz69pNZ8h3svKFLkicrwgQUzWAL8s5onrmRFNuKmtC+XvL/W/M3b9+jPVqn8O8AAAAASUVORK5CYII=' },
+    'YOUNG-notgroschen-jugend.html': { q: 'Wie viele Monatsausgaben sollte dein Notgroschen mindestens abdecken?', qEn: 'How many months of expenses should your emergency fund cover at minimum?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB0UlEQVR4nO2YMW4jQQwEa0QBCqkf+Cncr+lno6foB9zQwAh9AVf2BedzdDgGHmy0TBoFTjeHQ3x5nqeva/BT/K6IEsAylk+IBcuLd6x2ak8QkgD2TXm/SGcwSdmQ7QkYY8NvEM83vV9Z+8Y+zv9R0LfFfbPk8hhnuGQHQX8t+ny+3fC5uK8Wgv58lCHJNBdIwmWSScqGt+zTE37/gJaegOpkmCTN5cKPfx3VZuATn4Alprm8GqMl2yx3DRVbYrnwaU3ZAuBaLsuwpDg3ZVtg8wVZgsC7doImhGXgWj4lLVhN2Z4ASxasfdhje17vluDCZ890wKdlmLSI+mNJ21tm0vLq3lCyoOKso1rJMkxTGbhME5992UqWUT62fCrBZcnynmonhGniKp1HA/dUmygpm7X8QB0tHeyYEvEpTSWmKWk1Tt5CWhNCvSLr0nVUW2yrJXRkGbTthGlZL4hZTVszWFO1ZbMZwEswEG07ocawdQyKvBKtodoT+xhjnKF4nn2OK+dy4IZqX7sae5TmGhfvY2z91KIMiBpj8I+NY88sexX38T7G4n50rN/s0ZhtRS2hWiZ43xe6JJPsFWqFt6mDJXzubzmSt54S7dSOn03+Pyv+AmPywN40OLgpAAAAAElFTkSuQmCC' },
+    'YOUNG-paypal-unter-18-jugend.html': { q: 'Ab welchem Alter darfst du offiziell ein eigenes PayPal-Konto führen?', qEn: 'At what age are you officially allowed to run your own PayPal account?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB6UlEQVR4nO2YMY4bMQxFnywBLuUb+CIB6JsZvhl9FN+AUxqQ8VNwnDTZ3SpYFqtCmBGbBw7J/0dNfLheh49j8BP8KogCoEsLwBasmfm2VY72ACYJGFNAD46PS5cUBXN7AFq7sDWgB0x/np2tjW8E+jpoijvz9mrXY5QA+jR4f51Y23XA81QC6J9LYZJ6ALamJFdYlxQ1u+zeWgPL/hrbdcCrtXYqmdtcYQsDYzpzP6uXWxQGdHmirinIk5K0EtMX1gNJuzpML0obtqYnHiB5D1MYsyStxNSavqYWSS4FveJMINPYg4WthAflaznaA/MG9+fZj0EPa+3C1JheUnlRWA8DU9iaUliXd/mqWrdpF7OAFUgOVnYmSMp8SvsoW5nqgrT50acz1cOABYXnLT2sB32vBJO0qDpvgy5f0yELgDV9QVFaJZunor1NI0VnQlgPSxvWYzc2XV60y8LSG2St5mSQvGQlHAC2y/N8A/S4LBjQTvTHpayWpQFLCcvzkj7hz78DKWRMpTQUrYSttdbGlB7tdXbFfcD4TqDP1vufd9+ZDqag5M3SABqW++L2a1y1nRqsUTC3f28/FgBjeju7wsr6W0iLm422P1R1NW/HmNhyydPklKQFeGuu97AetqZK+oT2c5P/34K/AWBUpaL+xgfUAAAAAElFTkSuQmCC' },
+    'YOUNG-quiz-jugend.html': { q: 'Teste dein Wissen: Wie viele der 146 Quiz-Fragen kannst du richtig beantworten?', qEn: 'Test your knowledge: how many of the 146 quiz questions can you answer correctly?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB5ElEQVR4nO2YMW7dQAxE35oCUlJADpCj8N/MV1sdJQcwQJUGaEyKleMm9q+Cz8LbSACbB2I4nN0hPj1vT5/X4Lt4r4gSwBKTIIooX/2O6kgbkhatJdLEZZKyIe0GDALXGPBLw5PzxrnbS0MlvBfPYRl/VdEA6J9nu76uscO5Wx51PhLoblGacEjzbQ+IDXDVA4G+Kh5jDM7n7Xz+kXDegLcxxt6QdmP51QnwulE/c+yxLKzfdkAZ+MRnAWCakkyzmvotltTFOQvKhU+TetICllE+lWEZa8Sa9laypFwQ0pQE4F2VoLl2bhEQkopQdu1tAkizCNNUooxylTfVrRJcliEJn8oAuk7ZSonTNHEpKZ8QLWk3wHRs3AwEw+fm2MtuDwK6O2XlujaC610VNNWtJoALolyWYZoQ9KRNipAkTSUmKbEl5o60sQyhwPJaEMuEW9KCT0m4ilg5wTRb3suQVD7XZC3sgou8I+3EtZivtJDB8uGGtO8mcCXG1eTV84a062RcuWu9MPRONZdo8zLelRn60T6tlAih37cN4CgojjFuHTdvxsowputqBjTeZQGxJsvyWm3lPd/BPoqm+boHro1j49h89lSCJJNYK2y9LhIte/vhCeVzXdXXT8ucML5f8v9b8Q+YGqpgYqUrPQAAAABJRU5ErkJggg==' },
+    'YOUNG-ratenkauf-jugend.html': { q: 'Warum wird ein Ratenkauf am Ende oft teurer als der Barpreis?', qEn: 'Why does buying on installments often end up costing more than paying cash?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB70lEQVR4nO2YwYkcQQxFX201+KjJYBIxaDJwSItDcgAL6lAcgKH6aNDwfdDM+DS2L2Z12KJpulqXh1D9+tIQT9f15XkMPoJ/C6IFMBXgaZI0Vfn27EjrkuZyKeby2yNpNaR9Aca4wH49kYB9vZ6DY2zvCPR0bY+vTz++vJ2/fR7ouLwj0D8FLWAHB7+eOgA9DUoBpGl+v0zFXGDKdwT6U3AfY3C8bsdlg3pfxxinhrSo1vLEpwSO3f7104TfCpYmLNI0F1OB9aRFiwQtB08LTFrMjnqLlqcFIClxSVpoedPcSlJoUfWAKS2SrrlVAFPCAjzxSmzbU5YghZbP5Vhgd/KetKa5SIup8mBR4tCR9i62hV20iTet20V5xbSYt3rgBt+SNi1KxADwhKmYPU+ZInEstByKXGnRtBKkxNNU11nJ182GNaS9OwRJWb5RoUVTTVj19nm/y8rctrwdXsClGCeS/Xpirl1rn4qm/nY5j9xKiZdjbKoJxbaqNfO6iGu20JH20TtUL2Z6GJt+tC8cY4yxWXCMzaTF9ujbG9LikmCv/RiXhKxtO9oNGHhtBFhs6zQgt8tbO9pH0OeCY3CMn+dIvOVk6RHcr2dttxnIK+wtpx/3Dr1EDJ+rypi2ekv1jFbMDmBqqbfjY5L/34K/AJkGp0ftzjJGAAAAAElFTkSuQmCC' },
+    'YOUNG-reise-foerdergelder-jugend.html': { q: 'Nenne eine Möglichkeit, nach der Schule günstig oder kostenlos zu reisen.', qEn: 'Name one way to travel cheaply or for free after finishing school.', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACVElEQVR4nO2ZQW7rMAxEnyoDXTI36FGUmxW9GXOU3oBeFmAwf0Gl/ZufFijwawHlIjDMhSfUmJyhm7gX14e7afjNfy+PAqAHmBQkA/OuOpaRP43vC/iHpB4owDxNQI/RJcXx8T8ArZ1htBP99RkumGPO3raD4LsbigGjy+sUesybPeiL1B9gf27tjAlzSdt/f/538pJjLz14a+dktBMApjwIvk/yl9Ya+zPwGGz7ub+egWtr7XQIfPdDMxzzhC71IBl19/D8RzHydoFJ8h6jx3yvF8BfBbcJu8sVRf6BLVF/0rxrTq5k1O8i/RPJkyK83/SDJCWswp8ETGlKhmIoRtZEW6P+kqQYCmCkeZpy8moF/sslxwRggiEJ8x6swZ8YyUjoUWfhXeoxMF8B/8zfBM9lg2trWRI6DoPv3zHFvzzNVSpUnuZp3peYv/I0dfmcudPCLNT/hbkCSTBglBZSsEz/LKpDKbc0lSleRL+BebWg0p/TxcRYhP/CvE/9PCSvI6i/sAD+AEhT7RxgpGluIdaov5fyr5lVKoJ3FffT+L60f7Bq+7qRX0B1pBXwA2BeElTTv3hfxX/FlMq9lLNNO5yr8D9GabYpmBn511uwAP6p/2tyeVngOosV/O8De2utbYytxOeT3k4jYQO9ng+A75P42D/LuTkvykguwP8Hbvvn6wn282NwfRJc2olrO3793/OXjSG9FHO61OWPcSB8n+RNZb42E3tjb7m3I+G7l5cc6K/PbydqF5TmG1xPx8B3Nz6+fzG6lCU7IdfQn+33++mP5v8AF2sVfVsBnvMAAAAASUVORK5CYII=' },
+    'YOUNG-schneeballsystem-jugend.html': { q: 'Woran erkennst du ein Schneeballsystem statt eines echten Geschäftsmodells?', qEn: 'How can you tell a pyramid scheme apart from a real business model?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACcUlEQVR4nO2ZQY7bMAxFn0YGspSBHqBHoW9WzM3ko8wN6GUAGr8LOtNumgw6xcQCSmQR6C/0Q3zxk0wR92J/uQvDf/xzOHKA6gTQOk0B1Q0Ai2fz+wBukmiqbgHAxS1ar5L8FPzuh9zAqkPrAVIHoqk61YfIPwCtp5D2Galf/Kvv/1t8un2xAlXr1GwK+7r7/wV/wbTN8c3ZfoiVba5AE9vz+X0AX0spYJe3ZYJp+wHGtuyllPkU/O6HbhFAU54Edhw+m99jfFsmKDPVLbZS1feyVGefmbblBPwe49dSAsq8Ztmpvu4zF1/3+Rz87obUA6MpS2g0yS2wQep/8ictGKxKwWHEY+gfu6iXUqoj51qWzHyV2M6vf+QmdUnZP7x3QbSuIfTjFhg3CUXr2YVKfRT90yRH6tWRW3V7fxQD8Hfk0DoQraeLyY02hH8ht/dPleRW1cFoigHmF+Qk4cx5daId48wY71eKlhbWq5TjWCpqDP2oZ8EHknw0HfppI/B3qnpktjE56b/5Fgbgf8v/UYWaAuI4H4N//LaC4DdHG0E/L0BVL2VhW67zWtX3Gcj5cYT+R4qmfAU3C8hdlkbQzwtbubwtU+t7WSbY5xVuyT8FvwdxG34NLLC0AMh11vnzn/vP7D/7MXnlLJ9e8Gx+H90/uB2/wi2nAI3RP7ywlVLKxCq9BrZ/f51aj/fF3PP5PcSz+GfZXKtbdSszcRp+D/FSFuDytlR1tsK2BGuZGWF/8gu/zjfNtH60E196/+fwbbmoX2cm7FqWqb0eLnwWfn8MuUnKFjSXP5l8+TDzLxwLn8DSBY75d4D6Wf7/f/pU/Cf4MPZZFdc0VQAAAABJRU5ErkJggg==' },
+    'YOUNG-schuelerjob-arbeitszeit-jugend.html': { q: 'Wie viele Stunden pro Tag darfst du als 14-Jähriger höchstens arbeiten?', qEn: 'How many hours a day can you work at most as a 14-year-old?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACPElEQVR4nO2ZQYrcQAxFn0eGXpYhB5ijyDfIlTVH6QME1MuBan4Wsk2SRU+ThOkumMILYy38kf//9VWexK11fblZhq/6v9VRApjCFEpX0pvAAfD+aHx31F0S8D6ttJgB6GCS8inwfVifphWYYVreetN8WU8KLtP8JPhurfm402URXL+lYFryk97//+rXhWmaZrgucFk//f1/V0fpkiy9t5ACsKQ3maR8fv3u/pP+xwWM4D9oW2HpkjpQzZckDYA/vbew9A606C32m0HwS4ASJTR1vHYxK1E8Gt8d9TdTzHB9DZ1Xy7fNUi/TdXkKfLdXmY/SaaLJtPFnk8Oj8d3jP5YANCnpbFdx6enxv9Di/VUd13mlxSn9lJwkam9+PL4PljbnkSmUHBtZx0fQLztn/NeHvUnpI/AHVU5uASXhqE9ACxtFvyrlen2F3lSiHqP/+8C1D2JS1jg2hP9s+KUKDGEK8N5kCtoQ/HE4MmfNv6F0S+9D4JeULsWe4lyJ0mkxBn8U1f+SbW+yRCPx32mhBLyDFNV/jTN/9RaUbUodtyxTjTHwb8PvFt7K+SUNkt+KKlFuecC2dKss9Gh89+i37yroLSyxxEbq/+Y5UJynN3UAH+n8oWbe2rOgdoFR+g8bYUwyHeF/FPzb+Rt7ZqbVRMwg+dnBbVMxFYFKDmP4/57fivC/TfFD5Lej/0295i+pssQI/J8BwQx2nnRe+7zaZbEf32mJnv//3XH+jCloIe1BQkPk5+nr/+lD6z8Bvxwp1ReE630AAAAASUVORK5CYII=' },
+    'YOUNG-schufa-jugend.html': { q: 'Was macht die Schufa eigentlich, und wer kann deine Auskunft einsehen?', qEn: 'What does SCHUFA actually do, and who can view your credit report?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAABxElEQVR4nO2YMW4bUQxE3zcFqPy6EXUzX40+Sm7ALQ1QmBRcKWmcVEFYeLHFB9gMBsPhkEt8+T3evq7Bd/FvRZQAls4WUFC7+fYah/YNXDrlYMlVcQGTlDO5dXBTAGzVVuGWWM7kFoDjvfm8wDUnAPpjccfnWhyr+KgRgL4sSgFck8fNL8f7Bdiq/wjoT8WPtRbHHfyaWAI81lq3gWhRf91WIKldQtK8LkPp7GCLHYApJJmiJvotSrekdphCinM67LCZ3EpsmaJ2KN2aahjKreKl234XXnuuEtrBXv3FDuVYbmWS0n/XQ/UIHoi2WyyxxJpYqd8j0Tp4QQFbSgrAp6I9baF2mGQKUwzmtm0hLKktJWz1eyJa6SVXtiy9BxlD0cbZWQplbw2u9KEOlv6Uqyy9ZSzNnLxvwGPdP29w3B83+r9AHfepiTHOnbdHA8BUJSh6eTR1blSnsrH5thfefjyPCXMdrDPYmbtwpc9NNQk842L2/uiWPlYJHWOegywKVzLysvS61cikviS0J4ycZc/iseq4W6LkgtcO/Rjpt81tOvDrgrdjtG4VQDtY4eCaeLV7ecJ5BT1zQs5M4+v7kv/Pij8B8nLPGtX6coEAAAAASUVORK5CYII=' },
+    'YOUNG-side-hustle-gaming-streamer-jugend.html': { q: 'Ab welchem Alter darfst du auf Twitch offiziell live streamen?', qEn: 'At what age are you officially allowed to livestream on Twitch?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACZElEQVR4nO2ZQYrjQAxFX6UMXso3yFHKMAcLczP5KH2AhqplQObPopweGOh0YBbtghaGgLV5UVS/vpQknsV+eZqGn/z/5VEFyLVICvOgZHlW/1lKfDffC/kiCdgXaCvmAG3Nkuop+L7Mp7QCc91mCTZgvzotTSfhexbT8WmeUoHt1/uS26q2noTvVf62qC2Zggk0vZ+F75W85Jhjui8E274QgClOwvc0PvTnnwcYQX/QI3I9lFOVoPSXA/DXEgBF9WBWLbmiWkapf66EeZirkh9nISBsjPpLDmACgoJ5mHpqAH65Kg9ggpKloKgyQv9cgP3qU1uhpKty5Z5WYDIfwT+gWrK8H1woYQpTgCoj6M+Rn1qaIGBqKddtMqf7opPwfR5/9V/eJTRLqiXM8xjnV5h325zluZY4mkqj8EsKkLwfhCzv10EeoP+PUnfN77YnTHC4oAH4e/0fl1eYJM+VbiRG4HdMmPLD9vR2giH0E8kfj8I8H1/HVQtD+B91t1NUSxyzfInHVxiBX1kKyFKW6COkHW9Oz3+BbV+2uZZoa7CpEhBsk+meRrh/a8Fc8iz1+Svs8J8j1B9VVMl92nq4aKyv4Ebo/+PO8m54JAXdQoxS/xLmdLXvnSPv+j+Ifh4ze58fc6U7t+4rTs9/oaWU0tSVx3y/+r4ATBDt/Ppz+dg/T22d327RbnpLfQW3L6fg+zLf98/Bdl+Y5ftSgi0tp+F7MW+a5fdlw3yWsn7P9VR8T/PmadmCLb/dJjZainY7E9+n8THzYjpmXlOYBtn/fOyf6fNXmKuWw1QM4D/Tz/+n35r/A0APJ5CoD+FuAAAAAElFTkSuQmCC' },
+    'YOUNG-side-hustle-stadtfuehrung-jugend.html': { q: 'Ist \'Stadtführer\' in Deutschland ein gesetzlich geschützter Titel?', qEn: 'Is \'city tour guide\' a legally protected title in Germany?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACcUlEQVR4nO2ZQYobQQxFX00VeKm+QY6ivkGONORm5aPMAQLqpUHNz6Las0jAYwjBXRBhcNt/0V9qlfSlLuKR7W8PYfiP/x2OAqAGiSckXoOq8Vg8X83vCdwlATVo1rEOsK1VUpyC35d4KSuwLygcrljfv3W20k7C75G149vUYilQfy51W7WtJ+H3LL4VQOGY0nr7A//X9/8bXOqYsL4vJNd9AcCUJ+H30O71x3/7ADPUH3RYH/XzKDv4+HcC/uF5XNx9Ca/qCp8j/oHC01SDGlR1rGM9IW2O+GMdPK0DiQPDHcUM8VfHJCmtDxVRpTzcOT//N/AalLJegts31SC3FbgEM+gHJNUgAXyEPa3n/TifPv4oqOGYwMGBKmG9BjPkD1Kv9+RXuKQqjUNdJzi/DbgVYM1Gyx8t2Qv1JzVOwe+Z+OdRhbrUj15sPa3XKfJfXVINz3svSBMcKmgK/mk97ZA9iUu9qic+R/86elavOvqXDgk3Sf0cytM0ZM8onlg/ZplX83tKP+CAJPDxc7gzS/6M+p+m4cKYxcYsMAX/of9HFVV44oljyin6b4wSpKo+tGia+Hwur+b3JH/sOMV3L/pQRKfn/wZeFhQ0uHyst8X3xRXkVmqcgt9jGwk/DuyR8+OaWernMbOP+XGMwDVc4TPk/xtbKaU0rsDYfN4WBxrktp6A35f4sX++BPp4z+398lH2hYR9OQW/L/FSVnC2933hohH/a1lOw++RfW5qrxWqYFvGK4CWtPj+cn7P4qbbAlzB4dq2MrYQp+H3CJf6eG1RFhqMRtbGIvoM/B7a5/45rStc98kF0wz6s/x/f/pS/BdCQvVS/LC8vwAAAABJRU5ErkJggg==' },
+    'YOUNG-side-hustles-jugend.html': { q: 'Nenne zwei legale Side-Hustle-Ideen für Teenager aus dem Artikel.', qEn: 'Name two legal side hustle ideas for teens from the article.', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB50lEQVR4nO2YQWocQQxFn6YKvKyGHMAXCahvZnyz6qPMDWqWATU/i+oeQ/A42YTRwqIXDdp8Pqr/v2TiYe2Xxz34bv69eTMzq2z7su0LQAUzM1vzoUXDJZWBJA00vAwvkoZHOrQXwGwFbKHitb3/eu3crD4R0MOq978y2BfC0HV9IqB/arYebOAV3197AkCf1zG3c1CbNFyp53YzM25rhZfrWqHCbmZLSm5nDS8SnIIgScrH7YeC0VTU539Rp6VEq07rGtA6eDTRpEHJOLd3O+gAuNTLQMOTcjs8mGpwgKT1ICu36gFFvQwCn/TS0r6yAzC4JGDSCwm5vTATQuu0bssc4w2I1nPqbVHXALxI0QQEnnJuL7AFXieZbOW6lgEQzwP0RZ166zpF7Hh0WV9Zkabt3t0hWk85CczoFa1PhGX4aW05uXUNn5tOtB5NU9AiK9qYHtHE+QVkdQePpqLDEcpA6kqawS7Ay9UCynXVYKpZva3ccm7ozAAWTWUmHJjikI/bP3aHuU561sR43mraexz0Uu97e0K0Z/Sqt7XCbm8BwfZEQF+Uhs88M+NN4GdOSOhlH7caA4xgix/9Z/WUl6V7c4uZu/ByfSNtBjtuNUdOoB0RN20GA45Zbf2exFLqrX1f8v9b8zeLzY+iSZnX1QAAAABJRU5ErkJggg==' },
+    'YOUNG-side-hustles-outofthebox-jugend.html': { q: 'Was musst du vor dem bezahlten Drohnenflug rechtlich klären?', qEn: 'What do you legally need to clarify before flying a drone for paid work?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACJklEQVR4nO2ZQW7jQAwEazIBchz/iPrZIj+jn5IfUMcFaPQeOLJzcoJdYO0BMtDBFg9u0c1ukmri3rm83A3DT/zf4igAeqAwhhiewxMDwPLR+L6B3yR1OcdT9KCHdUmxBn6wLjFzPsHXUzw9/iO+b13ew3KI8c6+PRm+L+PnS2vAK+ffJ7uc/vvv/2X84H+QGENgkndpEf6/wLm1BvYW9I+tB6/7L/bt0lo7PQW++0d1woCsW0PXs0D+9419ayfA3qQu7x9bO51ba+zbE+D74kieQznEqCoADEwB4/nzj4Jeznt8zuHXKl4Av9QDSYDkXQ529BJr4M/hXUqoq8dM/iL9D3n0bAlVCwkKVtAfFJbQi+3YJyNjFf4nKOxgPqU/YIvw3xlOEQkr/ueYhbwE/hxeyiOJ8gJMQS6T/+rWqng9x3S0RfjvXZ5DPW7zS9nxOvzXLF757etYxn8lV9gc24fnEJDYKvzPm2D6tLMSoiXyH3QpR4mPA4lJDrbM/L631327tA2sy98CoOv9afDdO4op9dcp+Oh/bI3+R8rhDM+5v6LKIVkGP9VtxuEFs5yX2F9dE46C+heqoytFWgD/3D98ItJwhSkW0f8A6EEPjhHeelhfpX7n/nmuIGb/EDZ94dH4voOfmXAmbeYUwxr8v+7Ph8qCc3gPY/gi+jPxV/NGmdexwl0Cf71/Ucz9SSlPrYBWwA9lVSC5pNv8sgD/28/704fG/wB6nTWD71IqqAAAAABJRU5ErkJggg==' },
+    'YOUNG-sportwetten-gluecksspiel-jugend.html': { q: 'Warum verlieren Buchmacher auf lange Sicht so gut wie nie?', qEn: 'Why do bookmakers almost never lose in the long run?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACQklEQVR4nO2ZwW3jUAxEn0wBe/zuIKXQnQXu7KcUd0AdDTCYPVBSgD0kxgaI9YF8CD54DhpR5HBITeKz8376FIZf/Hs4CgCTaD1bp8nUTfVaPJ/N7wHcJbFMLK8zJLC85nIxSXEIfl/i03QBByycZbq/9OkMyzQfhN+DeLsW53mZKql++P7fwts14f4iC8/Wf/7+/4ujcEmmThO4SZJMMklx/Prd9Cf8nwsYQX9QnSgJVeIKT7z+HoB/5U+QsKZQIPXKqBH4s0Y7MHVtD7L+PpvfI/lD63VJUrgFUI9w/Pw/AXa7JGQ1stazSerJm8Ux+H16pL43XwtPvErY1MfQT3Ugm0pItfWvbH0M/ZEs3ILEgVVIcWCE/EeBhWvzz1vnJVu3IfInyM05lJe2wNQtfJT+u8l+kfdsPfGaZYbgX8G3IJu2QnALRtGfveealPiq/20U/+nZVPMvkPhayIENoJ+nGrvu0wRkk+kKzJD4+/kI/L44itL8ThNNFlQh5Bj6f6Jpxu9ncrnY7XI/O00sEzCI/9Eqla0DewmPMz/WwEW2XrPM7n9GqN9VfyjNX5uv2F/Es/k9wh92z6nyQvU6xui/4fvYa1HjfN/AEeK/7h/KQrO5CK+8Ojz/E8s0TdPceuIzfn/p8JYwg90uB+D3xdn3b2UhSjbZtkCHj/9av7W8qkLOFRnC/3/gdrso3v4Ec6v953WM/rvF37ZBvjYPNRccPv4f+a9AUuK1uRpmfgmo5Y/Eurkq8Rxi/zP9fj99Kv4Xgd4ada+JHA4AAAAASUVORK5CYII=' },
+    'YOUNG-steuer-id-jugend.html': { q: 'Wofür brauchst du deine Steuer-ID, auch wenn du noch nichts verdienst?', qEn: 'Why do you need your tax ID even if you\'re not earning anything yet?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAABw0lEQVR4nO2YMW4cQQwEa28WUEj9wE/h/Uxf4z1FP+DmPLQD7p0cWFYkmIEGg8VgmDS4zWZzNvHpul8+j8FP8KsgSoCV3ofCyzrfXhPRuqSVfUYSpiUpB6K9ANt2xQR+/6X7K3VcObb9PwL6MnhcpXh534CXnADon0GL/diw2LmVxQBAf18nbxVYPEk7lbcfmvDnBoZqQq90SVKUCfqsiWjTscBiJStZiiZGDc1tAGVa6ZLO7mCxZuZWsaTW205va8LQ3CZKr4YqSQIvm8qEdgj961vEQDk1tydvA5OSgpVeprKpvE2Hx7ZQOjC1yiSpALx9o5JuZyPRBiYsqnVMsRRdcSPRdnFFy6zSMa1kKG+TVlqgC60bGTPRqmlwThCrv+ljFazaJaY3adveDOVtgsWj1gSUxVIM9benAw8pHl2Y1fZmHNoL3JS3Ot6AHd9hpd+3DYuhk076UpSpLB6PCYxlwjk7pIMX3j5nJBOecxmYVnqr2enMx6G99BQGXse1r3Yobtt2nclb8JbZsqjzemYvewSPt+2VnnR6dtD74Nxm9wi1ue3zvNx+vNWspNqS4eBDFSyBJwca8Fh/u/285H9b8DeBcsa+gYxYHAAAAABJRU5ErkJggg==' },
+    'YOUNG-strom-auszug-jugend.html': { q: 'Was solltest du beim Auszug unbedingt beim Stromanbieter erledigen?', qEn: 'What should you definitely handle with your electricity provider when moving out?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB+klEQVR4nO2YMW7cQAxF3ywFbDkCcoC9SIDRzQIfKTfgHsU3oEoDFH6K0a5T2EiawCwylSA2DwT5+ckmPn3H5fMY/A/+KYgCwCSTgGRkn/keWY72AkMS3BMSLLDXzSRFzdwOGBZkl8UweXZZYFEwt8vz65okL9/XWPIrgf4yeKz31n4s+3asNYA+eAsgWCC/DQH7KqCLvSDtBe6tNRjX123Zt4Wx7NvRWlsL0qL5AmaXBVMlJNXrsqkJmJwuk0uy809NWiSXlN0lJWQX3YvSyi3GHGQwJJ9iSy9JG+NMbJAMutO96nRAcpPoehYA3XMahoK0gcmTYVJ2wcguk5d0NSjI7nDWqmKYHMiadfubUUxGgk41q0k7NRZJJlcMC5Khml0WTMjJDCTU1dsYCmAoBt0fdVtYb4Psnt2TYcFUsKK0kmJYDMnpnv00OUU1IcbDho3pZ6beluyyC9BW2kq7vRwrFljc31bazev52wug15Z7Y9/m2rvs2zVg32rSLoyr3OSmF7qAo21FN/TH7mByC+jKU80KdtmFvbXWlu4JbzdZ3Jfn3l6OlucUs6kJ3eGcF/Vy+36rMflpHQOK+tv34NG23Dfg7eaKsXw50Afv/bJEj9aFaGz0n6Pi/fZRt1J2h0H3c5Es6sFgHkLPJWIOXy/pE9r/S/4/C/4Cyt+d+kr99KUAAAAASUVORK5CYII=' },
+    'YOUNG-taschengeldparagraf-jugend.html': { q: 'Was regelt der Taschengeldparagraf § 110 BGB genau?', qEn: 'What exactly does the \'pocket money paragraph\' § 110 BGB regulate?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACH0lEQVR4nO2ZQWpjQQxEnyPDLJUbyTcbcjPlKHMDeRlQqFmovwnDkISZRdyQxnzw18JldalUrT6J99brw7th+I7/XxwVgBWmtIoGKSEAiP5qfJ/AH5JMUoWKdgFWMW+2wA9hUgOeswsmWWEb4D/i19PZZb9+NoE/vZ4ud4bv47gV+NPpkZfHL/n9f49Pwb4+Pjf09WKFlLj6TvC9uw79iT8+wB76M2sAuxraZeutNsBfMeDbE2K+tueEdsBPQ3uaJCWeQx4V+A75l0yJJ4AnrvZVvLYFfw7+HzULRLtw7ZL/9sRTSlOqgJDSpF30ZxLenk20Z7saVOyhP8qhigo8VTFGaBv+FzfMh/hEwzJ1X43vM/m3Yb5SEi67/Z0t+F/RhGpZiB7xYZ0FNsAvWQHgaYVNOyOmo909/geuJ6BXwrM9z4QVPypeH+8B3wdLRRNWTBeY5rtqeYP8r/odz9mw/MPsyBb4a6ieEBBW4AL20f/o49msp6Qmdji/o5rhj976/8ORboF/Sb0V079Y+r8J/w+qjBEd/zZ2aA/+S9NzpZw3TeDaxj/XYYEqpFy2Gdilftf5i5HQ4c9U8R78LzgGtjf/P15uE/wzf05buzDFG3OQ3AL/tN2Zoh/4gS3mJ0d85ifXy8vp1DyfCVz6dbkbfJ+IXy+ArVnckxVnz3vC9/d1u39ZV0jKdo0E7cCft/dfWs2X1Yt3qN/T9/3pl8Z/A2zWLKdRnYFIAAAAAElFTkSuQmCC' },
+    'YOUNG-toolbox-qrcodes-jugend.html': { q: 'Welche 5 QR-Codes solltest du dir für Notfälle merken?', qEn: 'Which 5 QR codes should you remember for emergencies?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB5klEQVR4nO2YQYrcQBAEo6cEPtaCHzBPqQE/zOyT/IMe8Ef2B6XjQA3pQ2vWPnhtX8zWYRshCdUlSbIzszXEm+t+ensGH8O/DVECmFQAUVC++I5qh/YEIQnABViGvVxMUjbk9gSMcWG/AJbgz/fzZB/bOwJ6c22Pl6u9DPPn+xbf6z0B/eNwg9q/bnB76gHoN2sDtB6u+znhagku9oZoH56Q8esFtPSEbVkBO7fPOZ7ifv72BZaF9UsHlAGYJgQ+y2XHF/XjFmXgswhLJB3p4LMpWqlcuFZGSFJiGXhPtHMJoFxFlE/8ANwRbYYlpllEgSR8FlRHT0Ca5fNBaUCUa226jmgzlGGSMsqlDNO0pJrqVuUqn5KWYqVpGS094cR++ZRssHFVXu9PMcbl9kTtl47Ju/aXiyMXoqCz31piuaxs6VZFV79Njj1FQCiPQ0RbtOUTn7jq6Ams/G2JNpQUYZK9dgZNdc2y8gmhDFyWKFl66IkWWH67kK9N17gnHKya5nFa79sTtFhdQbZ0q6aN8cQ+xhibT72McZ46cu0dAf1pKUOSPe4PbmnbwWCdc2OlsCU01e3r8FocGrg99NBTCQe3Pws5uJq2mqXYdUInLDkstylaWP9qNMunPbht2RPGx5/8/zb8ATp1mIRrF6lZAAAAAElFTkSuQmCC' },
+    'YOUNG-uebergabeprotokoll-jugend.html': { q: 'Warum solltest du beim Einzug jeden Mangel sofort im Protokoll festhalten?', qEn: 'Why should you document every defect immediately in the handover protocol?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACU0lEQVR4nO2ZQW7jMBAEixoCPlI/8FOony32Z9RT/IPR0QCF3sNIOSywibEBEhHIQCf3Qa32sKdJJvFe7dO7MPzgn8ORA5gaVPPjkVcAav9ufi/wr5JMzRw5vTSTOtUk+fX5T0BKC9uy37Xfxbb0bcnAlvJF+L2Ib4kt5SJYKe3r3/9ZvDST7LHs96bH8vXv/y/87H+nl6PtTY2iQfr/9B+vfz3ACP4zUSSpQ2eltOdMhw6SpHYBfh9UWL2pSaIIMMckwKTL64/U5EiKDwnZ5bWX1ssY/E+3PGbWG9QH6P9Qnl5kHl7UepGcTh3Gf0oDwjklQfxSR/Cf4K+Q/YxA5zgYo/9lXiOzdYi1DOGi19d/YkvPmWdKpt/mZMjQizL1Gvw+qLNzqhyop50280H6X62fX0GROWFEw/m/SVB7aeb0AxxBf68H4TAciDgkH8b/j8BTRGmdSmnxL4yRf5xQOwauee3lWMIagr8aYF47MbmqOZQ2iP/zFj7Nq6ROPbNoHUH/idIypJl9Zp/JrHlLacacvC0X4PdBhf6dI7NJrZfI/xpk/dbDc84sbdI4+XMCMqseyy0aJmaZH7vgS/B7tw79qVCPXirNnDgOvbz+seE9NlwRfnoshPiW7+b3Sn5OKeWimxOHJ5FFMzWl6/vPFD7PtjznNUMuLW8L0FlH6P+JOH+GWALPmee8pnlNc735Nfi9hK83tV7a7fErF8EZSi/D7yO87jN5S/u92SPJ6eX3Pl+I37/q7f4lZi5xbDhU/gfC8GMKmxPXSSPM3/Rzf/qt+B+IjwU5HpR46AAAAABJRU5ErkJggg==' },
+    'YOUNG-wg-haftung-jugend.html': { q: 'Haftest du für die Miete deines Mitbewohners, wenn er nicht zahlt?', qEn: 'Are you liable for your roommate\'s rent if they don\'t pay?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB30lEQVR4nO2YQW7cMAxFn0wDWWqAHqBHoW826M3ko8wN6GUAGb8LetIsGqSbIlxEMGxD3Dx8UOQXm/hwncvHMfgOfhZEAWDh+S9p9tTbZznaBVwSfZjGCudtf3lsJikKarsArW2wc9zpw4IJHG39QqAP13p9j/vrj+C47z1aj/XrgP4tuHNsgD3arAH0t7UCghVf2VuPc3V7bHRxFKRdYG+tARZuj+0lWOFsrd0K0qJcAbhpKFB47tWrYChc4Yk6+5jv9uvRLsAK0jjbfYVklkbJTFiA88bKrtifm77C7KMebWbpkDT7yOfK24qZgAKTwC1QNrL8L3rKmH1MXOEmSZfCVpTWTcOC2XVBpiXrJWl1EU78bdMyk0vSKpXsMg1pWLiFz6LaysInbsHVI3BplHTjZLGij8wECweffZTVFjyB6UPB88TVpB0TTCPLV5Zfi5o+gRRT4ddbog+pbiZMoGeZRQE9G3FRWoVnR7vaBNStYJmoGhPoIxUGitK+uztcqqZnqHrKuCDJ4pAnrqS2y7tZjV40zhukZzi2mm4c3MJNf7oD1PS3z2D/9do2C9Y+Xn+KHDSUo31qq2uOa3FZmrJuXJJpQF4iyGtOyUx4qwnMrjQ2PFtGPdr2Pcn/b8HfvSqv/w00NY8AAAAASUVORK5CYII=' },
+    'YOUNG-wohnungssuche-hacks-jugend.html': { q: 'Welche Unterlagen gehören in deine Bewerbungsmappe für eine Wohnung?', qEn: 'Which documents belong in your application folder for an apartment?', qr: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQAAAADNaUdlAAACL0lEQVR4nO2ZTY4iMQyFv7SRZpm6kblZa24WjjI3cC2RjN4snKJ3NJpZQKS2EBL1Frw4/nl2NfHIbh8PYfjB/w9HAWCBaUhKkAY4AJ6v5vcE7pLoum2cuNDV2tkCkxRvwe+xKRzcNCy8bsHCTbLAYgn/A7Cfrxu3zROn/76185vx+x63uFhc2sZ1e8n//zteCds2so/czxZIg658E37f4JfWGmDhp/3zV3DaP0/7+dZa296C32NTWXjiJiVkl82nevv8ReEKBxK38PqZfRS0An/oI7ukYRr0YeHgCrKv4f/swyQrt3cd37I14gfwnIKhzIs8S/hfwwK6FEijjiMNk1bQPyjIPhKfF9FHduV8voT/ZccnKx2APhIWiX/PPqRZf6r4JA6+gn5DUuKmAdBFlx1XsAj/kjqeRRjPLqgutkb81LRVKsKChMSX0g+U+JktGFe4hS9S/2UxJQR9VPOlD1bpv1LiCqcPYOoHqERYgH/MFQQ4ve5i7oTW8H/M4Ll33kreZep/7R8CBXf9fxfSK/CH2X9VvaDiR+FrxI+UOF0V/0chUg0FS/C3QPra434dZwH9/MHeElpredQi08i9NhLvwO8bO/YPlAqas3AspH8A7K6CwhMs3MKX0T9zeDnGxun/Zfa3rZ3Z2wlu232Kv7SN2/Ye/J7BuxLsT7u2llxOOH2stf+fhXSOk2NOxK/m93z8l/6XphaaFenV/J6uP0hH88XrFCv0r/bz/vSl+F/+ACLpNeJDCAAAAABJRU5ErkJggg==' }
+  };
+
+  var LP_KEY = 'fr-jugend-lernplan-v1';
+  var selectionListEl = document.getElementById('lp-selection-list');
+  var emptyHintEl = document.getElementById('lp-empty-hint');
+  var categoryGroupsEl = document.getElementById('lp-category-groups');
+  var klasseFilterEl = document.getElementById('lp-klasse-filter');
+  var countEl = document.getElementById('lp-count');
+  var noteEl = document.getElementById('lp-note');
+  var resetBtn = document.getElementById('lp-reset');
+  var exportBtn = document.getElementById('lp-export');
+  var printBtn = document.getElementById('lp-print');
+  var studentExportBtn = document.getElementById('lp-student-export');
+
+  // Kategorie-Reihenfolge und Icons -- verbindlich aus
+  // _einrichtung/JugendBASISbildung/JugendBASISbildung_Kategorisierungskonzept.md (V629).
+  // Klassenstufen-Einschaetzung (V1055): Es gibt in FR_POSTS kein
+  // gepflegtes Klassenstufen-Feld, und eine seriöse paedagogische
+  // Einordnung von 179 Artikeln (unterschiedliche Lehrplaene je
+  // Bundesland!) kann weder automatisiert noch von uns beiden zuverlaessig
+  // geleistet werden. Das hier ist bewusst nur eine GROBE Erst-Einschaetzung
+  // nach Fachbegriff-Signalen im Titel/den Tags (§, Steuer, Gewerbe etc.
+  // deuten auf hoehere Stufe/Berufsschule hin) -- kein Ersatz fuer die
+  // fachliche Einschaetzung einer Lehrkraft. LP_KLASSENSTUFE_OVERRIDES
+  // ermoeglicht spaeter, einzelne Artikel manuell zu korrigieren, sobald
+  // echtes Feedback aus dem Unterrichtseinsatz vorliegt (Override wird
+  // immer VOR der automatischen Schaetzung geprueft).
+  var LP_KLASSENSTUFE_OVERRIDES = {
+    // Beispiel zum spaeteren Ergaenzen:
+    // 'YOUNG-irgendein-artikel-jugend.html': '8/9',
+  };
+  var LP_ADVANCED_SIGNALS = /§|Kleinunternehmer|Gewerbe|Umsatzsteuer|GmbH|\bUG\b|Betriebsnummer|Künstlersozialkasse|Kuenstlersozialkasse|Vorsteuer|Freiberuf|Scheinselbst|Honorarvertrag|Werkstudent|BAf.G|Unterhaltspflicht|Erbe|Erbschaft|Pflichtteil|Testament/i;
+  var LP_MID_SIGNALS = /Minijob|Steuer|Konto|Kredit|Schufa|Versicherung|Miete|Vertrag|Kündigung/i;
+  function classifyKlassenstufe(p){
+    if(LP_KLASSENSTUFE_OVERRIDES[p.link]) return LP_KLASSENSTUFE_OVERRIDES[p.link];
+    var text = (p.title + ' ' + (p.tags||[]).join(' '));
+    if(LP_ADVANCED_SIGNALS.test(text)) return '10 / Berufsschule';
+    if(LP_MID_SIGNALS.test(text)) return '9/10';
+    return '7-9';
+  }
+
+  // Zeitaufschluesselung fuer die 45-Minuten-Taktung (V1055, komplett
+  // neu konzipiert in V1059 nach drei Iterationen mit echtem Nutzer-
+  // Feedback):
+  //
+  // V1057 (Bug 1): Bei > 45 Min. Lesezeit rechnete die alte Formel starr
+  // gegen ein fixes 45-Minuten-Fenster -> "0 Min. Arbeit, 0 Min.
+  // Diskussion". Fix: Gesamtzeit auf naechstes 45-Minuten-Vielfaches
+  // aufrunden.
+  // V1058 (Bug 2): Das loeste 0/0, aber nicht das eigentliche Problem --
+  // bei z.B. 42 Min. Lesezeit blieben nur 2/1 Min. fuer Arbeit/Diskussion
+  // uebrig (technisch korrekt, paedagogisch witzlos). Fix: Mindestens 5
+  // Min. je Arbeit und Diskussion erzwingen.
+  // V1059 (Bug 3, der eigentliche Denkfehler): Die ganze Idee, Arbeits-
+  // und Diskussionszeit als "Rest eines 45/90-Minuten-Blocks" zu
+  // berechnen, war der Fehler selbst. Das erzeugte einen Sprung genau an
+  // der 45-Minuten-Grenze: 33 Min. Lesezeit (7 Artikel) ergab nur 6/6
+  // Min., aber 39 Min. Lesezeit (8 Artikel, nur 6 Min. mehr Lesestoff)
+  // sprang sofort auf 26/25 Min. -- unrealistisch, Lesezeit UND
+  // Arbeitszeit sollten nicht so stark voneinander abhaengen.
+  //
+  // Neues Modell: Arbeits- und Diskussionszeit haengen von der ANZAHL
+  // der Artikel ab (mehr Artikel -> mehr zu verarbeiten -> mehr Zeit),
+  // nicht von der Lesezeit oder einem kuenstlichen 45-Minuten-Raster.
+  // Steigt sanft mit den ersten Artikeln an und bleibt ab 4 Artikeln
+  // stabil bei 15 Min. (Nutzervorschlag) -- weitere Artikel bedeuten dann
+  // nur noch mehr Lesezeit, nicht automatisch mehr Bearbeitungszeit.
+  //
+  // V1063: Vierstufiges Ampelsystem nach weiterem Nutzer-Feedback (real
+  // getestet: 7 Artikel/25 Min. Lesezeit ergaben 55 Min. gesamt, wurden
+  // aber faelschlich schon als "Doppelstunde" eingestuft -- 55 Min. ist
+  // dafuer zu wenig, das ist noch eine leicht ueberzogene Einzelstunde):
+  //   1. GRUEN   (<=45 Min. gesamt): passt in eine normale Einzelstunde.
+  //   2. GELB-HELL/STRETCH (45-55 Min.): passt noch in eine Einzelstunde,
+  //      wenn man 5-10 Min. dranhaengt -- Arbeits-/Diskussionszeit bleibt
+  //      unveraendert (kein Grund, hier schon zu verdoppeln).
+  //   3. GELB/DOPPELSTUNDE (> 55 Min. Basis-Gesamtzeit): ab hier braucht
+  //      es wirklich eine Doppelstunde. Auf ausdruecklichen Nutzerwunsch
+  //      ("bei Doppelstunde die Arbeit/Diskussion verdoppeln -- rigoros")
+  //      werden Arbeits- und Diskussionszeit hier verdoppelt (typisch 15
+  //      -> 30 Min.), NICHT erst wenn schon alles aus dem Ruder laeuft --
+  //      mehr Stoff heisst in einer echten Doppelstunde auch real mehr
+  //      Verarbeitungszeit, das soll die Zahl ehrlich zeigen.
+  //   4. ROT (verdoppelte Gesamtzeit > 90 Min.): Auf ausdruecklichen
+  //      Nutzerwunsch ("rot rigoroser -- macht keinen Sinn, bei blindem
+  //      Anklicken vieler Artikel") deutlich schaerfer formuliert als
+  //      zuvor -- kein sanftes "erwaege aufzuteilen" mehr, sondern eine
+  //      klare Ansage, dass die Auswahl in dieser Form keinen sinnvollen
+  //      Stundenplan mehr ergibt.
+  var LP_STRETCH_LIMIT = 55, LP_DOPPELSTUNDE_LIMIT = 90;
+  function computeTimeBreakdown(checkedCount, totalMin){
+    var arbeitszeit;
+    if(checkedCount <= 1)      arbeitszeit = 5;
+    else if(checkedCount === 2) arbeitszeit = 8;
+    else if(checkedCount === 3) arbeitszeit = 12;
+    else                         arbeitszeit = 15;
+    var diskussionszeit = arbeitszeit;
+    var baseTotal = totalMin + arbeitszeit + diskussionszeit;
+
+    var tier;
+    if(checkedCount === 0){
+      tier = 'empty';
+    } else if(baseTotal <= 45){
+      tier = 'single';
+    } else if(baseTotal <= LP_STRETCH_LIMIT){
+      tier = 'stretch';
+    } else {
+      // Echte Doppelstunde: Arbeits-/Diskussionszeit rigoros verdoppeln.
+      arbeitszeit *= 2;
+      diskussionszeit *= 2;
+      var doubledTotal = totalMin + arbeitszeit + diskussionszeit;
+      tier = doubledTotal <= LP_DOPPELSTUNDE_LIMIT ? 'doppelstunde' : 'unreasonable';
+    }
+
+    var sessionTotal = totalMin + arbeitszeit + diskussionszeit;
+    return { arbeitszeit: arbeitszeit, diskussionszeit: diskussionszeit, sessionTotal: sessionTotal, tier: tier };
+  }
+
+  var CATEGORY_ORDER = [
+    { subcat: 'Mein erstes Geld & Banken', icon: '💳' },
+    { subcat: 'Verträge, Abo-Fallen & Konsum', icon: '⚠️' },
+    { subcat: 'Schülerjobs & eigenes Business', icon: '💼' },
+    { subcat: 'Sparen & Vermögen aufbauen', icon: '📈' },
+    { subcat: 'Familie, Auszug & die erste eigene Bude', icon: '🏠' },
+    { subcat: 'Mindset, Krypto-Scams & Schutz im Netz', icon: '🎓' },
+    { subcat: 'Versicherungen', icon: '🛡️' }
+  ];
+
+  // state: Array von { link, checked, order } -- order nur fuer angehakte
+  // Eintraege relevant (Reihenfolge der Bearbeitung im Unterricht).
+  var state = [];
+
+  function loadState(posts){
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(LP_KEY) || 'null'); } catch(e) {}
+    state = posts.map(function(p){
+      var prior = saved && saved.find(function(s){ return s.link === p.link; });
+      return { link: p.link, checked: prior ? !!prior.checked : false, order: prior ? prior.order : 999 };
+    });
+    // fehlende order-Werte (neue Artikel, die noch nie gespeichert wurden)
+    // ans Ende der bereits angehakten Reihe haengen, statt sie zu ueberspringen.
+    normalizeOrder();
+  }
+
+  function saveState(){
+    try { localStorage.setItem(LP_KEY, JSON.stringify(state)); } catch(e) {}
+  }
+
+  function normalizeOrder(){
+    var checkedItems = state.filter(function(s){ return s.checked; })
+      .sort(function(a,b){ return a.order - b.order; });
+    checkedItems.forEach(function(s, i){ s.order = i; });
+  }
+
+  function itemRowHtml(s, p, en, opts){
+    var title = en && p.titleEn ? p.titleEn : p.title;
+    var metaMin = en ? (p.readMinEn||p.readMinDe) : (p.readMinDe||p.readMinEn);
+    var klasse = classifyKlassenstufe(p);
+    var html = '<li class="lp-item' + (s.checked ? ' is-checked' : '') + '" data-link="' + s.link + '" data-klasse="' + klasse + '">' +
+      '<input type="checkbox" class="lp-check" data-link="' + s.link + '"' + (s.checked ? ' checked' : '') + ' aria-label="' + (en ? 'Select' : 'Auswählen') + '">';
+    if(opts.showOrderNum){
+      html += '<span class="lp-order-num">' + (opts.orderPos || '') + '</span>';
+    }
+    html += '<div class="lp-item-body"><div class="lp-item-title">' + title + '</div>' +
+      '<div class="lp-item-meta">' + (p.subcat || '') + '<span class="lp-min-only"> · ~' + metaMin + (en ? ' min read' : ' Min. Lesezeit') + '</span>' +
+      ' <span class="lp-klasse-badge" title="' + (en ? 'Rough estimate, please verify' : 'Grobe Einschätzung, bitte prüfen') + '">🎓 ' + klasse + '</span>' +
+      ' <a class="lp-view-link" href="../' + s.link + '" aria-label="' + (en ? 'View article (opens in this tab, use browser back to return)' : 'Artikel ansehen (öffnet in diesem Tab, mit Browser-Zurück wieder hierher)') + '">' + (en ? 'View' : 'Zeigen') + ' →</a></div></div>';
+    if(opts.showOrderControls){
+      html += '<div class="lp-order-controls">' +
+        '<button type="button" class="lp-order-btn lp-up" data-link="' + s.link + '"' + (opts.isFirst ? ' disabled' : '') + ' aria-label="' + (en ? 'Move up' : 'Nach oben') + '">▲</button>' +
+        '<button type="button" class="lp-order-btn lp-down" data-link="' + s.link + '"' + (opts.isLast ? ' disabled' : '') + ' aria-label="' + (en ? 'Move down' : 'Nach unten') + '">▼</button>' +
+      '</div>';
+    }
+    html += '</li>';
+    return html;
+  }
+
+  function render(posts){
+    var en = isEn();
+    normalizeOrder();
+    var checkedCount = 0, totalMin = 0;
+
+    var checked = state.filter(function(s){ return s.checked; }).sort(function(a,b){ return a.order - b.order; });
+
+    // Bereich 1: die eigene Auswahl, in Unterrichtsreihenfolge, mit
+    // Umsortier-Pfeilen -- bewusst NICHT nach Kategorie gruppiert, da die
+    // tatsaechliche Unterrichtsreihenfolge Kategorien mischen kann.
+    selectionListEl.innerHTML = checked.map(function(s, idx){
+      var p = posts.find(function(pp){ return pp.link === s.link; });
+      if(!p) return '';
+      checkedCount++; totalMin += en ? (p.readMinEn || p.readMinDe || 0) : (p.readMinDe || p.readMinEn || 0);
+      return itemRowHtml(s, p, en, { showOrderNum:true, showOrderControls:true, orderPos: idx+1, isFirst: idx===0, isLast: idx===checked.length-1 });
+    }).join('');
+    emptyHintEl.classList.toggle('is-hidden', checked.length > 0);
+
+    // Bereich 2: alle Artikel nach Kategorie gruppiert, reiner
+    // An-/Abwaehl-Bereich ohne Umsortier-Pfeile. Kategorie-Reihenfolge und
+    // Icons kommen aus CATEGORY_ORDER (Kategorisierungskonzept V629).
+    // Zusaetzlich optional nach Klassenstufe gefiltert (V1055) -- die
+    // eigene Auswahl (Bereich 1) bleibt davon bewusst unberuehrt, damit
+    // ein Filterwechsel keine bereits angehakten Artikel "versteckt".
+    var klasseFilterVal = klasseFilterEl ? klasseFilterEl.value : '';
+    var groupsHtml = CATEGORY_ORDER.map(function(cat){
+      var catPosts = posts.filter(function(p){ return p.subcat === cat.subcat; });
+      if(klasseFilterVal){
+        catPosts = catPosts.filter(function(p){ return classifyKlassenstufe(p) === klasseFilterVal; });
+      }
+      if(catPosts.length === 0) return '';
+      var rows = catPosts.map(function(p){
+        var s = state.find(function(x){ return x.link === p.link; });
+        if(!s) return '';
+        return itemRowHtml(s, p, en, { showOrderNum:false, showOrderControls:false });
+      }).join('');
+      var catTitle = cat.subcat; // subcat-String ist bereits die Anzeige-Kategorie, DE und EN identisch gepflegt
+      return '<div class="lp-cat-group"><div class="lp-cat-heading">' + cat.icon + ' ' + catTitle +
+        ' <span class="lp-cat-count">(' + catPosts.length + ')</span></div>' +
+        '<ul class="lp-list">' + rows + '</ul></div>';
+    }).join('');
+    // Artikel ohne passende Kategorie (sollte mit dem Konzept nicht vorkommen,
+    // aber sicherheitshalber nicht stillschweigend verschwinden lassen).
+    var uncategorized = posts.filter(function(p){ return !CATEGORY_ORDER.some(function(c){ return c.subcat === p.subcat; }); });
+    if(uncategorized.length > 0){
+      var rows2 = uncategorized.map(function(p){
+        var s = state.find(function(x){ return x.link === p.link; });
+        if(!s) return '';
+        return itemRowHtml(s, p, en, { showOrderNum:false, showOrderControls:false });
+      }).join('');
+      groupsHtml += '<div class="lp-cat-group"><div class="lp-cat-heading">📄 ' + (en?'Uncategorized':'Ohne Kategorie') +
+        ' <span class="lp-cat-count">(' + uncategorized.length + ')</span></div>' +
+        '<ul class="lp-list">' + rows2 + '</ul></div>';
+    }
+    categoryGroupsEl.innerHTML = groupsHtml;
+
+    countEl.textContent = String(checkedCount);
+
+    // Zeitaufschluesselung ueber die zentrale computeTimeBreakdown()-
+    // Funktion (siehe deren Kommentar weiter oben fuer die komplette
+    // Formel-Historie V1055/V1057/V1058/V1059).
+    var breakdownEl = document.getElementById('lp-time-breakdown');
+    var tb = computeTimeBreakdown(checkedCount, totalMin);
+    if (breakdownEl) {
+      if (checkedCount === 0) {
+        breakdownEl.textContent = '';
+      } else {
+        var parts = en
+          ? [checkedCount + ' articles', totalMin + ' min. reading', tb.arbeitszeit + ' min. work', tb.diskussionszeit + ' min. discussion']
+          : [checkedCount + ' Artikel', totalMin + ' Min. lesen', tb.arbeitszeit + ' Min. Arbeit', tb.diskussionszeit + ' Min. Diskussion'];
+        var totalLabel = en ? ' (' + tb.sessionTotal + ' min total) ⏱️' : ' (' + tb.sessionTotal + ' Min. gesamt) ⏱️';
+        breakdownEl.textContent = parts.join(' / ') + totalLabel;
+      }
+    }
+
+    // Statusmeldung nutzt jetzt das von computeTimeBreakdown() gelieferte
+    // "tier"-Feld statt eigener Schwellenwert-Vergleiche (V1063) -- so
+    // bleiben Zahlen und Meldung garantiert synchron, egal wie die
+    // Formel in computeTimeBreakdown() sich noch aendert.
+    var note, cls;
+    if(tb.tier === 'empty'){
+      note = en ? 'Check off at least one article to see a time estimate.' : 'Kreuze mindestens einen Artikel an, um eine Zeitschätzung zu sehen.';
+      cls = 'is-ok';
+    } else if(tb.tier === 'single'){
+      note = en ? '✅ Fits well into a single 45-minute lesson.' : '✅ Passt gut in eine einzelne Schulstunde (45 Min.).';
+      cls = 'is-ok';
+    } else if(tb.tier === 'stretch'){
+      note = en ? '🟡 A bit over the hour — easily doable with 5–10 extra minutes in a single lesson.' : '🟡 Leicht über der Stunde — mit 5–10 Min. Verlängerung locker noch in einer Einzelstunde machbar.';
+      cls = 'is-stretch';
+    } else if(tb.tier === 'doppelstunde'){
+      note = en ? '🟠 This genuinely needs a double period — work and discussion time have been doubled accordingly.' : '🟠 Das braucht wirklich eine Doppelstunde — Arbeits- und Diskussionszeit wurden entsprechend verdoppelt.';
+      cls = 'is-warn';
+    } else {
+      note = en ? '❌ This no longer makes a sensible lesson plan. Select fewer articles or deliberately split the plan across multiple lessons.' : '❌ Das ergibt keinen sinnvollen Stundenplan mehr. Wähle weniger Artikel oder teile den Plan bewusst auf mehrere Einheiten auf.';
+      cls = 'is-danger';
+    }
+    noteEl.textContent = note;
+    noteEl.className = 'lp-summary-note lp-min-only ' + cls;
+
+    exportBtn.disabled = checkedCount === 0;
+    saveState();
+  }
+
+  function waitFor(cb, n){
+    if(typeof FR_POSTS !== 'undefined'){ cb(FR_POSTS); return; }
+    if((n||0) > 40) return;
+    setTimeout(function(){ waitFor(cb, (n||0)+1); }, 100);
+  }
+
+  // jsPDF nutzt die eingebaute Helvetica-Schrift (WinAnsi-Encoding), die
+  // keine Emojis darstellen kann. Bei Emoji-Sequenzen mit Zero-Width-Joiner
+  // (z. B. 🤷‍♂️) oder Hautton-Modifikatoren bricht jsPDF beim Rendern
+  // teils sogar den Rest der Zeile ab, statt nur Muellzeichen zu zeigen --
+  // das war die Ursache fuer sowohl die kaputten Zeichenfolgen als auch
+  // die mitten im Satz abgeschnittenen Titel im PDF-Export. Fix: Emojis
+  // vor der PDF-Ausgabe konsequent entfernen, der sichtbare Titeltext auf
+  // den Artikelseiten selbst bleibt unveraendert.
+  function stripEmojiForPdf(text){
+    if(!text) return text;
+    return text
+      .replace(/[\u{1F1E6}-\u{1F1FF}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  // Echter, direkt herunterladbarer PDF-Export -- unabhaengig von einem
+  // physischen Drucker im Lehrerzimmer. Vorher lief der Export nur ueber
+  // window.print() + @media print, was voraussetzte, dass der Browser
+  // "Als PDF speichern" im Druckdialog anbietet und der User das manuell
+  // waehlt. Jetzt erzeugt jsPDF (per CDN geladen) direkt eine echte
+  // PDF-Datei zum Download, ganz ohne Druckdialog. Der Druck-Button
+  // bleibt zusaetzlich bestehen fuer alle, die tatsaechlich einen
+  // Drucker nutzen wollen.
+  //
+  // WICHTIG (aktualisiert V1055): Dieses PDF zeigt jetzt bewusst eine
+  // Zeitaufschluesselung, anders als urspruenglich hier entschieden. Die
+  // fruehere Begruendung ("koennte an Schueler weitergegeben werden, das
+  // waere demotivierend") ist weiterhin richtig -- nur betraf sie in
+  // Wahrheit den ANDEREN PDF-Export (downloadStudentGuidePdf, "Schüler-
+  // Leitfaden"), der tatsaechlich an Schueler ausgegeben wird und deshalb
+  // WEITERHIN keine Zeitangaben zeigt. Dieses Dokument hier ("Lernplan")
+  // ist die Lehrkraft-Planungsuebersicht -- dafuer braucht die Lehrkraft
+  // die Zeiten zur Orientierung beim Planen, das Zeitmanagement gegenueber
+  // der Klasse liegt dann bei ihr.
+  function downloadLernplanPdf(posts){
+    if(!window.jspdf || !window.jspdf.jsPDF){
+      // CDN konnte nicht geladen werden (z.B. offline) -- Fallback auf
+      // den bisherigen Druckdialog-Weg, damit der Export nie komplett
+      // ins Leere laeuft.
+      window.print();
+      return;
+    }
+    var en = isEn();
+    var checkedSorted = state.filter(function(x){ return x.checked; }).sort(function(a,b){ return a.order - b.order; });
+    if(checkedSorted.length === 0){ return; }
+
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+    var marginX = 18;
+    var maxWidth = pageWidth - marginX * 2;
+    var y = 22;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text(en ? 'Lesson plan' : 'Lernplan', marginX, y);
+    y += 8;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(110, 110, 110);
+    var todayStr = new Date().toLocaleDateString(en ? 'en-GB' : 'de-DE');
+    doc.text((en ? 'FinanzRitual JugendBASISbildung — generated ' : 'FinanzRitual JugendBASISbildung — erstellt am ') + todayStr, marginX, y);
+    y += 8;
+
+    // Zeitaufschluesselung ueber die zentrale computeTimeBreakdown()-
+    // Funktion (siehe deren Kommentar bei der Definition fuer die
+    // komplette Formel-Historie V1055/V1057/V1058/V1059) -- dieselbe
+    // Funktion wie in der Live-Ansicht im Browser, damit beide Wege
+    // niemals wieder auseinanderlaufen koennen.
+    var pdfTotalMin = 0;
+    checkedSorted.forEach(function(s){
+      var pp = posts.find(function(x){ return x.link === s.link; });
+      if(pp) pdfTotalMin += en ? (pp.readMinEn || pp.readMinDe || 0) : (pp.readMinDe || pp.readMinEn || 0);
+    });
+    var pdfTb = computeTimeBreakdown(checkedSorted.length, pdfTotalMin);
+    var breakdownParts = en
+      ? ['Topics: ' + checkedSorted.length, 'Reading: ' + pdfTotalMin + ' min', 'Work time: ' + pdfTb.arbeitszeit + ' min', 'Discussion: ' + pdfTb.diskussionszeit + ' min']
+      : ['Themen: ' + checkedSorted.length, 'Lesezeit: ' + pdfTotalMin + ' Min', 'Arbeitszeit: ' + pdfTb.arbeitszeit + ' Min', 'Diskussion: ' + pdfTb.diskussionszeit + ' Min'];
+    var breakdownTotalLabel = en ? ' (' + pdfTb.sessionTotal + ' min total)' : ' (' + pdfTb.sessionTotal + ' Min. gesamt)';
+    var breakdownBoxHeight = 12;
+    doc.setFillColor(235, 245, 238);
+    doc.setDrawColor(150, 190, 170);
+    doc.roundedRect(marginX, y, pageWidth - marginX * 2, breakdownBoxHeight, 2, 2, 'FD');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.setTextColor(30, 90, 60);
+    doc.text(breakdownParts.join('  |  ') + breakdownTotalLabel, marginX + 5, y + 7.5);
+    doc.setTextColor(20, 20, 20);
+    y += breakdownBoxHeight + 6;
+
+    checkedSorted.forEach(function(s, i){
+      var p = posts.find(function(x){ return x.link === s.link; });
+      if(!p) return;
+      var title = stripEmojiForPdf(en && p.titleEn ? p.titleEn : p.title);
+
+      // Seitenumbruch, falls der naechste Eintrag nicht mehr passt
+      if(y > pageHeight - 30){
+        doc.addPage();
+        y = 22;
+      }
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      var numberedTitle = (i + 1) + '. ' + title;
+      var titleLines = doc.splitTextToSize(numberedTitle, maxWidth);
+      doc.text(titleLines, marginX, y);
+      y += titleLines.length * 6;
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(110, 110, 110);
+      doc.text(p.subcat || '', marginX, y);
+      doc.setTextColor(20, 20, 20);
+      y += 9;
+    });
+
+    y += 4;
+    if(y > pageHeight - 30){ doc.addPage(); y = 22; }
+    doc.setDrawColor(200, 200, 200);
+    doc.line(marginX, y, pageWidth - marginX, y);
+    y += 8;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(140, 140, 140);
+    var footNote = en
+      ? 'Generated with the FinanzRitual JugendBASISbildung lesson plan generator, teacher view only.'
+      : 'Erstellt mit dem FinanzRitual-JugendBASISbildung-Lernplan-Generator, ausschließlich Lehrer-Ansicht.';
+    var footLines = doc.splitTextToSize(footNote, maxWidth);
+    doc.text(footLines, marginX, y);
+
+    doc.save(en ? 'lesson-plan.pdf' : 'lernplan-jugendbasisbildung.pdf');
+  }
+
+  // Zweiter, eigenstaendiger PDF-Export speziell fuer Schueler: andere
+  // Tonalitaet, andere Inhalte (Lernfrage + QR-Code statt Kategorie), und
+  // konsequent ohne jede Zeitangabe -- dieses Dokument ist zum Verteilen
+  // an Schueler gedacht, nicht nur zur Lehrer-Planung.
+  function downloadStudentGuidePdf(posts){
+    if(!window.jspdf || !window.jspdf.jsPDF){
+      window.print();
+      return;
+    }
+    var en = isEn();
+    var checkedSorted = state.filter(function(x){ return x.checked; }).sort(function(a,b){ return a.order - b.order; });
+    if(checkedSorted.length === 0){ return; }
+
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+    var marginX = 18;
+    var qrSize = 22;
+    var textX = marginX + qrSize + 6;
+    var maxWidth = pageWidth - textX - marginX;
+    var y = 20;
+
+    // Kopfzeilen-Rahmen "FinanzRitual — Unterrichtsblatt": ersetzt den
+    // frueheren einfachen "Dein Leitfaden"-Titel durch einen deutlich
+    // abgegrenzten Kopfbereich mit Stundenthema, Datum und einer Zeile
+    // fuer den Schuelernamen -- fuer den Einsatz als echtes Arbeitsblatt
+    // im Unterricht statt nur als reine Leseliste. Ein gezeichneter
+    // Rahmen statt literaler "===="-Zeichen, da Letzteres in einem
+    // echten PDF unruhig/behelfsmaessig wirkt.
+    var lessonTitleInput = document.getElementById('lp-lesson-title');
+    var lessonTitle = lessonTitleInput ? lessonTitleInput.value.trim() : '';
+    var headerBoxHeight = lessonTitle ? 34 : 27;
+    doc.setDrawColor(60, 60, 60);
+    doc.setLineWidth(0.6);
+    doc.rect(marginX, y, pageWidth - marginX * 2, headerBoxHeight);
+    var hy = y + 8;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.setTextColor(20, 20, 20);
+    doc.text(en ? 'FINANZRITUAL — WORKSHEET' : 'FINANZRITUAL — UNTERRICHTSBLATT', marginX + 6, hy);
+    hy += 7;
+    if(lessonTitle){
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.text((en ? 'Lesson topic: ' : 'Thema der Stunde: ') + stripEmojiForPdf(lessonTitle), marginX + 6, hy);
+      hy += 7;
+    }
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(90, 90, 90);
+    var todayStrHeader = new Date().toLocaleDateString(en ? 'en-GB' : 'de-DE');
+    doc.text((en ? 'Date: ' : 'Datum: ') + todayStrHeader + '     ' + (en ? "Student's name: " : 'Name des Schülers: ') + '________________________', marginX + 6, hy);
+    doc.setTextColor(20, 20, 20);
+    y += headerBoxHeight + 8;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9.5);
+    doc.setTextColor(110, 110, 110);
+    var introNote = en
+      ? 'Scan the QR code of each article, read it, and fill in the sections below.'
+      : 'Scanne bei jedem Artikel den QR-Code, lies ihn durch und fülle die Abschnitte darunter aus.';
+    var introLines = doc.splitTextToSize(introNote, pageWidth - marginX * 2);
+    doc.text(introLines, marginX, y);
+    y += introLines.length * 5 + 7;
+    doc.setTextColor(20, 20, 20);
+
+    checkedSorted.forEach(function(s, i){
+      var p = posts.find(function(x){ return x.link === s.link; });
+      if(!p) return;
+      var title = stripEmojiForPdf(en && p.titleEn ? p.titleEn : p.title);
+      var sd = LP_STUDENT_DATA[s.link];
+      // Bug-Fix: Die Frage wurde bisher mit einem vorangestellten ❓-Emoji
+      // ausgegeben, aber NICHT durch stripEmojiForPdf() geschickt (anders
+      // als der Titel). Da jsPDFs eingebaute Helvetica-Schrift keine Emojis
+      // darstellen kann, brach das Rendering mitten in der Frage ab, statt
+      // sie sauber umzubrechen -- exakt das gemeldete Umbruch-Problem. Fix:
+      // Frage ebenfalls durch stripEmojiForPdf() schicken und statt des
+      // Emojis ein reines Text-Praefix verwenden.
+      var questionPrefix = en ? 'Question: ' : 'Frage: ';
+      var question = sd ? stripEmojiForPdf(en ? sd.qEn : sd.q) : '';
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      var numberedTitle = (i + 1) + '. ' + title;
+      var titleLines = doc.splitTextToSize(numberedTitle, maxWidth);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      var questionLines = question ? doc.splitTextToSize(questionPrefix + question, maxWidth) : [];
+
+      // Zwei leere Antwortzeilen zum Selbst-Eintragen, direkt unter der
+      // Frage.
+      var answerLineCount = questionLines.length ? 2 : 0;
+      var answerLineGap = 7; // mm Abstand zwischen den Linien
+      var answerLinesHeight = answerLineCount * answerLineGap;
+
+      // Drei zusaetzliche Arbeitsblatt-Abschnitte pro Artikel (fuer JEDEN
+      // Artikel, unabhaengig davon, ob eine Quizfrage hinterlegt ist):
+      // Gelerntes, groesste Falle/Risiko, Diskussionsfrage fuer die Klasse.
+      // Bewusst als eigene, wiederverwendbare Mini-Funktion gebaut statt
+      // dreimal denselben Code zu kopieren.
+      var extraSections = [
+        { label: en ? 'What I learned:' : 'Das habe ich gelernt:', lines: 3 },
+        { label: en ? 'The biggest trap / risk:' : 'Die größte Falle / Das größte Risiko:', lines: 2 },
+        { label: en ? 'My question for the class:' : 'Meine Frage an die Klasse:', lines: 2 }
+      ];
+      var extraSectionsHeight = 0;
+      extraSections.forEach(function(sec){ extraSectionsHeight += 5 + sec.lines * answerLineGap + 3; });
+
+      var blockHeight = Math.max(qrSize, titleLines.length * 6 + questionLines.length * 5 + answerLinesHeight + 4) + extraSectionsHeight;
+
+      // Seitenumbruch, falls der naechste Eintrag nicht mehr passt
+      if(y + blockHeight > pageHeight - 20){
+        doc.addPage();
+        y = 22;
+      }
+
+      if(sd && sd.qr){
+        try{ doc.addImage(sd.qr, 'PNG', marginX, y, qrSize, qrSize); }catch(e){}
+      }
+
+      var textY = y + 5;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      doc.text(titleLines, textX, textY);
+      textY += titleLines.length * 6 + 2;
+
+      if(questionLines.length){
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(90, 90, 90);
+        doc.text(questionLines, textX, textY);
+        doc.setTextColor(20, 20, 20);
+        textY += questionLines.length * 5 + 3;
+
+        doc.setDrawColor(190, 190, 190);
+        for(var line = 0; line < answerLineCount; line++){
+          doc.line(textX, textY, pageWidth - marginX, textY);
+          textY += answerLineGap;
+        }
+      }
+
+      // Die drei zusaetzlichen Arbeitsblatt-Abschnitte rendern (fetter
+      // Label, dann die passende Anzahl leerer Linien darunter).
+      extraSections.forEach(function(sec){
+        textY += 2;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(50, 50, 50);
+        doc.text(sec.label, textX, textY);
+        doc.setTextColor(20, 20, 20);
+        textY += 5;
+        doc.setDrawColor(190, 190, 190);
+        for(var sline = 0; sline < sec.lines; sline++){
+          doc.line(textX, textY, pageWidth - marginX, textY);
+          textY += answerLineGap;
+        }
+        textY += 1;
+      });
+
+      y += blockHeight + 8;
+    });
+
+    if(y > pageHeight - 24){ doc.addPage(); y = 22; }
+    doc.setDrawColor(200, 200, 200);
+    doc.line(marginX, y, pageWidth - marginX, y);
+    y += 8;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(140, 140, 140);
+    var footNote = en
+      ? 'Made with the FinanzRitual JugendBASISbildung lesson plan generator. No time pressure here — work through this at your own pace.'
+      : 'Erstellt mit dem FinanzRitual-JugendBASISbildung-Lernplan-Generator. Kein Zeitdruck — arbeite das in deinem eigenen Tempo durch.';
+    var footLines = doc.splitTextToSize(footNote, pageWidth - marginX * 2);
+    doc.text(footLines, marginX, y);
+
+    doc.save(en ? 'student-guide.pdf' : 'schueler-leitfaden-jugendbasisbildung.pdf');
+  }
+
+  waitFor(function(posts){
+    var youthPosts = posts.filter(function(p){ return p.cat === 'JugendBASISbildung'; });
+    loadState(youthPosts);
+    render(youthPosts);
+
+    if(klasseFilterEl){
+      klasseFilterEl.addEventListener('change', function(){ render(youthPosts); });
+    }
+
+    document.addEventListener('click', function(e){
+      var check = e.target.closest('.lp-check');
+      if(check){
+        var s = state.find(function(x){ return x.link === check.dataset.link; });
+        if(s){
+          s.checked = check.checked;
+          if(s.checked){
+            var maxOrder = Math.max(-1, ...state.filter(function(x){ return x.checked && x !== s; }).map(function(x){ return x.order; }));
+            s.order = maxOrder + 1;
+          }
+          render(youthPosts);
+        }
+        return;
+      }
+      var upBtn = e.target.closest('.lp-up');
+      var downBtn = e.target.closest('.lp-down');
+      if(upBtn || downBtn){
+        var link = (upBtn || downBtn).dataset.link;
+        var checkedSorted = state.filter(function(x){ return x.checked; }).sort(function(a,b){ return a.order - b.order; });
+        var idx = checkedSorted.findIndex(function(x){ return x.link === link; });
+        var swapIdx = upBtn ? idx - 1 : idx + 1;
+        if(idx >= 0 && swapIdx >= 0 && swapIdx < checkedSorted.length){
+          var tmp = checkedSorted[idx].order;
+          checkedSorted[idx].order = checkedSorted[swapIdx].order;
+          checkedSorted[swapIdx].order = tmp;
+          render(youthPosts);
+        }
+      }
+    });
+
+    resetBtn.addEventListener('click', function(){
+      state.forEach(function(s){ s.checked = false; });
+      render(youthPosts);
+    });
+
+    exportBtn.addEventListener('click', function(){
+      downloadLernplanPdf(youthPosts);
+    });
+
+    printBtn.addEventListener('click', function(){
+      window.print();
+    });
+
+    studentExportBtn.addEventListener('click', function(){
+      downloadStudentGuidePdf(youthPosts);
+    });
+
+    window.frPageRecomputers = window.frPageRecomputers || [];
+    window.frPageRecomputers.push(function(){ render(youthPosts); });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

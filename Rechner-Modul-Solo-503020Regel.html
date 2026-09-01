@@ -1,0 +1,109 @@
+<!-- ===== Rechner-Modul: 50-30-20-Regel =====
+     Automatisch aus beitrag-50-30-20-regel.html extrahiert (V878).
+     Enthaelt SVG-Kuchendiagramm + Legende + interaktiven Einkommens-
+     Slider. Nutzt globale CSS-Variablen inkl. [data-theme="dark"]-Support
+     -- funktioniert automatisch im Hell/Dunkel-Kontext der Zielseite. -->
+<style>
+.br-pie-wrap{ margin:28px 0; display:grid; grid-template-columns:280px 1fr; gap:24px; align-items:center; }
+@media (max-width:600px){ .br-pie-wrap{ grid-template-columns:1fr; } }
+.br-pie-wrap svg{ width:100%; height:auto; display:block; }
+.br-pie-legend{ display:flex; flex-direction:column; gap:12px; }
+.br-pie-legend .item{ display:flex; align-items:center; gap:10px; }
+.br-pie-legend .dot{ width:13px; height:13px; border-radius:50%; flex:none; }
+.br-pie-legend .txt{ font-size:.86rem; color:var(--ink); }
+.br-pie-legend .txt b{ font-weight:700; }
+.br-pie-legend .amt{ font-family:'JetBrains Mono',monospace; font-weight:700; margin-left:auto; }
+
+/* ===== Interaktiver Einkommens-Rechner ===== */
+.br-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.br-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.br-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.br-insight-box{
+  margin:22px 0; padding:calc(20px * var(--step-user)) calc(22px * var(--step-user)); border-radius:14px;
+  background:#D9F0E1; border-left:3px solid var(--green);
+box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .br-insight-box{ background:#173828;  box-shadow:none;}
+</style>
+<div class="br-pie-wrap">
+<svg aria-label="Kuchendiagramm der 50/30/20-Regel: 50 Prozent Notwendiges, 30 Prozent Lifestyle, 20 Prozent Sparen." data-en-aria-label="Pie chart of the 50/30/20 rule: 50% needs, 30% lifestyle, 20% savings." role="img" viewbox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+<!-- Notwendiges 50% -->
+<path d="M150.0,10.0 A140,140 0 0 1 150.0,290.0 L150.0,222.0 A72,72 0 0 0 150.0,78.0 Z" fill="var(--blue)"></path>
+<!-- Lifestyle 30% -->
+<path d="M150.0,290.0 A140,140 0 0 1 16.4,111.3 L88.7,153.7 A72,72 0 0 0 150.0,222.0 Z" fill="#b08d57"></path>
+<!-- Sparen 20% -->
+<path d="M16.4,111.3 A140,140 0 0 1 150.0,10.0 L150.0,78.0 A72,72 0 0 0 88.7,153.7 Z" fill="var(--green)"></path>
+</svg>
+<div class="br-pie-legend">
+<div class="item">
+<span class="dot" style="background:var(--blue);"></span>
+<span class="txt"><b>50⁠%</b> <span data-en="Needs">Notwendiges</span></span>
+<span class="amt" id="br-amt-needs" style="color:var(--blue);">–</span>
+</div>
+<div class="item">
+<span class="dot" style="background:#b08d57;"></span>
+<span class="txt"><b>30⁠%</b> <span data-en="Lifestyle">Lifestyle</span></span>
+<span class="amt" id="br-amt-life" style="color:#b08d57;">–</span>
+</div>
+<div class="item">
+<span class="dot" style="background:var(--green);"></span>
+<span class="txt"><b>20⁠%</b> <span data-en="Saving">Sparen</span></span>
+<span class="amt" id="br-amt-save" style="color:var(--green);">–</span>
+</div>
+</div>
+</div>
+<div class="br-calc" id="br-calc">
+<div class="br-calc-inputs">
+<div class="row">
+<label for="br-income"><span data-en="Net monthly income">Monatliches Nettoeinkommen</span> <span class="val" id="br-income-val">2.500 €</span></label>
+<input class="calc-slider" id="br-income" max="6000" min="1000" step="100" type="range" value="2500"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not financial advice. The 50/30/20 split is a general guideline – adjust the percentages to fit your own situation, especially in high-cost-of-living areas where the needs share is often higher.">Vereinfachte Beispielrechnung, keine Finanzberatung. Die 50/30/20-Aufteilung ist eine allgemeine Richtlinie — passe die Prozentsätze an deine eigene Situation an, besonders in Regionen mit hohen Lebenshaltungskosten, wo der Notwendiges-Anteil oft höher liegt.</p>
+</div>
+<script>
+(function(){
+  const incomeEl = document.getElementById('br-income');
+  if(!incomeEl) return;
+  const incomeVal = document.getElementById('br-income-val');
+  const amtNeeds = document.getElementById('br-amt-needs');
+  const amtLife = document.getElementById('br-amt-life');
+  const amtSave = document.getElementById('br-amt-save');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEUR(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const income = parseFloat(incomeEl.value);
+    incomeVal.textContent = fmtEUR(income);
+    amtNeeds.textContent = fmtEUR(income * 0.5);
+    amtLife.textContent = fmtEUR(income * 0.3);
+    amtSave.textContent = fmtEUR(income * 0.2);
+  }
+
+  incomeEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

@@ -1,0 +1,165 @@
+<!-- ===== Rechner-Modul: Runway-Simulation (Erfolgreich Scheitern) =====
+     Automatisch aus beitrag-erfolgreich-scheitern.html extrahiert (V882).
+     Simuliert Runway (wie lange reicht das Geld) fuer ein Nebenprojekt:
+     Ersparnisse + geliehenes Geld, Lebenshaltungskosten, Projekteinkommen
+     mit prozentualem Wachstum ueber einen Simulationszeitraum. Nutzt
+     Text-Inputs (type=number) statt Slidern -- anders als die bisherigen
+     Module. Globale CSS-Variablen, keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.es-calc{ background:var(--bg-raised); border:1.5px solid var(--line-strong); border-radius:14px; padding:22px 20px; margin:24px 0; }
+.es-calc-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+@media(max-width:520px){ .es-calc-row{ grid-template-columns:1fr; } }
+.es-field label{ font-size:.76rem; font-weight:700; color:var(--ink-soft); display:block; margin-bottom:6px; }
+.es-field input{ width:100%; box-sizing:border-box; padding:10px 12px; border:1.5px solid var(--line-strong); border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:.95rem; background:var(--bg); color:var(--ink); }
+.es-result-box{ background:var(--blue-soft); border:1.5px solid rgba(36,84,166,.25); border-radius:10px; padding:16px 18px; text-align:center; }
+.es-result-main{ font-size:1.6rem; font-weight:700; color:var(--ink); }
+.es-result-sub{ font-size:.84rem; color:var(--ink-soft); margin-top:4px; }
+.es-result-warn{ color:#c0392b; }
+.es-result-ok{ color:#1f6f5c; }
+.es-result-burn{ font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); font-family:'JetBrains Mono',monospace; margin-top:10px; padding-top:10px; border-top:1px solid rgba(36,84,166,.2); }
+.es-result-burn strong{ color:var(--ink); font-weight:700; }
+</style>
+<div aria-label="Runway-Rechner" class="es-calc">
+<div class="es-calc-row">
+<div class="es-field">
+<label data-en="Own savings (€)" for="es-savings">Eigene Ersparnisse (€)</label>
+<input id="es-savings" inputmode="decimal" min="0" step="100" type="number" value="0"/>
+</div>
+<div class="es-field">
+<label data-en="Borrowed money (€)" for="es-borrowed">Geliehenes Geld (€)</label>
+<input id="es-borrowed" inputmode="decimal" min="0" step="100" type="number" value="3000"/>
+</div>
+</div>
+<div class="es-calc-row">
+<div class="es-field">
+<label data-en="Monthly living costs (€)" for="es-costs">Monatliche Lebenshaltungskosten (€)</label>
+<input id="es-costs" inputmode="decimal" min="0" step="50" type="number" value="1400"/>
+</div>
+<div class="es-field">
+<label data-en="Project income today (€/month)" for="es-income">Projekteinkommen heute (€/Monat)</label>
+<input id="es-income" inputmode="decimal" min="0" step="10" type="number" value="0"/>
+</div>
+</div>
+<div class="es-calc-row">
+<div class="es-field">
+<label data-en="Expected monthly growth of that income (%)" for="es-growth">Erwartetes Wachstum dieses Einkommens (%/Monat)</label>
+<input id="es-growth" inputmode="decimal" min="0" step="1" type="number" value="15"/>
+</div>
+<div class="es-field">
+<label data-en="Simulation horizon (months)" for="es-months-view">Simulationszeitraum (Monate)</label>
+<input id="es-months-view" inputmode="decimal" min="6" step="6" type="number" value="36"/>
+</div>
+</div>
+<div class="es-result-box">
+<div class="es-result-main" id="es-result-main">–</div>
+<div class="es-result-sub" id="es-result-sub"></div>
+<div class="es-result-burn" id="es-result-burn"></div>
+</div>
+</div>
+<script>
+(function(){
+  var savingsInput  = document.getElementById('es-savings');
+  var borrowedInput = document.getElementById('es-borrowed');
+  var costsInput    = document.getElementById('es-costs');
+  var incomeInput   = document.getElementById('es-income');
+  var growthInput   = document.getElementById('es-growth');
+  var horizonInput  = document.getElementById('es-months-view');
+  var mainEl        = document.getElementById('es-result-main');
+  var subEl         = document.getElementById('es-result-sub');
+  var burnEl        = document.getElementById('es-result-burn');
+  if(!savingsInput || !borrowedInput || !costsInput || !incomeInput || !mainEl) return;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function fmt(n){
+    var en = isEn();
+    return Math.round(n).toLocaleString(en ? 'en-US' : 'de-DE');
+  }
+
+  function render(){
+    var capital  = (parseFloat(savingsInput.value) || 0) + (parseFloat(borrowedInput.value) || 0);
+    var costs    = parseFloat(costsInput.value) || 0;
+    var income   = parseFloat(incomeInput.value) || 0;
+    var growth   = (parseFloat(growthInput.value) || 0) / 100;
+    var horizon  = Math.max(1, parseInt(horizonInput.value, 10) || 36);
+    var en = isEn();
+
+    var burnRate = costs - income;
+    if(burnEl){
+      if(burnRate > 0){
+        burnEl.innerHTML = en
+          ? 'Cash burn rate: <strong>' + fmt(burnRate) + ' €</strong>/month'
+          : 'Cashburn-Rate: <strong>' + fmt(burnRate) + ' €</strong>/Monat';
+      } else {
+        burnEl.innerHTML = en
+          ? 'Cash burn rate: <strong>0 €</strong>/month — income already covers costs'
+          : 'Cashburn-Rate: <strong>0 €</strong>/Monat — Einkommen deckt die Kosten bereits';
+      }
+    }
+
+    var breakEvenMonth = null;
+    var brokeMonth = null;
+    var runningCapital = capital;
+    var runningIncome = income;
+
+    for(var m = 1; m <= horizon; m++){
+      var net = runningIncome - costs;
+      runningCapital += net;
+      if(breakEvenMonth === null && runningIncome >= costs){
+        breakEvenMonth = m;
+      }
+      if(brokeMonth === null && runningCapital <= 0){
+        brokeMonth = m;
+      }
+      if(breakEvenMonth !== null && brokeMonth === null){
+        break;
+      }
+      runningIncome = runningIncome * (1 + growth) + (runningIncome === 0 && growth > 0 ? 1 : 0);
+    }
+
+    if(breakEvenMonth !== null && (brokeMonth === null || breakEvenMonth <= brokeMonth)){
+      mainEl.className = 'es-result-main es-result-ok';
+      mainEl.textContent = en
+        ? 'Break-even after ' + breakEvenMonth + ' months'
+        : 'Break-even nach ' + breakEvenMonth + ' Monaten';
+      subEl.textContent = en
+        ? 'From then on, the project’s own income covers your living costs — assuming ' + (growth*100).toFixed(0) + '% monthly growth holds up.'
+        : 'Ab dann deckt das Projekteinkommen deine Lebenshaltungskosten — vorausgesetzt, die ' + (growth*100).toFixed(0) + ' % monatliches Wachstum halten sich.';
+    } else if(brokeMonth !== null){
+      mainEl.className = 'es-result-main es-result-warn';
+      mainEl.textContent = en
+        ? 'Capital runs out after ' + brokeMonth + ' months'
+        : 'Kapital reicht ' + brokeMonth + ' Monate';
+      subEl.textContent = en
+        ? 'With ' + fmt(capital) + ' € starting capital and ' + fmt(costs) + ' €/month costs, the project needs to earn enough before then — or you need more runway.'
+        : 'Mit ' + fmt(capital) + ' € Startkapital und ' + fmt(costs) + ' €/Monat Kosten muss das Projekt bis dahin genug einbringen — oder du brauchst mehr Puffer.';
+    } else {
+      mainEl.className = 'es-result-main es-result-ok';
+      mainEl.textContent = en
+        ? 'Capital lasts the full ' + horizon + ' months'
+        : 'Kapital reicht die vollen ' + horizon + ' Monate';
+      subEl.textContent = en
+        ? 'Neither break-even nor zero capital is reached within this horizon at the current assumptions.'
+        : 'Weder Break-even noch aufgebrauchtes Kapital wird in diesem Zeitraum bei den aktuellen Annahmen erreicht.';
+    }
+  }
+
+  [savingsInput, borrowedInput, costsInput, incomeInput, growthInput, horizonInput].forEach(function(el){
+    el.addEventListener('input', render);
+  });
+  render();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

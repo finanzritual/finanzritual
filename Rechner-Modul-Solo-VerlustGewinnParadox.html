@@ -1,0 +1,169 @@
+<!-- ===== Rechner-Modul: Verlust-Gewinn-Paradox + 72er-Regel =====
+     Automatisch aus beitrag-verlust-gewinn-paradox.html extrahiert
+     (V889). Zweigeteilt per Tab-Umschaltung: Tab 1 zeigt, welcher
+     prozentuale Gewinn noetig ist, um einen Verlust auszugleichen
+     (asymmetrische Mathematik). Tab 2 zeigt die 72er-Regel-Naeherung
+     fuer Verdopplungszeit vs. die exakte Berechnung. Globale CSS-
+     Variablen, keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.vp-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.vp-calc-tabs{ display:flex; gap:8px; margin-bottom:20px; }
+.vp-calc-tab{ flex:1; padding:9px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); cursor:pointer; font-size:.8rem; font-weight:600; color:var(--ink-soft); font-family:inherit; transition:border-color .2s ease, color .2s ease, background .2s ease; }
+.vp-calc-tab.is-active{ border-color:var(--blue); color:var(--blue); background:var(--green-soft); }
+.vp-calc-pane{ display:none; }
+.vp-calc-pane.is-active{ display:block; }
+.vp-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.vp-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.vp-calc-inputs .row{ margin-bottom:18px; }
+.vp-calc-results{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; }
+@media (max-width:640px){ .vp-calc-results{ grid-template-columns:1fr; } }
+.vp-calc-result{ border-radius:12px; padding:16px 18px; text-align:center; background:var(--bg); border:1px solid var(--line); }
+.vp-calc-result .lbl{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.vp-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; }
+.vp-calc-result--a .num{ color:#c0392b; }
+.vp-calc-result--b .num{ color:var(--green); }
+.vp-calc-note{ font-size:.74rem; color:var(--ink-soft); margin-top:14px; }
+
+.vp-insight-box{ margin:24px 0; padding:calc(20px * var(--step-user)) calc(22px * var(--step-user)); border-radius:14px; background:#D9F0E1; border-left:3px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .vp-insight-box{ background:#173828;  box-shadow:none;}
+.vp-insight-box p{ margin:0; }
+</style>
+<div class="vp-calc" id="vp-calc">
+<div class="vp-calc-tabs">
+<button class="vp-calc-tab is-active" data-en="Loss &amp; break-even" id="vp-tab-loss" type="button">Verlust &amp; Ausgleich</button>
+<button class="vp-calc-tab" data-en="Rule of 72" id="vp-tab-rule72" type="button">72er-Regel</button>
+</div>
+<div class="vp-calc-pane is-active" id="vp-pane-loss">
+<div class="vp-calc-inputs">
+<div class="row">
+<label for="vp-loss"><span data-en="Loss">Verlust</span> <span class="val" id="vp-loss-val">30⁠%</span></label>
+<input class="calc-slider" id="vp-loss" max="95" min="5" step="1" type="range" value="30"/>
+</div>
+<div class="row">
+<label for="vp-start"><span data-en="Starting value">Ausgangswert</span> <span class="val" id="vp-start-val">10.000 €</span></label>
+<input class="calc-slider" id="vp-start" max="100000" min="1000" step="1000" type="range" value="10000"/>
+</div>
+</div>
+<div class="vp-calc-results">
+<div class="vp-calc-result vp-calc-result--a">
+<span class="lbl" data-en="Value after the loss">Wert nach dem Verlust</span>
+<span class="num" id="vp-loss-value">7.000 €</span>
+</div>
+<div class="vp-calc-result vp-calc-result--b">
+<span class="lbl" data-en="Gain needed to break even">Nötiger Gewinn zum Ausgleich</span>
+<span class="num" id="vp-gain-needed">+42,9⁠%</span>
+</div>
+</div>
+<p class="vp-calc-note" data-en="Simplified example calculation, not investment advice.">Vereinfachte Beispielrechnung, keine Anlageberatung.</p>
+</div>
+<div class="vp-calc-pane" id="vp-pane-rule72">
+<div class="vp-calc-inputs">
+<div class="row">
+<label for="vp-rate"><span data-en="Expected annual return">Erwartete jährliche Rendite</span> <span class="val" id="vp-rate-val">7⁠%</span></label>
+<input class="calc-slider" id="vp-rate" max="15" min="1" step="0.5" type="range" value="7"/>
+</div>
+</div>
+<div class="vp-calc-results">
+<div class="vp-calc-result vp-calc-result--b">
+<span class="lbl" data-en="Doubling time (Rule of 72)">Verdopplungszeit (72er-Regel)</span>
+<span class="num" id="vp-rule72-years">~10,3 Jahre</span>
+</div>
+<div class="vp-calc-result vp-calc-result--b">
+<span class="lbl" data-en="Exact doubling time">Exakte Verdopplungszeit</span>
+<span class="num" id="vp-exact-years">~10,2 Jahre</span>
+</div>
+</div>
+<p class="vp-calc-note" data-en="The Rule of 72 is a rough approximation. It's most accurate between roughly 4⁠% and 15⁠% – outside that range, the gap to the exact figure grows.">Die 72er-Regel ist eine Näherung. Am genauesten ist sie zwischen etwa 4⁠% und 15⁠% — außerhalb dieses Bereichs wächst der Abstand zum exakten Wert.</p>
+</div>
+</div>
+<script>
+(function(){
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEUR(n){
+    return new Intl.NumberFormat(isEn() ? 'en-US' : 'de-DE', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(n);
+  }
+  function fmtPct(n, digits){
+    return new Intl.NumberFormat(isEn() ? 'en-US' : 'de-DE', { minimumFractionDigits:digits, maximumFractionDigits:digits }).format(n) + (isEn() ? '%' : '%');
+  }
+
+  var lossSlider  = document.getElementById('vp-loss');
+  var startSlider = document.getElementById('vp-start');
+  var lossVal     = document.getElementById('vp-loss-val');
+  var startVal    = document.getElementById('vp-start-val');
+  var lossValueOut= document.getElementById('vp-loss-value');
+  var gainNeeded  = document.getElementById('vp-gain-needed');
+
+  var rateSlider  = document.getElementById('vp-rate');
+  var rateVal     = document.getElementById('vp-rate-val');
+  var rule72Years = document.getElementById('vp-rule72-years');
+  var exactYears  = document.getElementById('vp-exact-years');
+
+  function computeLoss(){
+    if(!lossSlider) return;
+    var loss = parseFloat(lossSlider.value) / 100;
+    var start = parseFloat(startSlider.value);
+    var afterLoss = start * (1 - loss);
+    var requiredGain = loss / (1 - loss) * 100;
+
+    lossVal.textContent = fmtPct(loss * 100, 0);
+    startVal.textContent = fmtEUR(start);
+    lossValueOut.textContent = fmtEUR(afterLoss);
+    gainNeeded.textContent = '+' + fmtPct(requiredGain, 1);
+  }
+
+  function computeRule72(){
+    if(!rateSlider) return;
+    var rate = parseFloat(rateSlider.value);
+    rateVal.textContent = fmtPct(rate, rate % 1 === 0 ? 0 : 1);
+
+    var approx = 72 / rate;
+    var exact = Math.log(2) / Math.log(1 + rate / 100);
+
+    rule72Years.textContent = '~' + fmtPct(approx, 1).replace('%','').replace('%','') + (isEn() ? ' years' : ' Jahre');
+    exactYears.textContent = '~' + fmtPct(exact, 1).replace('%','').replace('%','') + (isEn() ? ' years' : ' Jahre');
+  }
+
+  if(lossSlider){
+    lossSlider.addEventListener('input', computeLoss);
+    startSlider.addEventListener('input', computeLoss);
+    computeLoss();
+  }
+  if(rateSlider){
+    rateSlider.addEventListener('input', computeRule72);
+    computeRule72();
+  }
+
+  var tabLoss = document.getElementById('vp-tab-loss');
+  var tabRule72 = document.getElementById('vp-tab-rule72');
+  var paneLoss = document.getElementById('vp-pane-loss');
+  var paneRule72 = document.getElementById('vp-pane-rule72');
+
+  function showLoss(){
+    tabLoss.classList.add('is-active'); tabRule72.classList.remove('is-active');
+    paneLoss.classList.add('is-active'); paneRule72.classList.remove('is-active');
+  }
+  function showRule72(){
+    tabRule72.classList.add('is-active'); tabLoss.classList.remove('is-active');
+    paneRule72.classList.add('is-active'); paneLoss.classList.remove('is-active');
+  }
+  if(tabLoss){
+    tabLoss.addEventListener('click', showLoss);
+    tabRule72.addEventListener('click', showRule72);
+  }
+
+  if(window.frPageRecomputers){
+    window.frPageRecomputers.push(function(){ computeLoss(); computeRule72(); });
+  }
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

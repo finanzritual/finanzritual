@@ -1,0 +1,135 @@
+<!-- ===== Rechner-Modul: dividenden =====
+     Automatisch aus rechner-dividenden.html extrahiert (V874). Enthaelt NUR das reine
+     Rechner-Widget (Eingabefelder + Ergebnisanzeige) und sein
+     eigenstaendiges JavaScript -- KEIN umgebender Erklaertext, KEINE
+     Links zu anderen Seiten. Verwendet ausschliesslich CSS-Klassen aus
+     dem global geladenen style.css (.calc-card/.calc-slider etc.),
+     keine eigenen Styles noetig. Einbindbar in jede Seite, die
+     style.css und script.js laedt (Erwachsenen- oder Jugendbereich). -->
+<div class="calc-card" id="dividendenrechner">
+      <div class="calc-inputs">
+        <div class="row">
+          <label for="div-invest"><span data-en="Investment amount">Investitionsbetrag</span> <span class="val" id="div-invest-val">10.000 €</span></label>
+          <input type="range" id="div-invest" class="calc-slider" min="500" max="200000" step="500" value="10000">
+        </div>
+        <div class="row">
+          <label for="div-yield"><span data-en="Dividend yield today">Dividendenrendite heute</span> <span class="val" id="div-yield-val">3,5⁠%</span></label>
+          <input type="range" id="div-yield" class="calc-slider" min="0.5" max="10" step="0.1" value="3.5">
+        </div>
+        <div class="row">
+          <label for="div-growth"><span data-en="Annual dividend growth">Jährliche Dividendensteigerung</span> <span class="val" id="div-growth-val">5⁠%</span></label>
+          <input type="range" id="div-growth" class="calc-slider" min="0" max="15" step="0.5" value="5">
+        </div>
+        <div class="row">
+          <label for="div-years"><span data-en="Time horizon">Laufzeit</span> <span class="val" id="div-years-val">15 J.</span></label>
+          <input type="range" id="div-years" class="calc-slider" min="1" max="40" step="1" value="15">
+        </div>
+        <div class="row" style="display:flex; align-items:center; gap:10px; margin-bottom:0;">
+          <input type="checkbox" id="div-reinvest" checked style="width:18px; height:18px; accent-color:var(--green); cursor:pointer;">
+          <label for="div-reinvest" style="margin:0; font-size:.84rem;" data-en="Reinvest dividends (DRIP)">Dividenden reinvestieren (DRIP)</label>
+        </div>
+        <p class="calc-note" data-en="Simplified example calculation, not investment advice. Assumes dividend growth and share-price growth move together, so the yield stays constant. Real dividends can be cut or suspended.">Vereinfachte Beispielrechnung, keine Anlageberatung. Es wird angenommen, dass Dividendenwachstum und Kurswachstum gleichlaufen, sodass die Rendite konstant bleibt. Reale Dividenden können gekürzt oder gestrichen werden.</p>
+      </div>
+
+      <div class="calc-result">
+        <div class="calc-stat calc-stat--total">
+          <span class="label" data-en="Annual dividend at the end">Jährliche Dividende am Ende</span>
+          <span class="big num" id="div-final-annual">–</span>
+        </div>
+        <div class="calc-stat-row">
+          <div class="calc-stat">
+            <span class="dot dot-start"></span>
+            <span class="label" data-en="Annual dividend today">Jährliche Dividende heute</span>
+            <span class="num" id="div-now-annual">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-blue"></span>
+            <span class="label" data-en="Portfolio value at the end">Depotwert am Ende</span>
+            <span class="num" id="div-final-value">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-green"></span>
+            <span class="label" data-en="Total dividends received">Summe erhaltener Dividenden</span>
+            <span class="num" id="div-total-received">–</span>
+          </div>
+        </div>
+      </div>
+<script>
+/* ===== Dividenden-Rendite-Rechner ===== */
+(function(){
+  const investEl = document.getElementById('div-invest');
+  const yieldEl  = document.getElementById('div-yield');
+  const growthEl = document.getElementById('div-growth');
+  const yearsEl  = document.getElementById('div-years');
+  const reinvestEl = document.getElementById('div-reinvest');
+
+  const investVal = document.getElementById('div-invest-val');
+  const yieldVal  = document.getElementById('div-yield-val');
+  const growthVal = document.getElementById('div-growth-val');
+  const yearsVal  = document.getElementById('div-years-val');
+
+  const finalAnnualEl = document.getElementById('div-final-annual');
+  const nowAnnualEl   = document.getElementById('div-now-annual');
+  const finalValueEl  = document.getElementById('div-final-value');
+  const totalReceivedEl = document.getElementById('div-total-received');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function compute(){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const fmt1 = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:1, maximumFractionDigits:1 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+
+    const invest = parseFloat(investEl.value);
+    const yieldPct = parseFloat(yieldEl.value) / 100;
+    const growth = parseFloat(growthEl.value) / 100;
+    const years = parseInt(yearsEl.value, 10);
+    const reinvest = reinvestEl.checked;
+
+    investVal.textContent = eur(invest);
+    yieldVal.textContent  = fmt1.format(parseFloat(yieldEl.value)) + '%';
+    growthVal.textContent = growthEl.value + '%';
+    yearsVal.textContent  = years + (en ? (years === 1 ? ' yr' : ' yrs') : ' J.');
+
+    const annualNow = invest * yieldPct;
+
+    let value = invest;
+    let totalReceived = 0;
+    for(let y = 0; y < years; y++){
+      const payout = value * yieldPct;
+      totalReceived += payout;
+      if(reinvest){
+        // Wert waechst durch Kurswachstum (=Dividendenwachstum) UND reinvestierte Dividende
+        value = value * (1 + growth) + payout;
+      } else {
+        // Ohne Reinvestition waechst nur der Kurs, Dividende wird ausgezahlt
+        value = value * (1 + growth);
+      }
+    }
+    const finalAnnual = value * yieldPct;
+
+    finalAnnualEl.textContent = eur(Math.round(finalAnnual));
+    nowAnnualEl.textContent   = eur(Math.round(annualNow));
+    finalValueEl.textContent  = eur(Math.round(value));
+    totalReceivedEl.textContent = eur(Math.round(totalReceived));
+  }
+
+  [investEl, yieldEl, growthEl, yearsEl, reinvestEl].forEach(el =>
+    el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

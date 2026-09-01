@@ -1,0 +1,89 @@
+<!-- ===== Rechner-Modul: Neobroker-Sparplan-Gebuehr-vs-Investiert =====
+     Automatisch aus beitrag-neobroker-etf-vergleich.html extrahiert
+     (V886). Rechnet Sparplan-Ausfuehrungsgebuehr ueber 25 Jahre (300
+     Ausfuehrungen) hoch und vergleicht sie mit dem, was die ersparte
+     Gebuehr stattdessen bei 7% Rendite geworden waere. Globale CSS-
+     Variablen inkl. [data-theme="dark"]. Keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.nb-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.nb-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .nb-calc-inputs{ grid-template-columns:1fr; } }
+.nb-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.nb-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.nb-calc-result{ margin-top:20px; border-radius:12px; padding:calc(16px * var(--step-user)) calc(18px * var(--step-user)); text-align:center; background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .nb-calc-result{ background:#173828;  box-shadow:none;}
+.nb-calc-result .lbl{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.nb-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.5rem; color:var(--green); }
+</style>
+<div class="nb-calc" id="nb-calc">
+<div class="nb-calc-inputs">
+<div class="row">
+<label for="nb-rate"><span data-en="Monthly savings rate">Monatliche Sparrate</span> <span class="val" id="nb-rate-val">200 €</span></label>
+<input class="calc-slider" id="nb-rate" max="1000" min="25" step="25" type="range" value="200"/>
+</div>
+<div class="row">
+<label for="nb-fee"><span data-en="Fee per execution">Gebühr pro Ausführung</span> <span class="val" id="nb-fee-val">1,50 €</span></label>
+<input class="calc-slider" id="nb-fee" max="5" min="0" step="0.25" type="range" value="1.5"/>
+</div>
+</div>
+<p class="calc-note" data-en="Assumes monthly execution over 25 years (300 executions) and that the avoided fee is invested instead at a constant 7⁠% average annual return. Simplified example calculation, not investment advice.">Ausgehend von monatlicher Ausführung über 25 Jahre (300 Ausführungen), wobei die eingesparte Gebühr stattdessen bei konstant angenommener 7⁠% Jahresrendite angelegt wird. Vereinfachte Beispielrechnung, keine Anlageberatung.</p>
+<div class="nb-calc-result">
+<div class="lbl" data-en="What the fee could have become instead, invested">Was die Gebühr stattdessen angelegt hätte werden können</div>
+<div class="num" id="nb-result">–</div>
+</div>
+</div>
+<script>
+(function(){
+  const rateEl = document.getElementById('nb-rate');
+  const feeEl = document.getElementById('nb-fee');
+  const rateVal = document.getElementById('nb-rate-val');
+  const feeVal = document.getElementById('nb-fee-val');
+  const resultEl = document.getElementById('nb-result');
+  if(!rateEl) return;
+
+  const YEARS = 25;
+  const RETURN = 0.07;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEuro(n){
+    const en = isEn();
+    const s = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 }).format(Math.round(n));
+    return en ? ('€' + s) : (s + '\u00A0€');
+  }
+  function fmtFee(n){
+    const en = isEn();
+    const s = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 }).format(n);
+    return en ? ('€' + s) : (s + '\u00A0€');
+  }
+
+  function compute(){
+    const rate = parseFloat(rateEl.value);
+    const fee = parseFloat(feeEl.value);
+    rateVal.textContent = fmtEuro(rate);
+    feeVal.textContent = fmtFee(fee);
+
+    const monthlyRate = RETURN / 12;
+    const months = YEARS * 12;
+    // Zukunftswert einer monatlichen Einzahlung (fee) bei monthlyRate ueber 'months' Monate
+    const fv = fee * (((Math.pow(1 + monthlyRate, months)) - 1) / monthlyRate);
+    resultEl.textContent = fmtEuro(fv);
+  }
+
+  rateEl.addEventListener('input', compute);
+  feeEl.addEventListener('input', compute);
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+  compute();
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

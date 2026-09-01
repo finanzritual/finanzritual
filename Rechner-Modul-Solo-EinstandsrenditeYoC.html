@@ -1,0 +1,136 @@
+<!-- ===== Rechner-Modul: Einstandsrendite (Yield on Cost) =====
+     Automatisch aus beitrag-einstandsrendite-yield-on-cost.html
+     extrahiert (V881). Projiziert die Dividendenrendite auf den
+     urspruenglichen Einstandspreis ueber die Haltedauer, mit optionalen
+     Steuer-/Inflations-Toggles. Nutzt globale CSS-Variablen inkl.
+     [data-theme="dark"]. HINWEIS: Steuersatz (26,375%) und Inflations-
+     rate (2,5%) sind hier fest im JS codiert (TAX_RATE/INFLATION_RATE),
+     NICHT ueber FR_CONFIG bezogen -- anders als beim AnlageKAP-Modul.
+     Bestehende Inkonsistenz im Original-Projekt, nicht beim Extrahieren
+     eingefuehrt. Kein DOMContentLoaded-Wrapper noetig. -->
+<style>
+.yc-calc{ margin:24px 0; padding:22px 20px; border-radius:16px; background:var(--bg-raised); border:2px solid var(--line-strong); box-shadow:var(--shadow); }
+.yc-calc .row{ margin-bottom:20px; }
+.yc-calc label{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--ink-soft); margin-bottom:8px; }
+.yc-calc label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:600; }
+.yc-result{ text-align:center; padding:14px; border-radius:12px; background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .yc-result{ background:#173828;  box-shadow:none;}
+.yc-result-value{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:2rem; color:var(--green); }
+.yc-result-label{ font-size:.8rem; color:var(--ink-soft); margin-top:2px; }
+.yc-toggles{ display:flex; flex-direction:column; gap:10px; margin:18px 0; }
+.yc-toggle{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:var(--bg); border:1px solid var(--line); cursor:pointer; }
+.yc-toggle input{ width:17px; height:17px; flex:none; accent-color:var(--green); cursor:pointer; }
+.yc-toggle-text{ flex:1; font-size:.84rem; }
+.yc-toggle-text strong{ display:block; font-size:.86rem; color:var(--ink); }
+.yc-toggle-text span{ font-size:.74rem; color:var(--ink-soft); }
+</style>
+<div class="yc-calc" id="yc-calc">
+<div class="row">
+<label for="yc-start"><span data-en="Starting yield (on your cost)">Start-Rendite (auf deinen Einstandspreis)</span> <span class="val" id="yc-start-val">2,3⁠%</span></label>
+<input class="calc-slider" id="yc-start" max="6" min="0.5" step="0.1" type="range" value="2.3"/>
+</div>
+<div class="row">
+<label for="yc-growth"><span data-en="Annual dividend growth">Jährliches Dividendenwachstum</span> <span class="val" id="yc-growth-val">9,0⁠%</span></label>
+<input class="calc-slider" id="yc-growth" max="15" min="1" step="0.5" type="range" value="9"/>
+</div>
+<div class="row">
+<label for="yc-years"><span data-en="Years held">Haltedauer</span> <span class="val" id="yc-years-val">38 Jahre</span></label>
+<input class="calc-slider" id="yc-years" max="50" min="5" step="1" type="range" value="38"/>
+</div>
+<div class="yc-toggles">
+<label class="yc-toggle" for="yc-tax">
+<input id="yc-tax" type="checkbox"/>
+<span class="yc-toggle-text">
+<strong data-en="Deduct German capital gains tax">Deutsche Kapitalertragsteuer abziehen</strong>
+<span data-en="26,375⁠% (25⁠% + solidarity surcharge), before any allowance">26,375⁠% (25⁠% + Soli), vor Freibetrag</span>
+</span>
+</label>
+<label class="yc-toggle" for="yc-inflation">
+<input id="yc-inflation" type="checkbox"/>
+<span class="yc-toggle-text">
+<strong data-en="Adjust for inflation">Inflation berücksichtigen</strong>
+<span data-en="2,5⁠% a year, to show purchasing power instead of a nominal number">2,5⁠% pro Jahr, um Kaufkraft statt Nominalwert zu zeigen</span>
+</span>
+</label>
+</div>
+<div class="yc-result">
+<div class="yc-result-value" id="yc-result-value">–</div>
+<div class="yc-result-label" data-en="projected yield on your original cost" id="yc-result-label">projizierte Rendite auf deinen ursprünglichen Einstandspreis</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not a forecast. Assumes a perfectly steady dividend growth rate every year, which real companies never quite deliver – and assumes you never sell, and the dividend never gets cut. The default values above roughly reproduce Berkshire's real Coca-Cola numbers." style="margin-top:14px;">Vereinfachte Beispielrechnung, keine Prognose. Geht von einem perfekt gleichmäßigen Dividendenwachstum in jedem Jahr aus, das reale Unternehmen so nie ganz liefern — und setzt voraus, dass nie verkauft und die Dividende nie gekürzt wird. Die Standardwerte oben bilden ungefähr Berkshires echte Coca-Cola-Zahlen nach.</p>
+</div>
+<script>
+(function(){
+  var startEl = document.getElementById('yc-start');
+  var startVal = document.getElementById('yc-start-val');
+  var growthEl = document.getElementById('yc-growth');
+  var growthVal = document.getElementById('yc-growth-val');
+  var yearsEl = document.getElementById('yc-years');
+  var yearsVal = document.getElementById('yc-years-val');
+  var taxEl = document.getElementById('yc-tax');
+  var inflationEl = document.getElementById('yc-inflation');
+  var resultEl = document.getElementById('yc-result-value');
+  var resultLabelEl = document.getElementById('yc-result-label');
+  if(!startEl || !growthEl || !yearsEl) return;
+
+  var TAX_RATE = 0.26375;   // Abgeltungssteuer + Soli, ohne Freibetrag
+  var INFLATION_RATE = 0.025;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function render(){
+    var start = parseFloat(startEl.value);
+    var growth = parseFloat(growthEl.value) / 100;
+    var years = parseInt(yearsEl.value, 10);
+
+    startVal.textContent = startEl.value.replace('.', ',') + ' %';
+    growthVal.textContent = growthEl.value.replace('.', ',') + ' %';
+    yearsVal.textContent = years + (isEn() ? ' years' : ' Jahre');
+
+    var projected = start * Math.pow(1 + growth, years);
+
+    var taxOn = taxEl && taxEl.checked;
+    var inflationOn = inflationEl && inflationEl.checked;
+
+    if(taxOn) projected = projected * (1 - TAX_RATE);
+    if(inflationOn) projected = projected / Math.pow(1 + INFLATION_RATE, years);
+
+    resultEl.textContent = projected.toLocaleString(isEn() ? 'en-IE' : 'de-DE', {maximumFractionDigits:1}) + ' %';
+
+    if(resultLabelEl){
+      var labelDe = 'projizierte Rendite auf deinen ursprünglichen Einstandspreis';
+      var labelEn = 'projected yield on your original cost';
+      if(taxOn && inflationOn){
+        labelDe = 'projizierte Rendite, nach Steuer und Inflation (real)';
+        labelEn = 'projected yield, after tax and inflation (real)';
+      } else if(taxOn){
+        labelDe = 'projizierte Rendite nach Steuer (netto)';
+        labelEn = 'projected yield after tax (net)';
+      } else if(inflationOn){
+        labelDe = 'projizierte Rendite nach Inflation (real, vor Steuer)';
+        labelEn = 'projected yield after inflation (real, pre-tax)';
+      }
+      resultLabelEl.textContent = isEn() ? labelEn : labelDe;
+      resultLabelEl.setAttribute('data-en', labelEn);
+    }
+  }
+
+  [startEl, growthEl, yearsEl].forEach(function(el){ el.addEventListener('input', render); });
+  [taxEl, inflationEl].forEach(function(el){ if(el) el.addEventListener('change', render); });
+  render();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

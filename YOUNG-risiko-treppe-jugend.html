@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-en="The Risk Staircase: Where's It Safe to Ride, and Where Do You Risk Falling? 📊⚖️🚀 — FinanzRitual">Die Risiko-Treppe: Wo fährst du sicher und wo droht der Absturz? 📊⚖️🚀 — FinanzRitual</title>
+<meta name="description" content="Mehr Rendite gibt es nur mit mehr Risiko. Die vollständige Risiko-Treppe von der Basis bis zur Spekulation, plus eine Ergänzung: Die 80-Prozent-Daytrading-Verlustquote ist eher konservativ — die Langzeitrealität ist noch krasser, als du denkst." data-en-content="More returns only come with more risk. The complete risk staircase from the foundation to pure speculation, plus an addition: the widely cited 80% day-trading loss rate is actually on the conservative side — the long-term reality is even more brutal than you'd think.">
+<link rel="canonical" href="https://www.finanz-ritual.de/YOUNG-risiko-treppe-jugend.html">
+<meta name="fr-video-id" content="1104">
+<meta name="fr-content-hash" content="7ff92b483e163ded084f405e01d2aa8534ff0abbfd20114895b8bfe628a6435c">
+<meta name="fr-links-hash" content="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+<style>
+:root{--y:#00c8ff;--bg:#070a10;--panel:#111722}
+html,body{margin:0;background:var(--bg);color:#f5f7fb}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+body.is-scrolled:before{background:#3a4356}
+.y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+.y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap}
+.y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}.y-nav a,.y-lang{color:#fff;text-decoration:none;font-size:.9rem}
+.y-lang{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;padding:7px 12px;cursor:pointer}
+.y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+.y-icon-btn svg{width:17px;height:17px}
+.y-icon-btn[hidden]{display:none}
+.y-wrap{max-width:880px;margin:0 auto;padding:48px 20px 80px}
+.y-kicker{font:700 .78rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.14em;color:#57e0a7;text-transform:uppercase}
+h1{font-size:clamp(2rem,4.5vw,3.6rem);line-height:1.05;margin:14px 0 22px;letter-spacing:-.03em}
+.y-lead{font-size:calc(1.22rem * var(--step-user));line-height:1.55;color:#d7dce5}
+.y-article{margin-top:42px;font-size:calc(1.08rem * var(--step-user));line-height:1.72}.y-article h2{font-size:clamp(1.55rem,4vw,2.25rem);line-height:1.08;margin:46px 0 18px;color:#fff}
+.y-article p{margin:0 0 20px}.y-strong{margin-top:20px}
+.y-rule{background:var(--panel);border:1px solid #303847;border-left:4px solid var(--y);border-radius:16px;padding:18px 20px;margin:14px 0}
+.y-tip{background:#0d1716;border:1px solid #2d6655;border-radius:16px;padding:20px;margin:26px 0}
+.y-warn{background:#1a1210;border:1px solid #6b3b2d;border-left:4px solid #e2694b;border-radius:16px;padding:18px 20px;margin:14px 0}
+.y-source{color:#b9c2d0;font-size:.92rem}.y-source a{color:var(--y)}
+.y-related{background:var(--panel);border:1px solid #303847;border-radius:16px;padding:20px 22px;margin:32px 0}
+.y-related-title{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--y);margin-bottom:12px}
+.y-related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.y-related-list a{color:#f5f7fb;text-decoration:none;font-size:.95rem;display:flex;align-items:center;gap:8px}
+.y-related-list a:hover{color:var(--y)}
+.y-teacher{display:inline-block;margin-top:32px;color:#aeb7c6;font-size:.8rem;text-decoration:underline}
+.y-back{display:inline-block;margin-top:18px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none}
+@media(max-width:700px){.y-header{min-height:54px;padding:0 12px}.y-nav{display:none}.y-wrap{padding:30px 16px 60px}h1{font-size:2.15rem}.y-lead{font-size:calc(1.05rem * var(--step-user))}.y-article{font-size:calc(1.02rem * var(--step-user))}}
+
+/* ---------- Risiko-Treppen-Rechner ---------- */
+.rt-calc{margin:32px 0;border:1px solid #303847;border-radius:18px;background:linear-gradient(180deg,#0c1119 0%,#080b12 100%);padding:20px 18px 22px;position:relative;overflow:hidden}
+.rt-calc:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00c8ff,#4dd9a0,#f0c14b,#f0914b,#e2694b)}
+.rt-calc-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.rt-calc-title{font-size:1.2rem;font-weight:800;color:#fff;margin:0}
+.rt-calc-badge{font:700 .68rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em;color:#57e0a7;text-transform:uppercase}
+.rt-capital{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.rt-capital label{font-size:.9rem;color:#d7dce5;font-weight:600}
+.rt-capital-input-wrap{display:flex;align-items:center;background:#151b25;border:1px solid #3a4356;border-radius:12px;padding:7px 14px;gap:6px}
+.rt-capital-input-wrap span{color:#7c8698;font:600 1rem ui-monospace,SFMono-Regular,monospace}
+#rt-capital{background:none;border:none;color:#fff;font:700 1.15rem ui-monospace,SFMono-Regular,monospace;width:118px;outline:none}
+.rt-rows{display:flex;flex-direction:column-reverse;gap:7px;margin:16px 0 14px}
+.rt-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;background:#111722;border:1px solid #262e3d;border-radius:12px;padding:9px 14px;transition:border-color .25s ease,background .25s ease}
+.rt-row-label{display:flex;flex-direction:column;gap:2px;min-width:118px}
+.rt-row-name{font-size:.85rem;font-weight:700;color:#f5f7fb;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.rt-row-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.rt-row-tag{font:600 .68rem ui-monospace,SFMono-Regular,monospace;color:#8a93a6;text-transform:uppercase;letter-spacing:.04em}
+.rt-row input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:#1c2330;outline:none;cursor:pointer}
+.rt-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--rt-dot,#00c8ff);cursor:grab;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.rt-row input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--rt-dot,#00c8ff);cursor:grab;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.rt-row-vals{display:flex;flex-direction:column;align-items:flex-end;gap:1px;min-width:78px}
+.rt-row-pct{font:800 1rem ui-monospace,SFMono-Regular,monospace;color:#fff}
+.rt-row-eur{font:600 .74rem ui-monospace,SFMono-Regular,monospace;color:#8a93a6}
+.rt-skip-note{font-size:.8rem;color:#7c8698;line-height:1.5;margin:0;padding:10px 13px;background:#0d1218;border:1px dashed #303847;border-radius:12px}
+.rt-meter{border-radius:14px;padding:14px 16px 13px;border:1px solid #2d6655;background:#0d1716;transition:border-color .3s ease,background .3s ease}
+.rt-meter.rt-meter-warn{border-color:#6b3b2d;background:#1a1210}
+.rt-meter.rt-meter-mid{border-color:#6b5e2d;background:#1a170f}
+.rt-meter-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.rt-meter-label{font:700 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.04em;text-transform:uppercase;color:#57e0a7}
+.rt-meter-warn .rt-meter-label{color:#ff8a70}
+.rt-meter-mid .rt-meter-label{color:#f0c14b}
+.rt-meter-pct{font:800 1.05rem ui-monospace,SFMono-Regular,monospace;color:#fff}
+.rt-meter-bar{height:9px;border-radius:999px;background:#1c2330;overflow:hidden;margin-bottom:10px}
+.rt-meter-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#00c8ff,#4dd9a0);transition:width .35s ease,background .35s ease}
+.rt-meter-mid .rt-meter-fill{background:linear-gradient(90deg,#f0c14b,#f0914b)}
+.rt-meter-warn .rt-meter-fill{background:linear-gradient(90deg,#f0914b,#e2694b)}
+.rt-meter-msg{font-size:.9rem;line-height:1.45;color:#d7dce5;margin:0}
+.rt-meter-msg strong{color:#fff}
+.rt-fund-warn{margin-top:9px;font-size:.83rem;color:#ffb199;background:#1a1210;border:1px solid #6b3b2d;border-radius:10px;padding:8px 12px;display:none}
+.rt-fund-warn.rt-visible{display:block}
+@media(max-width:560px){.rt-row{grid-template-columns:1fr;row-gap:8px}.rt-row-label{min-width:0}.rt-row-vals{flex-direction:row;justify-content:space-between;width:100%}}
+
+/* ---------- Rebalancing-Rechner ---------- */
+.rb-calc{margin:18px 0 40px;border:1px solid #303847;border-radius:20px;background:linear-gradient(180deg,#0c1119 0%,#080b12 100%);padding:26px 22px 28px;position:relative;overflow:hidden}
+.rb-calc:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4dd9a0,#00c8ff,#4dd9a0)}
+.rb-calc-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.rb-calc-title{font-size:1.3rem;font-weight:800;color:#fff;margin:0}
+.rb-calc-badge{font:700 .68rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em;color:#57e0a7;text-transform:uppercase}
+.rb-calc-sub{color:#aeb7c6;font-size:.92rem;margin:6px 0 22px}
+.rb-table{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.rb-head-row{display:grid;grid-template-columns:1.3fr .9fr .9fr 1fr;gap:10px;padding:0 14px;font:700 .68rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.04em;text-transform:uppercase;color:#7c8698}
+.rb-row{display:grid;grid-template-columns:1.3fr .9fr .9fr 1fr;align-items:center;gap:10px;background:#111722;border:1px solid #262e3d;border-radius:14px;padding:12px 14px}
+.rb-row-name{display:flex;align-items:center;gap:8px;font-size:.86rem;font-weight:700;color:#f5f7fb}
+.rb-row-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.rb-amount-wrap{display:flex;align-items:center;background:#151b25;border:1px solid #3a4356;border-radius:10px;padding:6px 10px;gap:4px}
+.rb-amount-wrap span{color:#7c8698;font:600 .82rem ui-monospace,SFMono-Regular,monospace}
+.rb-amount-input{background:none;border:none;color:#fff;font:700 .92rem ui-monospace,SFMono-Regular,monospace;width:100%;outline:none}
+.rb-target-wrap{display:flex;flex-direction:column;gap:4px}
+.rb-target-wrap input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:#1c2330;outline:none;cursor:pointer}
+.rb-target-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--rb-dot,#4dd9a0);cursor:grab}
+.rb-target-wrap input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--rb-dot,#4dd9a0);cursor:grab}
+.rb-target-pct{font:800 .86rem ui-monospace,SFMono-Regular,monospace;color:#fff;text-align:right}
+.rb-action{font:700 .84rem ui-monospace,SFMono-Regular,monospace;text-align:right;white-space:nowrap}
+.rb-action.rb-buy{color:#57e0a7}
+.rb-action.rb-sell{color:#ff8a70}
+.rb-action.rb-ok{color:#7c8698}
+.rb-total{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-top:1px dashed #2a3242;margin-top:2px;font:700 .82rem ui-monospace,SFMono-Regular,monospace;color:#aeb7c6}
+.rb-total strong{color:#fff;font-size:.95rem}
+.rb-target-warn{font-size:.82rem;color:#ffb199;background:#1a1210;border:1px solid #6b3b2d;border-radius:10px;padding:9px 12px;margin-bottom:14px;display:none}
+.rb-target-warn.rb-visible{display:block}
+.rb-tip{border-radius:14px;padding:14px 16px;border:1px solid #2d6655;background:#0d1716;font-size:.88rem;line-height:1.55;color:#d7dce5;margin-top:4px}
+.rb-tip strong{color:#57e0a7}
+@media(max-width:640px){.rb-head-row{display:none}.rb-row{grid-template-columns:1fr;row-gap:8px}.rb-target-wrap{width:100%}.rb-action{text-align:left}}
+
+.y-font-slider-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+.y-font-stepper{display:flex;align-items:center;gap:1px;background:#151b25;border:1px solid #596274;border-radius:999px;padding:2px;flex:none;margin-right:4px}
+.y-font-stepper-btn{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border:none;background:none;border-radius:999px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;line-height:1}
+.y-font-stepper-btn:hover{background:#ffaa00;color:#151b25}
+.y-font-stepper-label{font-size:.7rem;color:#8a93a6;padding:0 2px;min-width:16px;text-align:center}
+</style>
+</head>
+<body>
+<header class="y-header">
+<a class="y-brand" href="jugendbasisbildung/index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="jugendbasisbildung/index.html" data-en="Home">Startseite</a>
+<a href="jugendbasisbildung/alle-themen.html" data-en="Topics">Themen</a>
+<a href="jugendbasisbildung/index.html#spiele" data-en="Games">Spiele</a>
+</nav>
+<input type="range" id="font-slider" class="y-font-slider-hidden" min="0.75" max="1.6" step="0.05" value="1" aria-hidden="true" tabindex="-1">
+<div class="y-font-stepper" role="group" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+<button id="font-stepper-minus" class="y-font-stepper-btn" type="button" aria-label="Schrift verkleinern" data-en-aria-label="Decrease font size">−</button>
+<span class="y-font-stepper-label" aria-hidden="true">Aa</span>
+<button id="font-stepper-plus" class="y-font-stepper-btn" type="button" aria-label="Schrift vergrößern" data-en-aria-label="Increase font size">+</button>
+</div>
+<a href="suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+<button id="lang-toggle" class="y-lang" type="button" aria-pressed="false"><span id="lang-toggle-text">EN</span></button>
+</header>
+<main class="y-wrap">
+<div class="y-kicker" data-en="YOUTH BASIC EDUCATION · 21 AUG 2026">JUGENDBASISBILDUNG · 21.08.2026</div>
+<h1 data-en="The risk staircase: where's it safe to ride, and where do you risk falling? 📊⚖️🚀">Die Risiko-Treppe: Wo fährst du sicher und wo droht der Absturz? 📊⚖️🚀</h1>
+<p class="y-lead" data-en="Whoever wants to grow their money quickly stumbles over an iron principle of the financial world: more return only comes with more risk. But how do you keep track in the jungle of ETFs, crypto, and leveraged products? 📊🚀">Wer sein Geld vermehren will, stolpert schnell über einen eisernen Grundsatz der Finanzwelt: Mehr Rendite gibt es nur mit mehr Risiko. Doch wie behält man im Dschungel aus ETFs, Krypto und Hebelprodukten den Überblick? 📊🚀</p>
+<article class="y-article"><p data-en="The answer is the risk staircase. It ranks different asset classes and income sources by their volatility, loss probability, and the expertise required. The higher you climb, the thinner the air gets.">Die Antwort ist die Risiko-Treppe. Sie ordnet verschiedene Anlageklassen und Einkommensquellen nach ihrer Volatilität, der Verlustwahrscheinlichkeit und dem benötigten Fachwissen. Je höher du steigst, desto dünner wird die Luft.</p>
+<p data-en="Here&#x27;s the complete risk staircase from the foundation to speculation — including clear guidance on where you can grab in without worry and where absolute caution is required.">Hier ist die vollständige Risiko-Treppe von der Basis bis zur Spekulation — inklusive einer klaren Orientierung, wo du unbesorgt zugreifen kannst und wo absolute Vorsicht geboten ist.</p>
+<h2 data-en="🏦 Step 1: The foundation (overnight money, fixed deposits &amp; emergency fund)">🏦 Stufe 1: Das Fundament (Tagesgeld, Festgeld & Notgroschen)</h2>
+<p data-en="Risk: extremely low (protected up to 100,000 euros by statutory deposit insurance). Character: security, not wealth building.">Risiko: Extrem gering (durch die gesetzliche Einlagensicherung bis 100.000 € geschützt). Charakter: Absicherung, kein Vermögensaufbau.</p>
+<p data-en="Assessment: this is where your emergency fund lives (3 to 6 monthly salaries). The return barely keeps up with inflation, but the money is completely safe and available daily.">Einschätzung: Hier liegt dein Notgroschen (3–6 Monatsgehälter). Die Rendite gleicht meist kaum die Inflation aus, aber das Geld ist absolut sicher und täglich verfügbar.</p>
+<h2 data-en="📈 Step 2: The unproblematic engine (broadly diversified ETFs)">📈 Stufe 2: Der unproblematische Motor (Breit gestreute ETFs)</h2>
+<p data-en="Risk: low to moderate (over the long term). Character: passive, long-term wealth building.">Risiko: Gering bis moderat (auf lange Sicht). Charakter: Passiver, langfristiger Vermögensaufbau.</p>
+<p data-en="Assessment: a globally diversified stock ETF (like on the MSCI ACWI or FTSE All-World) is completely unproblematic for private investors, provided the holding period is at least 10 to 15 years. Long-term investors simply ride out short-term market swings.">Einschätzung: Ein weltweit gestreuter Aktien-ETF (wie auf den MSCI ACWI oder FTSE All-World) ist für Privatanleger völlig unproblematisch, sofern die Haltedauer mindestens 10 bis 15 Jahre beträgt. Kurzfristige Marktschwankungen sitzen Langzeitanleger einfach aus.</p>
+<h2 data-en="💼 Step 3: The active hedge (your own side hustle)">💼 Stufe 3: Die aktive Absicherung (Der eigene Side Hustle)</h2>
+<p data-en="Risk: moderate (time-intensive, but financially controllable). Character: actively boosting your savings rate through human capital.">Risiko: Moderat (zeitintensiv, aber finanziell kontrollierbar). Charakter: Aktive Erhöhung der Sparrate durch Humankapital.</p>
+<p data-en="Assessment: a small business or side hustle is financially unproblematic because you&#x27;re primarily risking your time and barely any starting capital. If the project fails, you don&#x27;t lose wealth, you gain experience. If it succeeds, you massively leverage your income.">Einschätzung: Ein Nebengewerbe oder Side Hustle ist finanziell unproblematisch, weil du primär deine Zeit und kaum Startkapital riskierst. Scheitert das Projekt, verlierst du kein Vermögen, sondern sammelst Erfahrung. Gelingt es, hebelst du dein Einkommen massiv.</p>
+<h2 data-en="💰 Step 4: Regular cashflow (dividend &amp; value stocks)">💰 Stufe 4: Der regelmäßige Cashflow (Dividenden- & Value-Aktien)</h2>
+<p data-en="Risk: moderate to elevated. Character: focused wealth building with regular payouts.">Risiko: Moderat bis erhöht. Charakter: Fokussierter Vermögensaufbau mit regelmäßigen Ausschüttungen.</p>
+<p data-en="Assessment: chasing dividends feels good, but carries individual-stock risk. If companies like Intel or Shell surprisingly cut their payouts, the share price often crashes too. Requires more analysis than a simple ETF.">Einschätzung: Die Jagd nach Dividenden fühlt sich gut an, birgt aber Einzelaktien-Risiken. Kürzen Unternehmen wie Intel oder Shell überraschend ihre Ausschüttungen, bricht oft auch der Kurs ein. Erfordert mehr Analyse als ein simpler ETF.</p>
+<h2 data-en="🚀 Step 5: The growth turbo (individual stocks &amp; sector bets)">🚀 Stufe 5: Der Wachstums-Turbo (Einzelaktien & Branchen-Wetten)</h2>
+<p data-en="Risk: high. Character: active stock picking.">Risiko: Hoch. Charakter: Aktives Stock-Picking.</p>
+<p data-en="Assessment: whoever invests specifically in tech giants, AI trend stocks, or small caps is chasing outperformance over the overall market. The problem: very few private investors beat the market long-term. The risk of harsh price losses on individual companies is permanently present.">Einschätzung: Wer gezielt in Tech-Giganten, KI-Trendaktien oder Small Caps investiert, sucht die Überrendite zum Gesamtmarkt. Das Problem: Die wenigsten Privatanleger schlagen den Markt dauerhaft. Das Risiko von herben Kursverlusten bei einzelnen Unternehmen ist permanent präsent.</p>
+<h2 data-en="🪙 Step 6: Digital gold (cryptocurrencies)">🪙 Stufe 6: Das digitale Gold (Kryptowährungen)</h2>
+<p data-en="Risk: very high. Character: highly volatile speculation and a technology bet.">Risiko: Sehr hoch. Charakter: Hochvolatile Spekulation und Technologie-Wette.</p>
+<p data-en="Assessment: Bitcoin and Ethereum have established themselves as their own asset class, but they swing extremely. Drops of 50% to 80% within a few months are historically no rarity. Only money you can genuinely stomach losing entirely should flow here (at most 5 to 10% of your total portfolio).">Einschätzung: Bitcoin und Ethereum haben sich zwar als eigene Assetklasse etabliert, schwanken aber extrem. Einbrüche von 50 % bis 80 % innerhalb weniger Monate sind historisch keine Seltenheit. Hier sollte nur Geld fließen, dessen Totalverlust du verschmerzen kannst (maximal 5–10 % des Gesamtportfolios).</p>
+<h2 data-en="🦈 Step 7: The shark tank (day trading)">🦈 Stufe 7: Das Haifischbecken (Daytrading)</h2>
+<p data-en="Risk: extremely high. Character: a full-time job, not a passive investment.">Risiko: Extrem hoch. Charakter: Full-Time-Job, kein passives Investment.</p>
+<p data-en="Assessment: with day trading, you exploit short-term price swings within minutes or hours. Statistics show reliably: over 80% of private day traders lose money long-term. It requires iron psychological discipline and years of experience.">Einschätzung: Beim Daytrading nutzt du kurzfristige Kursschwankungen innerhalb von Minuten oder Stunden aus. Statistiken zeigen verlässlich: Über 80 % der privaten Daytrader verlieren langfristig Geld. Es erfordert eiserne psychologische Disziplin und jahrelange Erfahrung.</p>
+<div data-en="&lt;strong&gt;An addition worth knowing — a widely cited 80% figure is actually on the conservative side, and the real long-term picture is even more brutal:&lt;/strong&gt; over 80% is a genuinely well-supported figure, but it undersells how bad the picture gets the longer you look. Multiple independent academic studies (including one of the largest ever conducted, covering 8 million traders and 295 million trades across 27 years) put the overall retail-trader loss rate at roughly 74 to 89%, consistent with that figure. But zoom out to the multi-year picture and it gets far more extreme: research repeatedly finds that less than 1% of day traders remain genuinely profitable after accounting for fees over a five-year stretch — call it one trader in a hundred. Even day traders who had a strong, profitable year are still overwhelmingly likely to give those gains right back in following years. The takeaway isn&#x27;t just that day trading is risky in any given month, it&#x27;s that staying profitable over the long run is close to a statistical anomaly, not a skill most people can reliably develop." class='y-warn'><strong>Eine wissenswerte Ergänzung — die verbreitete 80-Prozent-Zahl ist eher konservativ, und das langfristige Gesamtbild ist noch krasser:</strong> Über 80 % ist eine wirklich gut belegte Zahl, unterschätzt aber, wie schlimm das Bild wird, je länger man hinschaut. Mehrere unabhängige akademische Studien (darunter eine der größten je durchgeführten, mit 8 Millionen Tradern und 295 Millionen Trades über 27 Jahre) beziffern die Gesamtverlustquote privater Trader auf rund 74 bis 89 % — konsistent mit dieser Zahl. Zoomt man aber auf die Mehrjahres-Perspektive, wird es deutlich extremer: Forschung findet immer wieder, dass nach Abzug der Gebühren weniger als 1 % der Daytrader über einen Fünf-Jahres-Zeitraum wirklich dauerhaft profitabel bleiben — sagen wir, ein Trader von hundert. Selbst Daytrader mit einem starken, profitablen Jahr geben diese Gewinne in den Folgejahren überwiegend wieder her. Die Erkenntnis ist nicht nur, dass Daytrading in einem gegebenen Monat riskant ist — sondern dass dauerhaft profitabel zu bleiben fast eine statistische Anomalie ist, keine Fähigkeit, die die meisten Menschen sich zuverlässig aneignen können.</div>
+<h2 data-en="💥 Step 8: The final stage of risk (warrants &amp; leverage certificates)">💥 Stufe 8: Die Endstufe des Risikos (Optionsscheine & Hebelzertifikate)</h2>
+<p data-en="Risk: maximum (total-loss guarantee if you misstep). Character: pure speculation / gambling.">Risiko: Maximal (Totalverlust-Garantie bei Fehltritten). Charakter: Reine Spekulation / Zocken.</p>
+<p data-en="Assessment: with warrants, knock-out certificates, or CFDs, you bet with a multiplier (leverage) on rising or falling prices. If the market moves even slightly against you, your stake becomes completely worthless (knock-out). For private investors, this is mathematically often closer to a casino than to investing.">Einschätzung: Mit Optionsscheinen, Knock-Out-Zertifikaten oder CFDs wettest du mit einem Multiplikator (Hebel) auf steigende oder fallende Kurse. Bewegt sich der Markt nur minimal gegen dich, wird dein Einsatz komplett wertlos (Knock-Out). Für Privatanleger ist das mathematisch oft näher am Casino als an der Geldanlage.</p>
+<div class="rt-calc" id="rt-calc">
+<div class="rt-calc-head">
+<h3 class="rt-calc-title" data-en="🧮 Your risk staircase calculator">🧮 Dein Risiko-Treppen-Rechner</h3>
+<span class="rt-calc-badge" data-en="Live, no login">Live, ohne Login</span>
+</div>
+<div class="rt-capital">
+<label for="rt-capital" data-en="Your capital:">Dein Kapital:</label>
+<div class="rt-capital-input-wrap"><span>€</span><input type="text" inputmode="numeric" id="rt-capital" value="1.000"></div>
+</div>
+<div class="rt-meter" id="rt-meter">
+<div class="rt-meter-top">
+<span class="rt-meter-label" id="rt-meter-label" data-en="Speculation share">Spekulations-Anteil</span>
+<span class="rt-meter-pct" id="rt-meter-pct">0%</span>
+</div>
+<div class="rt-meter-bar"><div class="rt-meter-fill" id="rt-meter-fill" style="width:0%"></div></div>
+<p class="rt-meter-msg" id="rt-meter-msg"></p>
+<div class="rt-fund-warn" id="rt-fund-warn" data-en="⚠️ 0% emergency fund? Build step 1 first — a shaky foundation makes everything above it wobble.">⚠️ 0% Notgroschen? Bau zuerst Stufe 1 — ein wackeliges Fundament lässt alles darüber schwanken.</div>
+</div>
+<div class="rt-rows" id="rt-rows"></div>
+<div class="rt-skip-note" data-en="Type in your capital and drag the sliders — the result above updates live. Steps 3 (side hustle) and 7 (day trading) aren't shown as sliders — they're not capital you park somewhere, they're your time and skill, which is exactly why they're financially safer than they look: no money at stake, no slider needed.">Kapital eintragen, an den Reglern ziehen — das Ergebnis oben aktualisiert sich live. Stufe 3 (Side Hustle) und Stufe 7 (Daytrading) tauchen bewusst nicht als Slider auf — sie sind kein Kapital, das irgendwo geparkt wird, sondern deine Zeit und dein Können, genau deshalb sind sie finanziell sicherer, als sie wirken: kein Kapital im Feuer, kein Regler nötig.</div>
+
+</div>
+<div class="rb-calc" id="rb-calc">
+<div class="rb-calc-head">
+<h3 class="rb-calc-title" data-en="⚖️ Your rebalancing calculator">⚖️ Dein Rebalancing-Rechner</h3>
+<span class="rb-calc-badge" data-en="Buy or sell?">Kaufen oder verkaufen?</span>
+</div>
+<p class="rb-calc-sub" data-en="Enter what you actually hold and where you want to be. The calculator tells you exactly how much to buy or sell per position.">Trag ein, was du wirklich hältst, und wo du hinwillst. Der Rechner sagt dir exakt, wie viel du je Position kaufen oder verkaufen musst.</p>
+<div class="rb-head-row">
+<span data-en="Position">Position</span>
+<span data-en="You hold">Du hältst</span>
+<span data-en="Target %">Ziel-%</span>
+<span data-en="Action">Aktion</span>
+</div>
+<div class="rb-table" id="rb-table"></div>
+<div class="rb-target-warn" id="rb-target-warn" data-en="⚠️ Your target percentages don't add up to 100% yet — adjust the sliders.">⚠️ Deine Ziel-Prozente ergeben noch keine 100 % — pass die Regler an.</div>
+<div class="rb-total">
+<span data-en="Total portfolio value">Gesamtwert Portfolio</span>
+<strong id="rb-total-value">€0</strong>
+</div>
+<div class="rb-tip">
+<strong data-en="Tax tip: buy-only rebalancing.">Steuer-Tipp: Buy-Only-Rebalancing.</strong> <span data-en="Selling in a private brokerage account triggers capital gains tax (Abgeltungsteuer) on the profit. Instead of selling the overweighted position, just steer your next few savings-plan payments 100% into whichever position is underweighted, until the percentages line up again — no sale, no tax event.">Verkäufe im privaten Depot lösen Abgeltungsteuer auf den Gewinn aus. Statt die übergewichtete Position zu verkaufen, lenk deine nächsten Sparplan-Raten einfach zu 100 % in die untergewichtete Position, bis die Prozente wieder passen — kein Verkauf, kein Steuerereignis.</span>
+</div>
+</div>
+<h2 data-en="🏆 Conclusion for your portfolio: stay on the safe steps!">🏆 Fazit für dein Portfolio: Bleib auf den sicheren Stufen stehn!</h2>
+<p data-en="The risk staircase shows clearly: solid wealth is built on steps 1 through 3. Broadly diversified ETFs and a stable income (possibly boosted by a side hustle) form the foundation.">Die Risiko-Treppe zeigt deutlich: Ein solides Vermögen wird auf den Stufen 1 bis 3 gebaut. Breit gestreute ETFs und ein stabiles Einkommen (ggf. gepusht durch einen Side Hustle) bilden das Fundament.</p>
+<p data-en="Whoever wants to keep climbing higher should only do so with a small portion of their money — the so-called play money. Whoever tries to build the staircase from the top down (starting with leverage certificates and crypto without having an ETF foundation) crashes almost every time.">Wer weiter nach oben klettern möchte, sollte dies nur mit einem kleinen Teil seines Geldes tun — dem sogenannten Spielgeld. Wer versucht, die Treppe von oben nach unten zu bauen (also mit Hebelzertifikaten und Krypto startet, ohne ein ETF-Fundament zu haben), stürzt fast immer ab.</p></article>
+
+<div class="y-related">
+<div class="y-related-title" data-en="Keep reading">Weiterlesen</div>
+<ul class="y-related-list">
+<li><a href="YOUNG-etf-sparplan-start-jugend.html" data-en="→ ETF savings plan for beginners: how to earn alongside the world's biggest companies starting at just €1">→ ETF-Sparplan für Anfänger: Wie du schon ab 1 Euro mitverdienst</a></li>
+<li><a href="YOUNG-dividenden-erklaert-jugend.html" data-en="→ Dividends explained: real income, real tax, real mechanics">→ Dividenden erklärt: Echtes Einkommen, echte Steuer, echte Mechanik</a></li>
+<li><a href="YOUNG-fomo-panik-boerse-jugend.html" data-en="→ FOMO & panic at the stock exchange: why timing the market almost never works">→ FOMO & Panik an der Börse: Warum Timing fast nie funktioniert</a></li>
+</ul>
+</div>
+
+<div class="y-source">
+<p data-en="Sources: independent 2026 trading-statistics analyses (tevitrades.de, trading.de, brokerchooser.com, freiheitsmaschine.com, truewealth.ch) citing large-scale academic studies (including Barber, Lee, Liu & Odean, and the PiP World 8-million-trader study) on retail and day-trader long-term profitability. This is educational content, not financial advice.">Quellen: Unabhängige 2026er Trading-Statistik-Analysen (tevitrades.de, trading.de, brokerchooser.com, freiheitsmaschine.com, truewealth.ch) unter Berufung auf groß angelegte akademische Studien (u. a. Barber, Lee, Liu & Odean sowie die PiP-World-Studie mit 8 Millionen Tradern) zur langfristigen Profitabilität von Privatanlegern und Daytradern. Dies ist Bildungsinhalt, keine Finanzberatung.</p>
+</div>
+<a class="y-teacher" href="_einrichtung/JugendBASISbildung/JugendBASISbildung_ZEITENTABELLE.md" data-en="Internal lesson planning">Interne Unterrichtsplanung</a><br>
+<a class="y-back" href="jugendbasisbildung/index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</main>
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+<script>
+(function(){
+  function isEnglish(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  var RT_STEPS = [
+    { key:'s1', num:1, dot:'#00c8ff', tagDe:'Fundament', tagEn:'Foundation', nameDe:'Notgroschen', nameEn:'Emergency fund' },
+    { key:'s2', num:2, dot:'#3fd6c8', tagDe:'Motor', tagEn:'Engine', nameDe:'Breite ETFs', nameEn:'Broad ETFs' },
+    { key:'s4', num:4, dot:'#4dd9a0', tagDe:'Cashflow', tagEn:'Cashflow', nameDe:'Dividenden', nameEn:'Dividends' },
+    { key:'s5', num:5, dot:'#f0c14b', tagDe:'Turbo', tagEn:'Turbo', nameDe:'Einzelaktien', nameEn:'Single stocks' },
+    { key:'s6', num:6, dot:'#f0914b', tagDe:'Spekulation', tagEn:'Speculation', nameDe:'Krypto', nameEn:'Crypto' },
+    { key:'s8', num:8, dot:'#e2694b', tagDe:'Maximum', tagEn:'Maximum', nameDe:'Hebelprodukte', nameEn:'Leveraged products' }
+  ];
+
+  var rtValues = { s1:20, s2:70, s4:0, s5:0, s6:10, s8:0 };
+  var rtCapital = 1000;
+
+  function rtFmtEuro(n){
+    var rounded = Math.round(n);
+    return rounded.toLocaleString(isEnglish() ? 'en-US' : 'de-DE');
+  }
+
+  function rtParseCapital(raw){
+    var cleaned = String(raw).replace(/[^0-9]/g, '');
+    var n = parseInt(cleaned, 10);
+    return isNaN(n) || n < 0 ? 0 : n;
+  }
+
+  function rtNormalize(changedKey, newValue){
+    var keys = RT_STEPS.map(function(s){ return s.key; });
+    newValue = Math.max(0, Math.min(100, Math.round(newValue)));
+    var oldValue = rtValues[changedKey];
+    var delta = newValue - oldValue;
+    if(delta === 0) return;
+    rtValues[changedKey] = newValue;
+
+    var others = keys.filter(function(k){ return k !== changedKey; });
+    var othersSum = others.reduce(function(s,k){ return s + rtValues[k]; }, 0);
+    var remaining = -delta;
+
+    if(othersSum <= 0){
+      var share = remaining / others.length;
+      others.forEach(function(k){ rtValues[k] = Math.max(0, rtValues[k] + share); });
+    } else {
+      others.forEach(function(k){
+        var proportion = rtValues[k] / othersSum;
+        rtValues[k] = Math.max(0, rtValues[k] + remaining * proportion);
+      });
+    }
+
+    others.forEach(function(k){ rtValues[k] = Math.round(rtValues[k]); });
+    var sum = keys.reduce(function(s,k){ return s + rtValues[k]; }, 0);
+    var diff = 100 - sum;
+    if(diff !== 0){
+      var biggest = others.slice().sort(function(a,b){ return rtValues[b]-rtValues[a]; })[0];
+      if(biggest !== undefined){ rtValues[biggest] = Math.max(0, rtValues[biggest] + diff); }
+    }
+  }
+
+  function rtBuildRows(){
+    var container = document.getElementById('rt-rows');
+    if(!container) return;
+    container.innerHTML = '';
+    RT_STEPS.forEach(function(step){
+      var row = document.createElement('div');
+      row.className = 'rt-row';
+      row.style.setProperty('--rt-dot', step.dot);
+      var tag = isEnglish() ? step.tagEn : step.tagDe;
+      var name = isEnglish() ? step.nameEn : step.nameDe;
+      var stepWord = isEnglish() ? 'Step' : 'Stufe';
+      row.innerHTML =
+        '<div class="rt-row-label">' +
+          '<span class="rt-row-name"><span class="rt-row-dot" style="background:' + step.dot + '"></span>' + stepWord + ' ' + step.num + '</span>' +
+          '<span class="rt-row-tag">' + name + ' · ' + tag + '</span>' +
+        '</div>' +
+        '<input type="range" min="0" max="100" step="1" value="' + rtValues[step.key] + '" data-key="' + step.key + '" aria-label="' + name + '">' +
+        '<div class="rt-row-vals">' +
+          '<span class="rt-row-pct" id="rt-pct-' + step.key + '">' + rtValues[step.key] + '%</span>' +
+          '<span class="rt-row-eur" id="rt-eur-' + step.key + '">€0</span>' +
+        '</div>';
+      container.appendChild(row);
+    });
+    container.querySelectorAll('input[type=range]').forEach(function(input){
+      input.addEventListener('input', function(){
+        rtNormalize(input.getAttribute('data-key'), parseInt(input.value, 10));
+        rtRender();
+      });
+    });
+  }
+
+  function rtRender(){
+    RT_STEPS.forEach(function(step){
+      var pctEl = document.getElementById('rt-pct-' + step.key);
+      var eurEl = document.getElementById('rt-eur-' + step.key);
+      var slider = document.querySelector('#rt-rows input[data-key="' + step.key + '"]');
+      var pct = rtValues[step.key];
+      if(pctEl) pctEl.textContent = pct + '%';
+      if(eurEl) eurEl.textContent = '€' + rtFmtEuro(rtCapital * pct / 100);
+      if(slider && parseInt(slider.value,10) !== pct) slider.value = pct;
+    });
+
+    var specPct = rtValues.s6 + rtValues.s8;
+    var meter = document.getElementById('rt-meter');
+    var fill = document.getElementById('rt-meter-fill');
+    var pctLabel = document.getElementById('rt-meter-pct');
+    var msg = document.getElementById('rt-meter-msg');
+    var fundWarn = document.getElementById('rt-fund-warn');
+    if(!meter) return;
+
+    meter.classList.remove('rt-meter-warn','rt-meter-mid');
+    if(fill) fill.style.width = Math.min(100, specPct) + '%';
+    if(pctLabel) pctLabel.textContent = specPct + '%';
+
+    var msgDe, msgEn;
+    if(specPct >= 25){
+      meter.classList.add('rt-meter-warn');
+      msgDe = '🚨 Whoa, zu steil! <strong>' + specPct + '%</strong> deines Geldes stehen auf brandgefährlichen Stufen. Das kann brutal danebengehen.';
+      msgEn = '🚨 Whoa, too steep! <strong>' + specPct + '%</strong> of your money sits on genuinely dangerous steps. This can go brutally wrong.';
+    } else if(specPct >= 10){
+      meter.classList.add('rt-meter-mid');
+      msgDe = '⚠️ Ordentlich Risiko am Start (<strong>' + specPct + '%</strong>). Behalt den Überblick und lass dein Fundament nicht zu klein werden.';
+      msgEn = '⚠️ Solid risk on the table (<strong>' + specPct + '%</strong>). Keep an eye on it and don\'t let your foundation shrink too much.';
+    } else {
+      msgDe = '✅ Solides Fundament, sauberer Ride. Nur <strong>' + specPct + '%</strong> steht auf den brandgefährlichen Stufen 6 und 8.';
+      msgEn = '✅ Solid foundation, clean ride. Only <strong>' + specPct + '%</strong> sits on the genuinely dangerous steps 6 and 8.';
+    }
+    if(msg) msg.innerHTML = isEnglish() ? msgEn : msgDe;
+
+    if(fundWarn){
+      fundWarn.classList.toggle('rt-visible', rtValues.s1 === 0);
+    }
+  }
+
+  function rtInit(){
+    var capitalInput = document.getElementById('rt-capital');
+    if(!capitalInput) return;
+    capitalInput.value = rtFmtEuro(rtCapital);
+    rtBuildRows();
+    rtRender();
+    capitalInput.addEventListener('input', function(){
+      rtCapital = rtParseCapital(capitalInput.value);
+      rtRender();
+    });
+    capitalInput.addEventListener('blur', function(){
+      capitalInput.value = rtFmtEuro(rtCapital);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', rtInit);
+  if(Array.isArray(window.frPageRecomputers)){
+    window.frPageRecomputers.push(rtInit);
+  } else {
+    window.frPageRecomputers = [rtInit];
+  }
+})();
+</script>
+<script>
+(function(){
+  function isEnglish(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  var RB_POSITIONS = [
+    { key:'world', dot:'#00c8ff', nameDe:'Welt-ETF (MSCI World)', nameEn:'World ETF (MSCI World)' },
+    { key:'em', dot:'#4dd9a0', nameDe:'Schwellenländer-ETF (EM)', nameEn:'Emerging markets ETF (EM)' },
+    { key:'cash', dot:'#f0c14b', nameDe:'Tagesgeld', nameEn:'Overnight money' }
+  ];
+
+  var rbAmounts = { world:7500, em:1500, cash:3000 };
+  var rbTargets = { world:60, em:20, cash:20 };
+
+  function rbFmtEuro(n){
+    var rounded = Math.round(n);
+    return rounded.toLocaleString(isEnglish() ? 'en-US' : 'de-DE');
+  }
+
+  function rbParseNum(raw){
+    var cleaned = String(raw).replace(/[^0-9]/g, '');
+    var n = parseInt(cleaned, 10);
+    return isNaN(n) || n < 0 ? 0 : n;
+  }
+
+  function rbNormalizeTargets(changedKey, newValue){
+    var keys = RB_POSITIONS.map(function(p){ return p.key; });
+    newValue = Math.max(0, Math.min(100, Math.round(newValue)));
+    var oldValue = rbTargets[changedKey];
+    var delta = newValue - oldValue;
+    if(delta === 0) return;
+    rbTargets[changedKey] = newValue;
+
+    var others = keys.filter(function(k){ return k !== changedKey; });
+    var othersSum = others.reduce(function(s,k){ return s + rbTargets[k]; }, 0);
+    var remaining = -delta;
+
+    if(othersSum <= 0){
+      var share = remaining / others.length;
+      others.forEach(function(k){ rbTargets[k] = Math.max(0, rbTargets[k] + share); });
+    } else {
+      others.forEach(function(k){
+        var proportion = rbTargets[k] / othersSum;
+        rbTargets[k] = Math.max(0, rbTargets[k] + remaining * proportion);
+      });
+    }
+
+    others.forEach(function(k){ rbTargets[k] = Math.round(rbTargets[k]); });
+    var sum = keys.reduce(function(s,k){ return s + rbTargets[k]; }, 0);
+    var diff = 100 - sum;
+    if(diff !== 0){
+      var biggest = others.slice().sort(function(a,b){ return rbTargets[b]-rbTargets[a]; })[0];
+      if(biggest !== undefined){ rbTargets[biggest] = Math.max(0, rbTargets[biggest] + diff); }
+    }
+  }
+
+  function rbBuildRows(){
+    var container = document.getElementById('rb-table');
+    if(!container) return;
+    container.innerHTML = '';
+    RB_POSITIONS.forEach(function(pos){
+      var row = document.createElement('div');
+      row.className = 'rb-row';
+      row.style.setProperty('--rb-dot', pos.dot);
+      var name = isEnglish() ? pos.nameEn : pos.nameDe;
+      row.innerHTML =
+        '<span class="rb-row-name"><span class="rb-row-dot" style="background:' + pos.dot + '"></span>' + name + '</span>' +
+        '<div class="rb-amount-wrap"><span>€</span><input type="text" inputmode="numeric" class="rb-amount-input" data-amount-key="' + pos.key + '" value="' + rbFmtEuro(rbAmounts[pos.key]) + '" aria-label="' + name + '"></div>' +
+        '<div class="rb-target-wrap"><input type="range" min="0" max="100" step="1" value="' + rbTargets[pos.key] + '" data-target-key="' + pos.key + '" aria-label="' + name + '"><span class="rb-target-pct" id="rb-target-pct-' + pos.key + '">' + rbTargets[pos.key] + '%</span></div>' +
+        '<span class="rb-action" id="rb-action-' + pos.key + '"></span>';
+      container.appendChild(row);
+    });
+    container.querySelectorAll('input[data-amount-key]').forEach(function(input){
+      input.addEventListener('input', function(){
+        rbAmounts[input.getAttribute('data-amount-key')] = rbParseNum(input.value);
+        rbRender();
+      });
+      input.addEventListener('blur', function(){
+        input.value = rbFmtEuro(rbAmounts[input.getAttribute('data-amount-key')]);
+      });
+    });
+    container.querySelectorAll('input[data-target-key]').forEach(function(input){
+      input.addEventListener('input', function(){
+        rbNormalizeTargets(input.getAttribute('data-target-key'), parseInt(input.value, 10));
+        rbRender();
+      });
+    });
+  }
+
+  function rbRender(){
+    var total = RB_POSITIONS.reduce(function(s,p){ return s + rbAmounts[p.key]; }, 0);
+    var totalValueEl = document.getElementById('rb-total-value');
+    if(totalValueEl) totalValueEl.textContent = '€' + rbFmtEuro(total);
+
+    RB_POSITIONS.forEach(function(pos){
+      var slider = document.querySelector('#rb-table input[data-target-key="' + pos.key + '"]');
+      var pctEl = document.getElementById('rb-target-pct-' + pos.key);
+      var actionEl = document.getElementById('rb-action-' + pos.key);
+      var targetPct = rbTargets[pos.key];
+      if(slider && parseInt(slider.value,10) !== targetPct) slider.value = targetPct;
+      if(pctEl) pctEl.textContent = targetPct + '%';
+
+      var targetValue = total * targetPct / 100;
+      var diff = targetValue - rbAmounts[pos.key];
+
+      if(actionEl){
+        actionEl.classList.remove('rb-buy','rb-sell','rb-ok');
+        if(Math.abs(diff) < 1){
+          actionEl.classList.add('rb-ok');
+          actionEl.textContent = isEnglish() ? 'On target' : 'Optimal';
+        } else if(diff > 0){
+          actionEl.classList.add('rb-buy');
+          actionEl.textContent = (isEnglish() ? 'Buy +' : 'Kaufen +') + '€' + rbFmtEuro(diff);
+        } else {
+          actionEl.classList.add('rb-sell');
+          actionEl.textContent = (isEnglish() ? 'Sell ' : 'Verkaufen ') + '€' + rbFmtEuro(Math.abs(diff));
+        }
+      }
+    });
+
+    var targetSum = RB_POSITIONS.reduce(function(s,p){ return s + rbTargets[p.key]; }, 0);
+    var warnEl = document.getElementById('rb-target-warn');
+    if(warnEl) warnEl.classList.toggle('rb-visible', targetSum !== 100);
+  }
+
+  function rbInit(){
+    var table = document.getElementById('rb-table');
+    if(!table) return;
+    rbBuildRows();
+    rbRender();
+  }
+
+  document.addEventListener('DOMContentLoaded', rbInit);
+  if(Array.isArray(window.frPageRecomputers)){
+    window.frPageRecomputers.push(rbInit);
+  } else {
+    window.frPageRecomputers = [rbInit];
+  }
+})();
+</script>
+<footer class="site"><div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+<span><a data-en="Legal Notice" href="impressum.html">Impressum</a> · <a data-en="Privacy Policy" href="datenschutz.html">Datenschutz</a> · <a data-en="Disclaimer" href="disclaimer.html">Disclaimer</a></span></div></footer></body>
+</html>

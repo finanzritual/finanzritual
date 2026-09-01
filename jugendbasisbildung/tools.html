@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-en="Tools — Calculators for Your Money — Youth Basic Education">Tools — Rechner für dein Geld — JugendBASISbildung</title>
+<meta name="description" content="Zwei echte Finanz-Rechner, direkt nutzbar: Zinseszins und Inflation. Gleiche Rechenlogik wie im Erwachsenenbereich, direkt eingebunden in deinem Cyber-Look." data-en-content="Two real finance calculators, ready to use: compound interest and inflation. Same calculation logic as in the adult section, built directly into your cyber look.">
+<link rel="canonical" href="https://www.finanz-ritual.de/jugendbasisbildung/tools.html">
+<link rel="stylesheet" href="../style.css">
+<script src="../script.js" defer></script>
+<style>
+:root{--yellow:#ffaa00;--purple:#8a5cf6}
+html,body{margin:0;background:#070a10;color:#f5f7fb}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:20;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),linear-gradient(110deg,#e67300 0%,#ffaa00 45%,#1b1512 100%);border-bottom:1px solid #313744}
+.logo{font-weight:900;letter-spacing:.08em;color:#fff;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px rgba(0,0,0,.5)}
+.nav{display:flex;gap:20px}.nav a{color:#fff;text-decoration:none;font-size:.86rem;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px rgba(0,0,0,.5)}
+.switch{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;padding:8px 13px}
+.header-icon-btn{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+.header-icon-btn svg{width:17px;height:17px}
+.y-lang{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;padding:7px 12px;cursor:pointer;font:inherit;font-size:.82rem;font-weight:700}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:clamp(2rem,4.5vw,3rem);line-height:1.05;margin:0 0 14px;letter-spacing:-.02em}
+.lead{font-size:1.1rem;line-height:1.55;color:#d7dce5;margin-bottom:36px}
+.tool-label{font:700 .74rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow);margin:36px 0 12px;display:flex;align-items:center;gap:8px}
+.tool-note{font-size:.82rem;color:#8a93a6;margin-top:10px}
+.back-link{display:inline-block;margin-top:32px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none}
+/* calc-card selbst kommt komplett aus style.css (dort global definiert) --
+   hier nur ein dunkler Rahmen passend zum Cyber-Look ergaenzt. */
+.calc-card{border:1px solid #303847;border-radius:14px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">FINANZ RITUAL</div>
+<nav class="nav">
+<a href="index.html" data-en="Home">Startseite</a>
+<a href="alle-themen.html" data-en="Topics">Themen</a>
+<a href="tools.html" data-en="Tools">Tools</a>
+<a href="index.html#spiele" data-en="Games">Spiele</a>
+<a href="../glossar.html?audience=JugendBASISbildung" data-en="Glossary">Glossar</a>
+</nav>
+<a href="lernplan-generator.html" id="teacher-access-link" class="header-icon-btn" aria-label="Lehrbereich öffnen" title="Lehrbereich" data-en-aria-label="Open teacher area" data-en-title="Teacher area">👩‍🏫</a>
+<a href="../suche.html?audience=JugendBASISbildung" id="header-search-link" class="header-icon-btn" aria-label="Jugendartikel durchsuchen" title="Suche" data-en-aria-label="Search youth articles" data-en-title="Search">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="header-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" title="Vollbildmodus" data-en-aria-label="Toggle full screen" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+<button id="lang-toggle" class="y-lang" type="button" aria-pressed="false"><span id="lang-toggle-text">EN</span></button>
+<a class="switch" id="switch" href="../index.html" data-en="← Main site">← Mutterseite</a>
+</header>
+
+<div class="wrap">
+<h1 data-en="Tools — Calculators for Your Money">Tools — Rechner für dein Geld</h1>
+<p class="lead" data-en="Zwei echte Finanz-Rechner, direkt eingebunden — dieselbe Rechenlogik wie im Erwachsenenbereich, aber ohne fremdes Menü drumherum: kein iframe, kein Umweg, einfach ein echtes Werkzeug direkt auf dieser Seite.">Zwei echte Finanz-Rechner, direkt eingebunden — dieselbe Rechenlogik wie im Erwachsenenbereich, aber ohne fremdes Menü drumherum: kein iframe, kein Umweg, einfach ein echtes Werkzeug direkt auf dieser Seite.</p>
+
+<div class="tool-label" data-en="🧮 Compound interest calculator">🧮 Zinseszins-Rechner</div>
+<div class="calc-card" id="zinsrechner">
+  <div class="calc-inputs">
+    <div class="row">
+      <label for="zz-start"><span data-en="Starting capital">Startkapital</span> <span class="val" id="zz-start-val">2.000 €</span></label>
+      <input type="range" id="zz-start" class="calc-slider" min="0" max="100000" step="500" value="2000">
+    </div>
+    <div class="row">
+      <label for="zz-rate"><span data-en="Monthly contribution">Monatliche Sparrate</span> <span class="val" id="zz-rate-val">150 €</span></label>
+      <input type="range" id="zz-rate" class="calc-slider" min="0" max="2500" step="25" value="150">
+    </div>
+    <div class="row">
+      <label for="zz-return"><span data-en="Interest rate p.a.">Zinssatz p.a.</span> <span class="val" id="zz-return-val">5⁠%</span></label>
+      <input type="range" id="zz-return" class="calc-slider" min="0" max="12" step="0.25" value="5">
+    </div>
+    <div class="row">
+      <label for="zz-years"><span data-en="Time horizon">Laufzeit</span> <span class="val" id="zz-years-val">15 J.</span></label>
+      <input type="range" id="zz-years" class="calc-slider" min="1" max="40" step="1" value="15">
+    </div>
+    <p class="calc-note" data-en="Simplified example calculation, not investment advice. Interest is calculated monthly. Real returns fluctuate.">Vereinfachte Beispielrechnung, keine Anlageberatung. Zinsen werden monatlich berechnet. Reale Verläufe schwanken.</p>
+  </div>
+  <div class="calc-result">
+    <div class="calc-stat calc-stat--total">
+      <span class="label" data-en="Final amount">Endkapital</span>
+      <span class="big num" id="zz-final">–</span>
+    </div>
+    <div class="calc-stat-row">
+      <div class="calc-stat">
+        <span class="dot dot-start"></span>
+        <span class="label" data-en="Starting capital">Startkapital</span>
+        <span class="num" id="zz-out-start">–</span>
+      </div>
+      <div class="calc-stat">
+        <span class="dot dot-blue"></span>
+        <span class="label" data-en="Contributions">Einzahlungen</span>
+        <span class="num" id="zz-out-contrib">–</span>
+      </div>
+      <div class="calc-stat">
+        <span class="dot dot-green"></span>
+        <span class="label" data-en="Interest earned">Zinsertrag</span>
+        <span class="num" id="zz-out-interest">–</span>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="tool-note" data-en="Same calculation logic as the adult version, built directly into this page — no separate window, no adult navigation anywhere near it.">Gleiche Rechenlogik wie die Erwachsenen-Version, direkt in diese Seite eingebaut — kein separates Fenster, keine Erwachsenen-Navigation in der Nähe.</p>
+
+<div class="tool-label" data-en="📉 Inflation calculator">📉 Inflationsrechner</div>
+<div class="calc-card" id="inflationsrechner">
+  <div class="calc-inputs">
+    <div class="row">
+      <label for="inf-amount"><span data-en="Amount today">Betrag heute</span> <span class="val" id="inf-amount-val">10.000 €</span></label>
+      <input type="range" id="inf-amount" class="calc-slider" min="100" max="500000" step="100" value="10000">
+    </div>
+    <div class="row">
+      <label for="inf-rate"><span data-en="Inflation rate p.a.">Inflationsrate p.a.</span> <span class="val" id="inf-rate-val">2,5⁠%</span></label>
+      <input type="range" id="inf-rate" class="calc-slider" min="0" max="10" step="0.1" value="2.5">
+    </div>
+    <div class="row">
+      <label for="inf-years"><span data-en="Time horizon">Zeitraum</span> <span class="val" id="inf-years-val">20 J.</span></label>
+      <input type="range" id="inf-years" class="calc-slider" min="1" max="50" step="1" value="20">
+    </div>
+    <p class="calc-note" data-en="Simplified example calculation. Assumes a constant inflation rate; real inflation fluctuates from year to year.">Vereinfachte Beispielrechnung. Geht von einer konstanten Inflationsrate aus; reale Inflation schwankt von Jahr zu Jahr.</p>
+  </div>
+  <div class="calc-result">
+    <div class="calc-stat calc-stat--total">
+      <span class="label" data-en="Purchasing power in the future">Kaufkraft in der Zukunft</span>
+      <span class="big num" id="inf-real-value">–</span>
+    </div>
+    <div class="calc-stat-row">
+      <div class="calc-stat">
+        <span class="dot dot-start"></span>
+        <span class="label" data-en="Amount today">Betrag heute</span>
+        <span class="num" id="inf-out-amount">–</span>
+      </div>
+      <div class="calc-stat">
+        <span class="dot dot-blue"></span>
+        <span class="label" data-en="Loss of purchasing power">Kaufkraftverlust</span>
+        <span class="num" id="inf-loss">–</span>
+      </div>
+      <div class="calc-stat">
+        <span class="dot dot-green"></span>
+        <span class="label" data-en="Needed to keep today's power">Nötig für heutige Kaufkraft</span>
+        <span class="num" id="inf-needed">–</span>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="tool-note" data-en="Same calculation logic as the adult version, built directly into this page — no separate window, no adult navigation anywhere near it.">Gleiche Rechenlogik wie die Erwachsenen-Version, direkt in diese Seite eingebaut — kein separates Fenster, keine Erwachsenen-Navigation in der Nähe.</p>
+
+<a class="back-link" href="index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</div>
+
+<script>
+/* ===== Zinseszins-Rechner (allgemein) — identische Logik wie
+   rechner-zinseszins.html, direkt hier eingebunden statt per iframe. ===== */
+(function(){
+  const startEl = document.getElementById('zz-start');
+  const rateEl  = document.getElementById('zz-rate');
+  const retEl   = document.getElementById('zz-return');
+  const yearsEl = document.getElementById('zz-years');
+
+  const startVal = document.getElementById('zz-start-val');
+  const rateVal  = document.getElementById('zz-rate-val');
+  const retVal   = document.getElementById('zz-return-val');
+  const yearsVal = document.getElementById('zz-years-val');
+
+  const finalEl    = document.getElementById('zz-final');
+  const outStartEl = document.getElementById('zz-out-start');
+  const outContribEl = document.getElementById('zz-out-contrib');
+  const outInterestEl = document.getElementById('zz-out-interest');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function compute(){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+
+    const start  = parseFloat(startEl.value);
+    const monthly = parseFloat(rateEl.value);
+    const annRate = parseFloat(retEl.value) / 100;
+    const years  = parseInt(yearsEl.value, 10);
+    const mRate  = annRate / 12;
+    const months = years * 12;
+
+    startVal.textContent = eur(start);
+    rateVal.textContent  = eur(monthly);
+    retVal.textContent   = retEl.value + '%';
+    yearsVal.textContent = years + (en ? (years === 1 ? ' yr' : ' yrs') : ' J.');
+
+    let balance = start;
+    for(let i = 0; i < months; i++){
+      balance = balance * (1 + mRate) + monthly;
+    }
+    const contributed = start + monthly * months;
+    const interest = balance - contributed;
+
+    finalEl.textContent = eur(Math.round(balance));
+    outStartEl.textContent = eur(Math.round(start));
+    outContribEl.textContent = eur(Math.round(monthly * months));
+    outInterestEl.textContent = eur(Math.round(interest));
+  }
+
+  [startEl, rateEl, retEl, yearsEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+<script>
+/* ===== Inflationsrechner — identische Logik wie rechner-inflation.html,
+   direkt hier eingebunden statt per iframe. ===== */
+(function(){
+  const amountEl = document.getElementById('inf-amount');
+  const rateEl   = document.getElementById('inf-rate');
+  const yearsEl  = document.getElementById('inf-years');
+
+  const amountVal = document.getElementById('inf-amount-val');
+  const rateVal   = document.getElementById('inf-rate-val');
+  const yearsVal  = document.getElementById('inf-years-val');
+
+  const realValueEl  = document.getElementById('inf-real-value');
+  const outAmountEl  = document.getElementById('inf-out-amount');
+  const lossEl       = document.getElementById('inf-loss');
+  const neededEl     = document.getElementById('inf-needed');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function compute(){
+    const en = isEn();
+    const fmt  = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const fmt1 = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:1, maximumFractionDigits:1 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+
+    const amount = parseFloat(amountEl.value);
+    const rate   = parseFloat(rateEl.value) / 100;
+    const years  = parseInt(yearsEl.value, 10);
+
+    amountVal.textContent = eur(amount);
+    rateVal.textContent   = fmt1.format(parseFloat(rateEl.value)) + '%';
+    yearsVal.textContent  = years + (en ? (years === 1 ? ' yr' : ' yrs') : ' J.');
+
+    const factor = Math.pow(1 + rate, years);
+    const realValue = amount / factor;
+    const needed = amount * factor;
+    const loss = amount - realValue;
+    const lossPct = (loss / amount) * 100;
+
+    realValueEl.textContent = eur(Math.round(realValue));
+    outAmountEl.textContent = eur(Math.round(amount));
+    lossEl.textContent = eur(Math.round(loss)) + ' (' + fmt.format(Math.round(lossPct)) + ' %)';
+    neededEl.textContent = eur(Math.round(needed));
+  }
+
+  [amountEl, rateEl, yearsEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+</body>
+</html>

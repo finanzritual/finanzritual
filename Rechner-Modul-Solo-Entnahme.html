@@ -1,0 +1,135 @@
+<!-- ===== Rechner-Modul: entnahme =====
+     Automatisch aus rechner-entnahme.html extrahiert (V874). Enthaelt NUR das reine
+     Rechner-Widget (Eingabefelder + Ergebnisanzeige) und sein
+     eigenstaendiges JavaScript -- KEIN umgebender Erklaertext, KEINE
+     Links zu anderen Seiten. Verwendet ausschliesslich CSS-Klassen aus
+     dem global geladenen style.css (.calc-card/.calc-slider etc.),
+     keine eigenen Styles noetig. Einbindbar in jede Seite, die
+     style.css und script.js laedt (Erwachsenen- oder Jugendbereich). -->
+<div class="calc-card" id="entnahmerechner">
+      <div class="calc-inputs">
+        <div class="row">
+          <label for="ent-value"><span data-en="Portfolio value">Depotwert</span> <span class="val" id="ent-value-val">500.000 €</span></label>
+          <input type="range" id="ent-value" class="calc-slider" min="10000" max="2000000" step="10000" value="500000">
+        </div>
+        <div class="row">
+          <label for="ent-rate"><span data-en="Withdrawal rate p.a.">Entnahmerate p.a.</span> <span class="val" id="ent-rate-val">4⁠%</span></label>
+          <input type="range" id="ent-rate" class="calc-slider" min="1" max="10" step="0.25" value="4">
+        </div>
+        <div class="row">
+          <label for="ent-return"><span data-en="Expected return p.a.">Erwartete Rendite p.a.</span> <span class="val" id="ent-return-val">5⁠%</span></label>
+          <input type="range" id="ent-return" class="calc-slider" min="0" max="12" step="0.5" value="5">
+        </div>
+        <div class="row">
+          <label for="ent-inflation"><span data-en="Inflation p.a.">Inflation p.a.</span> <span class="val" id="ent-inflation-val">2⁠%</span></label>
+          <input type="range" id="ent-inflation" class="calc-slider" min="0" max="6" step="0.25" value="2">
+        </div>
+        <p class="calc-note" data-en="Simplified example calculation, not investment advice. Withdrawals are increased with inflation each year; returns are assumed constant. Real markets fluctuate.">Vereinfachte Beispielrechnung, keine Anlageberatung. Entnahmen werden jährlich um die Inflation erhöht; Renditen werden konstant angenommen. Reale Märkte schwanken.</p>
+      </div>
+
+      <div class="calc-result">
+        <div class="calc-stat calc-stat--total">
+          <span class="label" data-en="Monthly withdrawal (today)">Monatliche Entnahme (heute)</span>
+          <span class="big num" id="ent-monthly">–</span>
+        </div>
+        <div class="calc-stat-row">
+          <div class="calc-stat">
+            <span class="dot dot-start"></span>
+            <span class="label" data-en="Annual withdrawal (today)">Jährliche Entnahme (heute)</span>
+            <span class="num" id="ent-annual">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-blue"></span>
+            <span class="label" data-en="Portfolio lasts">Depot reicht</span>
+            <span class="num" id="ent-duration">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-green"></span>
+            <span class="label" data-en="After 30 years, portfolio value">Depotwert nach 30 Jahren</span>
+            <span class="num" id="ent-after30">–</span>
+          </div>
+        </div>
+      </div>
+<script>
+/* ===== Entnahmerechner ===== */
+(function(){
+  const valueEl = document.getElementById('ent-value');
+  const rateEl  = document.getElementById('ent-rate');
+  const returnEl = document.getElementById('ent-return');
+  const inflEl  = document.getElementById('ent-inflation');
+
+  const valueVal = document.getElementById('ent-value-val');
+  const rateVal  = document.getElementById('ent-rate-val');
+  const returnVal = document.getElementById('ent-return-val');
+  const inflVal  = document.getElementById('ent-inflation-val');
+
+  const monthlyEl  = document.getElementById('ent-monthly');
+  const annualEl   = document.getElementById('ent-annual');
+  const durationEl = document.getElementById('ent-duration');
+  const after30El  = document.getElementById('ent-after30');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function compute(){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+
+    const value  = parseFloat(valueEl.value);
+    const ratePct = parseFloat(rateEl.value) / 100;
+    const retPct = parseFloat(returnEl.value) / 100;
+    const inflPct = parseFloat(inflEl.value) / 100;
+
+    valueVal.textContent = eur(value);
+    rateVal.textContent  = rateEl.value + '%';
+    returnVal.textContent = returnEl.value + '%';
+    inflVal.textContent  = inflEl.value + '%';
+
+    const annualWithdrawal = value * ratePct;
+    annualEl.textContent = eur(Math.round(annualWithdrawal));
+    monthlyEl.textContent = eur(Math.round(annualWithdrawal / 12));
+
+    // Simulation: Jahr fuer Jahr, Entnahme steigt mit Inflation
+    let balance = value;
+    let withdrawal = annualWithdrawal;
+    let year = 0;
+    let balanceAt30 = null;
+    const maxYears = 100;
+    while(balance > 0 && year < maxYears){
+      balance = balance * (1 + retPct) - withdrawal;
+      withdrawal = withdrawal * (1 + inflPct);
+      year++;
+      if(year === 30) balanceAt30 = Math.max(0, balance);
+    }
+
+    if(balanceAt30 === null){
+      // nie 30 Jahre erreicht -> Depot ging vorher aus, oder wir sind schon durch
+      balanceAt30 = 0;
+    }
+
+    if(year >= maxYears || balance > 0){
+      durationEl.textContent = en ? 'unlimited' : 'unbegrenzt';
+    } else {
+      durationEl.textContent = year + (en ? (year === 1 ? ' year' : ' years') : (year === 1 ? ' Jahr' : ' Jahre'));
+    }
+
+    after30El.textContent = balanceAt30 <= 0 ? (en ? 'depleted' : 'aufgebraucht') : eur(Math.round(balanceAt30));
+  }
+
+  [valueEl, rateEl, returnEl, inflEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

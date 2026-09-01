@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Mayor Hustle — JugendBASISbildung — FinanzRitual">Bürgermeister-Hustle — JugendBASISbildung — FinanzRitual</title>
+    <meta name="description" content="Würfle dir bis zu 3 Side-Hustles gleichzeitig zusammen, überlebe den Zeit-Konflikt und den Gewerbeamt-Endgegner, und hol dir den Handshake vom Bürgermeister." data-en-content="Roll up to 3 side hustles at once, survive the time conflict and the trade-office final boss, and land yourself a handshake from the mayor.">
+    <link rel="canonical" href="https://www.finanz-ritual.de/YOUNG-Games-buergermeister-hustle.html">
+<meta name="fr-video-id" content="1001">
+<meta name="fr-content-hash" content="8f6b69dfa69b4799bdde7e5a712bcdbe86bd00c9aee1506d1c86919d8e17beeb">
+<meta name="fr-links-hash" content="0ecf58f0c0caa98e78c5b28035b1216daee5f6796bd047c01768dc4770182633">
+    <style>
+        :root {
+            --bg-color: #0c0f12;
+            --card-bg: #161b22;
+            --card-back: #21262d;
+            --text-color: #ffffff;
+            --accent-orange: #ffaa00;
+            --neon-green: #39ff14;
+            --danger-red: #ff3333;
+            --cyan-glow: #00f0ff;
+            --y: #eaff00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+        }
+        body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+        body.is-scrolled:before{background:#3a4356}
+
+        .y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+        .y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap;font-size:.95rem}
+        .y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}
+        .y-nav a{color:#fff;text-decoration:none;font-size:.9rem}
+        .y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+        .y-icon-btn svg{width:17px;height:17px}
+        .y-icon-btn[hidden]{display:none}
+        @media(max-width:700px){.y-header{min-height:54px;padding:0 12px}.y-nav a{display:none}}
+
+        .game-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px 50px;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 8px 0 5px 0;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #000;
+            text-align: center;
+        }
+
+        .rules-box{
+            width:100%; margin-bottom: 14px;
+            background: var(--card-bg); border: 1px solid #30363d; border-radius: 14px;
+            overflow: hidden;
+        }
+        .rules-box summary{
+            padding: 12px 16px; cursor: pointer; font-weight: 700; font-size: .92rem;
+            color: var(--accent-orange); list-style: none; display:flex; align-items:center; gap:8px;
+        }
+        .rules-box summary::-webkit-details-marker{ display:none; }
+        .rules-box summary:before{ content:"▶"; font-size:.7rem; transition: transform .15s; }
+        .rules-box[open] summary:before{ transform: rotate(90deg); }
+        .rules-box .rules-body{ padding: 0 16px 16px; font-size: .88rem; line-height: 1.55; color: #c3cad7; }
+        .rules-box .rules-body ul{ margin: 8px 0; padding-left: 20px; }
+        .rules-box .rules-body li{ margin-bottom: 6px; }
+        .rules-box .rules-body strong{ color: #fff; }
+
+        .stat-bar {
+            display: none;
+            width: 100%;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .stat-bar.is-active { display: flex; }
+        .stat-chip {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 8px 6px;
+            text-align: center;
+        }
+        .stat-chip .stat-label { font-size: .68rem; color: #8b949e; text-transform: uppercase; letter-spacing: .05em; }
+        .stat-chip .stat-value { font-size: 1.05rem; font-weight: 800; margin-top: 2px; }
+        .stat-chip.geld .stat-value { color: var(--neon-green); }
+        .stat-chip.energie .stat-value { color: var(--cyan-glow); }
+        .stat-chip.ruf .stat-value { color: var(--accent-orange); }
+
+        #scene {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 3px solid #30363d;
+            border-radius: 16px;
+            padding: 22px 18px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .scene-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin: 0 0 10px;
+        }
+
+        .scene-text {
+            font-size: .95rem;
+            line-height: 1.6;
+            color: #dfe4ea;
+            margin: 0 0 18px;
+            text-align: left;
+        }
+
+        .hustle-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 14px 0 18px;
+        }
+        .hustle-chip {
+            background: var(--card-back);
+            border: 2px solid #30363d;
+            border-radius: 12px;
+            padding: 10px 8px;
+            width: 92px;
+            font-size: .78rem;
+            line-height: 1.3;
+        }
+        .hustle-chip .hustle-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+        .hustle-chip.is-dupe { border-color: var(--accent-orange); }
+
+        .choice-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background-color: var(--card-back);
+            border: 2px solid #30363d;
+            border-radius: 12px;
+            color: var(--text-color);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            font-size: .9rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: border-color .15s, transform .1s;
+        }
+        .choice-btn:hover { border-color: var(--cyan-glow); }
+        .choice-btn:active { transform: scale(0.98); }
+        .choice-btn strong { color: var(--accent-orange); }
+
+        button.game-btn {
+            margin-top: 8px;
+            padding: 12px 26px;
+            background-color: var(--accent-orange);
+            border: 2px solid #000;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            font-family: inherit;
+        }
+        button.game-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        .dice-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 18px 0;
+        }
+        .die-face {
+            width: 54px;
+            height: 54px;
+            background: var(--card-back);
+            border: 2px solid var(--accent-orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            animation: dieRoll 0.5s ease-out;
+        }
+        @keyframes dieRoll {
+            0% { transform: rotate(0deg) scale(0.6); opacity: 0.4; }
+            100% { transform: rotate(360deg) scale(1); opacity: 1; }
+        }
+
+        .ending-emoji { font-size: 2.6rem; margin-bottom: 6px; }
+
+        .y-back{display:inline-block;margin-top:26px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none;font-size:.85rem}
+
+.y-game-related{background:var(--card-bg);border:1px solid #303847;border-radius:16px;padding:20px 22px;margin:18px 0 10px;max-width:520px;margin-left:auto;margin-right:auto}
+.y-game-related-title{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-orange);margin-bottom:12px}
+.y-game-related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;text-align:left}
+.y-game-related-list a{color:var(--text-color);text-decoration:none;font-size:.9rem;display:flex;align-items:center;gap:8px}
+.y-game-related-list a:hover{color:var(--accent-orange)}
+</style>
+</head>
+<body>
+
+<header class="y-header">
+<a class="y-brand" href="jugendbasisbildung/index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="jugendbasisbildung/index.html" data-en="Home">Startseite</a>
+<a href="jugendbasisbildung/alle-themen.html" data-en="Topics">Themen</a>
+</nav>
+<a href="suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</header>
+
+<div class="game-wrap">
+    <h1 data-en="🤝 MAYOR HUSTLE">🤝 BÜRGERMEISTER-HUSTLE</h1>
+
+    <details class="rules-box">
+      <summary data-en="🕹️ How to play">🕹️ Kurze Spielanleitung</summary>
+      <div class="rules-body" data-en="&lt;p&gt;You're 17, broke, and want cash for a new custom board. The dice decide which 3 side hustles land on your calendar this week — then it's on you to juggle them without your reputation or your legal status blowing up.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The stats:&lt;/strong&gt; Bank balance, Energy, and Mayor Reputation. Reputation is your real scoreboard — the mayor is watching!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The dice:&lt;/strong&gt; 3 rolls, 3 hustles, all landing on the same Saturday. You'll have to decide how to juggle them.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The final boss:&lt;/strong&gt; once the cash starts flowing, the trade office wants a word. How you handle that decides everything.&lt;/li&gt;
+&lt;/ul&gt;">
+        <p>Du bist 17, deine Kasse ist leer und du brauchst Cash für ein neues Custom-Board. Der Würfel entscheidet, welche 3 Side-Hustles diese Woche auf deinen Kalender ballern — dann liegt es an dir, sie zu jonglieren, ohne dass dein Ruf oder dein rechtlicher Status explodiert.</p>
+        <ul>
+          <li><strong>Die Stats:</strong> Kontostand, Energie und Bürgermeister-Reputation. Der Ruf ist dein eigentlicher Highscore — der Bürgermeister schaut zu!</li>
+          <li><strong>Der Würfel:</strong> 3 Würfe, 3 Hustles, alle am selben Samstag. Du musst entscheiden, wie du sie jonglierst.</li>
+          <li><strong>Der Endgegner:</strong> Sobald die Kohle fließt, will das Gewerbeamt ein Wort mit dir reden. Wie du das handhabst, entscheidet alles.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="stat-bar" id="stat-bar">
+        <div class="stat-chip geld"><div class="stat-label" data-en="Bank">Kasse</div><div class="stat-value" id="stat-geld">0 €</div></div>
+        <div class="stat-chip energie"><div class="stat-label" data-en="Energy">Energie</div><div class="stat-value" id="stat-energie">100%</div></div>
+        <div class="stat-chip ruf"><div class="stat-label" data-en="Reputation">Ruf</div><div class="stat-value" id="stat-ruf">10/100</div></div>
+    </div>
+
+    <div id="scene"></div>
+
+    <div class="y-game-related">
+      <div class="y-game-related-title" data-en="Learn more">Vertiefe dein Wissen</div>
+      <ul class="y-game-related-list">
+      <li><a href="YOUNG-side-hustles-jugend.html" data-en="→ The 5 best side hustles for teenagers: make your own legal cash">→ Die 5 besten Side Hustles für Teenager: So machst du legal deine eigene Kohle!</a></li>
+      <li><a href="YOUNG-side-hustles-outofthebox-jugend.html" data-en="→ Out-of-the-box side hustles: genius ideas for your neighborhood">→ Side Hustles „Out of the Box": Wie du mit genialen Ideen fette Kohle machst!</a></li>
+      <li><a href="YOUNG-gewerbeanmeldung-jugend.html" data-en="→ Registering your business: how to make your side hustle legal and stress-free">→ Gewerbeanmeldung & -ummeldung: So machst du deinen Side Hustle legal und stressfrei</a></li>
+      </ul>
+    </div>
+
+    <a class="y-back" href="jugendbasisbildung/index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</div>
+
+<script>
+    var isEn = function(){ return document.documentElement.getAttribute('lang') === 'en'; };
+    var t = function(de, en){ return isEn() ? en : de; };
+
+    var sceneEl = document.getElementById('scene');
+    var statBar = document.getElementById('stat-bar');
+    var statGeldEl = document.getElementById('stat-geld');
+    var statEnergieEl = document.getElementById('stat-energie');
+    var statRufEl = document.getElementById('stat-ruf');
+
+    var HUSTLES = [
+        { id:1, icon:'🏰', name:'Die Touri-Führung', nameEn:'The Tour Guide Gig', geld:25, ruf:35, energie:35 },
+        { id:2, icon:'👵', name:'Das Omi-Gym', nameEn:'Grandma Gym', geld:30, ruf:45, energie:40 },
+        { id:3, icon:'🎮', name:'Der Twitch-Zock', nameEn:'The Twitch Grind', geld:55, ruf:10, energie:35 },
+        { id:4, icon:'🛹', name:'Der Board-Doc', nameEn:'The Board Doc', geld:35, ruf:25, energie:30 },
+        { id:5, icon:'📱', name:'Der Insta-Pate', nameEn:'The Insta Godfather', geld:45, ruf:15, energie:50 },
+        { id:6, icon:'🛒', name:'Der Bottle-King', nameEn:'The Bottle King', geld:30, ruf:10, energie:45 }
+    ];
+
+    var WIN_RUF = 70;
+    var WIN_GELD = 40;
+    var LOW_RUF = 30;
+
+    var state = { geld: 0, energie: 100, ruf: 10, rolled: [], gameOver: false };
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+    function updateStatBar(){
+        statBar.classList.add('is-active');
+        statGeldEl.textContent = state.geld + ' €';
+        statEnergieEl.textContent = clampDisplay(state.energie) + '%';
+        statRufEl.textContent = clampDisplay(state.ruf) + '/100';
+    }
+
+    function rollDie(){ return 1 + Math.floor(Math.random() * 6); }
+    function hustleName(h){ return isEn() ? h.nameEn : h.name; }
+
+    function renderStart(){
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + t('Mission Bürgermeister-Handschlag! 🤝👑', 'Mission: Mayor Handshake! 🤝👑') + '</div>' +
+            '<p class="scene-text">' + t(
+                'Deine Kasse ist leerer als ein verlassener Skatepark im Regen 🌧️. Du brauchst Cash für ein neues Custom-Board — und willst dabei dem Bürgermeister am Ende das Versprechen für eine neue Halfpipe abnehmen!',
+                "Your wallet's emptier than an abandoned skatepark in the rain 🌧️. You need cash for a new custom board — and you want to walk away with the mayor's promise for a new halfpipe!"
+            ) + '</p>' +
+            '<button type="button" class="game-btn" id="btn-start">' + t('Würfeln & loslegen 🎲', 'Roll &amp; start 🎲') + '</button>';
+        document.getElementById('btn-start').onclick = rollHustles;
+    }
+
+    function rollHustles(){
+        state.rolled = [rollDie(), rollDie(), rollDie()];
+        updateStatBar();
+
+        var diceHtml = state.rolled.map(function(n){ return '<div class="die-face">' + n + '</div>'; }).join('');
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + t('Der Hustle-Würfel entscheidet...', 'The hustle dice decide...') + '</div>' +
+            '<div class="dice-row">' + diceHtml + '</div>' +
+            '<p class="scene-text" id="dice-result-text"></p>' +
+            '<button type="button" class="game-btn" id="btn-to-l1" style="display:none">' + t('Weiter zum Samstag 📅', 'Continue to Saturday 📅') + '</button>';
+
+        setTimeout(function(){
+            var counts = {};
+            state.rolled.forEach(function(n){ counts[n] = (counts[n] || 0) + 1; });
+            var chips = state.rolled.map(function(n){
+                var h = HUSTLES[n - 1];
+                var isDupe = counts[n] > 1;
+                return '<div class="hustle-chip' + (isDupe ? ' is-dupe' : '') + '">' +
+                    '<span class="hustle-icon">' + h.icon + '</span>' + hustleName(h) +
+                    (isDupe ? '<br><small style="color:var(--accent-orange)">' + t('doppelt! 🔥', 'doubled! 🔥') + '</small>' : '') +
+                    '</div>';
+            }).join('');
+            document.getElementById('dice-result-text').innerHTML =
+                t('Deine 3 Jobs diese Woche:', 'Your 3 jobs this week:') +
+                '<div class="hustle-row">' + chips + '</div>' +
+                t('Doppelt gewürfelt heißt doppelte Kundschaft in dem Bereich — mehr Termine, mehr Chaos!', 'Rolling a double means double the customers in that area — more appointments, more chaos!');
+            document.getElementById('btn-to-l1').style.display = 'inline-block';
+            document.getElementById('btn-to-l1').onclick = renderLevel1;
+        }, 650);
+    }
+
+    function renderLevel1(){
+        var names = state.rolled.map(function(n){ return hustleName(HUSTLES[n - 1]); });
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + t('Level 1: Das Zeit-Dilemma ⏰', 'Level 1: The Time Dilemma ⏰') + '</div>' +
+            '<p class="scene-text">' + t(
+                'Samstagvormittag, perfektes Wetter. Aber ' + names[0] + ', ' + names[1] + ' und ' + names[2] + ' wollen alle gleichzeitig von dir bedient werden!',
+                'Saturday morning, perfect weather. But ' + names[0] + ', ' + names[1] + ' and ' + names[2] + ' all want you at the exact same time!'
+            ) + '</p>' +
+            '<button type="button" class="choice-btn" id="choice-a">' + t('<strong>A)</strong> Volle Konzentration auf einen Termin 🎯', '<strong>A)</strong> Full focus on one appointment 🎯') + '</button>' +
+            '<button type="button" class="choice-btn" id="choice-b">' + t('<strong>B)</strong> Zwei clever kombinieren, einen canceln 🤹', '<strong>B)</strong> Cleverly combine two, cancel one 🤹') + '</button>' +
+            '<button type="button" class="choice-btn" id="choice-c">' + t('<strong>C)</strong> Alles gleichzeitig probieren (Chaos-Modus) 🥨', '<strong>C)</strong> Try to do everything at once (Chaos Mode) 🥨') + '</button>';
+
+        document.getElementById('choice-a').onclick = function(){ renderLevel1Pick('focus'); };
+        document.getElementById('choice-b').onclick = function(){ renderLevel1Pick('combo'); };
+        document.getElementById('choice-c').onclick = resolveChaos;
+    }
+
+    function renderLevel1Pick(mode){
+        var label = mode === 'focus'
+            ? t('Auf welchen Termin konzentrierst du dich voll?', 'Which appointment do you fully focus on?')
+            : t('Welchen Termin lässt du sausen?', 'Which appointment do you skip?');
+        var btns = state.rolled.map(function(n, idx){
+            var h = HUSTLES[n - 1];
+            return '<button type="button" class="choice-btn" data-idx="' + idx + '">' + h.icon + ' ' + hustleName(h) + '</button>';
+        }).join('');
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + label + '</div>' +
+            btns;
+        state.rolled.forEach(function(n, idx){
+            var btn = sceneEl.querySelector('[data-idx="' + idx + '"]');
+            btn.onclick = function(){
+                if (mode === 'focus') resolveFocus(idx);
+                else resolveCombo(idx);
+            };
+        });
+    }
+
+    function resolveFocus(pickedIdx){
+        var h = HUSTLES[state.rolled[pickedIdx] - 1];
+        var geldGain = h.geld;
+        var rufChange = h.ruf - 15;
+        var energieLoss = h.energie;
+        applyDelta(geldGain, rufChange, -energieLoss);
+        showLevel1Result(
+            t('Volle Konzentration!', 'Full focus!'),
+            t(
+                'Du rockst ' + hustleName(h) + ' komplett durch. +' + geldGain + ' € Kohle, aber die anderen beiden Termine sind sauer, dass du nicht aufgetaucht bist. Ruf-Änderung: ' + (rufChange >= 0 ? '+' : '') + rufChange + '.',
+                'You crush ' + hustleName(h) + ' completely. +' + geldGain + '€ cash, but the other two appointments are mad you never showed. Rep change: ' + (rufChange >= 0 ? '+' : '') + rufChange + '.'
+            )
+        );
+    }
+
+    function resolveCombo(skippedIdx){
+        var kept = state.rolled.filter(function(_, idx){ return idx !== skippedIdx; });
+        var h1 = HUSTLES[kept[0] - 1];
+        var h2 = HUSTLES[kept[1] - 1];
+        var geldGain = Math.round((h1.geld + h2.geld) * 0.75);
+        var rufChange = Math.round((h1.ruf + h2.ruf) * 0.75) + 10;
+        var energieLoss = Math.round((h1.energie + h2.energie) * 0.85);
+        applyDelta(geldGain, rufChange, -energieLoss);
+        showLevel1Result(
+            t('Cleveres Zeitmanagement!', 'Smart time management!'),
+            t(
+                'Du schaffst ' + hustleName(h1) + ' und ' + hustleName(h2) + ' im Kombi-Modus. +' + geldGain + ' € Kohle, +' + rufChange + ' Ruf fürs schlaue Jonglieren — aber die Energie ist ordentlich im Keller.',
+                'You pull off ' + hustleName(h1) + ' and ' + hustleName(h2) + ' combo-style. +' + geldGain + '€ cash, +' + rufChange + ' rep for smart hustling — but your energy is seriously drained.'
+            )
+        );
+    }
+
+    function resolveChaos(){
+        // Ruf-Strafe bewusst deutlich haerter als Geld-/Energie-Effekt:
+        // -40 statt urspruenglich -10, sonst waere "alles gleichzeitig
+        // versuchen" nie riskant genug, um das schlechte Ending
+        // ueberhaupt erreichbar zu machen (siehe applyDelta-Kommentar).
+        applyDelta(5, -40, -80);
+        showLevel1Result(
+            t('Absoluter Fail! 🥨', 'Total fail! 🥨'),
+            t(
+                'Du versuchst ALLES gleichzeitig. Skateboard rutscht aus, die Omis sind verwirrt, der Stream kackt ab. +5 € Schadensersatz, Ruf krachend im Keller, Energie im freien Fall.',
+                'You try EVERYTHING at once. Skateboard slips out, the grandmas are confused, the stream crashes. +5€ damages, rep crashing hard, energy in free fall.'
+            )
+        );
+    }
+
+    function applyDelta(geld, ruf, energie){
+        // Wichtig: Der Ruf wird waehrend des Spiels NICHT auf 0 geklemmt
+        // (nur Kontostand darf nicht negativ werden). Sonst waere das
+        // "Niemand kennt dich"-Ending strukturell nie erreichbar: Ein
+        // schlechter Level-1-Lauf wuerde sonst auf 0 gekappt, bevor die
+        // festen +50 Ruf aus der Gewerbeanmeldung in Level 2 draufkommen
+        // -- das Ergebnis laege dann immer bei mindestens 50, egal wie
+        // schlecht Level 1 lief. Fuer Anzeige und Endergebnis wird
+        // trotzdem auf 0-100 geklemmt (clampDisplay).
+        state.geld = Math.max(0, state.geld + geld);
+        state.ruf = state.ruf + ruf;
+        state.energie = state.energie + energie;
+        updateStatBar();
+    }
+
+    function clampDisplay(v){ return clamp(v, 0, 100); }
+
+    function showLevel1Result(title, text){
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + title + '</div>' +
+            '<p class="scene-text">' + text + '</p>' +
+            '<button type="button" class="game-btn" id="btn-to-l2">' + t('Weiter zum Endgegner ⚖️', 'Continue to the final boss ⚖️') + '</button>';
+        document.getElementById('btn-to-l2').onclick = renderLevel2;
+    }
+
+    function renderLevel2(){
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + t('Level 2: Der rechtliche Endgegner ⚖️', 'Level 2: The legal final boss ⚖️') + '</div>' +
+            '<p class="scene-text">' + t(
+                'Dein Business läuft heftig an, das Geld stapelt sich. Plötzlich eine DM vom Bürgermeisteramt: „Lieber Jungunternehmer, bitte melden Sie sich zwecks Gewerbeanmeldung.\u201c',
+                'Your business is taking off, money is stacking up. Suddenly a DM from the mayor\u2019s office: &quot;Dear young entrepreneur, please get in touch about registering your business.&quot;'
+            ) + '</p>' +
+            '<button type="button" class="choice-btn" id="choice-ignore">' + t('<strong>A)</strong> "Lass mich in Ruhe, Bro!" Ignorieren. 🤫', '<strong>A)</strong> "Leave me alone, bro!" Ignore it. 🤫') + '</button>' +
+            '<button type="button" class="choice-btn" id="choice-register">' + t('<strong>B)</strong> Cool bleiben, mit den Eltern ans Amt gehen. 🏢', '<strong>B)</strong> Stay cool, go to the office with your parents. 🏢') + '</button>';
+
+        document.getElementById('choice-ignore').onclick = resolveIgnore;
+        document.getElementById('choice-register').onclick = resolveRegister;
+    }
+
+    function resolveIgnore(){
+        state.gameOver = true;
+        state.geld = 0;
+        state.ruf = 0;
+        updateStatBar();
+        sceneEl.innerHTML =
+            '<div class="ending-emoji">💥</div>' +
+            '<div class="scene-title">' + t('GAME OVER', 'GAME OVER') + '</div>' +
+            '<p class="scene-text">' + t(
+                'Das Ordnungsamt erwischt dich beim Flaschensammeln. Du musst dein ganzes Geld als Strafe abgeben, Ruf auf 0. Schwarzarbeit ist kein Kavaliersdelikt — nicht mal beim Side Hustle.',
+                'The city inspectors catch you bottle-collecting. All your money gets taken as a fine, reputation drops to 0. Undeclared work is never a minor offense — not even for a side hustle.'
+            ) + '</p>' +
+            '<button type="button" class="game-btn" id="btn-restart">' + t('Nochmal versuchen 🔄', 'Try again 🔄') + '</button>';
+        document.getElementById('btn-restart').onclick = restartGame;
+    }
+
+    function resolveRegister(){
+        applyDelta(-20, 50, 0);
+        sceneEl.innerHTML =
+            '<div class="scene-title">' + t('Local Hero Status! 🏢✨', 'Local Hero Status! 🏢✨') + '</div>' +
+            '<p class="scene-text">' + t(
+                'Du schnappst dir deine Eltern (Pflicht bei unter 18 — Familiengericht muss zustimmen!), gehst aufs Amt und meldest offiziell dein Kleingewerbe an. Kostet dich einmalig 20 € Gebühr, aber dein Ruf schießt um +50 Punkte nach oben!',
+                'You bring your parents along (required under 18 — the family court has to sign off!), head to the office, and officially register your small business. Costs you a one-time \u20ac20 fee, but your reputation shoots up +50 points!'
+            ) + '</p>' +
+            '<button type="button" class="game-btn" id="btn-to-results">' + t('Zum Endergebnis 🏆', 'To the final results 🏆') + '</button>';
+        document.getElementById('btn-to-results').onclick = renderResults;
+    }
+
+    function renderResults(){
+        var displayRuf = clampDisplay(state.ruf);
+        var displayEnergie = clampDisplay(state.energie);
+        var emoji, title, text;
+        if (displayRuf >= WIN_RUF && state.geld >= WIN_GELD) {
+            emoji = '🔥';
+            title = t('PRO-GAMER-STATUS!', 'PRO-GAMER STATUS!');
+            text = t(
+                'Du hast die Gemeinde gerockt. Der Bürgermeister lädt dich ins Rathaus, schüttelt dir persönlich die Hand 🤝, übergibt dir den Scheck fürs neue Board und verspricht den Bau der neuen Skate-Rampe!',
+                "You rocked the community. The mayor invites you to city hall, personally shakes your hand \ud83e\udd1d, hands you the check for your new board, and promises to build the new skate ramp!"
+            );
+        } else if (displayRuf < LOW_RUF) {
+            emoji = '🥱';
+            title = t('Niemand kennt dich', 'Nobody knows you');
+            text = t(
+                'Der Bürgermeister kennt dich nicht mal. Du schiebst weiter Frust auf einer alten Holzbank, dein neues Board bleibt ein Traum. Nächstes Mal: mehr auf den Ruf achten statt nur auf die Kohle!',
+                "The mayor doesn't even know your name. You keep sulking on an old wooden bench, your new board stays a dream. Next time: pay more attention to reputation, not just cash!"
+            );
+        } else {
+            emoji = '👍';
+            title = t('Solide Woche, ausbaufähig', 'Solid week, room to grow');
+            text = t(
+                'Nicht schlecht! Du bist auf dem Radar des Bürgermeisters, aber weder Kasse noch Ruf reichen ganz für den großen Handshake. Ein bisschen mehr Balance zwischen Kohle und Community-Arbeit, dann klappt\u2019s beim nächsten Run!',
+                'Not bad! You\u2019re on the mayor\u2019s radar, but neither your bank balance nor your reputation quite clears the bar for the big handshake. A bit more balance between cash and community work, and next run will nail it!'
+            );
+        }
+        sceneEl.innerHTML =
+            '<div class="ending-emoji">' + emoji + '</div>' +
+            '<div class="scene-title">' + title + '</div>' +
+            '<p class="scene-text">' + text + '</p>' +
+            '<p class="scene-text" style="text-align:center;color:#8b949e;font-size:.85rem">' +
+                t('Endstand: ', 'Final stats: ') + state.geld + ' € · ' + t('Ruf ', 'Rep ') + displayRuf + '/100 · ' + t('Energie ', 'Energy ') + displayEnergie + '%' +
+            '</p>' +
+            '<button type="button" class="game-btn" id="btn-restart">' + t('Nochmal würfeln 🎲', 'Roll again 🎲') + '</button>';
+        document.getElementById('btn-restart').onclick = restartGame;
+    }
+
+    function restartGame(){
+        state = { geld: 0, energie: 100, ruf: 10, rolled: [], gameOver: false };
+        updateStatBar();
+        renderStart();
+    }
+
+    renderStart();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('fullscreen-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var supported = root.requestFullscreen || root.webkitRequestFullscreen;
+  if (!supported) { btn.setAttribute('hidden', ''); return; }
+  var EXPAND_PATHS = '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
+  var COMPRESS_PATHS = '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M16 3v3a2 2 0 0 0 2 2h3"/><path d="M8 21v-3a2 2 0 0 0-2-2H3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>';
+  var svg = btn.querySelector('svg');
+  btn.addEventListener('click', function(){
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    }
+  });
+  var onChange = function(){
+    var active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    btn.setAttribute('aria-pressed', active);
+    btn.title = active ? 'Vollbild verlassen' : 'Vollbildmodus';
+    if (svg) svg.innerHTML = active ? COMPRESS_PATHS : EXPAND_PATHS;
+  };
+  document.addEventListener('fullscreenchange', onChange);
+  document.addEventListener('webkitfullscreenchange', onChange);
+})();
+</script>
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

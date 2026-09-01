@@ -1,0 +1,146 @@
+FINANZRITUAL — ETF-VORSCHLAGSLISTE
+Erweitert um TER und Ausschüttungsstatus, sortiert nach Typ
+Stand: Juli 2026 (TER-Werte recherchiert, Quelle: justETF/extraETF)
+====================================================================
+
+WICHTIGER HINWEIS VORAB
+------------------------
+Dies ist eine reine Übersichtsliste zur eigenen Recherche, KEINE
+Kauf- oder Anlageempfehlung. TER-Werte und Ausschüttungspolitik
+können sich ändern — vor jedem Kauf aktuellen Stand auf justETF.com
+gegenprüfen (WKN oder ISIN dort einfach ins Suchfeld eingeben).
+
+WKN → ISIN-Zuordnung, Sparplanfähigkeit bei welchem Neobroker,
+aktuelle Kurse und historische Wertentwicklung: alles auf justETF
+einsehbar. Für den eigentlichen Kauf per Sparplan: Trade Republic,
+Scalable Capital, Consorsbank oder Smartbroker+ prüfen (Vergleich
+dazu auch unter kat-finanzen-etf.html auf dem Blog).
+
+SPALTE "EIGENE POSITION": bitte selbst ausfüllen (ja/nein/geplant) —
+das ist reine Selbstauskunft für die eigene Übersicht, keine
+öffentliche Angabe.
+
+
+AKTIEN GB
+----------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+552752  iShares Core FTSE 100                   0,07%   ja (quartalsweise)  [ ]
+
+
+AKTIEN GLOBAL
+--------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A1JX52  Vanguard FTSE All-World (Dist)           0,19%   ja (quartalsweise)  [ ]
+
+
+AKTIEN PAZIFIK EX JAPAN
+-------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A1T8FT  Vanguard FTSE Developed Asia Pac ex JP   0,15%   ja (quartalsweise)  [ ]
+
+
+ANLEIHEN SCHWELLENLÄNDER
+--------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A143JQ  Vanguard USD EM Government Bond          0,23%   ja (monatlich)      [ ]
+A0NECU  iShares J.P. Morgan $ EM Bond            0,45%   ja (monatlich)      [ ]
+
+
+DIVIDENDEN ASIA-PACIFIC
+-------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A0H074  iShares DJ Asia Pacific Sel. Div. 50     0,31%   ja (quartalsweise)  [ ]
+
+
+DIVIDENDEN-ARISTOKRATEN
+-------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A1T8GD  SPDR S&P Global Dividend Aristocrats     0,45%   ja (quartalsweise)  [ ]
+
+
+DIVIDENDEN GLOBAL
+-------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A41L70  L&G Global Quality Dividends             0,29%   ja (monatlich)      [ ]
+A1T8FV  Vanguard FTSE All-World High Div. Yield  0,29%   ja (quartalsweise)  [ ]
+A2DTF0  Franklin Global Quality Dividend         0,30%   ja (quartalsweise)  [ ]
+A2DRG5  iShares MSCI World Quality Dividend      0,38%   ja (quartalsweise)  [ ]
+A2JAHJ  VanEck Morningstar Div. Leaders          0,38%   ja (quartalsweise)  [ ]
+A2DL7E  Fidelity Global Quality Income           0,40%   ja (quartalsweise)  [ ]
+A0F5UH  iShares STOXX Global Sel. Div. 100       0,46%   ja (quartalsweise)  [ ]
+DBX1DG  Xtrackers STOXX Global Sel. Div. 100     0,50%   ja (quartalsweise)  [ ]
+
+
+DIVIDENDEN INDUSTRIELÄNDER
+-----------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A11471  UBS S&P Dividend Aristocrats ESG         0,30%   ja (halbjährlich)   [ ]
+
+
+DIVIDENDEN SCHWELLENLÄNDER
+-----------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A2AHZU  Invesco FTSE EM High Div. Low Vol.       0,49%   ja (quartalsweise)  [ ]
+A1JNZ9  iShares EM Dividend                      0,65%   ja (quartalsweise)  [ ]
+
+
+DIVIDENDENWACHSTUM GLOBAL
+----------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A2AG1D  WisdomTree Global Quality Div. Growth    0,38%   ja (quartalsweise)  [ ]
+
+
+GEFALLENE UNTERNEHMENS-ANLEIHEN
+-----------------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A2AFCX  iShares Fallen Angels High Yield Corp    0,50%   ja (halbjährlich)   [ ]
+
+
+IMMOBILIEN GLOBAL
+--------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A1T6SY  VanEck Global Real Estate                0,25%   ja (quartalsweise)  [ ]
+
+
+IMMOBILIEN INDUSTRIELÄNDER
+-----------------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A0LEW8  iShares Developed Mkts Property Yield    0,59%   ja (quartalsweise)  [ ]
+
+
+PREFERRED SHARES
+-------------------
+WKN     NAME                                    TER     AUSSCHÜTTUNG        EIGENE POSITION
+A2DVWJ  Invesco Preferred Shares                 0,50%   ja (quartalsweise)  [ ]
+
+
+EINORDNUNG DER TER-SPANNE
+----------------------------
+- Günstigster Fonds in der Liste: 552752 (iShares Core FTSE 100), 0,07%
+- Teuerster Fonds in der Liste: A1JNZ9 (iShares EM Dividend), 0,65%
+- Zum Vergleich: reine marktbreite Welt-ETFs ohne Dividendenfokus
+  (z. B. Vanguard FTSE All-World Acc, A2PKXG) liegen meist bei
+  0,15–0,22% TER — die Dividenden-/Themen-ETFs in dieser Liste sind
+  im Schnitt teurer, weil sie aktiver selektieren (Filterkriterien,
+  Gleichgewichtung, Smart-Beta-Ansätze) statt reiner Marktkapitali-
+  sierung zu folgen.
+- Alle Fonds in dieser Liste sind ausschüttend (Dist) — das ist
+  bei einer Dividenden-fokussierten Liste zu erwarten, aber gut,
+  es nochmal explizit festzuhalten: für den reinen Vermögensaufbau
+  ohne laufenden Cashflow-Wunsch wären thesaurierende Varianten
+  (meist unter demselben Fondsnamen mit anderer WKN erhältlich)
+  steuerlich und administrativ oft einfacher.
+
+
+NÄCHSTE SCHRITTE
+-------------------
+1. Für jeden ETF auf justETF.com die aktuelle Sparplanfähigkeit
+   beim eigenen Neobroker (Trade Republic, Scalable Capital,
+   Consorsbank, Smartbroker+) prüfen — nicht jeder Fonds ist überall
+   kostenfrei besparbar
+2. Spalte "Eigene Position" ausfüllen, um Überschneidungen im
+   eigenen Depot zu erkennen (z. B. mehrere "Dividenden global"-ETFs
+   parallel zu halten überschneidet sich oft stark in den Top-Holdings)
+3. Klumpenrisiko prüfen: Wer mehrere Fonds aus derselben TYP-Gruppe
+   hält, sollte auf Überschneidungen bei den größten Positionen achten
+   (justETF hat dafür ein kostenloses "Portfolio überlappen"-Tool)

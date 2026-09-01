@@ -1,0 +1,106 @@
+<!-- ===== Rechner-Modul: Bargeld-Budget-pro-Tag =====
+     Automatisch aus beitrag-bargeld-budget.html extrahiert (V880).
+     Simpler Bargeld-pro-Tag-Rechner (Geldboerse / Beobachtungstage),
+     mit farblichem Warnhinweis wenn der Tagesbetrag unter 10 Euro faellt.
+     Nutzt globale CSS-Variablen inkl. [data-theme="dark"]. Keine
+     externen FR_CONFIG/FR_CONSTANTS-Abhaengigkeiten, kein
+     DOMContentLoaded-Wrapper noetig. -->
+<style>
+.gb-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.gb-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .gb-calc-inputs{ grid-template-columns:1fr; } }
+.gb-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.gb-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.gb-result{ text-align:center; margin:22px 0 4px; padding:20px; border-radius:12px; }
+.gb-result-label{ font-size:.78rem; color:var(--ink-soft); margin-bottom:6px; }
+.gb-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.9rem; }
+.gb-result-sub{ font-size:.72rem; color:var(--ink-soft); margin-top:6px; }
+.gb-result--ok{ background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .gb-result--ok{ background:#173828;  box-shadow:none;}
+.gb-result--ok .gb-result-value{ color:var(--green); }
+.gb-result--tight{ background:rgba(176,141,32,.1); border:1px solid rgba(176,141,32,.25); }
+.gb-result--tight .gb-result-value{ color:#b08d20; }
+
+.gb-insight-box{
+  margin:22px 0; padding:20px 22px; border-radius:14px;
+  background:var(--blue-soft); border-left:3px solid var(--blue);
+}
+</style>
+<div class="gb-calc" id="gb-calc">
+<div class="gb-calc-inputs">
+<div class="row">
+<label for="gb-wallet"><span data-en="Cash in wallet">Bargeld in der Geldbörse</span> <span class="val" id="gb-wallet-val">300 €</span></label>
+<input class="calc-slider" id="gb-wallet" max="1000" min="50" step="25" type="range" value="300"/>
+</div>
+<div class="row">
+<label for="gb-days"><span data-en="Tracking period (days)">Beobachtungszeitraum (Tage)</span> <span class="val" id="gb-days-val">30 Tage</span></label>
+<input class="calc-slider" id="gb-days" max="30" min="7" step="1" type="range" value="30"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simple arithmetic, not financial advice. Meant as a rough gut-check, not a precise budget.">Einfache Rechnung, keine Finanzberatung. Als grober Realitätscheck gedacht, kein präziser Budgetplan.</p>
+<div class="gb-result gb-result--ok" id="gb-result-box">
+<div class="gb-result-label" data-en="That works out to">Das entspricht</div>
+<div class="gb-result-value" id="gb-result-daily">–</div>
+<div class="gb-result-sub" data-en="per day for groceries, going out, and small extras">pro Tag für Lebensmittel, Ausgehen und kleine Extras</div>
+</div>
+</div>
+<script>
+(function(){
+  const walletEl = document.getElementById('gb-wallet');
+  if(!walletEl) return;
+  const daysEl = document.getElementById('gb-days');
+  const walletVal = document.getElementById('gb-wallet-val');
+  const daysVal = document.getElementById('gb-days-val');
+  const resultDaily = document.getElementById('gb-result-daily');
+  const resultBox = document.getElementById('gb-result-box');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEURWhole(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(v)) + (en ? '' : '\u00A0€');
+  }
+  function fmtEURCents(v){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
+    return (en ? '€' : '') + fmt.format(v) + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+    const wallet = parseFloat(walletEl.value);
+    const days = parseInt(daysEl.value, 10);
+
+    walletVal.textContent = fmtEURWhole(wallet);
+    daysVal.textContent = days + (en ? (days === 1 ? ' day' : ' days') : ' Tage');
+
+    const perDay = wallet / days;
+    resultDaily.textContent = fmtEURCents(perDay) + (en ? ' / day' : ' / Tag');
+
+    resultBox.classList.remove('gb-result--ok','gb-result--tight');
+    resultBox.classList.add(perDay < 10 ? 'gb-result--tight' : 'gb-result--ok');
+  }
+
+  [walletEl, daysEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

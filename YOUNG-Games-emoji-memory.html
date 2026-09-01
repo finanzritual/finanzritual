@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Emoji Memory — JugendBASISbildung — FinanzRitual">Emoji Memory — JugendBASISbildung — FinanzRitual</title>
+    <meta name="description" content="Trainiere dein Finanz-Gehirn: Finde die passenden Emoji-Paare, mit einstellbarer Feldgröße." data-en-content="Train your finance brain: find the matching emoji pairs, with an adjustable board size.">
+    <link rel="canonical" href="https://www.finanz-ritual.de/YOUNG-Games-emoji-memory.html">
+<meta name="fr-video-id" content="1002">
+<meta name="fr-content-hash" content="55858ebdbe6c9ceceacd3b1323727b79a9c24abe3776948f4eb4b0044fed6086">
+<meta name="fr-links-hash" content="eae19a0b2ca890343d0f36ef9ec3728e8017bd54bd7cf201760a015be039d9a1">
+    <style>
+        :root {
+            --bg-color: #0c0f12;
+            --card-bg: #161b22;
+            --card-back: #21262d;
+            --text-color: #ffffff;
+            --accent-orange: #ffaa00;
+            --neon-green: #39ff14;
+            --cyan-glow: #00f0ff;
+            --y: #eaff00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+        }
+        body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+        body.is-scrolled:before{background:#3a4356}
+
+        .y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+        .y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap;font-size:.95rem}
+        .y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}
+        .y-nav a{color:#fff;text-decoration:none;font-size:.9rem}
+        .y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+        .y-icon-btn svg{width:17px;height:17px}
+        .y-icon-btn[hidden]{display:none}
+        @media(max-width:700px){.y-header{min-height:54px;padding:0 12px}.y-nav a{display:none}}
+
+        .game-wrap{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 15px 50px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 10px 0 5px;
+            color: var(--accent-orange);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #8b949e;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Groessen-Auswahl: vom User urspruenglich gewuenschtes
+           "anpassbares Feld in der Groesse" -- vorher im gelieferten
+           Code fest auf 4x4 (8 Paare) verdrahtet, jetzt mit drei
+           Stufen waehlbar. Wechsel startet automatisch ein neues Spiel. */
+        .size-picker{
+            display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; justify-content:center;
+        }
+        .size-btn{
+            background: var(--card-bg); border:2px solid #30363d; color:#fff;
+            border-radius: 999px; padding:8px 16px; font-size:.85rem; font-weight:700;
+            cursor:pointer; font-family:inherit;
+        }
+        .size-btn.is-active{ border-color: var(--accent-orange); color: var(--accent-orange); }
+
+        .status {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .game-board {
+            display: grid;
+            gap: 10px;
+            /* Feste Kartengröße statt festem Gesamt-Quadrat: Vorher
+               skalierte sich das gesamte Board immer auf 420x420px,
+               wodurch die einzelnen Karten je nach gewählter Feldgröße
+               unterschiedlich groß UND unterschiedlich proportioniert
+               wurden (mal breiter als hoch) -- dadurch war die räumliche
+               Struktur beim Merken der aufgedeckten Karten zwischen den
+               Stufen nicht wiedererkennbar. Jetzt bleibt jede Karte immer
+               exakt gleich groß (68x68px, passend zur Emoji-Größe), nur
+               das Spielfeld als Ganzes wird bei mehr Paaren größer. */
+            grid-auto-columns: 68px;
+            grid-auto-rows: 68px;
+            justify-content: center;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .card {
+            width: 68px;
+            height: 68px;
+            background-color: var(--card-back);
+            border: 2px solid #30363d;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        @media (hover: hover) {
+            .card:hover {
+                border-color: var(--cyan-glow);
+                transform: translateY(-2px);
+            }
+        }
+
+        .card:active { transform: scale(0.95); }
+
+        .card.flipped {
+            background-color: var(--card-bg);
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
+        }
+
+        .card.matched {
+            background-color: #0f2416;
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            cursor: default;
+            transform: scale(1);
+            animation: matchPop 0.4s ease-out;
+        }
+
+        @keyframes matchPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); border-color: #fff; }
+            100% { transform: scale(1); }
+        }
+
+        button.restart-btn {
+            margin-top: 25px;
+            padding: 12px 28px;
+            background-color: var(--accent-orange);
+            border: 2px solid #000;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            transition: transform 0.1s, box-shadow 0.1s;
+            font-family: inherit;
+        }
+
+        button.restart-btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        button.restart-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        .y-back{display:inline-block;margin-top:32px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none;font-size:.85rem}
+    
+.y-game-related{background:var(--card-bg);border:1px solid #303847;border-radius:16px;padding:20px 22px;margin:18px 0 10px;max-width:520px;margin-left:auto;margin-right:auto}
+.y-game-related-title{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-orange);margin-bottom:12px}
+.y-game-related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;text-align:left}
+.y-game-related-list a{color:var(--text-color);text-decoration:none;font-size:.9rem;display:flex;align-items:center;gap:8px}
+.y-game-related-list a:hover{color:var(--accent-orange)}
+</style>
+</head>
+<body>
+
+<header class="y-header">
+<a class="y-brand" href="jugendbasisbildung/index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="jugendbasisbildung/index.html" data-en="Home">Startseite</a>
+<a href="jugendbasisbildung/alle-themen.html" data-en="Topics">Themen</a>
+</nav>
+<a href="suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</header>
+
+<div class="game-wrap">
+    <h1 data-en="🛹 EMOJI MEMORY">🛹 EMOJI MEMORY</h1>
+    <div class="subtitle" data-en="JugendBASISbildung &bull; Train your finance brain 🧠">JugendBASISbildung &bull; Trainiere dein Finanz-Gehirn 🧠</div>
+
+    <div class="size-picker" id="size-picker" role="group" aria-label="Feldgröße wählen">
+        <button type="button" class="size-btn" data-pairs="6" data-en="Small (6 pairs)">Klein (6 Paare)</button>
+        <button type="button" class="size-btn is-active" data-pairs="8" data-en="Medium (8 pairs)">Mittel (8 Paare)</button>
+        <button type="button" class="size-btn" data-pairs="12" data-en="Large (12 pairs)">Groß (12 Paare)</button>
+    </div>
+
+    <div class="status" id="status">Züge: 0 | Paare: 0 / 8</div>
+
+    <div class="game-board" id="board"></div>
+
+    <button type="button" class="restart-btn" onclick="resetGame()" data-en="Restart 🔄">Neustarten 🔄</button>
+    <div class="y-game-related">
+      <div class="y-game-related-title" data-en="Learn more">Vertiefe dein Wissen</div>
+      <ul class="y-game-related-list">
+      <li><a href="YOUNG-girokonto-jugend.html" data-en="→ Your first checking account: when can you manage your own money?">→ Das erste eigene Girokonto: Ab wann darfst du dein Geld verwalten?</a></li>
+      <li><a href="YOUNG-schuelerjob-arbeitszeit-jugend.html" data-en="→ Your part-time job: how many hours are you actually allowed to work?">→ Der Schülerjob: Wie viele Stunden darfst du eigentlich arbeiten?</a></li>
+      <li><a href="YOUNG-junior-depot-jugend.html" data-en="→ The junior custody account: invest in the stock market as a teen">→ Das Junior-Depot: Wie du schon als Teenie an der Börse mitskatest</a></li>
+      </ul>
+    </div>
+
+
+    <a class="y-back" href="jugendbasisbildung/index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</div>
+
+    <script>
+        // Emoji-Pool: 12 Finanz-/Alltags-Emojis, damit auch die "Gross"-Groesse
+        // (12 Paare) genug unterschiedliche Symbole hat. Kleinere Feldgroessen
+        // nutzen einfach die ersten N Emojis aus diesem Pool.
+        const emojiPool = ['💰', '💳', '📈', '🐷', '📱', '🛍️', '🔑', '🛹', '📄', '🏦', '💸', '🎓'];
+
+        // Spaltenzahl je Paar-Anzahl -- ergibt ein moeglichst quadratisches
+        // Raster: 6 Paare = 12 Karten (3 Spalten), 8 Paare = 16 Karten
+        // (4 Spalten, Standard wie im Original), 12 Paare = 24 Karten (4 Spalten).
+        const columnsByPairs = { 6: 3, 8: 4, 12: 4 };
+
+        let numPairs = 8;
+        let emojis = emojiPool.slice(0, numPairs);
+        let cardValues = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let isLockBoard = false;
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function createBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            board.style.gridTemplateColumns = `repeat(${columnsByPairs[numPairs]}, 68px)`;
+
+            emojis = emojiPool.slice(0, numPairs);
+            cardValues = shuffle([...emojis, ...emojis]);
+
+            cardValues.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.value = emoji;
+                card.dataset.index = index;
+                card.addEventListener('click', flipCard);
+                board.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            if (isLockBoard) return;
+            if (this.classList.contains('flipped') || this.classList.contains('matched')) return;
+
+            this.classList.add('flipped');
+            this.innerText = this.dataset.value;
+            flippedCards.push(this);
+
+            if (flippedCards.length === 2) {
+                moves++;
+                updateStatus();
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+
+            if (card1.dataset.value === card2.dataset.value) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                flippedCards = [];
+                updateStatus();
+
+                if (matchedPairs === emojis.length) {
+                    var en = document.documentElement.getAttribute('lang') === 'en';
+                    setTimeout(() => {
+                        alert(en
+                          ? `🔥 Deal locked in! You found all pairs in just ${moves} moves! 🎉`
+                          : `🔥 Fettes Abo geknackt! Du hast alle Paare in nur ${moves} Zügen am Start gehabt! 🎉`);
+                    }, 400);
+                }
+            } else {
+                isLockBoard = true;
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    card1.innerText = '';
+                    card2.innerText = '';
+                    flippedCards = [];
+                    isLockBoard = false;
+                }, 1000);
+            }
+        }
+
+        function updateStatus() {
+            document.getElementById('status').innerText = `Züge: ${moves} | Paare: ${matchedPairs} / ${emojis.length}`;
+        }
+
+        function resetGame() {
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            isLockBoard = false;
+            updateStatus();
+            createBoard();
+        }
+
+        // Groessen-Auswahl verdrahten
+        document.getElementById('size-picker').addEventListener('click', function(e){
+            const btn = e.target.closest('.size-btn');
+            if (!btn) return;
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            numPairs = parseInt(btn.dataset.pairs, 10);
+            resetGame();
+        });
+
+        createBoard();
+        updateStatus();
+    </script>
+
+
+<script>
+(function(){
+  var btn = document.getElementById('fullscreen-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var supported = root.requestFullscreen || root.webkitRequestFullscreen;
+  if (!supported) { btn.setAttribute('hidden', ''); return; }
+  var EXPAND_PATHS = '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
+  var COMPRESS_PATHS = '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M16 3v3a2 2 0 0 0 2 2h3"/><path d="M8 21v-3a2 2 0 0 0-2-2H3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>';
+  var svg = btn.querySelector('svg');
+  btn.addEventListener('click', function(){
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    }
+  });
+  var onChange = function(){
+    var active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    btn.setAttribute('aria-pressed', active);
+    btn.title = active ? 'Vollbild verlassen' : 'Vollbildmodus';
+    if (svg) svg.innerHTML = active ? COMPRESS_PATHS : EXPAND_PATHS;
+  };
+  document.addEventListener('fullscreenchange', onChange);
+  document.addEventListener('webkitfullscreenchange', onChange);
+})();
+</script>
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

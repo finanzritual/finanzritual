@@ -1,0 +1,150 @@
+<!-- ===== Rechner-Modul: fire =====
+     Automatisch aus rechner-fire.html extrahiert (V874). Enthaelt NUR das reine
+     Rechner-Widget (Eingabefelder + Ergebnisanzeige) und sein
+     eigenstaendiges JavaScript -- KEIN umgebender Erklaertext, KEINE
+     Links zu anderen Seiten. Verwendet ausschliesslich CSS-Klassen aus
+     dem global geladenen style.css (.calc-card/.calc-slider etc.),
+     keine eigenen Styles noetig. Einbindbar in jede Seite, die
+     style.css und script.js laedt (Erwachsenen- oder Jugendbereich). -->
+<div class="calc-card" id="firerechner">
+      <div class="calc-inputs">
+        <div class="row">
+          <label for="fire-expenses"><span data-en="Annual expenses in retirement">Jährliche Ausgaben im Ruhestand</span> <span class="val" id="fire-expenses-val">24.000 €</span></label>
+          <input type="range" id="fire-expenses" class="calc-slider" min="6000" max="120000" step="500" value="24000">
+        </div>
+        <div class="row">
+          <label for="fire-current"><span data-en="Current net worth">Aktuelles Vermögen</span> <span class="val" id="fire-current-val">10.000 €</span></label>
+          <input type="range" id="fire-current" class="calc-slider" min="0" max="500000" step="1000" value="10000">
+        </div>
+        <div class="row">
+          <label for="fire-monthly"><span data-en="Monthly savings rate">Monatliche Sparrate</span> <span class="val" id="fire-monthly-val">800 €</span></label>
+          <input type="range" id="fire-monthly" class="calc-slider" min="0" max="5000" step="50" value="800">
+        </div>
+        <div class="row">
+          <label for="fire-return"><span data-en="Expected return p.a.">Erwartete Rendite p.a.</span> <span class="val" id="fire-return-val">6⁠%</span></label>
+          <input type="range" id="fire-return" class="calc-slider" min="1" max="12" step="0.5" value="6">
+        </div>
+        <p class="calc-note" data-en="Simplified example calculation, not investment advice. Assumes the 4⁠% rule and a constant annual return; real returns fluctuate.">Vereinfachte Beispielrechnung, keine Anlageberatung. Geht von der 4-%-Regel und einer konstanten Jahresrendite aus; reale Renditen schwanken.</p>
+      </div>
+
+      <div class="calc-result">
+        <div class="calc-stat calc-stat--total">
+          <span class="label" data-en="Time to FIRE">Zeit bis FIRE</span>
+          <span class="big num" id="fire-duration">–</span>
+        </div>
+        <div class="calc-stat-row">
+          <div class="calc-stat">
+            <span class="dot dot-start"></span>
+            <span class="label" data-en="Target net worth (25×)">Zielvermögen (25-fach)</span>
+            <span class="num" id="fire-target">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-blue"></span>
+            <span class="label" data-en="Estimated FIRE date">Voraussichtliches FIRE-Datum</span>
+            <span class="num" id="fire-date">–</span>
+          </div>
+          <div class="calc-stat">
+            <span class="dot dot-green"></span>
+            <span class="label" data-en="Sustainable monthly withdrawal">Nachhaltige monatliche Entnahme</span>
+            <span class="num" id="fire-withdrawal">–</span>
+          </div>
+        </div>
+      </div>
+<script>
+/* ===== FIRE-Zielvermögen-Rechner ===== */
+(function(){
+  const expensesEl = document.getElementById('fire-expenses');
+  const currentEl  = document.getElementById('fire-current');
+  const monthlyEl  = document.getElementById('fire-monthly');
+  const returnEl   = document.getElementById('fire-return');
+
+  const expensesVal = document.getElementById('fire-expenses-val');
+  const currentVal  = document.getElementById('fire-current-val');
+  const monthlyVal  = document.getElementById('fire-monthly-val');
+  const returnVal   = document.getElementById('fire-return-val');
+
+  const durationEl   = document.getElementById('fire-duration');
+  const targetEl     = document.getElementById('fire-target');
+  const dateEl       = document.getElementById('fire-date');
+  const withdrawalEl = document.getElementById('fire-withdrawal');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function compute(){
+    const en = isEn();
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    const eur = v => en ? ('€' + fmt.format(v)) : (fmt.format(v) + '\u00A0€');
+
+    const expenses = parseFloat(expensesEl.value);
+    const current  = parseFloat(currentEl.value);
+    const monthly  = parseFloat(monthlyEl.value);
+    const annRate  = parseFloat(returnEl.value) / 100;
+    const mRate    = annRate / 12;
+
+    expensesVal.textContent = eur(expenses);
+    currentVal.textContent  = eur(current);
+    monthlyVal.textContent  = eur(monthly);
+    returnVal.textContent   = returnEl.value + '%';
+
+    const target = expenses * 25;
+    targetEl.textContent = eur(Math.round(target));
+    withdrawalEl.textContent = eur(Math.round((target * 0.04) / 12));
+
+    if(current >= target){
+      durationEl.textContent = en ? 'Already there' : 'Bereits erreicht';
+      dateEl.textContent = en ? 'today' : 'heute';
+      return;
+    }
+    if(monthly <= 0 && annRate <= 0){
+      durationEl.textContent = '∞';
+      dateEl.textContent = '–';
+      return;
+    }
+
+    let balance = current;
+    let months = 0;
+    while(balance < target && months < 900){
+      balance = balance * (1 + mRate) + monthly;
+      months++;
+    }
+
+    if(months >= 900){
+      durationEl.textContent = '> 75 ' + (en ? 'years' : 'Jahre');
+      dateEl.textContent = '–';
+      return;
+    }
+
+    const y = Math.floor(months / 12);
+    const mo = months % 12;
+    let durationStr;
+    if(en){
+      durationStr = y + (mo ? (' yr ' + mo + ' mo') : ' yr');
+      if(y === 0) durationStr = mo + ' mo';
+    } else {
+      durationStr = y + ' J.' + (mo ? ' ' + mo + ' Mon.' : '');
+      if(y === 0) durationStr = mo + ' Mon.';
+    }
+    durationEl.textContent = durationStr;
+
+    const today = new Date();
+    const target_date = new Date(today.getFullYear(), today.getMonth() + months, 1);
+    dateEl.textContent = target_date.toLocaleDateString(en ? 'en-GB' : 'de-DE', { month:'short', year:'numeric' });
+  }
+
+  [expensesEl, currentEl, monthlyEl, returnEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

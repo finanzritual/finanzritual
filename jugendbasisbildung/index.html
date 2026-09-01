@@ -1,0 +1,549 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FinanzRitual · JugendBASISbildung</title>
+<style>
+:root{--yellow:#00c8ff;--bg:#070a10}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif}
+body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--yellow);z-index:9999;transition:background .35s ease}
+/* Nerd-Marker fuer Jugendseiten: gelber Balken nur im Ruhezustand (scrollY===0),
+   wechselt beim Scrollen zu einem neutralen Grau -- exakt dasselbe Prinzip wie
+   die gruene Header-Linie auf der Hauptseite (siehe header.site.is-scrolled in
+   style.css). Bleibt als Erkennungsmerkmal fuer den Jugendmodus da, stoert aber
+   nicht mehr dauerhaft die Aufmerksamkeit. */
+body.is-scrolled:before{background:#3a4356}
+/* Bild-Dateien tragen ihre Pixel-Massse bewusst im Dateinamen (wie die
+   Logos unter /logos/) -- eine neue, fertig gestaltete Version kann die
+   Datei einfach unter demselben Namen ersetzen, ohne dass hier am CSS
+   etwas geaendert werden muss. Aktuelle Massse:
+   - Menue-Banner (header-Hintergrund): 1958x90px, Cyber-Orange-Duotone
+   - Hero-Bild Deutsch: 1414x570px
+   - Hero-Bild Englisch (noch ungenutzt, siehe Kommentar bei .hero unten): 1202x555px */
+/* Cyber-Orange-Header, Variante A ("Clean") -- reiner CSS-Gradient statt
+   Foto-Banner (siehe V842). Kein Bild-Ladevorgang, keine Crop-Position,
+   garantiert lesbar bei jeder Bildschirmbreite. Farbverlauf an die bereits
+   etablierte --accent-orange (#ffaa00, aus allen sechs Spielen) angelehnt,
+   nicht an fremde Werte aus dem externen Entwurf. */
+header{position:sticky;top:0;z-index:20;min-height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),linear-gradient(110deg,#e67300 0%,#ffaa00 45%,#1b1512 100%);border-bottom:1px solid #313744}
+.logo{font-weight:900;letter-spacing:.08em;color:#fff;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px rgba(0,0,0,.5)}.nav{display:flex;gap:20px}.nav a{color:#fff;text-decoration:none;font-size:.86rem;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px rgba(0,0,0,.5)}
+.switch{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;padding:8px 13px}
+.header-icon-btn{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+.header-icon-btn svg{width:17px;height:17px}
+.header-icon-btn[hidden]{display:none}
+.y-lang{border:1px solid #626b78;background:#111722;color:#fff;border-radius:999px;padding:7px 12px;cursor:pointer;font:inherit;font-size:.82rem;font-weight:700}
+.y-lang:hover{border-color:var(--yellow);color:var(--yellow)}
+#teacher-access-link{font-size:16px;line-height:1}
+/* Fallback-Hintergrund: liegt als unterste Ebene UNTER dem Foto-Layer.
+   Laedt das Bild (z.B. bei falschem Dateinamen oder fehlender Datei nach
+   einem Austausch) nicht, bleibt dieser Cyber-Gradient sichtbar statt
+   eines leeren, schwarzen Blocks -- die Farben orientieren sich an der
+   bestehenden --yellow-Akzentfarbe dieser Seite plus Lila/Tuerkis aus
+   dem Foto selbst, damit der Fallback markenkonform wirkt, nicht wie ein
+   Fehlerzustand. */
+/* Ebenen-Modell (wie Photoshop-Layer), auf Nutzerwunsch statt JS-Bildtest:
+   .hero traegt NUR den Cyber-Fallback-Gradient (CSS-Grafik, kann nie
+   "fehlschlagen"). .hero-photo liegt als eigene, absolut positionierte
+   Ebene DARUEBER und bekommt das eigentliche Foto -- die neuen Bilder
+   (Desktop/iPad/Mobile) tragen den kompletten Werbetext bereits selbst
+   eingebrannt, decken also den echten HTML-Text darunter vollstaendig ab,
+   solange sie laden. .hero-content bleibt normal im Fluss, ganz normal
+   sichtbar im HTML/DOM (kein opacity-Trick, kein JS noetig) -- laedt ein
+   Foto mal nicht, ist die Foto-Ebene schlicht leer/durchsichtig, und der
+   Text darunter scheint automatisch durch. */
+main{max-width:1600px;margin:auto}.hero{position:relative;aspect-ratio:2400/1436;max-height:780px;margin-top:8px;background:radial-gradient(ellipse at 30% 20%,#3d2a5c 0%,transparent 55%),radial-gradient(ellipse at 80% 75%,#ffaa0033 0%,transparent 50%),linear-gradient(160deg,#0d0a18 0%,#1a1025 45%,#0a0e14 100%);background-color:#0d0a18;display:flex;align-items:flex-end;padding:38px 4vw 46px;overflow:hidden}
+.hero-photo{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48)),url("jugendbasisbildung-hero-desktop-de-2400x1436px.webp") center top/contain no-repeat}
+html[lang="en"] .hero-photo{background-image:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48)),url("jugendbasisbildung-hero-desktop-en-2400x1436px.webp")}
+@media(max-width:1200px) and (min-width:801px){
+  .hero{aspect-ratio:2400/1436;max-height:560px}
+  .hero-photo{background-image:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48)),url("jugendbasisbildung-hero-ipad-de-2400x1436px.webp")}
+  html[lang="en"] .hero-photo{background-image:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48)),url("jugendbasisbildung-hero-ipad-en-2400x1436px.webp")}
+}
+@media(max-width:800px){
+  .hero-photo{background-image:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48)),url("jugendbasisbildung-hero-mobile-de-2400x1436px.webp")}
+  html[lang="en"] .hero-photo{background-image:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48)),url("jugendbasisbildung-hero-mobile-en-2400x1436px.webp")}
+}
+.hero-content{position:relative;z-index:0;max-width:610px;text-shadow:0 2px 14px #000,0 0 34px rgba(255,170,0,.25)}
+.hero h1{font-size:clamp(2.4rem,6vw,5.4rem);line-height:.92;margin:0 0 18px}.hero p{font-size:1.15rem;line-height:1.5;margin:0}
+.content{padding:32px 4vw 70px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:20px;border:1px solid #303847;border-radius:18px;background:#111722}.card h3{margin-top:0}.card p{color:#c3cad7;line-height:1.45}.cards>*:nth-child(7):last-child{grid-column:1/-1}
+.card-clickable{text-align:left;font-family:inherit;cursor:pointer;transition:border-color .15s,transform .15s;width:100%}
+.card-clickable:hover,.card-clickable:focus-visible{border-color:var(--yellow);transform:translateY(-2px)}
+.card-clickable.is-active{border-color:var(--yellow);border-width:2px}
+body.standard-mode:before{background:#45d5a0}
+@media(max-width:800px){header{height:54px;padding:0 12px}.nav{display:none}.logo{font-size:.8rem}.hero{aspect-ratio:2400/1436;padding:28px 18px 34px}.hero h1{font-size:3rem}.hero p{font-size:1rem}.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.content{padding:25px 14px 50px}}
+
+/* Orientierungs-Suche: rein clientseitiger Live-Filter ueber die
+   "Aktuelle Themen"-Karten (Titel + Kurztext), gedacht als schneller
+   Ueberblick beim Weiterbauen -- kein Server, keine echte Suchseite,
+   nur ein Filter auf die bereits geladenen FR_POSTS-Eintraege dieser
+   Seite. Die "richtige" grosse Suche bleibt weiterhin unter
+   suche.html?audience=JugendBASISbildung verlinkt. */
+.youth-search-bar{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:11px 16px;background:#111722;border:1px solid #303847;border-radius:14px}
+.youth-search-icon{flex:none;opacity:.75;font-size:1.05rem}
+.youth-search-icon{cursor:pointer;border-radius:6px;padding:2px}
+.youth-search-icon:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.youth-search-input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:.95rem;font-family:inherit}
+.youth-search-input::placeholder{color:#8a93a3}
+.youth-search-count{flex:none;font-size:.78rem;color:#8a93a3;white-space:nowrap}
+
+/* NEU-Badge: automatisch auf jedem Artikel, dessen FR_POSTS-Datum
+   nicht mehr als 14 Tage zurueckliegt -- reine Orientierungshilfe
+   beim Weiterbauen, keine manuelle Pflege noetig. */
+.youth-new-badge{
+  display:inline-block; background:var(--yellow); color:#070a10; font-weight:800;
+  font-size:.66rem; letter-spacing:.06em; text-transform:uppercase;
+  padding:2px 8px; border-radius:999px; margin-left:8px; vertical-align:middle;
+}
+
+/* Fehlte bisher komplett (Fund V634): .youth-latest-grid/-card/.youth-actions
+   hatten seit Einfuehrung der "Aktuelle Themen"-Sektion (V619) NIE eine
+   CSS-Definition -- die Karten rendersten als nackte, ungestylte Links.
+   Jetzt im selben dunklen Kachel-Stil wie die vier Kategorie-Karten
+   oben (.card), damit das ganze Konstrukt wie eine Einheit wirkt. */
+.youth-latest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:0 0 20px}
+.youth-latest-card{
+  display:block; padding:16px 18px; border:1px solid #303847; border-radius:14px;
+  background:#111722; text-decoration:none; color:#fff;
+  transition:border-color .15s,transform .15s;
+}
+.youth-latest-card:hover,.youth-latest-card:focus-visible{border-color:var(--yellow);transform:translateY(-2px)}
+.youth-latest-card strong{display:block;font-size:.98rem;line-height:1.35;margin-bottom:6px}
+.youth-latest-card span{display:block;font-size:.83rem;color:#c3cad7;line-height:1.5;margin-bottom:8px}
+.youth-latest-card em{display:block;font-style:normal;font-size:.78rem;color:var(--yellow);font-weight:700}
+.youth-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+@media(max-width:700px){.youth-latest-grid{grid-template-columns:1fr}}
+
+/* Nach-oben-Button und schwebende Kaffeetasse, exakt nach dem Muster der
+   Hauptseite (style.css: .scroll-top-btn, .fr-coffee-float, .fr-coffee-cup)
+   -- diese Seite laedt style.css bewusst nicht (eigenstaendiges CSS), daher
+   hier lokal nachgebaut. Fund: Ohne diese Regeln blieb .fr-coffee-btn/
+   .fr-coffee-float komplett ungestylt -- die von script.js automatisch
+   injizierte Kaffeetasse (frInitFloatingCoffee) erschien dadurch mit
+   Browser-Standard-SVG-Groesse (~300x150px nativ) und Standard-Linkfarbe
+   statt der vorgesehenen 44px/20px-Kreisgroesse -- daher die riesigen,
+   lila wirkenden Flecken am Seitenende. */
+.scroll-top-btn{
+  position:fixed; right:20px; bottom:20px; z-index:60;
+  width:44px; height:44px; border-radius:50%;
+  background:#111722; border:1px solid #303847; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; color:#c3cad7;
+  cursor:pointer; opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .25s ease, transform .25s ease, border-color .2s ease, color .2s ease;
+}
+.scroll-top-btn.is-visible{ opacity:1; visibility:visible; transform:translateY(0); }
+.scroll-top-btn svg{ width:18px; height:18px; }
+.scroll-top-btn:hover{ border-color:var(--y, var(--yellow)); color:var(--y, var(--yellow)); }
+
+.fr-coffee-float{
+  position:fixed !important; right:20px !important; bottom:74px; left:auto; top:auto; z-index:60;
+  width:44px !important; height:44px !important; margin:0 !important; padding:0 !important;
+  border-radius:50% !important;
+  background:#111722 !important; border:1px solid #303847 !important; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; color:var(--y, var(--yellow));
+  cursor:pointer; opacity:0; visibility:hidden; transform:translateY(8px) scale(.9);
+  transition:opacity .25s ease, transform .25s ease, border-color .2s ease;
+  text-decoration:none;
+}
+.fr-coffee-float.is-visible{ opacity:1; visibility:visible; transform:translateY(0) scale(1); }
+.fr-coffee-float:hover{ transform:translateY(0) scale(1); border-color:var(--y, var(--yellow)) !important; }
+.fr-coffee-cup{ flex:0 0 auto; display:flex; }
+.fr-coffee-float .fr-coffee-cup{ width:20px; height:20px; }
+.fr-coffee-float .fr-coffee-cup svg{ width:20px; height:20px; }
+.fr-steam{ opacity:0; transform-origin:center bottom; }
+.fr-coffee-float .fr-steam{ animation:fr-steam-rise 2s ease-in-out infinite; }
+.fr-coffee-float .fr-steam-2{ animation-delay:.3s; }
+.fr-coffee-float .fr-steam-3{ animation-delay:.6s; }
+@keyframes fr-steam-rise{
+  0%   { opacity:0;  transform:translateY(2px)  scaleY(.7); }
+  40%  { opacity:.85; }
+  100% { opacity:0;  transform:translateY(-3px) scaleY(1.15); }
+}
+@media(max-width:560px){
+  .fr-coffee-float{ width:40px !important; height:40px !important; right:14px !important; bottom:74px; }
+  .scroll-top-btn{ width:40px; height:40px; right:14px; bottom:14px; }
+}/* Info-Banner + Footer-Ticker (Dauerwerbesendung-Hinweis) -- uebernommen aus
+   style.css, mit fest verankerter Farbe statt var(--blue), da diese
+   Theme-Variable hier (eigenstaendiges <style>, kein style.css-Import)
+   nicht existiert. #2454A6 ist der identische Wert wie im Erwachsenenbereich. */
+.info-banner{position:fixed;top:0;left:0;right:0;z-index:205;background:#2454A6;color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25);transform:translateY(-100%);visibility:hidden;transition:transform .35s cubic-bezier(.22,.68,0,1.2),visibility 0s linear .35s}
+.info-banner.is-visible{transform:translateY(0);visibility:visible;transition:transform .35s cubic-bezier(.22,.68,0,1.2),visibility 0s linear 0s}
+.info-banner-inner{max-width:1200px;margin:0 auto;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.info-banner-text{flex:1;font-size:.95rem;line-height:1.55;margin:0;color:#fff;font-weight:600}
+.info-banner-text strong{font-weight:800;color:#fff}
+.info-banner-text a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.info-banner-logo{flex:none;height:44px;width:auto;opacity:.85}
+@media(max-width:500px){.info-banner-logo{display:none}}
+.info-banner-timer{flex:none;position:relative;width:36px;height:36px;cursor:pointer;padding:0;margin:0;border:none;background:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;font:inherit;display:block}
+.info-banner-timer svg{position:absolute;top:0;left:0;transform:rotate(-90deg)}
+.info-banner-timer .timer-bg{fill:none;stroke:rgba(255,255,255,.3);stroke-width:3}
+.info-banner-timer .timer-arc{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-dasharray:91;stroke-dashoffset:0;transition:stroke-dashoffset linear}
+.info-banner-timer .timer-x{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#fff;font-weight:700;line-height:1;pointer-events:none}
+@media(max-width:600px){.info-banner-text{font-size:.85rem}}
+/* footer-ticker-CSS entfernt (V1052): zugehoeriges HTML-Element wurde
+   projektweit entfernt (dismissible/verschwindender Hinweis, Abmahnrisiko).
+   Die gruene Disclaimer-Box weiter unten ersetzt es dauerhaft sichtbar. */
+/* Gruene Disclaimer-Box (Startseiten-Fusszeile) -- uebernommen aus style.css
+   (.disclaimer-box), mit fest verankerten Dark-Theme-Farben statt var(...),
+   aus demselben Grund wie beim Info-Banner oben: eigenstaendiges <style>,
+   kein style.css-Import. #173828/#55D99A sind die identischen Dark-Theme-
+   Werte wie im Erwachsenenbereich (vgl. style.css [data-theme="dark"]). */
+.disclaimer-box{margin:28px auto;padding:16px 18px;border-left:3px solid #55D99A;background:#173828;font-size:.8rem;line-height:1.55;color:#aeb7c6;border-radius:0 10px 10px 0;max-width:720px}
+.disclaimer-box strong{color:#e7ebf2}
+/* Zahlenschloss-Overlay fuer den Lehrbereich-Zugang (👩‍🏫-Icon im Header).
+   Reiner Client-seitiger Sichtschutz -- der Code steht im Quelltext dieser
+   Seite und ist mit "Seitenquelltext anzeigen" einsehbar, das ist keine
+   echte Zugriffskontrolle. Reicht, um zu verhindern, dass Schuelerinnen
+   und Schueler zufaellig in den Lehrbereich klicken, schuetzt aber nicht
+   vor jemandem, der gezielt danach sucht. */
+#lock-overlay{position:fixed;inset:0;background:rgba(3,6,12,.88);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}
+#lock-overlay.is-open{display:flex}
+.lock-card{background:#111722;border:1px solid #2a3344;border-radius:16px;padding:28px 26px;text-align:center;max-width:300px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.lock-card h3{color:#55D99A;margin:0 0 6px;font-size:1.05rem}
+.lock-card p{color:#8b96a8;font-size:.8rem;margin:0 0 18px}
+.lock-dots{display:flex;justify-content:center;gap:10px;margin-bottom:20px}
+.lock-dot{width:12px;height:12px;border-radius:50%;border:2px solid #3a4356;background:transparent;transition:background .15s,border-color .15s}
+.lock-dot.is-filled{background:#55D99A;border-color:#55D99A}
+.lock-overlay.is-shaking .lock-card{animation:lock-shake .4s}
+@keyframes lock-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+#keypad{display:grid;grid-template-columns:repeat(3,56px);gap:10px;justify-content:center;margin:0 auto}
+.lock-btn{width:56px;height:56px;border-radius:50%;border:1px solid #2a3344;background:#0d1219;color:#fff;font-size:1.1rem;font-weight:600;cursor:pointer;transition:background .12s,border-color .12s}
+.lock-btn:hover,.lock-btn:focus-visible{background:#1a2230;border-color:#55D99A;outline:none}
+.lock-btn:active{background:#223046}
+.lock-btn--wide{grid-column:span 1}
+.lock-clear{color:#ff8a70}
+.lock-close{margin-top:16px;background:none;border:none;color:#8b96a8;font-size:.8rem;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.lock-close:hover{color:#fff}
+</style><script src="../script.js" defer></script></head><body><button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<header><div class="logo">FINANZ RITUAL</div><nav class="nav"><a href="index.html" data-en="Home">Startseite</a><a href="alle-themen.html" data-en="Topics">Themen</a><a href="tools.html" data-en="Tools">Tools</a><a href="#spiele" data-en="Games">Spiele</a><a href="../glossar.html?audience=JugendBASISbildung" data-en="Glossary">Glossar</a></nav><a href="#" id="teacher-access-link" class="header-icon-btn" aria-label="Lehrbereich öffnen" title="Lehrbereich" data-en-aria-label="Open teacher area" data-en-title="Teacher area">👩‍🏫</a><a href="../suche.html?audience=JugendBASISbildung" id="header-search-link" class="header-icon-btn" aria-label="Jugendartikel durchsuchen" title="Suche" data-en-aria-label="Search youth articles" data-en-title="Search">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a><button id="fullscreen-toggle" class="header-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" title="Vollbildmodus" data-en-aria-label="Toggle full screen" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button><button id="lang-toggle" class="y-lang" type="button" aria-pressed="false"><span id="lang-toggle-text">EN</span></button><a class="switch" id="switch" href="../index.html" data-en="← Main site">← Mutterseite</a></header>
+<main><section class="hero"><div class="hero-photo" aria-hidden="true"></div><div class="hero-content"><h1>JugendBASISbildung 🎓</h1><p data-en="Everyone wants what's best for you – namely your money. Knowledge that moves you forward. Explained simply. No blah blah.">Alle wollen nur dein Bestes – nämlich dein Geld. Wissen, das dich weiterbringt. Einfach erklärt. Ohne Blabla.</p></div></section>
+<section class="content"><h2 data-en="Your Financial World">Deine Finanzwelt</h2><div class="cards">
+<button type="button" class="card card-clickable" data-subcat="Mein erstes Geld &amp; Banken"><h3 data-en="💳 My First Money &amp; Banking">💳 Mein erstes Geld &amp; Banken</h3><p data-en="You want to manage your own money and stop asking your parents about every little thing?">Du willst dein eigenes Geld verwalten und nicht mehr wegen jeder Kleinigkeit deine Eltern fragen?</p></button>
+<button type="button" class="card card-clickable" data-subcat="Verträge, Abo-Fallen &amp; Konsum"><h3 data-en="⚠️ Contracts, Subscription Traps &amp; Spending">⚠️ Verträge, Abo-Fallen &amp; Konsum</h3><p data-en="&quot;Buy now, pay later&quot; sounds tempting, right? Here's how you keep your money.">„Jetzt kaufen, später bezahlen" klingt verlockend, oder? Hier zeigen wir dir, wie du dein Geld behältst.</p></button>
+<button type="button" class="card card-clickable" data-subcat="Schülerjobs &amp; eigenes Business"><h3 data-en="💼 Student Jobs &amp; Your Own Business">💼 Schülerjobs &amp; eigenes Business</h3><p data-en="Earning your own money — the first big step towards independence.">Dein eigenes Geld verdienen — der erste große Schritt in die Unabhängigkeit.</p></button>
+<button type="button" class="card card-clickable" data-subcat="Sparen &amp; Vermögen aufbauen"><h3 data-en="📈 Saving &amp; Building Wealth">📈 Sparen &amp; Vermögen aufbauen</h3><p data-en="Your money shouldn't just sit there. Here's how saving and investing actually work.">Dein Geld soll nicht nur herumliegen. Hier lernst du, wie Sparen und Investieren funktionieren.</p></button>
+<button type="button" class="card card-clickable" data-subcat="Familie, Auszug &amp; die erste eigene Bude"><h3 data-en="🏠 Family, Moving Out &amp; Your First Place">🏠 Familie, Auszug &amp; die erste eigene Bude</h3><p data-en="Child benefit, money disputes in the family, and your first apartment — where rights and family sometimes clash.">Kindergeld, Vermögen im Familienstreit und die erste eigene Wohnung — wo Rechte und Familie sich manchmal reiben.</p></button>
+<button type="button" class="card card-clickable" data-subcat="Mindset, Krypto-Scams &amp; Schutz im Netz"><h3 data-en="🎓 Mindset, Crypto Scams &amp; Staying Safe Online">🎓 Mindset, Krypto-Scams &amp; Schutz im Netz</h3><p data-en="Fake gurus, finance-agent traps, and how to keep your money and your name clean online.">Fake-Gurus, Finanzagenten-Fallen und wie du dein Geld und deinen Namen im Netz sauber hältst.</p></button>
+<button type="button" class="card card-clickable" data-subcat="Versicherungen"><h3 data-en="🛡️ Insurance">🛡️ Versicherungen</h3><p data-en="Which insurance you actually need, which one runs through your parents, and where you can save real money as a young person.">Welche Versicherung du wirklich brauchst, welche über deine Eltern läuft, und wo du dir als junger Mensch bares Geld sparst.</p></button>
+</div></section>
+<section class="content" id="jugend-aktuell">
+  <h2 data-en="🆕 Current Topics">🆕 Aktuelle Themen</h2>
+  <div class="youth-search-bar">
+    <span class="youth-search-icon" id="youth-search-icon" tabindex="0" role="button" aria-label="Suchsymbol (dreifach klicken öffnet den Lehrbereich)" data-en-aria-label="Search icon (triple-click opens the teacher area)">🔍</span>
+    <input type="text" id="youth-search-input" class="youth-search-input" placeholder="Themen durchsuchen … (nur zur eigenen Orientierung)" aria-label="Jugendartikel durchsuchen" data-en-placeholder="Search topics … (just for your own orientation)" data-en-aria-label="Search youth articles">
+    <span class="youth-search-count" id="youth-search-count"></span>
+  </div>
+  <div id="youth-latest" class="youth-latest-grid" aria-live="polite"></div>
+  <div class="youth-actions">
+    <a class="switch" href="alle-themen.html" style="background:var(--yellow);color:#070a10;font-weight:800;border-color:var(--yellow)" data-en="➡️ All topics">➡️ Weiter zu allen Themen</a>
+    <a class="switch" href="../suche.html?audience=JugendBASISbildung" data-en="🔎 Search all youth articles →">🔎 Alle Jugendartikel suchen →</a>
+    <a class="switch" href="../glossar.html?audience=JugendBASISbildung" data-en="📖 Open youth glossary →">📖 Jugend-Glossar öffnen →</a>
+  </div>
+</section>
+
+<section class="content" id="jugend-download">
+  <div style="background:linear-gradient(110deg,#3a2a12 0%,#241c10 60%,#151b25 100%);border:1px solid #ffaa0055;border-radius:16px;padding:22px 26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:240px;">
+      <p style="margin:0 0 8px;font-weight:700;color:#ffaa00;font-size:.95rem;" data-en="🎁 Free: teaching material for teachers &amp; anyone starting a business">🎁 Gratis: Unterrichtsmaterial für Lehrkräfte &amp; alle, die gründen wollen</p>
+      <p style="margin:0 0 14px;color:#d7dce5;font-size:.92rem;line-height:1.5;" data-en="5 pages, PDF: Gewerbe, Freiberufler or freelancer — which category applies, what it means for taxes and paperwork, plus a ready-to-use classroom exercise with sample solution.">5 Seiten, PDF: Gewerbe, Freiberufler oder freier Mitarbeiter — welche Kategorie greift, was das für Steuern und Papierkram bedeutet, plus eine fertige Unterrichtsaufgabe mit Musterlösung.</p>
+      <a href="../downloads/de/Selbststaendigkeit-im-Check.pdf" style="display:inline-block;padding:10px 18px;border-radius:999px;background:#ffaa00;color:#151b25;font-weight:700;font-size:.88rem;text-decoration:none;" data-en="→ Get the PDF for free">→ PDF kostenlos sichern</a>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="spiele">
+  <h2 data-en="🕹️ Learning by playing? Sure!">🕹️ Lernen durch Zocken? Na klar!</h2>
+  <p style="color:#c3cad7;line-height:1.5;max-width:70ch" data-en="Dry theory is boring. Test your knowledge and memory directly in our built-in mini-games.">Graue Theorie ist langweilig. Teste dein Wissen und dein Gedächtnis direkt in unseren integrierten Mini-Games.</p>
+  <div class="cards">
+    <a href="../YOUNG-Games-fach-vokal-training.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="🎓 Vocabulary Trainer">🎓 Fach-Vokal-Training</h3><p data-en="All finance terms as a category-sorted card quiz — in English too, for vocabulary in both languages.">Alle Finanzbegriffe als Karten-Quiz nach Kategorie — auch auf Englisch, für Fach-Vokabeln in beiden Sprachen.</p></a>
+    <a href="../YOUNG-Games-emoji-memory.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="🧩 Emoji Memory">🧩 Emoji-Memory</h3><p data-en="Find the matching finance pairs and beat the high score. Board size adjustable.">Finde die passenden Finanz-Paare und knacke den Highscore. Feldgröße einstellbar.</p></a>
+    <a href="../YOUNG-Games-scam-ausweicher.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="💣 Financial Scam Dodger">💣 Finanz-Scam-Ausweicher</h3><p data-en="Collect safe investments and dodge the crypto scams and debt traps.">Sammle sichere Investments ein und weiche den Krypto-Scams und Schuldenfallen aus.</p></a>
+    <a href="../YOUNG-Games-schweinchen-catcher.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="🐷 Piggy Bank Catcher">🐷 Schweinchen-Catcher</h3><p data-en="Catch bills and coins before they land in the shredder.">Fange Scheine und Münzen, bevor sie im Schredder landen.</p></a>
+    <a href="../YOUNG-Games-muenz-labyrinth.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="🕳️ Coin Roll Labyrinth">🕳️ Münz-Roll-Labyrinth</h3><p data-en="Steer the coin through the labyrinth to your savings goal — watch out, new debt holes keep appearing!">Steuere die Münze durchs Labyrinth zum Sparziel — Vorsicht, neue Kreditlöcher entstehen laufend!</p></a>
+    <a href="../YOUNG-Games-millionen-labyrinth.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="💎 Path to the First Million">💎 Weg zur ersten Million</h3><p data-en="Only 9 seconds to the goal — the slower you are, the longer and harder the labyrinth gets.">Nur 9 Sekunden bis zum Ziel — wer trödelt, für den wird das Labyrinth länger und härter.</p></a>
+    <a href="../YOUNG-Games-buergermeister-hustle.html" class="card card-clickable" style="text-decoration:none;display:block"><h3 data-en="🤝 Mayor Hustle">🤝 Bürgermeister-Hustle</h3><p data-en="Juggle up to 3 side hustles at once, survive the time conflict and the trade-office end boss.">Würfle bis zu 3 Side-Hustles gleichzeitig, überlebe den Zeit-Konflikt und den Gewerbeamt-Endgegner.</p></a>
+  </div>
+</section>
+
+</main>
+<script>localStorage.setItem("fr-jugend-mode","1");</script>
+
+<script>
+(function(){
+  // FIX: script.js wird mit "defer" geladen (siehe <head>), laeuft also
+  // erst NACH dem Parsen dieses Inline-Skripts, aber VOR DOMContentLoaded.
+  // Ohne diesen Wrapper war FR_POSTS an dieser Stelle noch nicht
+  // definiert -- die Karten wurden nie gerendert (frueher Return unten),
+  // unabhaengig von der neu ergaenzten Sprachumschaltung. Bereits vor der
+  // Sprachfunktion bestehender Fund, hier gleich mitbehoben.
+  document.addEventListener('DOMContentLoaded', init);
+
+  function init(){
+  const out = document.getElementById('youth-latest');
+  if (!out || typeof FR_POSTS === 'undefined') return;
+
+  // "Heute" fest auf das Projektdatum gesetzt statt new Date(), damit das
+  // NEU-Badge nicht von der Systemuhr des Rechners abhaengt, auf dem
+  // die Datei gerade angeschaut wird (relevant bei file://-Vorschau).
+  const TODAY = new Date('2026-08-19T00:00:00');
+  const NEW_WINDOW_DAYS = 14;
+
+  function isNew(dateStr){
+    if (!dateStr) return false;
+    const d = new Date(dateStr + 'T00:00:00');
+    const diffDays = (TODAY - d) / (1000 * 60 * 60 * 24);
+    return diffDays >= 0 && diffDays <= NEW_WINDOW_DAYS;
+  }
+
+  const posts = FR_POSTS.filter(p => p.cat === 'JugendBASISbildung')
+    .slice()
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  let activeSubcat = null;
+
+  function isEnglish(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function render(filterText){
+    const en = isEnglish();
+    const q = (filterText || '').trim().toLowerCase();
+    let base = activeSubcat ? posts.filter(p => p.subcat === activeSubcat) : posts;
+    const filtered = q
+      ? base.filter(p => {
+          const title = en ? (p.titleEn || p.title || '') : (p.title || '');
+          const excerpt = en ? (p.excerptEn || p.excerpt || '') : (p.excerpt || '');
+          return title.toLowerCase().includes(q) || excerpt.toLowerCase().includes(q);
+        })
+      : base;
+    const shown = filtered.slice(0, 12);
+    const newLabel = en ? 'New' : 'Neu';
+    const readLabel = en ? 'Read article →' : 'Artikel lesen →';
+    const emptyLabel = en ? 'No youth articles found for this search term.' : 'Keine Jugendartikel zu diesem Suchbegriff gefunden.';
+
+    out.innerHTML = shown.length ? shown.map(p => {
+      const title = en ? (p.titleEn || p.title || '') : (p.title || '');
+      const excerpt = en ? (p.excerptEn || p.excerpt || '') : (p.excerpt || '');
+      return `
+      <a class="youth-latest-card" href="../${p.link}">
+        <strong>${title}${isNew(p.date) ? '<span class="youth-new-badge">' + newLabel + '</span>' : ''}</strong>
+        <span>${excerpt}</span>
+        <em>${readLabel}</em>
+      </a>`;
+    }).join('') : `<p>${emptyLabel}</p>`;
+
+    const countEl = document.getElementById('youth-search-count');
+    if (countEl) {
+      const articleLabel = en ? ' Articles' : ' Artikel';
+      const totalBase = q ? (filtered.length + ' / ' + (activeSubcat ? posts.filter(p => p.subcat === activeSubcat).length : posts.length)) : (filtered.length + articleLabel);
+      countEl.textContent = activeSubcat ? (totalBase + ' · ' + activeSubcat) : totalBase;
+    }
+  }
+
+  render('');
+  // Bei Sprachwechsel (siehe #lang-toggle-Handler in script.js) muss diese
+  // Sektion neu gerendert werden, da sie ihren Inhalt per JS aus FR_POSTS
+  // baut -- translatePage() erreicht nur [data-en]-Elemente im HTML, nicht
+  // dynamisch erzeugten Inhalt. Genau dafuer ist window.frPageRecomputers da.
+  if (Array.isArray(window.frPageRecomputers)) {
+    window.frPageRecomputers.push(() => render(input ? input.value : ''));
+  } else {
+    window.frPageRecomputers = [() => render(input ? input.value : '')];
+  }
+
+  const input = document.getElementById('youth-search-input');
+  if (input) {
+    input.addEventListener('input', () => render(input.value));
+  }
+
+  // Kategorie-Karten oben auf der Seite: Klick setzt den subcat-Filter,
+  // scrollt zu "Aktuelle Themen" und laesst sich mit der Textsuche
+  // kombinieren. Erneuter Klick auf dieselbe Karte hebt den Filter wieder auf.
+  document.querySelectorAll('.card-clickable').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const subcat = btn.dataset.subcat;
+      const isSame = activeSubcat === subcat;
+      document.querySelectorAll('.card-clickable').forEach(function(b){ b.classList.remove('is-active'); });
+      activeSubcat = isSame ? null : subcat;
+      if (activeSubcat) btn.classList.add('is-active');
+      render(input ? input.value : '');
+      document.getElementById('jugend-aktuell').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  // Versteckter Zugang zum Lehrer-Lernplan-Generator: Dreifachklick auf
+  // die Lupe im Suchfeld, exakt nach demselben Zaehl-Prinzip wie das
+  // Doppelklick-Easter-Egg auf dem Haupt-Logo (frInitSecretLogoPanel in
+  // script.js) -- Klicks werden gezaehlt statt sofort zu navigieren, ein
+  // einzelnes Icon-Element (kein <a>) verhindert das vom User erkannte
+  // Problem "Klick navigiert sofort weg, bevor der zweite/dritte Klick
+  // ankommt". Nach 3 Klicks innerhalb der Wartezeit: Navigation zum
+  // Generator. Weniger als 3 Klicks: nichts passiert, das Icon bleibt
+  // rein dekorativ wie zuvor.
+  const searchIcon = document.getElementById('youth-search-icon');
+  if (searchIcon) {
+    let iconClickCount = 0;
+    let iconClickTimer = null;
+    const ICON_DELAY = 500;
+    const triggerTeacherAccess = () => {
+      iconClickCount++;
+      if (iconClickTimer) clearTimeout(iconClickTimer);
+      if (iconClickCount >= 3) {
+        iconClickCount = 0;
+        if (window.frOpenTeacherLock) { window.frOpenTeacherLock(); }
+        else { window.location.href = 'lernplan-generator.html'; } // Fallback, sollte praktisch nie greifen
+        return;
+      }
+      iconClickTimer = setTimeout(() => { iconClickCount = 0; }, ICON_DELAY);
+    };
+    searchIcon.addEventListener('click', triggerTeacherAccess);
+    searchIcon.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); triggerTeacherAccess(); }
+    });
+  }
+
+  // Die Header-Lupe hatte hier vorher eine Dreifachklick-Geste zum
+  // Lehrbereich (280ms Zeitfenster, an das Logo-Easter-Egg angeglichen).
+  // Trotz mehrfacher Timing-Anpassungen blieb das Klicken unzuverlaessig
+  // -- ersetzt durch einen direkten Einzelklick-Button (👩‍🏫
+  // #teacher-access-link, direkt neben der Lupe im Header), der seit
+  // V1053 ein Zahlenschloss-Overlay oeffnet statt sofort zu navigieren
+  // (siehe Script-Block am Dateiende). Die Such-Balken-Lupe
+  // (#youth-search-icon, siehe oben) behielt zunaechst ihre
+  // Dreifachklick-Geste als ungesicherten Zweitzugang -- seit V1114
+  // oeffnet auch sie ueber window.frOpenTeacherLock() dasselbe
+  // Zahlenschloss statt direkt zu navigieren, kein ungesicherter Weg
+  // mehr vorhanden.
+  } // Ende init()
+})();
+</script>
+
+
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<!-- Zahlenschloss-Overlay: schuetzt den Zugang zum Lehrbereich (Lernplan-
+     Generator), ausgeloest ueber das 👩‍🏫-Icon im Header. Reiner Sichtschutz,
+     siehe Kommentar bei den CSS-Regeln (#lock-overlay) weiter oben. -->
+<div id="lock-overlay" role="dialog" aria-modal="true" aria-labelledby="lock-title">
+  <div class="lock-card">
+    <h3 id="lock-title">Code für den Lehrbereich</h3>
+    <p data-en="Ask your teacher for the code.">Frag deine Lehrkraft nach dem Code.</p>
+    <div class="lock-dots" id="lock-dots" aria-hidden="true"></div>
+    <div id="keypad">
+      <button type="button" class="lock-btn" data-key="1">1</button>
+      <button type="button" class="lock-btn" data-key="2">2</button>
+      <button type="button" class="lock-btn" data-key="3">3</button>
+      <button type="button" class="lock-btn" data-key="4">4</button>
+      <button type="button" class="lock-btn" data-key="5">5</button>
+      <button type="button" class="lock-btn" data-key="6">6</button>
+      <button type="button" class="lock-btn" data-key="7">7</button>
+      <button type="button" class="lock-btn" data-key="8">8</button>
+      <button type="button" class="lock-btn" data-key="9">9</button>
+      <button type="button" class="lock-btn lock-clear" data-key="clear" aria-label="Eingabe löschen" data-en-aria-label="Clear input">✕</button>
+      <button type="button" class="lock-btn" data-key="0">0</button>
+      <span></span>
+    </div>
+    <button type="button" class="lock-close" id="lock-close" data-en="Cancel">Abbrechen</button>
+  </div>
+</div>
+<script>
+(function(){
+  // Geheimcode hier aendern -- steht im Klartext im Quelltext dieser
+  // Seite, siehe Sichtschutz-Hinweis bei den CSS-Regeln weiter oben.
+  var SECRET_CODE = '1379';
+  var TARGET_URL = 'lernplan-generator.html';
+
+  var overlay   = document.getElementById('lock-overlay');
+  var openBtn   = document.getElementById('teacher-access-link');
+  var closeBtn  = document.getElementById('lock-close');
+  var keypad    = document.getElementById('keypad');
+  var dotsWrap  = document.getElementById('lock-dots');
+  if (!overlay || !openBtn || !keypad) return;
+
+  var entered = '';
+
+  function renderDots(){
+    dotsWrap.innerHTML = '';
+    for (var i = 0; i < SECRET_CODE.length; i++){
+      var dot = document.createElement('span');
+      dot.className = 'lock-dot' + (i < entered.length ? ' is-filled' : '');
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function resetEntry(){
+    entered = '';
+    renderDots();
+  }
+
+  function openLock(){
+    overlay.classList.add('is-open');
+    resetEntry();
+    var firstKey = keypad.querySelector('.lock-btn');
+    if (firstKey) firstKey.focus();
+  }
+
+  function closeLock(){
+    overlay.classList.remove('is-open');
+    resetEntry();
+  }
+
+  function shakeAndReset(){
+    overlay.classList.add('is-shaking');
+    setTimeout(function(){ overlay.classList.remove('is-shaking'); }, 400);
+    setTimeout(resetEntry, 250);
+  }
+
+  function pressKey(key){
+    if (key === 'clear'){ resetEntry(); return; }
+    if (entered.length >= SECRET_CODE.length) return;
+    entered += key;
+    renderDots();
+    if (entered.length === SECRET_CODE.length){
+      if (entered === SECRET_CODE){
+        window.location.href = TARGET_URL;
+      } else {
+        shakeAndReset();
+      }
+    }
+  }
+
+  openBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    openLock();
+  });
+
+  // Fuer den zweiten, bisher ungesicherten Zugang (Dreifachklick auf die
+  // Header-Lupe, #youth-search-icon) global verfuegbar machen, damit
+  // beide Wege durch dasselbe Zahlenschloss laufen statt einer direkt
+  // ungeprueft zu navigieren.
+  window.frOpenTeacherLock = openLock;
+
+  keypad.addEventListener('click', function(e){
+    var btn = e.target.closest('.lock-btn');
+    if (!btn) return;
+    pressKey(btn.getAttribute('data-key'));
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLock);
+
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) closeLock();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape'){ closeLock(); return; }
+    if (e.key >= '0' && e.key <= '9'){ pressKey(e.key); return; }
+    if (e.key === 'Backspace'){ pressKey('clear'); }
+  });
+})();
+</script>
+<div class="disclaimer-box" data-fr-snippet="disclaimer-jugend-startseite"></div>
+</body></html>

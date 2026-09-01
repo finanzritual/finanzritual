@@ -1,0 +1,156 @@
+<!-- ===== Rechner-Modul: Junior-Depot-Freibetrag-Simulation =====
+     Automatisch aus beitrag-junior-depot-freibetraege.html extrahiert
+     (V884). Simuliert Depotwachstum bis zur Volljaehrigkeit inklusive
+     Pruefung, ob der Kapitalertrag im letzten Jahr den (editierbaren)
+     Grundfreibetrag ueberschreitet. Grundfreibetrag ist bewusst als
+     EDITIERBARER SLIDER implementiert (Standardwert 12.348 EUR), NICHT
+     ueber FR_CONSTANTS bezogen -- keine externe Abhaengigkeit. Globale
+     CSS-Variablen. -->
+<style>
+.jd-calc{ margin:24px 0; padding:22px 20px; border-radius:16px; background:var(--bg-raised); border:2px solid var(--line-strong); box-shadow:var(--shadow); }
+.jd-calc .row{ margin-bottom:20px; }
+.jd-calc label{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--ink-soft); margin-bottom:8px; }
+.jd-calc label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:600; }
+.jd-result-row{ display:flex; gap:14px; margin-top:6px; }
+.jd-result{ flex:1; text-align:center; padding:14px; border-radius:12px; background:var(--bg); border:1px solid var(--line); }
+.jd-result.hi{ background:var(--green-soft); border-color:rgba(30,142,90,.3); }
+.jd-result.warn{ background:rgba(192,57,43,.1); border-color:rgba(192,57,43,.35); }
+.jd-result-value{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.4rem; color:var(--ink); }
+.jd-result.hi .jd-result-value{ color:var(--green); }
+.jd-result.warn .jd-result-value{ color:#c0392b; }
+.jd-result-label{ font-size:.72rem; color:var(--ink-soft); margin-top:2px; }
+@media(max-width:560px){ .jd-result-row{ flex-direction:column; } }
+</style>
+<div class="jd-calc" id="jd-calc">
+<div class="row">
+<label for="jd-monthly"><span data-en="Monthly savings rate">Monatliche Sparrate</span> <span class="val" id="jd-monthly-val">100 €</span></label>
+<input class="calc-slider" id="jd-monthly" max="2000" min="25" step="25" type="range" value="100"/>
+</div>
+<div class="row">
+<label for="jd-rate"><span data-en="Expected annual return">Erwartete Jahresrendite</span> <span class="val" id="jd-rate-val">4,0⁠%</span></label>
+<input class="calc-slider" id="jd-rate" max="9" min="1" step="0.5" type="range" value="4"/>
+</div>
+<div class="row">
+<label for="jd-years"><span data-en="Years until age 18">Jahre bis zur Volljährigkeit</span> <span class="val" id="jd-years-val">18 Jahre</span></label>
+<input class="calc-slider" id="jd-years" max="18" min="1" step="1" type="range" value="18"/>
+</div>
+<div class="row">
+<label for="jd-freibetrag"><span data-en="Grundfreibetrag (editable, currently €12,348)">Grundfreibetrag (editierbar, aktuell 12.348 €)</span> <span class="val" id="jd-freibetrag-val">12.348 €</span></label>
+<input class="calc-slider" id="jd-freibetrag" max="16000" min="8000" step="1" type="range" value="12348"/>
+</div>
+<div class="jd-result-row">
+<div class="jd-result">
+<div class="jd-result-value" id="jd-contrib-value">–</div>
+<div class="jd-result-label" data-en="paid in">eingezahlt</div>
+</div>
+<div class="jd-result hi">
+<div class="jd-result-value" id="jd-value-value">–</div>
+<div class="jd-result-label" data-en="grows to">wird daraus</div>
+</div>
+</div>
+<div class="jd-result" id="jd-income-box" style="margin-top:10px;">
+<div class="jd-result-value" id="jd-income-value">–</div>
+<div class="jd-result-label" data-en="capital income in the final year, vs. the tax-free limit" id="jd-income-label">Kapitalertrag im letzten Jahr, vs. steuerfreie Grenze</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not a promise of any specific outcome. Assumes a constant monthly contribution and a constant annual return, before any fund costs." style="margin-top:14px;">Vereinfachte Beispielrechnung, kein Versprechen für ein bestimmtes Ergebnis. Geht von konstanter monatlicher Einzahlung und konstanter Jahresrendite aus, vor Fondskosten.</p>
+</div>
+<h2 data-en="What this doesn't fix">Was das nicht löst</h2>
+<p data-en="A few things are worth weighing before transferring real money into a child's name. First, it's legally irrevocable – once the depot is the child's property, the parents can't simply take it back, and at 18 the child gets full control, with no obligation to use it the way the parents intended. Second, capital income counts as the child's own income – if it grows large enough, it can affect eligibility for free family health insurance (Familienversicherung) or later BAföG. Third, none of this replaces a tax return if income does exceed the allowances; it just prevents the bank from withholding tax it wouldn't otherwise owe.">Ein paar Dinge sind es wert, abgewogen zu werden, bevor echtes Geld auf den Namen eines Kindes übertragen wird. Erstens ist das rechtlich unwiderruflich — sobald das Depot Eigentum des Kindes ist, können die Eltern es nicht einfach zurückholen, und mit 18 bekommt das Kind die volle Kontrolle, ohne Verpflichtung, es im Sinne der Eltern zu nutzen. Zweitens zählen Kapitalerträge als eigenes Einkommen des Kindes — wird es groß genug, kann das die beitragsfreie Familienversicherung oder später BAföG beeinflussen. Drittens ersetzt das alles keine Steuererklärung, falls das Einkommen die Freibeträge doch übersteigt — es verhindert nur, dass die Bank Steuer einbehält, die gar nicht angefallen wäre.</p>
+<div class="disclaimer-box" data-en="This article is educational material, not tax or legal advice. Rules around custody accounts, allowances, and NV-Bescheinigungen change and depend on individual circumstances – for a real transfer of assets, a tax advisor is the right address. Figures checked as of August 2026." style="margin-top:24px;">
+    Dieser Beitrag ist Bildungsmaterial, keine Steuer- oder Rechtsberatung. Regeln rund um Kinderdepots, Freibeträge und NV-Bescheinigungen ändern sich und hängen vom Einzelfall ab — für eine echte Vermögensübertragung ist ein Steuerberater die richtige Adresse. Angaben geprüft Stand August 2026.
+  </div>
+<p style="margin-top:24px;"><a data-en="→ Capital gains tax, simply explained" href="beitrag-kapitalertragsteuer-erklaert.html">→ Die Kapitalertragsteuer einfach erklärt</a></p>
+<p style="margin-top:8px;"><a data-en="→ The €1,000 tax allowance" href="beitrag-freibetrag.html">→ Der 1.000-Euro-Freibetrag</a></p>
+<p style="margin-top:32px;"><a data-en="← Back to Building Wealth" href="kat-finanzen-vermoegen.html">← Zurück zu Vermögensaufbau</a></p>
+</div>
+<script>
+(function(){
+  var monthlyEl = document.getElementById('jd-monthly');
+  var monthlyVal = document.getElementById('jd-monthly-val');
+  var rateEl = document.getElementById('jd-rate');
+  var rateVal = document.getElementById('jd-rate-val');
+  var yearsEl = document.getElementById('jd-years');
+  var yearsVal = document.getElementById('jd-years-val');
+  var freibetragEl = document.getElementById('jd-freibetrag');
+  var freibetragVal = document.getElementById('jd-freibetrag-val');
+  var contribEl = document.getElementById('jd-contrib-value');
+  var valueEl = document.getElementById('jd-value-value');
+  var incomeEl = document.getElementById('jd-income-value');
+  var incomeLabelEl = document.getElementById('jd-income-label');
+  var incomeBoxEl = document.getElementById('jd-income-box');
+  if(!monthlyEl || !rateEl || !yearsEl) return;
+
+  var SPARERPAUSCHBETRAG = 1000;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function eur(v){
+    var n = Math.round(v);
+    return isEn() ? ('\u20ac' + n.toLocaleString('en-IE')) : (n.toLocaleString('de-DE') + '\u00A0\u20ac');
+  }
+
+  function fvAfter(monthly, i, months){
+    if(months <= 0) return 0;
+    return i === 0 ? monthly * months : monthly * (((Math.pow(1 + i, months)) - 1) / i);
+  }
+
+  function render(){
+    var monthly = parseFloat(monthlyEl.value);
+    var rate = parseFloat(rateEl.value) / 100;
+    var years = parseInt(yearsEl.value, 10);
+    var freibetrag = freibetragEl ? parseFloat(freibetragEl.value) : 12348;
+
+    monthlyVal.textContent = eur(monthly);
+    rateVal.textContent = rateEl.value.replace('.', ',') + ' %';
+    yearsVal.textContent = years + (isEn() ? ' years' : ' Jahre');
+    if(freibetragVal) freibetragVal.textContent = eur(freibetrag);
+
+    var i = rate / 12;
+    var n = years * 12;
+    var contrib = monthly * n;
+    var fv = fvAfter(monthly, i, n);
+
+    contribEl.textContent = eur(contrib);
+    valueEl.textContent = eur(fv);
+
+    var fvPrevYear = fvAfter(monthly, i, Math.max(0, n - 12));
+    var yearlyIncome = Math.max(0, fv - fvPrevYear - (n >= 12 ? monthly * 12 : monthly * n));
+    var threshold = freibetrag + SPARERPAUSCHBETRAG;
+
+    if(incomeEl){
+      incomeEl.textContent = eur(yearlyIncome);
+    }
+    if(incomeLabelEl){
+      var overLimit = yearlyIncome > threshold;
+      var labelDe = overLimit
+        ? ('Kapitalertrag im letzten Jahr \u2014 \u00fcber der steuerfreien Grenze von ' + eur(threshold) + '!')
+        : ('Kapitalertrag im letzten Jahr \u2014 innerhalb der steuerfreien Grenze von ' + eur(threshold));
+      var labelEn = overLimit
+        ? ('Capital income in the final year \u2014 above the tax-free limit of ' + eur(threshold) + '!')
+        : ('Capital income in the final year \u2014 within the tax-free limit of ' + eur(threshold));
+      incomeLabelEl.textContent = isEn() ? labelEn : labelDe;
+      incomeLabelEl.setAttribute('data-en', labelEn);
+      if(incomeBoxEl){
+        incomeBoxEl.classList.toggle('warn', overLimit);
+        incomeBoxEl.classList.toggle('hi', !overLimit);
+      }
+    }
+  }
+
+  [monthlyEl, rateEl, yearsEl, freibetragEl].forEach(function(el){ if(el) el.addEventListener('input', render); });
+  render();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

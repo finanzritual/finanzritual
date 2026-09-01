@@ -17,12 +17,61 @@
 <link rel="canonical" href="https://www.finanz-ritual.de/shop.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
+<!-- FR_BOOT_BACKGROUND_START -->
+<script>
+(function(){
+  try {
+    var t=localStorage.getItem('fr-theme')||'light';
+    var c=localStorage.getItem('fr-contrast')||'off';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-contrast',c);
+  } catch(e) {}
+})();
+</script>
+<style id="fr-boot-background">
+html,body{background:#F4F5F7 !important;}
+html[data-theme="dark"] body,html[data-theme="dark"]{background:#10151C !important;}
+html[data-theme="light"][data-contrast="high"] body,html[data-theme="light"][data-contrast="high"]{background:#FFFFFF !important;}
+html[data-theme="dark"][data-contrast="high"] body,html[data-theme="dark"][data-contrast="high"]{background:#000000 !important;}
+</style>
+<!-- FR_BOOT_BACKGROUND_END -->
+<!-- FR_SIMPLE_TRANSITION_START -->
+<style id="fr-simple-transition-style">
+html.fr-simple-transition-active::before{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#F4F5F7;opacity:1;transition:opacity .10s ease-out;}
+html.fr-simple-transition-active[data-theme="dark"]::before{background:#10151C;}
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{background:#FFF;}
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{background:#000;}
+html.fr-simple-transition-done::before{opacity:0;}
+</style>
+<script>
+(function(){
+  try {
+    if(sessionStorage.getItem('fr-simple-transition') === '1'){
+      sessionStorage.removeItem('fr-simple-transition');
+      document.documentElement.classList.add('fr-simple-transition-active');
+      window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('fr-simple-transition-done');
+          setTimeout(function(){
+            document.documentElement.classList.remove('fr-simple-transition-active','fr-simple-transition-done');
+          }, 130);
+        });
+      }, {once:true});
+    }
+  } catch(e) {}
+})();
+</script>
+<!-- FR_SIMPLE_TRANSITION_END -->
+
+
 
 <link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/shop.html">
 <link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/shop.html">
 <link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
 </head>
 <body>
+<a href="#lang-toggle" class="skip-link" data-en="Skip directly to the English language switch">Direkt zum Sprachwechsel (Englisch) springen</a><a href="#main-content" class="skip-link" data-en="Skip to main content">Direkt zum Hauptinhalt springen</a>
+
 
 <!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
 <div class="alert-banner" id="alert-banner" role="alert">
@@ -70,7 +119,7 @@
           <a href="index.html#optionen">Optionen</a>
           <a href="kat-technik.html" data-en="Tech">Technik</a>
         </nav>
-        <div class="fr-secret-calendar">
+        <div class="fr-secret-a11y"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Dyslexia-friendly font">Legasthenie-Schrift</span><button class="fr-secret-a11y-switch" id="dyslexic-font-toggle" type="button" aria-pressed="false" aria-label="Legasthenie-freundliche Schrift umschalten" data-en-aria-label="Toggle dyslexia-friendly font"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-ladder-test"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Force mobile ladder (test)">Mobile-Leiter-Test</span><button class="fr-secret-a11y-switch" id="force-ladder-toggle" type="button" aria-pressed="false" aria-label="Mobile-Leiter-Test umschalten" data-en-aria-label="Toggle mobile ladder test"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-youth"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Youth Basic Education">JugendBASISbildung</span><button class="fr-secret-a11y-switch fr-youth-switch" id="fr-youth-toggle" type="button" aria-pressed="false" aria-label="JugendBASISbildung öffnen" data-en-aria-label="Open Youth Basic Education"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-timer"><div class="fr-secret-timer-row"><span class="fr-secret-timer-label" data-en="Quiz thinking time">Quiz-Bedenkzeit</span><span class="fr-secret-timer-value" id="fr-timer-value" data-en="Off">Aus</span></div><input type="range" class="fr-secret-timer-slider" id="fr-timer-slider" min="0" max="120" step="5" value="0" aria-label="Bedenkzeit in Sekunden fuer das Quiz" data-en-aria-label="Thinking time in seconds for the quiz"></div><div class="fr-secret-calendar">
           <div class="fr-cal-header" id="fr-cal-header"></div>
           <div class="fr-cal-weekdays">
             <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
@@ -86,8 +135,8 @@
           <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-drop-panel">
-        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
-        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (63)">Alle Finanzen-Artikel (63)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(9)</span></a>
         <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
         <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
         <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
@@ -114,17 +163,22 @@
         <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
         <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
         <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
-        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(14)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
         </div>
       </div>
       <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
-      <a href="shop.html" class="is-active" data-en="Shop">Shop</a>
-      <a href="vip.html" data-en="VIP">VIP</a>
-    </nav>
+      <a href="kat-technik.html" data-en="Tech">Tech</a><a data-en="Shop" href="shop.html">Shop</a><a data-en="VIP" href="vip.html">VIP</a>
+      </nav>
     <div class="header-controls">
+<button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
       <div class="control">
         <label for="font-slider">Aa</label>
         <input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <div class="font-stepper" role="group" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+        <button type="button" class="font-stepper-btn" id="font-stepper-minus" aria-label="Schrift verkleinern" data-en-aria-label="Decrease font size">&minus;</button>
+        <span class="font-stepper-label" aria-hidden="true">Aa</span>
+        <button type="button" class="font-stepper-btn" id="font-stepper-plus" aria-label="Schrift vergrößern" data-en-aria-label="Increase font size">+</button>
       </div>
       <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
         <span class="dot" id="theme-toggle-icon">
@@ -134,15 +188,20 @@
       <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" title="Switch to English">
         <span id="lang-toggle-text">EN</span>
       </button>
-      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+      <button type="button" class="simplelang-toggle" id="simplelang-toggle" aria-pressed="false" aria-label="Einfache Sprache umschalten" data-en-aria-label="Toggle simple language" title="Einfache Sprache einschalten" data-en-title="Turn on simple language">
+        <span class="simplelang-icon" id="simplelang-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v13"/><path d="M7 7h10"/><path d="M4 7l3 6H1l3-6Z"/><path d="M20 7l3 6h-6l3-6Z"/><path d="M12 17h-3"/><path d="M12 17h3"/><path d="M9 20h6"/><path d="M4 4c1.2-1.2 2.7-1.5 4-.7-1.2.1-2.2.8-2.8 1.8"/></svg>
+        </span>
+      </button>
+      <a class="ladder-quick-link" href="rechner.html" aria-label="Rechner öffnen" data-en-aria-label="Open calculators"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg></a><a class="ladder-quick-link" href="kat-minimalismus-motivation.html#spiele-bereich" aria-label="Spiele öffnen" data-en-aria-label="Open games"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4.5 4.5 0 0 1 4.2 6l-1 2.5a2.5 2.5 0 0 1-4.5.3l-1.2-2H9l-1.2 2a2.5 2.5 0 0 1-4.5-.3l-1-2.5a4.5 4.5 0 0 1 4.2-6Z"></path><path d="M7.5 11v4M5.5 13h4"></path><circle cx="16.5" cy="12" r=".8" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r=".8" fill="currentColor" stroke="none"></circle></svg></a><button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
         <span class="alert-test-dot"></span>
       </button>
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+      
     </div>
   </div>
 </header>
 
-<section class="page-hero">
+<section class="page-hero" id="main-content" tabindex="-1">
   <div class="wrap">
     <div class="eyebrow" data-en="Shop · Draft">Shop · Entwurf</div>
     <h1 data-en="Small things for your money ritual">Kleine Dinge für dein Finanzritual</h1>
@@ -176,6 +235,7 @@
           <h3 data-en="Minimalism &amp; Money — Compendium">Minimalismus &amp; Geld — Kompendium</h3>
           <p style="font-size:.85rem;" data-en="How mindful consumption automatically raises your savings rate. 80 pages, hands-on.">Wie bewusster Konsum deine Sparquote automatisch erhöht. 80 Seiten, praxisnah.</p>
           <span class="price">9,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT &middot; digital delivery, no shipping">inkl. MwSt. &middot; digitale Auslieferung, kein Versand</span>
           <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
         </div>
       </div>
@@ -189,23 +249,135 @@
           <h3 data-en="Dividend Calendar Template">Dividendenkalender-Vorlage</h3>
           <p style="font-size:.85rem;" data-en="Excel template giving you an overview of every payout date of the year, incl. dividend yield refreshed annually.">Excel-Vorlage zur Übersicht aller Ausschüttungstermine im Jahr, inkl. jährlich gepflegter Dividendenrendite.</p>
           <span class="price">4,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT &middot; digital delivery, no shipping">inkl. MwSt. &middot; digitale Auslieferung, kein Versand</span>
+          <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
+        </div>
+      </div>
+
+      <div class="product-card" id="produkt-immobilien-gestehungskosten">
+        <div class="product-thumb">
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"><path d="M3 21h18"/><path d="M6 21V9l6-6 6 6v12"/><path d="M10 21v-6h4v6"/></svg>
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Template">Vorlage</span>
+          <h3 data-en="Real Estate Real-Cost Calculator">Immobilien-Gestehungskosten-Rechner</h3>
+          <p style="font-size:.85rem;" data-en="Excel tool with real formulas comparing four example properties: nominal purchase price vs. real total cost including Kaufnebenkosten and energetic renovation, incl. Markdown guide.">Excel-Tool mit echten Formeln: Vergleicht vier Beispiel-Immobilien — nominaler Kaufpreis vs. reale Gesamtkosten inklusive Kaufnebenkosten und energetischer Sanierung, inkl. Markdown-Anleitung.</p>
+          <p style="font-size:.8rem;margin-top:2px;"><a data-en="→ Background in the blog article" href="beitrag-heizkosten-immobilienpreis.html">→ Hintergrund im Blogartikel</a></p>
+          <span class="price">4,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT &middot; digital delivery, no shipping">inkl. MwSt. &middot; digitale Auslieferung, kein Versand</span>
           <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
         </div>
       </div>
 
       <div class="product-card" id="produkt-tshirt-viertel">
         <div class="product-thumb product-thumb--photo">
-          <img src="img/produkt-tshirt-viertel.svg" alt="Dunkles T-Shirt-Mockup mit dem Schriftzug 'Mein Blog · meine Straße · mein Viertel' und dem Finanzritual-Wortkasten-Logo darunter" data-en-alt="Dark T-shirt mockup with the slogan 'My blog · my street · my neighbourhood' and the Finanzritual crossword logo below" loading="lazy" width="640" height="760">
+          <img src="img/produkt-viertel-kollektion.png" alt="FinanzRitual-Kollektion im Graffiti-Stil: goldene Krone über Skyline, Schriftzug 'FinanzRitual', darunter 'Mein Blog · Meine Straße · Mein Viertel' mit Wegweiser-Schild, dazu Cap, Sneaker und Skateboard mit Kronen-Logo" data-en-alt="FinanzRitual collection in graffiti style: golden crown over a city skyline, 'FinanzRitual' lettering, below it 'My blog · my street · my neighbourhood' with a signpost, plus a cap, sneakers and a skateboard featuring the crown logo" loading="lazy" width="1230" height="1278">
         </div>
         <div class="product-body">
           <span class="badge" data-en="Idea">Idee</span>
-          <h3 data-en="&ldquo;My Blog · My Street · My Neighbourhood&rdquo; T-Shirt">„Mein Blog · meine Straße · mein Viertel" T-Shirt</h3>
-          <p style="font-size:.85rem;" data-en="A local-pride take on the wordmark shirt — dark cotton, slogan on the chest, crossword logo below. Colour, cut and print method still open.">Eine Lokalstolz-Variante des Wortmarken-Shirts — dunkle Baumwolle, Slogan auf der Brust, Wortkasten-Logo darunter. Farbe, Schnitt und Druckverfahren noch offen.</p>
+          <h3 data-en="&ldquo;My Blog · My Street · My Neighbourhood&rdquo; Collection">„Mein Blog · meine Straße · mein Viertel"-Kollektion</h3>
+          <p style="font-size:.85rem;" data-en="A local-pride graffiti design — golden crown over the skyline, the FinanzRitual lettering, and the 'my blog · my street · my neighbourhood' signpost. Planned across cap, sneakers, skateboard and T-shirt. Colours, cuts and print methods still open.">Ein Lokalstolz-Graffiti-Design — goldene Krone über der Skyline, der FinanzRitual-Schriftzug und das Wegweiser-Motiv „mein Blog · meine Straße · mein Viertel". Geplant für Cap, Sneaker, Skateboard und T-Shirt. Farben, Schnitte und Druckverfahren noch offen.</p>
           <span class="price" data-en="in planning">in Planung</span>
           <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
         </div>
       </div>
 
+      <!-- TODO: Sobald der Spreadshop live ist, href="#" durch die echte Spreadshop-URL ersetzen,
+           den Button-Text von "Spreadshop noch nicht live" auf "Zum Spreadshop" aendern,
+           aria-disabled/pointer-events:none/opacity entfernen. -->
+      <div class="spreadshop-banner" style="grid-column:1/-1;background:var(--bg-raised);border:1px solid var(--line-strong);border-radius:var(--radius-lg);padding:20px 24px;margin:8px 0 4px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <span style="font-size:1.6rem;" aria-hidden="true">🛍️</span>
+        <div style="flex:1;min-width:240px;">
+          <strong data-en="Merch runs through our Spreadshop">Merch läuft über unseren Spreadshop</strong>
+          <p style="font-size:.85rem;margin:4px 0 0;color:var(--ink-soft);" data-en="All T-shirts and mugs below are produced and shipped via Spreadshirt. Once your order lands in our shop there, you can also browse everything else on offer — no separate account needed for browsing.">Alle T-Shirts und Tassen unten werden über Spreadshirt produziert und versendet. Sobald du in unserem dortigen Shop landest, kannst du dort auch gleich alle anderen Angebote durchstöbern — kein separater Account zum Stöbern nötig.</p>
+        </div>
+        <a href="#" class="btn btn-outline" data-en="Spreadshop not yet live" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;white-space:nowrap;">Spreadshop noch nicht live</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-fasse-dich-kurz.png" alt="Schwarzes T-Shirt mit dem Schriftzug 'Fasse Dich Kurz' in Weiß, darunter dem goldenen FinanzRitual™-Wortmarken-Logo" data-en-alt="Black T-shirt with the slogan 'Fasse Dich Kurz' ('Keep it short') in white, with the golden FinanzRitual™ wordmark logo below" loading="lazy" width="866" height="918">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;Fasse Dich Kurz&rdquo; T-Shirt">„Fasse Dich Kurz" T-Shirt</h3>
+          <p style="font-size:.85rem;" data-en="Black cotton, white slogan print with the golden FinanzRitual™ wordmark below — a nod to keeping financial explanations short and clear.">Schwarze Baumwolle, weißer Slogan-Aufdruck mit goldenem FinanzRitual™-Wortmarken-Logo darunter — ein Augenzwinkern in Richtung kurzer, klarer Finanzerklärungen.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-fintok.png" alt="Schwarzes T-Shirt-Design im Graffiti-Stil mit goldener FinanzRitual™-Krone, dem Schriftzug 'FinanzRitual' und darunter groß 'FIN-TOK' in Weiß und Gold, mit goldener Kronen-Münze" data-en-alt="Black graffiti-style T-shirt design with a golden FinanzRitual™ crown, the 'FinanzRitual' wordmark, and 'FIN-TOK' in large white and gold letters below, with a golden crown coin" loading="lazy" width="1254" height="1254">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;FIN-TOK&rdquo; T-Shirt (Draft)">„FIN-TOK" T-Shirt (Entwurf)</h3>
+          <p style="font-size:.85rem;" data-en="Graffiti-style design for the planned TikTok channel — black shirt, golden FinanzRitual™ crown, bold 'FIN-TOK' lettering. For now, more of a keepsake than an order-ready product.">Graffiti-Design für den geplanten TikTok-Kanal — schwarzes Shirt, goldene FinanzRitual™-Krone, großer „FIN-TOK"-Schriftzug. Fürs Erste eher Erinnerungsstück als bestellfertiges Produkt.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-campaign-rapper.png" alt="Kampagnenbild: Mann mit goldenem Zahn, goldener Kette mit Kronen-Anhänger und schwarzer Cap mit Kronen-Logo traegt das schwarze FinanzRitual-T-Shirt mit Krone und Graffiti-Schriftzug, Stadt-Skyline bei Sonnenuntergang im Hintergrund" data-en-alt="Campaign image: a man with a gold tooth, a gold chain with a crown pendant and a black cap featuring the crown logo wears the black FinanzRitual T-shirt with crown and graffiti lettering, city skyline at sunset in the background" loading="lazy" width="1254" height="1254">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Campaign">Kampagne</span>
+          <h3 data-en="&ldquo;Ritual&rdquo; T-Shirt — Campaign Shot (Draft)">„Ritual"-T-Shirt — Kampagnenbild (Entwurf)</h3>
+          <p style="font-size:.85rem;" data-en="Lifestyle reference for the T-shirt design — full gold-chain, gold-tooth, snapback look, city skyline at golden hour. Mood board and reminder, not a final campaign asset yet.">Lifestyle-Referenz für das T-Shirt-Design — mit Goldkette, Goldzahn und Snapback-Look, Stadt-Skyline zur goldenen Stunde. Moodboard und Erinnerung, noch kein finales Kampagnenbild.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-finsplaining-profi.png" alt="Schwarzes T-Shirt mit dem Sprüh-Graffiti-Schriftzug 'Fin'splaining Profi' in Weiß und Gold, darüber das goldene FinanzRitual™-Kronen-Logo" data-en-alt="Black T-shirt with the spray-graffiti slogan 'Fin'splaining Profi' in white and gold, with the golden FinanzRitual™ crown logo above" loading="lazy" width="1230" height="1278">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;Fin&rsquo;splaining Profi&rdquo; T-Shirt">„Fin'splaining Profi" T-Shirt</h3>
+          <p style="font-size:.85rem;" data-en="Black cotton, white and gold spray-paint print with the golden FinanzRitual™ crown logo above — for anyone who's explained the risk staircase to their family one too many times.">Schwarze Baumwolle, weiß-goldener Sprüh-Aufdruck mit goldenem FinanzRitual™-Kronen-Logo darüber — für alle, die der Familie die Risiko-Treppe schon ein paar Mal zu oft erklärt haben.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-clever-statt-pleite.png" alt="Schwarzes T-Shirt-Motiv: gezeichneter Totenkopf mit goldener Krone, tippt sich mit dem Skelett-Finger an die Stirn, darunter der Schriftzug 'Clever statt Pleite in jedem Alter' in Weiß und Gold, mit dem goldenen FinanzRitual™-Logo" data-en-alt="Black T-shirt motif: illustrated skull wearing a golden crown, tapping its temple with a skeletal finger, below it the slogan 'Clever statt Pleite in jedem Alter' ('Smart instead of broke, at any age') in white and gold, with the golden FinanzRitual™ logo" loading="lazy" width="1254" height="1254">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;Clever statt Pleite&rdquo; T-Shirt (Draft)">„Clever statt Pleite" T-Shirt (Entwurf)</h3>
+          <p style="font-size:.85rem;" data-en="Illustrated design with a crowned skull tapping its temple — 'Clever statt Pleite in jedem Alter' ('Smart instead of broke, at any age') in white and gold, with the golden FinanzRitual™ wordmark below. A nod to financial savvy at every stage of life.">Illustratives Design mit gekröntem Totenkopf, der sich an die Stirn tippt — „Clever statt Pleite in jedem Alter" in Weiß und Gold, darunter der goldene FinanzRitual™-Schriftzug. Ein Augenzwinkern in Richtung finanzieller Cleverness in jedem Lebensalter.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-new-balls-please.png" alt="T-Shirt-Motiv: lächelnder, zwinkernder Tennisball mit goldener Krone, weißer Kappe und Boxhandschuh, hält Daumen hoch, im Hintergrund Geldbündel, ein Geldsack und ein goldener Tennisschläger mit Kronen-Logo, Schriftzug 'New Balls Please' in Weiß/Gold, darunter 'Invest in your FUTURE!'" data-en-alt="T-shirt motif: smiling, winking tennis ball wearing a golden crown, white cap and boxing glove, giving a thumbs up, with cash bundles, a money bag and a golden tennis racket bearing a crown logo in the background, the slogan 'New Balls Please' in white/gold, below it 'Invest in your FUTURE!'" loading="lazy" width="1024" height="1536">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;New Balls Please&rdquo; T-Shirt (Draft)">„New Balls Please" T-Shirt (Entwurf)</h3>
+          <p style="font-size:.85rem;" data-en="Illustrated design with a crowned, winking tennis-ball mascot giving a thumbs up amid cash and a golden racket — the tennis-slang pun 'New Balls Please' paired with 'Invest in your FUTURE!' below. A playful nod for anyone into tennis and personal finance alike.">Illustratives Design mit gekröntem, zwinkerndem Tennisball-Maskottchen, das inmitten von Geldbündeln und goldenem Schläger den Daumen hochhält — das Tennis-Wortspiel „New Balls Please" kombiniert mit „Invest in your FUTURE!" darunter. Ein Augenzwinkern für alle, die Tennis und Finanzen gleichermaßen mögen.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/produkt-tshirt-go-with-the-flow.png" alt="T-Shirt-Motiv: gelbes, zwinkerndes Smiley-Maskottchen mit goldener Krone, weißer Kappe, schwarzer Jacke und goldener Uhr, hält Geldscheine und Daumen hoch, lehnt lässig zurück, umgeben von Geldsack, Laptop, Münzstapeln und Aktienchart mit Aufwärtspfeil, FinanzRitual®-Logo, Schriftzug 'Go with the Flow'" data-en-alt="T-shirt motif: yellow, winking smiley mascot wearing a golden crown, white cap, black jacket and gold watch, holding cash and giving a thumbs up, leaning back casually, surrounded by a money bag, laptop, coin stacks and a rising stock chart, FinanzRitual® logo, slogan 'Go with the Flow'" loading="lazy" width="1024" height="1536">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="FinanzRitual&reg; &ldquo;Go with the Flow&rdquo; T-Shirt (Draft)">FinanzRitual® „Go with the Flow" T-Shirt (Entwurf)</h3>
+          <p style="font-size:.85rem;" data-en="Illustrated design with the crowned FinanzRitual® smiley mascot lounging amid cash, a laptop and a rising stock chart — relaxed 'Go with the Flow' branding for the house mascot itself.">Illustratives Design mit dem gekrönten FinanzRitual®-Smiley-Maskottchen, lässig zurückgelehnt zwischen Geldscheinen, Laptop und steigendem Aktienchart — entspanntes „Go with the Flow"-Branding rund ums eigene Maskottchen.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
       <div class="product-card">
         <div class="product-thumb product-thumb--photo">
           <img src="img/produkt-tshirt.png" alt="Weißes T-Shirt mit Finanzritual-Wortkasten-Logo auf der Brust" data-en-alt="White T-shirt with the Finanzritual crossword logo print on the chest" loading="lazy" width="900" height="896">
@@ -215,7 +387,33 @@
           <h3 data-en="&ldquo;Ritual&rdquo; T-Shirt">„Ritual" T-Shirt</h3>
           <p style="font-size:.85rem;" data-en="Heavyweight cotton, Finanzritual wordmark print on the chest. Organic &amp; fair-trade produced.">Schwere Baumwolle, Finanzritual-Wortkasten-Logo auf der Brust. Bio &amp; fair produziert.</p>
           <span class="price" data-en="from €24.90">ab 24,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT, plus shipping">inkl. MwSt., zzgl. Versand</span>
           <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/logo-cooler-gehts-nicht.png" alt="Rundes Blues-Brothers-Logo mit zwei Silhouetten in Anzug, Hut und Sonnenbrille, goldenem FinanzRitual-Kronen-Logo darüber und dem Schriftzug 'Cooler geht's nicht'" data-en-alt="Round Blues-Brothers-style logo with two silhouettes in suit, hat and sunglasses, the golden FinanzRitual crown logo above, and the slogan 'Cooler geht's nicht' (Can't get any cooler)" loading="lazy" width="1254" height="1254">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;Cooler geht&rsquo;s nicht&rdquo; T-Shirt">„Cooler geht's nicht" T-Shirt</h3>
+          <p style="font-size:.85rem;" data-en="Round Blues-Brothers-style logo print — two suited silhouettes, sunglasses, and the golden FinanzRitual™ crown above the slogan. Colour and cut still open.">Rundes Blues-Brothers-Logo als Aufdruck — zwei Anzug-Silhouetten mit Sonnenbrille, darüber die goldene FinanzRitual™-Krone über dem Slogan. Farbe und Schnitt noch offen.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-thumb product-thumb--photo">
+          <img src="img/logo-cooler-gehts-nicht.png" alt="Rundes Blues-Brothers-Logo mit zwei Silhouetten in Anzug, Hut und Sonnenbrille, goldenem FinanzRitual-Kronen-Logo darüber und dem Schriftzug 'Cooler geht's nicht'" data-en-alt="Round Blues-Brothers-style logo with two silhouettes in suit, hat and sunglasses, the golden FinanzRitual crown logo above, and the slogan 'Cooler geht's nicht' (Can't get any cooler)" loading="lazy" width="1254" height="1254">
+        </div>
+        <div class="product-body">
+          <span class="badge" data-en="Merch">Merch</span>
+          <h3 data-en="&ldquo;Cooler geht&rsquo;s nicht&rdquo; Mug">„Cooler geht's nicht"-Tasse</h3>
+          <p style="font-size:.85rem;" data-en="Ceramic mug with the round Blues-Brothers-style logo print. Same design as the T-shirt.">Keramiktasse mit dem runden Blues-Brothers-Logo-Aufdruck. Gleiches Design wie das T-Shirt.</p>
+          <span class="price" data-en="in planning">in Planung</span>
+          <a href="#" class="btn btn-outline" data-en="Not yet orderable" aria-disabled="true" style="opacity:.55;cursor:default;pointer-events:none;">Noch nicht bestellbar</a>
         </div>
       </div>
 
@@ -228,6 +426,7 @@
           <h3 data-en="Ledger Mug">Ledger-Tasse</h3>
           <p style="font-size:.85rem;" data-en="Ceramic mug with the Finanzritual logo print. For your coffee before checking the savings plan.">Keramiktasse mit aufgedrucktem Finanzritual-Logo. Für den Kaffee vorm Sparplan-Blick.</p>
           <span class="price">14,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT, plus shipping">inkl. MwSt., zzgl. Versand</span>
           <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
         </div>
       </div>
@@ -254,6 +453,7 @@
           <h3 data-en="Coin Dispenser">Münzspender</h3>
           <p style="font-size:.85rem;" data-en="Sorts your change by value with one press. Ideal companion for the 300-euro wallet: bills stay untouched, coins stay in view.">Sortiert Kleingeld per Knopfdruck nach Wert. Der ideale Begleiter zur 300-Euro-Geldbörse: Scheine bleiben unangetastet, Münzen behältst du im Blick.</p>
           <span class="price">12,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT, plus shipping">inkl. MwSt., zzgl. Versand</span>
           <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
         </div>
       </div>
@@ -267,6 +467,7 @@
           <h3 data-en="Horizon Quartet">Horizont Quartett</h3>
           <p style="font-size:.85rem;" data-en="The offline version of the horizon card game from the blog: 20+ printed micro-habit cards for drawing, collecting, and trying out.">Die Offline-Version des Horizont-Kartenspiels aus dem Blog: über 20 gedruckte Mikro-Habit-Karten zum Ziehen, Sammeln und Ausprobieren.</p>
           <span class="price">14,90 €</span>
+          <span class="product-price-note" data-en="incl. VAT, plus shipping">inkl. MwSt., zzgl. Versand</span>
           <a href="#" class="btn btn-outline" data-en="Add to cart">In den Warenkorb</a>
         </div>
       </div>
@@ -279,14 +480,16 @@
 
 <footer class="site">
   <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    
     <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
       <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
       <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
     </div>
-    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
-    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a></span>
+    <p class="footer-a11y-link"><a href="barrierefreiheit.html" data-en="Accessibility"><span class="a11y-icon" aria-hidden="true">♿</span> Barrierefreiheit</a></p>
+<span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a> · <a href="ueber-mich.html" data-en="About Me">Über mich</a> · <a href="disclaimer.html" data-en="Disclaimer">Disclaimer</a></span>
   </div>
 </footer>
 

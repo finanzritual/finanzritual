@@ -1,0 +1,132 @@
+<!-- ===== Rechner-Modul: Sparquote-vs-Rendite-Hebel =====
+     Automatisch aus beitrag-sparrate-vs-rendite.html extrahiert (V889).
+     Vergleicht zwei Hebel fuer schnellere finanzielle Unabhaengigkeit:
+     +2 Punkte Rendite vs. +10 Punkte Sparquote, ausgehend von der
+     eingestellten Basis-Sparquote/-Rendite. Globale CSS-Variablen,
+     keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.sr-calc{ margin:26px 0; padding:22px 20px; border-radius:16px; background:var(--bg-raised); border:2px solid var(--line-strong); box-shadow:var(--shadow); }
+.sr-calc .row{ margin-bottom:20px; }
+.sr-calc label{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--ink-soft); margin-bottom:8px; }
+.sr-calc label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:600; }
+.sr-baseline{ text-align:center; padding:14px; border-radius:12px; background:var(--bg); border:1px solid var(--line); margin-bottom:16px; }
+.sr-baseline-label{ font-size:.78rem; color:var(--ink-soft); }
+.sr-baseline-value{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.7rem; color:var(--ink); }
+.sr-levers{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.sr-lever{ padding:16px; border-radius:12px; background:var(--bg); border:1px solid var(--line); text-align:center; }
+.sr-lever-title{ font-size:.78rem; color:var(--ink-soft); margin-bottom:8px; font-weight:600; }
+.sr-lever-value{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:1.5rem; color:var(--green); }
+.sr-lever-sub{ font-size:.72rem; color:var(--ink-soft); margin-top:4px; }
+.sr-lever.sr-winner{ border-color:var(--green); background:var(--green-soft); }
+@media(max-width:560px){ .sr-levers{ grid-template-columns:1fr; } }
+</style>
+<div class="sr-calc" id="sr-calc">
+<div class="row">
+<label for="sr-rate"><span data-en="Your savings rate">Deine Sparquote</span> <span class="val" id="sr-rate-val">25⁠%</span></label>
+<input class="calc-slider" id="sr-rate" max="60" min="10" step="1" type="range" value="25"/>
+</div>
+<div class="row">
+<label for="sr-return"><span data-en="Expected real return">Erwartete Realrendite</span> <span class="val" id="sr-return-val">5,0⁠%</span></label>
+<input class="calc-slider" id="sr-return" max="9" min="2" step="0.5" type="range" value="5"/>
+</div>
+<div class="sr-baseline">
+<div class="sr-baseline-label" data-en="Years to FI at your current numbers">Jahre bis FI bei deinen aktuellen Zahlen</div>
+<div class="sr-baseline-value" id="sr-baseline-years">–</div>
+</div>
+<div class="sr-levers">
+<div class="sr-lever" id="sr-lever-return">
+<div class="sr-lever-title" data-en="Lever A: +2 points return">Hebel A: +2 Punkte Rendite</div>
+<div class="sr-lever-value" id="sr-return-years">–</div>
+<div class="sr-lever-sub" id="sr-return-saved"></div>
+</div>
+<div class="sr-lever" id="sr-lever-rate">
+<div class="sr-lever-title" data-en="Lever B: +10 points savings rate">Hebel B: +10 Punkte Sparquote</div>
+<div class="sr-lever-value" id="sr-rate-years">–</div>
+<div class="sr-lever-sub" id="sr-rate-saved"></div>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not a promise of any specific timeline. Assumes a constant savings rate, a constant real (after-inflation) return, and the 4⁠% rule (25× annual spending) as the financial-independence target." style="margin-top:14px;">Vereinfachte Beispielrechnung, kein Versprechen für einen bestimmten Zeitrahmen. Geht von konstanter Sparquote, konstanter Realrendite und der 4-Prozent-Regel (25× Jahresausgaben) als Ziel für finanzielle Freiheit aus.</p>
+</div>
+<script>
+(function(){
+  var rateEl = document.getElementById('sr-rate');
+  var rateVal = document.getElementById('sr-rate-val');
+  var returnEl = document.getElementById('sr-return');
+  var returnVal = document.getElementById('sr-return-val');
+  var baselineYears = document.getElementById('sr-baseline-years');
+  var returnYearsEl = document.getElementById('sr-return-years');
+  var returnSavedEl = document.getElementById('sr-return-saved');
+  var rateYearsEl = document.getElementById('sr-rate-years');
+  var rateSavedEl = document.getElementById('sr-rate-saved');
+  var leverReturn = document.getElementById('sr-lever-return');
+  var leverRate = document.getElementById('sr-lever-rate');
+  if(!rateEl || !returnEl) return;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function yearsToFI(rate, g){
+    if(rate <= 0) return null;
+    if(rate >= 1) return 0;
+    var ratio = 25 * g * (1 - rate) / rate;
+    if(1 + ratio <= 0) return null;
+    var n = Math.log(1 + ratio) / Math.log(1 + g);
+    return n;
+  }
+
+  function fmtYears(n){
+    if(n === null) return isEn() ? 'never' : 'nie';
+    return (isEn() ? Math.round(n) + ' yrs' : Math.round(n) + ' J.');
+  }
+
+  function render(){
+    var rate = parseFloat(rateEl.value) / 100;
+    var g = parseFloat(returnEl.value) / 100;
+    rateVal.textContent = rateEl.value + '%';
+    returnVal.textContent = returnEl.value.replace('.', ',') + '%';
+
+    var baseline = yearsToFI(rate, g);
+    baselineYears.textContent = fmtYears(baseline);
+
+    var withMoreReturn = yearsToFI(rate, g + 0.02);
+    var withMoreRate = yearsToFI(Math.min(0.95, rate + 0.10), g);
+
+    returnYearsEl.textContent = fmtYears(withMoreReturn);
+    rateYearsEl.textContent = fmtYears(withMoreRate);
+
+    var savedReturn = (baseline !== null && withMoreReturn !== null) ? (baseline - withMoreReturn) : null;
+    var savedRate = (baseline !== null && withMoreRate !== null) ? (baseline - withMoreRate) : null;
+
+    returnSavedEl.textContent = savedReturn !== null
+      ? (isEn() ? ('&minus; ' + Math.round(savedReturn) + ' yrs saved') : ('&minus; ' + Math.round(savedReturn) + ' J. gespart')).replace('&minus;','−')
+      : '';
+    rateSavedEl.textContent = savedRate !== null
+      ? (isEn() ? ('&minus; ' + Math.round(savedRate) + ' yrs saved') : ('&minus; ' + Math.round(savedRate) + ' J. gespart')).replace('&minus;','−')
+      : '';
+
+    leverReturn.classList.remove('sr-winner');
+    leverRate.classList.remove('sr-winner');
+    if(savedReturn !== null && savedRate !== null){
+      if(savedRate > savedReturn) leverRate.classList.add('sr-winner');
+      else if(savedReturn > savedRate) leverReturn.classList.add('sr-winner');
+    }
+  }
+
+  rateEl.addEventListener('input', render);
+  returnEl.addEventListener('input', render);
+  render();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(render);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

@@ -1,0 +1,152 @@
+<!-- ===== Rechner-Modul: Erste-100k-Etappen-Balkendiagramm =====
+     Automatisch aus beitrag-erste-100k.html extrahiert (V882).
+     Zeigt per dynamisch generiertem SVG-Balkendiagramm, wie viele Jahre
+     jede 100.000-Euro-Etappe bis 1 Million dauert (Sparrate + Rendite
+     als Eingabe). Anders als die bisherigen SVG-Rechner wird das SVG
+     hier LEER im HTML angelegt (nur <svg id="hk-bars">) und komplett per
+     JS befuellt -- kein statisches Chart-Markup wie bei 50-30-20/
+     50-25-15-10. Globale CSS-Variablen inkl. [data-theme="dark"]. -->
+<style>
+.hk-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.hk-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .hk-calc-inputs{ grid-template-columns:1fr; } }
+.hk-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.hk-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.hk-chart-wrap{ margin:24px 0 6px; }
+.hk-chart-wrap svg{ width:100%; height:auto; display:block; }
+.hk-chart-note{ font-size:.7rem; color:var(--ink-soft); margin-top:6px; }
+
+.hk-insight-box{
+  margin:22px 0; padding:calc(20px * var(--step-user)) calc(22px * var(--step-user)); border-radius:14px;
+  background:#D9F0E1; border-left:3px solid var(--green);
+box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .hk-insight-box{ background:#173828;  box-shadow:none;}
+</style>
+<div class="hk-calc" id="hk-calc">
+<div class="hk-calc-inputs">
+<div class="row">
+<label for="hk-rate"><span data-en="Monthly savings rate">Monatliche Sparrate</span> <span class="val" id="hk-rate-val">800 €</span></label>
+<input class="calc-slider" id="hk-rate" max="2000" min="100" step="50" type="range" value="800"/>
+</div>
+<div class="row">
+<label for="hk-return"><span data-en="Expected return p.a.">Erwartete Rendite p.a.</span> <span class="val" id="hk-return-val">7⁠%</span></label>
+<input class="calc-slider" id="hk-return" max="9" min="1" step="0.5" type="range" value="7"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not investment advice. Interest is calculated monthly. Real returns fluctuate.">Vereinfachte Beispielrechnung, keine Anlageberatung. Zinsen werden monatlich berechnet. Reale Verläufe schwanken.</p>
+<div class="hk-chart-wrap">
+<svg aria-label="Säulendiagramm: Jahre pro 100.000-Euro-Etappe, von 0 bis 1 Million Euro" data-en-aria-label="Bar chart: years per €100,000 stretch, from zero to one million euros" id="hk-bars" role="img" viewbox="0 0 640 300" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+<p class="hk-chart-note" data-en="Each bar shows how many years that particular €100,000 stretch takes – not the total elapsed time.">Jeder Balken zeigt, wie viele Jahre diese konkrete 100.000-Euro-Etappe dauert — nicht die insgesamt vergangene Zeit.</p>
+</div>
+<script>
+(function(){
+  const rateEl = document.getElementById('hk-rate');
+  const returnEl = document.getElementById('hk-return');
+  const rateVal = document.getElementById('hk-rate-val');
+  const returnVal = document.getElementById('hk-return-val');
+  const svg = document.getElementById('hk-bars');
+  if(!svg) return;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtY(y){
+    const s = y.toFixed(1);
+    return isEn() ? s : s.replace('.', ',');
+  }
+
+  function monthsToReach(target, pmt, monthlyRate){
+    let balance = 0, m = 0;
+    while(balance < target){
+      balance = balance * (1 + monthlyRate) + pmt;
+      m++;
+      if(m > 3000) break;
+    }
+    return m;
+  }
+
+  function compute(){
+    const en = isEn();
+    const pmt = parseFloat(rateEl.value);
+    const annualPct = parseFloat(returnEl.value);
+    const monthlyRate = (annualPct / 100) / 12;
+
+    rateVal.textContent = (en ? '€' : '') + new Intl.NumberFormat(en ? 'en-IE' : 'de-DE').format(pmt) + (en ? '' : '\u00A0€');
+    returnVal.textContent = annualPct + '%';
+
+    const targets = [];
+    for(let i = 1; i <= 10; i++) targets.push(i * 100000);
+
+    let prevMonths = 0;
+    const segments = [];
+    targets.forEach(t => {
+      const m = monthsToReach(t, pmt, monthlyRate);
+      segments.push((m - prevMonths) / 12);
+      prevMonths = m;
+    });
+
+    const totalYears = prevMonths / 12;
+    const totalLabel = en ? 'Time to first million:' : 'Zeit bis 1. Million:';
+    const totalValue = fmtY(totalYears) + ' ' + (en ? (totalYears === 1 ? 'yr' : 'yrs') : 'J.');
+
+    /* ---- SVG-Balkendiagramm zeichnen ---- */
+    const width = 640, height = 300;
+    const padL = 40, padR = 10, padT = 26, padB = 46;
+    const plotW = width - padL - padR;
+    const plotH = height - padT - padB;
+    const n = segments.length;
+    const gap = 10;
+    const barW = (plotW - gap * (n - 1)) / n;
+    /* Feste Skala (nicht vom aktuellen Regler abhängig!), damit Balkenhöhen zwischen
+       verschiedenen Sparraten/Renditen vergleichbar bleiben. Basiert auf dem langsamsten
+       möglichen Fall (100 €/Monat, 1% Rendite, Sparbuch-Niveau): erste 100k dauern dort ca. 60,7 Jahre. */
+    const FIXED_MAX_YEARS = 60.7 * 1.15;
+    const maxVal = FIXED_MAX_YEARS;
+    const baseY = padT + plotH;
+
+    let bars = '';
+    segments.forEach((val, i) => {
+      const x = padL + i * (barW + gap);
+      const barH = Math.max(3, (val / maxVal) * plotH);
+      const y = baseY - barH;
+      const isLast = i === n - 1;
+      const fill = isLast ? '#b08d57' : 'var(--blue)';
+      const labelYears = fmtY(val);
+      const milestoneLabel = (i === n - 1) ? (en ? '1M' : '1 Mio.') : ((i + 1) * 100) + 'k';
+
+      bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" rx="4" fill="${fill}"/>`;
+      bars += `<text x="${(x + barW/2).toFixed(1)}" y="${(y - 7).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="var(--ink)">${labelYears}</text>`;
+      bars += `<text x="${(x + barW/2).toFixed(1)}" y="${(baseY + 18).toFixed(1)}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--ink-soft)">${milestoneLabel}</text>`;
+    });
+
+    const baseline = `<line x1="${padL}" y1="${baseY}" x2="${width - padR}" y2="${baseY}" stroke="var(--line-strong)" stroke-width="1.5"/>`;
+    const yAxisLabel = `<text x="12" y="${padT + 4}" font-family="'JetBrains Mono',monospace" font-size="10" fill="var(--ink-soft)">${en ? 'yrs' : 'Jahre'}</text>`;
+    const totalCorner =
+      `<text x="${width - padR}" y="14" text-anchor="end" font-family="'Space Grotesk',sans-serif" font-size="11" fill="var(--ink-soft)">${totalLabel}</text>` +
+      `<text x="${width - padR}" y="32" text-anchor="end" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="19" fill="var(--blue)">${totalValue}</text>`;
+
+    svg.innerHTML = baseline + yAxisLabel + totalCorner + bars;
+  }
+
+  [rateEl, returnEl].forEach(el => el.addEventListener('input', compute));
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

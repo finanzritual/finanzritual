@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Piggy Bank Catcher — JugendBASISbildung — FinanzRitual">Schweinchen-Catcher — JugendBASISbildung — FinanzRitual</title>
+    <meta name="description" content="Fange fallende Scheine und Münzen mit dem Sparschwein, bevor sie im Schredder landen." data-en-content="Catch falling bills and coins with the piggy bank before they land in the shredder.">
+    <link rel="canonical" href="https://www.finanz-ritual.de/YOUNG-Games-schweinchen-catcher.html">
+<meta name="fr-video-id" content="1007">
+<meta name="fr-content-hash" content="21227b2ddb88a07f92250a67055ebd708e42725ed3fb358dd3e1c88ddc1c92f5">
+<meta name="fr-links-hash" content="9834e7ab510da5d19a34525f9b551069a191fe905b685c2ce50934ab6f6a2329">
+    <style>
+        :root {
+            --bg-color: #0c0f12;
+            --game-bg: #161b22;
+            --accent-orange: #ffaa00;
+            --neon-green: #39ff14;
+            --danger-red: #ff3333;
+            --text-color: #ffffff;
+            --y: #eaff00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            user-select: none;
+        }
+        body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+        body.is-scrolled:before{background:#3a4356}
+
+        .y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+        .y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap;font-size:.95rem}
+        .y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}
+        .y-nav a{color:#fff;text-decoration:none;font-size:.9rem}
+        .y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+        .y-icon-btn svg{width:17px;height:17px}
+        .y-icon-btn[hidden]{display:none}
+        @media(max-width:700px){.y-header{min-height:54px;padding:0 12px}.y-nav a{display:none}}
+
+        .game-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px 50px;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin: 8px 0 5px 0;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #000;
+            text-align: center;
+        }
+
+        /* Ausklappbare Anleitung, gleiches Prinzip wie beim
+           Scam-Ausweicher-Spiel: natives <details>, standardmaessig zu,
+           kein zusaetzliches JS noetig. */
+        .rules-box{
+            width:100%; max-width: 400px; margin-bottom: 14px;
+            background: var(--game-bg); border: 1px solid #30363d; border-radius: 14px;
+            overflow: hidden;
+        }
+        .rules-box summary{
+            padding: 12px 16px; cursor: pointer; font-weight: 700; font-size: .92rem;
+            color: var(--accent-orange); list-style: none; display:flex; align-items:center; gap:8px;
+        }
+        .rules-box summary::-webkit-details-marker{ display:none; }
+        .rules-box summary:before{ content:"▶"; font-size:.7rem; transition: transform .15s; }
+        .rules-box[open] summary:before{ transform: rotate(90deg); }
+        .rules-box .rules-body{ padding: 0 16px 16px; font-size: .88rem; line-height: 1.55; color: #c3cad7; }
+        .rules-box .rules-body ul{ margin: 8px 0; padding-left: 20px; }
+        .rules-box .rules-body li{ margin-bottom: 6px; }
+        .rules-box .rules-body strong{ color: #fff; }
+
+        .score-board {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: var(--game-bg);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 500px;
+            background-color: var(--game-bg);
+            border: 3px solid #30363d;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            touch-action: none;
+        }
+
+        .money {
+            position: absolute;
+            font-size: 2rem;
+            will-change: transform;
+        }
+
+        #basket {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            width: 65px;
+            height: 50px;
+            font-size: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-50%);
+            transition: transform 0.05s linear;
+        }
+
+        #shredder {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 35px;
+            background: linear-gradient(transparent, rgba(255, 51, 51, 0.2));
+            border-top: 3px dashed var(--danger-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: var(--danger-red);
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 15, 18, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .overlay h2 {
+            color: var(--danger-red);
+            text-transform: uppercase;
+        }
+
+        button.game-btn {
+            margin-top: 15px;
+            padding: 12px 24px;
+            background-color: var(--accent-orange);
+            border: 2px solid #000;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            font-family: inherit;
+        }
+
+        button.game-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        .y-back{display:inline-block;margin-top:26px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none;font-size:.85rem}
+    
+.y-game-related{background:var(--card-bg);border:1px solid #303847;border-radius:16px;padding:20px 22px;margin:18px 0 10px;max-width:520px;margin-left:auto;margin-right:auto}
+.y-game-related-title{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-orange);margin-bottom:12px}
+.y-game-related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;text-align:left}
+.y-game-related-list a{color:var(--text-color);text-decoration:none;font-size:.9rem;display:flex;align-items:center;gap:8px}
+.y-game-related-list a:hover{color:var(--accent-orange)}
+</style>
+</head>
+<body>
+
+<header class="y-header">
+<a class="y-brand" href="jugendbasisbildung/index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="jugendbasisbildung/index.html" data-en="Home">Startseite</a>
+<a href="jugendbasisbildung/alle-themen.html" data-en="Topics">Themen</a>
+</nav>
+<a href="suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</header>
+
+<div class="game-wrap">
+    <h1 data-en="🐷 PIGGY BANK CATCHER">🐷 SCHWEINCHEN-CATCHER</h1>
+
+    <details class="rules-box">
+      <summary data-en="🕹️ How to play">🕹️ Kurze Spielanleitung</summary>
+      <div class="rules-body" data-en="&lt;p&gt;The system wants to shred your money! ⚙️🔥 Fat bills (💵 = €100) and shiny coins (🪙 = €10) rain down from above.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Your mission:&lt;/strong&gt; move the piggy bank left and right to catch the cash!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The danger:&lt;/strong&gt; miss 5 times and the game is over — you're broke.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Controls:&lt;/strong&gt; on a computer, use the arrow keys or your mouse. On your phone, just swipe with your thumb!&lt;/li&gt;
+&lt;/ul&gt;">
+        <p>Das System will dein Geld schreddern! ⚙️🔥 Von oben regnet es fette Scheine (💵 = 100 €) und glänzende Münzen (🪙 = 10 €).</p>
+        <ul>
+          <li><strong>Deine Mission:</strong> Bewege das Sparschwein nach links und rechts, um die Kohle einzufangen!</li>
+          <li><strong>Die Gefahr:</strong> Wenn du 5-mal daneben greifst, ist das Spiel vorbei und du bist pleite.</li>
+          <li><strong>Steuerung:</strong> Am PC einfach mit den Pfeiltasten oder der Maus lenken. Am Smartphone wischst du entspannt mit dem Daumen!</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="score-board" id="score-display">Guthaben: 0 € | Verpasst: 0/5</div>
+
+    <div id="game-container">
+        <div id="start-overlay" class="overlay">
+            <h2 style="color: var(--accent-orange)" data-en="Start the cash hunt!">Geld-Jagd starten!</h2>
+            <p data-en="Catch bills (💵) and coins (🪙) with the piggy bank! Anything that falls through lands in the shredder.">Fange Scheine (💵) und Münzen (🪙) mit dem Sparschwein! Alles was durchfällt, landet im Schredder.</p>
+            <p data-en="👉 Controls: mouse, arrow keys, or swiping on your phone!">👉 Steuerung: Maus, Pfeiltasten oder Wischen auf dem Handy!</p>
+            <button type="button" class="game-btn" onclick="startGame()" data-en="Start 🛹">Starten 🛹</button>
+        </div>
+
+        <div id="gameover-overlay" class="overlay" style="display: none;">
+            <h2 data-en="Broke! 💥">Pleite! 💥</h2>
+            <p id="final-score">Du hast 0 € gerettet.</p>
+            <button type="button" class="game-btn" onclick="startGame()" data-en="Try again 🔄">Nochmal versuchen 🔄</button>
+        </div>
+
+        <div id="basket">🐷</div>
+        <div id="shredder" data-en="⚙️ SHREDDER ZONE ⚙️">⚙️ SCHREDDER-ZONE ⚙️</div>
+    </div>
+    <div class="y-game-related">
+      <div class="y-game-related-title" data-en="Learn more">Vertiefe dein Wissen</div>
+      <ul class="y-game-related-list">
+      <li><a href="YOUNG-notgroschen-jugend.html" data-en="→ The emergency fund: why 3 months' expenses bring you peace of mind">→ Der Notgroschen: Warum dir 3 Monatsausgaben Seelenfrieden bringen</a></li>
+      <li><a href="YOUNG-junior-depot-jugend.html" data-en="→ The junior custody account: invest in the stock market as a teen">→ Das Junior-Depot: Wie du schon als Teenie an der Börse mitskatest</a></li>
+      <li><a href="YOUNG-taschengeldparagraf-jugend.html" data-en="→ The pocket-money paragraph: what can I buy without my parents knowing?">→ Der Taschengeldparagraf: Was darf ich heimlich ohne Eltern kaufen?</a></li>
+      </ul>
+    </div>
+
+
+    <a class="y-back" href="jugendbasisbildung/index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</div>
+
+    <script>
+        var isEn = function(){ return document.documentElement.getAttribute('lang') === 'en'; };
+
+        const container = document.getElementById('game-container');
+        const basket = document.getElementById('basket');
+        const scoreDisplay = document.getElementById('score-display');
+        const startOverlay = document.getElementById('start-overlay');
+        const gameoverOverlay = document.getElementById('gameover-overlay');
+        const finalScoreText = document.getElementById('final-score');
+
+        let containerWidth = container.clientWidth;
+        let basketX = containerWidth / 2;
+        let score = 0;
+        let missed = 0;
+        const maxMissed = 5;
+        let gameActive = false;
+        let moneyInterval, gameLoopInterval;
+        let activeMoneyElements = [];
+        let speedMultiplier = 1;
+
+        const basketWidth = 65;
+
+        window.addEventListener('resize', () => {
+            containerWidth = container.clientWidth;
+        });
+
+        function moveBasket(clientX) {
+            if (!gameActive) return;
+            const rect = container.getBoundingClientRect();
+            let relativeX = clientX - rect.left;
+
+            if (relativeX < basketWidth / 2) relativeX = basketWidth / 2;
+            if (relativeX > containerWidth - basketWidth / 2) relativeX = containerWidth - basketWidth / 2;
+
+            basketX = relativeX;
+            basket.style.left = basketX + 'px';
+        }
+
+        container.addEventListener('mousemove', (e) => moveBasket(e.clientX));
+        container.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) moveBasket(e.touches[0].clientX);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') e.preventDefault();
+            if (!gameActive) return;
+            let step = 25;
+            if (e.key === 'ArrowLeft') {
+                basketX = Math.max(basketWidth / 2, basketX - step);
+            } else if (e.key === 'ArrowRight') {
+                basketX = Math.min(containerWidth - basketWidth / 2, basketX + step);
+            }
+            basket.style.left = basketX + 'px';
+        });
+
+        function startGame() {
+            startOverlay.style.display = 'none';
+            gameoverOverlay.style.display = 'none';
+            score = 0;
+            missed = 0;
+            speedMultiplier = 1;
+            gameActive = true;
+            activeMoneyElements.forEach(el => el.element.remove());
+            activeMoneyElements = [];
+            updateDisplay();
+
+            moneyInterval = setInterval(spawnMoney, 900);
+            gameLoopInterval = setInterval(updatePhysics, 20);
+        }
+
+        function spawnMoney() {
+            if (!gameActive) return;
+            const money = document.createElement('div');
+            money.classList.add('money');
+
+            const types = ['🪙', '💵'];
+            money.innerText = types[Math.floor(Math.random() * types.length)];
+
+            const randomX = Math.random() * (containerWidth - 30);
+            money.style.left = randomX + 'px';
+            money.style.top = '0px';
+
+            container.appendChild(money);
+            activeMoneyElements.push({
+                element: money,
+                y: 0,
+                x: randomX,
+                speed: (Math.random() * 2 + 3) * speedMultiplier,
+                value: money.innerText === '💵' ? 100 : 10
+            });
+
+            speedMultiplier += 0.02;
+        }
+
+        function updatePhysics() {
+            if (!gameActive) return;
+
+            for (let i = activeMoneyElements.length - 1; i >= 0; i--) {
+                const item = activeMoneyElements[i];
+                item.y += item.speed;
+                item.element.style.top = item.y + 'px';
+
+                // Kollisions-Check mit dem Schweinchen (Korb-Y-Bereich ca. 410-450px)
+                if (item.y >= 410 && item.y <= 450) {
+                    const basketLeft = basketX - basketWidth / 2;
+                    const basketRight = basketX + basketWidth / 2;
+
+                    if (item.x + 20 >= basketLeft && item.x <= basketRight) {
+                        score += item.value;
+                        item.element.remove();
+                        activeMoneyElements.splice(i, 1);
+                        updateDisplay();
+                        continue;
+                    }
+                }
+
+                // In den Schredder gefallen (Boden erreicht)
+                if (item.y >= 465) {
+                    missed++;
+                    item.element.remove();
+                    activeMoneyElements.splice(i, 1);
+                    updateDisplay();
+                    if (missed >= maxMissed) {
+                        endGame();
+                    }
+                }
+            }
+        }
+
+        function updateDisplay() {
+            const en = isEn();
+            scoreDisplay.innerText = en
+              ? `Balance: ${score} € | Missed: ${missed}/${maxMissed}`
+              : `Guthaben: ${score} € | Verpasst: ${missed}/${maxMissed}`;
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(moneyInterval);
+            clearInterval(gameLoopInterval);
+            finalScoreText.innerText = isEn()
+              ? `You saved €${score} from the shredder.`
+              : `Du hast ${score} € vor dem Schredder gerettet.`;
+            gameoverOverlay.style.display = 'flex';
+        }
+    </script>
+
+
+<script>
+(function(){
+  var btn = document.getElementById('fullscreen-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var supported = root.requestFullscreen || root.webkitRequestFullscreen;
+  if (!supported) { btn.setAttribute('hidden', ''); return; }
+  var EXPAND_PATHS = '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
+  var COMPRESS_PATHS = '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M16 3v3a2 2 0 0 0 2 2h3"/><path d="M8 21v-3a2 2 0 0 0-2-2H3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>';
+  var svg = btn.querySelector('svg');
+  btn.addEventListener('click', function(){
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    }
+  });
+  var onChange = function(){
+    var active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    btn.setAttribute('aria-pressed', active);
+    btn.title = active ? 'Vollbild verlassen' : 'Vollbildmodus';
+    if (svg) svg.innerHTML = active ? COMPRESS_PATHS : EXPAND_PATHS;
+  };
+  document.addEventListener('fullscreenchange', onChange);
+  document.addEventListener('webkitfullscreenchange', onChange);
+})();
+</script>
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

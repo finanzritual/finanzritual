@@ -1,0 +1,238 @@
+<!-- ===== Rechner-Modul: risiko-treppe =====
+     Automatisch aus YOUNG-risiko-treppe-jugend.html extrahiert (V875).
+     Dieses Widget existierte bisher NUR in diesem einen Jugendartikel,
+     ohne Entsprechung im Erwachsenenbereich -- kein "rechner-*.html" im
+     Hauptkatalog, deshalb bislang unkatalogisiert und schwer auffindbar.
+     Enthaelt eigenes CSS (nicht aus dem globalen style.css, anders als
+     die 5 einfachen calc-card-Module) UND das reine Rechner-Widget.
+     Einbindbar in jede Seite, die style.css und script.js laedt. -->
+<style>
+.rt-calc{margin:32px 0;border:1px solid #303847;border-radius:18px;background:linear-gradient(180deg,#0c1119 0%,#080b12 100%);padding:20px 18px 22px;position:relative;overflow:hidden}
+.rt-calc:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00c8ff,#4dd9a0,#f0c14b,#f0914b,#e2694b)}
+.rt-calc-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.rt-calc-title{font-size:1.2rem;font-weight:800;color:#fff;margin:0}
+.rt-calc-badge{font:700 .68rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.06em;color:#57e0a7;text-transform:uppercase}
+.rt-capital{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.rt-capital label{font-size:.9rem;color:#d7dce5;font-weight:600}
+.rt-capital-input-wrap{display:flex;align-items:center;background:#151b25;border:1px solid #3a4356;border-radius:12px;padding:7px 14px;gap:6px}
+.rt-capital-input-wrap span{color:#7c8698;font:600 1rem ui-monospace,SFMono-Regular,monospace}
+#rt-capital{background:none;border:none;color:#fff;font:700 1.15rem ui-monospace,SFMono-Regular,monospace;width:118px;outline:none}
+.rt-rows{display:flex;flex-direction:column-reverse;gap:7px;margin:16px 0 14px}
+.rt-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;background:#111722;border:1px solid #262e3d;border-radius:12px;padding:9px 14px;transition:border-color .25s ease,background .25s ease}
+.rt-row-label{display:flex;flex-direction:column;gap:2px;min-width:118px}
+.rt-row-name{font-size:.85rem;font-weight:700;color:#f5f7fb;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.rt-row-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.rt-row-tag{font:600 .68rem ui-monospace,SFMono-Regular,monospace;color:#8a93a6;text-transform:uppercase;letter-spacing:.04em}
+.rt-row input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:#1c2330;outline:none;cursor:pointer}
+.rt-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--rt-dot,#00c8ff);cursor:grab;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.rt-row input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--rt-dot,#00c8ff);cursor:grab;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.rt-row-vals{display:flex;flex-direction:column;align-items:flex-end;gap:1px;min-width:78px}
+.rt-row-pct{font:800 1rem ui-monospace,SFMono-Regular,monospace;color:#fff}
+.rt-row-eur{font:600 .74rem ui-monospace,SFMono-Regular,monospace;color:#8a93a6}
+.rt-skip-note{font-size:.8rem;color:#7c8698;line-height:1.5;margin:0;padding:10px 13px;background:#0d1218;border:1px dashed #303847;border-radius:12px}
+.rt-meter{border-radius:14px;padding:14px 16px 13px;border:1px solid #2d6655;background:#0d1716;transition:border-color .3s ease,background .3s ease}
+.rt-meter.rt-meter-warn{border-color:#6b3b2d;background:#1a1210}
+.rt-meter.rt-meter-mid{border-color:#6b5e2d;background:#1a170f}
+.rt-meter-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.rt-meter-label{font:700 .78rem ui-monospace,SFMono-Regular,monospace;letter-spacing:.04em;text-transform:uppercase;color:#57e0a7}
+.rt-meter-warn .rt-meter-label{color:#ff8a70}
+.rt-meter-mid .rt-meter-label{color:#f0c14b}
+.rt-meter-pct{font:800 1.05rem ui-monospace,SFMono-Regular,monospace;color:#fff}
+.rt-meter-bar{height:9px;border-radius:999px;background:#1c2330;overflow:hidden;margin-bottom:10px}
+.rt-meter-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#00c8ff,#4dd9a0);transition:width .35s ease,background .35s ease}
+.rt-meter-mid .rt-meter-fill{background:linear-gradient(90deg,#f0c14b,#f0914b)}
+.rt-meter-warn .rt-meter-fill{background:linear-gradient(90deg,#f0914b,#e2694b)}
+.rt-meter-msg{font-size:.9rem;line-height:1.45;color:#d7dce5;margin:0}
+.rt-meter-msg strong{color:#fff}
+.rt-fund-warn{margin-top:9px;font-size:.83rem;color:#ffb199;background:#1a1210;border:1px solid #6b3b2d;border-radius:10px;padding:8px 12px;display:none}
+.rt-fund-warn.rt-visible{display:block}
+@media(max-width:560px){.rt-row{grid-template-columns:1fr;row-gap:8px}.rt-row-label{min-width:0}.rt-row-vals{flex-direction:row;justify-content:space-between;width:100%}}
+</style>
+<div class="rt-calc" id="rt-calc">
+<div class="rt-calc-head">
+<h3 class="rt-calc-title" data-en="🧮 Your risk staircase calculator">🧮 Dein Risiko-Treppen-Rechner</h3>
+<span class="rt-calc-badge" data-en="Live, no login">Live, ohne Login</span>
+</div>
+<div class="rt-capital">
+<label for="rt-capital" data-en="Your capital:">Dein Kapital:</label>
+<div class="rt-capital-input-wrap"><span>€</span><input type="text" inputmode="numeric" id="rt-capital" value="1.000"></div>
+</div>
+<div class="rt-meter" id="rt-meter">
+<div class="rt-meter-top">
+<span class="rt-meter-label" id="rt-meter-label" data-en="Speculation share">Spekulations-Anteil</span>
+<span class="rt-meter-pct" id="rt-meter-pct">0%</span>
+</div>
+<div class="rt-meter-bar"><div class="rt-meter-fill" id="rt-meter-fill" style="width:0%"></div></div>
+<p class="rt-meter-msg" id="rt-meter-msg"></p>
+<div class="rt-fund-warn" id="rt-fund-warn" data-en="⚠️ 0% emergency fund? Build step 1 first — a shaky foundation makes everything above it wobble.">⚠️ 0% Notgroschen? Bau zuerst Stufe 1 — ein wackeliges Fundament lässt alles darüber schwanken.</div>
+</div>
+<div class="rt-rows" id="rt-rows"></div>
+<div class="rt-skip-note" data-en="Type in your capital and drag the sliders — the result above updates live. Steps 3 (side hustle) and 7 (day trading) aren't shown as sliders — they're not capital you park somewhere, they're your time and skill, which is exactly why they're financially safer than they look: no money at stake, no slider needed.">Kapital eintragen, an den Reglern ziehen — das Ergebnis oben aktualisiert sich live. Stufe 3 (Side Hustle) und Stufe 7 (Daytrading) tauchen bewusst nicht als Slider auf — sie sind kein Kapital, das irgendwo geparkt wird, sondern deine Zeit und dein Können, genau deshalb sind sie finanziell sicherer, als sie wirken: kein Kapital im Feuer, kein Regler nötig.</div>
+
+</div>
+<script>
+(function(){
+  function isEnglish(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  var RT_STEPS = [
+    { key:'s1', num:1, dot:'#00c8ff', tagDe:'Fundament', tagEn:'Foundation', nameDe:'Notgroschen', nameEn:'Emergency fund' },
+    { key:'s2', num:2, dot:'#3fd6c8', tagDe:'Motor', tagEn:'Engine', nameDe:'Breite ETFs', nameEn:'Broad ETFs' },
+    { key:'s4', num:4, dot:'#4dd9a0', tagDe:'Cashflow', tagEn:'Cashflow', nameDe:'Dividenden', nameEn:'Dividends' },
+    { key:'s5', num:5, dot:'#f0c14b', tagDe:'Turbo', tagEn:'Turbo', nameDe:'Einzelaktien', nameEn:'Single stocks' },
+    { key:'s6', num:6, dot:'#f0914b', tagDe:'Spekulation', tagEn:'Speculation', nameDe:'Krypto', nameEn:'Crypto' },
+    { key:'s8', num:8, dot:'#e2694b', tagDe:'Maximum', tagEn:'Maximum', nameDe:'Hebelprodukte', nameEn:'Leveraged products' }
+  ];
+
+  var rtValues = { s1:20, s2:70, s4:0, s5:0, s6:10, s8:0 };
+  var rtCapital = 1000;
+
+  function rtFmtEuro(n){
+    var rounded = Math.round(n);
+    return rounded.toLocaleString(isEnglish() ? 'en-US' : 'de-DE');
+  }
+
+  function rtParseCapital(raw){
+    var cleaned = String(raw).replace(/[^0-9]/g, '');
+    var n = parseInt(cleaned, 10);
+    return isNaN(n) || n < 0 ? 0 : n;
+  }
+
+  function rtNormalize(changedKey, newValue){
+    var keys = RT_STEPS.map(function(s){ return s.key; });
+    newValue = Math.max(0, Math.min(100, Math.round(newValue)));
+    var oldValue = rtValues[changedKey];
+    var delta = newValue - oldValue;
+    if(delta === 0) return;
+    rtValues[changedKey] = newValue;
+
+    var others = keys.filter(function(k){ return k !== changedKey; });
+    var othersSum = others.reduce(function(s,k){ return s + rtValues[k]; }, 0);
+    var remaining = -delta;
+
+    if(othersSum <= 0){
+      var share = remaining / others.length;
+      others.forEach(function(k){ rtValues[k] = Math.max(0, rtValues[k] + share); });
+    } else {
+      others.forEach(function(k){
+        var proportion = rtValues[k] / othersSum;
+        rtValues[k] = Math.max(0, rtValues[k] + remaining * proportion);
+      });
+    }
+
+    others.forEach(function(k){ rtValues[k] = Math.round(rtValues[k]); });
+    var sum = keys.reduce(function(s,k){ return s + rtValues[k]; }, 0);
+    var diff = 100 - sum;
+    if(diff !== 0){
+      var biggest = others.slice().sort(function(a,b){ return rtValues[b]-rtValues[a]; })[0];
+      if(biggest !== undefined){ rtValues[biggest] = Math.max(0, rtValues[biggest] + diff); }
+    }
+  }
+
+  function rtBuildRows(){
+    var container = document.getElementById('rt-rows');
+    if(!container) return;
+    container.innerHTML = '';
+    RT_STEPS.forEach(function(step){
+      var row = document.createElement('div');
+      row.className = 'rt-row';
+      row.style.setProperty('--rt-dot', step.dot);
+      var tag = isEnglish() ? step.tagEn : step.tagDe;
+      var name = isEnglish() ? step.nameEn : step.nameDe;
+      var stepWord = isEnglish() ? 'Step' : 'Stufe';
+      row.innerHTML =
+        '<div class="rt-row-label">' +
+          '<span class="rt-row-name"><span class="rt-row-dot" style="background:' + step.dot + '"></span>' + stepWord + ' ' + step.num + '</span>' +
+          '<span class="rt-row-tag">' + name + ' · ' + tag + '</span>' +
+        '</div>' +
+        '<input type="range" min="0" max="100" step="1" value="' + rtValues[step.key] + '" data-key="' + step.key + '" aria-label="' + name + '">' +
+        '<div class="rt-row-vals">' +
+          '<span class="rt-row-pct" id="rt-pct-' + step.key + '">' + rtValues[step.key] + '%</span>' +
+          '<span class="rt-row-eur" id="rt-eur-' + step.key + '">€0</span>' +
+        '</div>';
+      container.appendChild(row);
+    });
+    container.querySelectorAll('input[type=range]').forEach(function(input){
+      input.addEventListener('input', function(){
+        rtNormalize(input.getAttribute('data-key'), parseInt(input.value, 10));
+        rtRender();
+      });
+    });
+  }
+
+  function rtRender(){
+    RT_STEPS.forEach(function(step){
+      var pctEl = document.getElementById('rt-pct-' + step.key);
+      var eurEl = document.getElementById('rt-eur-' + step.key);
+      var slider = document.querySelector('#rt-rows input[data-key="' + step.key + '"]');
+      var pct = rtValues[step.key];
+      if(pctEl) pctEl.textContent = pct + '%';
+      if(eurEl) eurEl.textContent = '€' + rtFmtEuro(rtCapital * pct / 100);
+      if(slider && parseInt(slider.value,10) !== pct) slider.value = pct;
+    });
+
+    var specPct = rtValues.s6 + rtValues.s8;
+    var meter = document.getElementById('rt-meter');
+    var fill = document.getElementById('rt-meter-fill');
+    var pctLabel = document.getElementById('rt-meter-pct');
+    var msg = document.getElementById('rt-meter-msg');
+    var fundWarn = document.getElementById('rt-fund-warn');
+    if(!meter) return;
+
+    meter.classList.remove('rt-meter-warn','rt-meter-mid');
+    if(fill) fill.style.width = Math.min(100, specPct) + '%';
+    if(pctLabel) pctLabel.textContent = specPct + '%';
+
+    var msgDe, msgEn;
+    if(specPct >= 25){
+      meter.classList.add('rt-meter-warn');
+      msgDe = '🚨 Whoa, zu steil! <strong>' + specPct + '%</strong> deines Geldes stehen auf brandgefährlichen Stufen. Das kann brutal danebengehen.';
+      msgEn = '🚨 Whoa, too steep! <strong>' + specPct + '%</strong> of your money sits on genuinely dangerous steps. This can go brutally wrong.';
+    } else if(specPct >= 10){
+      meter.classList.add('rt-meter-mid');
+      msgDe = '⚠️ Ordentlich Risiko am Start (<strong>' + specPct + '%</strong>). Behalt den Überblick und lass dein Fundament nicht zu klein werden.';
+      msgEn = '⚠️ Solid risk on the table (<strong>' + specPct + '%</strong>). Keep an eye on it and don\'t let your foundation shrink too much.';
+    } else {
+      msgDe = '✅ Solides Fundament, sauberer Ride. Nur <strong>' + specPct + '%</strong> steht auf den brandgefährlichen Stufen 6 und 8.';
+      msgEn = '✅ Solid foundation, clean ride. Only <strong>' + specPct + '%</strong> sits on the genuinely dangerous steps 6 and 8.';
+    }
+    if(msg) msg.innerHTML = isEnglish() ? msgEn : msgDe;
+
+    if(fundWarn){
+      fundWarn.classList.toggle('rt-visible', rtValues.s1 === 0);
+    }
+  }
+
+  function rtInit(){
+    var capitalInput = document.getElementById('rt-capital');
+    if(!capitalInput) return;
+    capitalInput.value = rtFmtEuro(rtCapital);
+    rtBuildRows();
+    rtRender();
+    capitalInput.addEventListener('input', function(){
+      rtCapital = rtParseCapital(capitalInput.value);
+      rtRender();
+    });
+    capitalInput.addEventListener('blur', function(){
+      capitalInput.value = rtFmtEuro(rtCapital);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', rtInit);
+  if(Array.isArray(window.frPageRecomputers)){
+    window.frPageRecomputers.push(rtInit);
+  } else {
+    window.frPageRecomputers = [rtInit];
+  }
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

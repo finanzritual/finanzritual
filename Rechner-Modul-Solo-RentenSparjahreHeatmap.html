@@ -1,0 +1,371 @@
+<!-- ===== Rechner-Modul: Renten-Sparjahre-Heatmap =====
+     Automatisch aus beitrag-rente-sparjahre.html extrahiert (V888).
+     Zweiteiliges Widget: eine per JS aus mathematischer Formel generierte
+     Heatmap-Tabelle (Sparrate x Zielausgaben -> Jahre bis zur Rente,
+     Rule of 25) mit Rendite-Slider, PLUS ein persoenlicher 4-Felder-
+     Rechner darunter. Anders als beim Renditedreieck KEINE grosse,
+     fest codierte historische Datentabelle noetig -- SAVINGS/EXPENSES
+     sind kurze, feste Arrays, die Heatmap-Werte werden per Formel
+     berechnet. Globale CSS-Variablen inkl. [data-theme="dark"]. -->
+<style>
+.hm-outer{overflow-x:auto;margin:24px 0 32px;border-radius:14px;box-shadow:var(--shadow,0 2px 12px rgba(0,0,0,.1));}
+.hm-table{border-collapse:collapse;font-size:.78rem;min-width:700px;width:100%;}
+.hm-table th{
+  background:var(--ink);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;padding:9px 8px;
+  text-align:center;white-space:nowrap;border-right:1px solid rgba(255,255,255,.1);
+}
+.hm-table th:last-child{border-right:none;}
+.hm-table th.hm-row-header{text-align:left;min-width:88px;}
+[data-theme="dark"] .hm-table th{background:#0d0f14;}
+.hm-cell{
+  padding:9px 6px;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.8rem;
+  border-right:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08);
+  cursor:pointer;transition:filter .12s,outline .08s;outline:none;position:relative;
+}
+.hm-cell:hover{filter:brightness(1.12);}
+.hm-cell.is-selected{outline:3px solid #fff;outline-offset:-3px;filter:brightness(1.18);}
+.hm-label{
+  padding:9px 10px;font-size:.78rem;font-weight:700;
+  color:var(--ink);background:var(--bg-raised);
+  border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+/* Hover-Tooltip */
+.hm-tooltip{
+  position:fixed;z-index:200;pointer-events:none;
+  background:#111720;color:#f2f4f8;border-radius:8px;
+  padding:9px 13px;font-size:.78rem;line-height:1.5;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 4px 20px rgba(0,0,0,.45);max-width:220px;
+  display:none;
+}
+/* ── Persönlicher Rechner ───────────────────────────────────── */
+.rs-calc{
+  background:var(--bg-raised);border:1.5px solid var(--line-strong);
+  border-radius:14px;padding:24px 24px 20px;margin:28px 0;
+}
+.rs-calc-title{
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);font-family:'JetBrains Mono',monospace;margin-bottom:18px;
+}
+.rs-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+@media(max-width:520px){.rs-fields{grid-template-columns:1fr;}}
+.rs-field label{display:block;font-size:.76rem;font-weight:700;color:var(--ink-soft);margin-bottom:5px;}
+.rs-field .rs-val{
+  font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;
+  color:var(--blue);margin-bottom:4px;
+}
+.rs-field input[type=range]{width:100%;accent-color:var(--blue);margin:0;}
+.rs-field-full{grid-column:1/-1;}
+.rs-result{
+  border-radius:10px;padding:16px 18px;text-align:center;
+  background:var(--blue-soft);border:1.5px solid rgba(36,84,166,.25);
+  transition:background .3s,border-color .3s;
+}
+.rs-result.is-green{background:#C6F0D8;border-color:rgba(30,142,90,.6);}
+[data-theme="dark"] .rs-result.is-green{background:#0D3D22;border-color:rgba(30,142,90,.7);}
+.rs-result.is-orange{background:#FFE0B2;border-color:rgba(230,100,0,.55);}
+[data-theme="dark"] .rs-result.is-orange{background:#3D1F00;border-color:rgba(255,130,0,.6);}
+.rs-result.is-red{background:#FFCDD2;border-color:rgba(192,57,43,.6);}
+[data-theme="dark"] .rs-result.is-red{background:#3D0000;border-color:rgba(220,80,60,.65);}
+.rs-years{font-size:2.2rem;font-weight:700;line-height:1;color:var(--ink);}
+.rs-years-label{font-size:.82rem;color:var(--ink-soft);margin-top:4px;}
+.rs-retire-age{font-size:.85rem;color:var(--ink-soft);margin-top:8px;font-style:italic;}
+.rs-target{
+  font-size:.8rem;color:var(--ink-soft);margin-top:8px;
+  font-family:'JetBrains Mono',monospace;
+}
+/* Farb-Legende */
+.hm-legend{
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 8px;font-size:.72rem;color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+.hm-legend-bar{
+  flex:1;height:8px;border-radius:4px;
+  background:linear-gradient(to right,hsl(120,72%,42%),hsl(60,80%,46%),hsl(30,82%,50%),hsl(0,75%,42%));
+}
+</style>
+<div aria-label="Farbskala: grün = wenige Jahre, rot = viele Jahre" class="hm-legend">
+<span data-en="Few years">Wenige Jahre</span>
+<div aria-hidden="true" class="hm-legend-bar"></div>
+<span data-en="Many years">Viele Jahre</span>
+</div>
+<!-- Heatmap-Tabelle -->
+<div class="hm-outer" id="rs-calc">
+<table aria-label="Sparjahre bis zur Rente" class="hm-table" id="hm-table">
+<!-- Wird per JS befüllt -->
+</table>
+</div>
+<!-- Tooltip -->
+<div aria-hidden="true" class="hm-tooltip" id="hm-tooltip"></div>
+<!-- Rendite-Schieberegler -->
+<div style="display:flex;align-items:center;gap:14px;margin:-12px 0 28px;flex-wrap:wrap;">
+<span data-en="Real return assumption:" style="font-size:.78rem;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;white-space:nowrap;">Reale Rendite-Annahme:</span>
+<input aria-label="Reale Jahresrendite" id="rs-return" max="7.5" min="1" step="0.5" style="flex:1;min-width:120px;max-width:220px;accent-color:var(--blue);" type="range" value="3"/>
+<span id="rs-return-val" style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:.88rem;min-width:36px;">3,0%</span>
+<span data-en="(move to see how the table changes)" style="font-size:.74rem;color:var(--ink-soft);">(verschieben, um Tabellenänderung zu sehen)</span>
+</div>
+<!-- Persönlicher Rechner -->
+<div aria-label="Persönlicher Sparjahre-Rechner" class="rs-calc">
+<div class="rs-calc-title" data-en="Your personal calculation — where are you in the table?">Deine persönliche Rechnung — wo stehst du in der Tabelle?</div>
+<div class="rs-fields">
+<div class="rs-field">
+<label data-en="Monthly savings" for="rs-monthly">Monatliche Sparrate</label>
+<div class="rs-val"><span id="rs-monthly-val">500</span> €</div>
+<input aria-label="Monatliche Sparrate in Euro" id="rs-monthly" max="3000" min="50" step="50" type="range" value="500"/>
+</div>
+<div class="rs-field">
+<label data-en="Annual expenses in retirement" for="rs-annual">Gewünschte Jahresausgaben im Alter</label>
+<div class="rs-val"><span id="rs-annual-val">25.000</span> €</div>
+<input aria-label="Jährliche Ausgaben im Alter in Euro" id="rs-annual" max="80000" min="5000" step="1000" type="range" value="25000"/>
+</div>
+<div class="rs-field">
+<label data-en="Your current age" for="rs-age">Dein aktuelles Alter</label>
+<div class="rs-val"><span id="rs-age-val">30</span> Jahre</div>
+<input aria-label="Aktuelles Alter" id="rs-age" max="60" min="18" step="1" type="range" value="30"/>
+</div>
+<div class="rs-field">
+<label data-en="Existing savings (optional)" for="rs-existing">Vorhandenes Vermögen (optional)</label>
+<div class="rs-val"><span id="rs-existing-val">0</span> €</div>
+<input aria-label="Bereits vorhandenes Vermögen" id="rs-existing" max="200000" min="0" step="5000" type="range" value="0"/>
+</div>
+</div>
+<div class="rs-result" id="rs-result">
+<div class="rs-years" id="rs-years">–</div>
+<div class="rs-years-label" data-en="years of saving needed" id="rs-years-label">Jahre Sparphase</div>
+<div class="rs-retire-age" id="rs-retire-age"></div>
+<div class="rs-target" id="rs-target"></div>
+</div>
+</div>
+<!-- Insights -->
+<script>
+(function(){
+  // ── Datenpunkte ──────────────────────────────────────────────
+  var SAVINGS  = [50,100,150,200,300,500,750,1000,1250,1500,1750,2000];
+  var EXPENSES = [5000,10000,15000,20000,25000,30000,35000,40000,45000,50000];
+
+  // ── Formel ───────────────────────────────────────────────────
+  function yearsNeeded(monthly, annual, realReturnPct, existingSavings) {
+    var target = annual * 25;
+    var existing = existingSavings || 0;
+    var r = realReturnPct / 100 / 12;
+
+    // Vorhandenes Vermögen auf Zielkapital anwachsen lassen —
+    // gleichzeitig mit monatlichem Sparbeitrag
+    if (r < 0.000001) {
+      // Ohne Zins: linear
+      var remaining = target - existing;
+      if (remaining <= 0) return 0;
+      return remaining / monthly / 12;
+    }
+
+    // Binäre Suche: Finde n (Monate) sodass FV(existing) + FV(monthly) = target
+    // FV = existing*(1+r)^n + monthly*((1+r)^n - 1)/r
+    if (existing >= target) return 0;
+
+    var lo = 0, hi = 100 * 12; // max 100 Jahre
+    for (var i = 0; i < 60; i++) {
+      var mid = (lo + hi) / 2;
+      var fv = existing * Math.pow(1+r, mid) + monthly * (Math.pow(1+r, mid) - 1) / r;
+      if (fv < target) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2 / 12;
+  }
+
+  // ── Farbe ────────────────────────────────────────────────────
+  function heatColor(years) {
+    var maxY = 100;
+    var t = Math.min(years, maxY) / maxY;
+    var hue = 120 * (1 - t);
+    var sat = 72;
+    var light = 42 - t * 4;
+    return 'hsl(' + hue.toFixed(0) + ',' + sat + '%,' + light.toFixed(1) + '%)';
+  }
+  function textCol(years) {
+    var t = Math.min(years,100)/100;
+    return (t > 0.22 && t < 0.72) ? '#1a1f2e' : '#fff';
+  }
+
+  // ── Tabelle aufbauen ─────────────────────────────────────────
+  var returnSlider = document.getElementById('rs-return');
+  var returnValEl  = document.getElementById('rs-return-val');
+  var table        = document.getElementById('hm-table');
+  var tooltip      = document.getElementById('hm-tooltip');
+  var selectedCell = null;
+
+  function fmtK(n){ return n>=1000?(n/1000).toFixed(0)+'k':n+''; }
+  function isEn(){ return document.documentElement.getAttribute('lang')==='en'; }
+
+  function buildTable(ret) {
+    var en = isEn();
+    var rows = [];
+
+    // Header
+    var hdr = '<thead><tr><th class="hm-row-header" data-en="Monthly savings">Monatl. Sparbetrag</th>';
+    EXPENSES.forEach(function(e){
+      hdr += '<th>' + (e/1000).toFixed(0) + '.000 €</th>';
+    });
+    hdr += '</tr></thead>';
+    rows.push(hdr);
+
+    // Datenzeilen
+    rows.push('<tbody>');
+    SAVINGS.forEach(function(s){
+      var row = '<tr><td class="hm-label">' + s.toLocaleString('de-DE') + ' €</td>';
+      EXPENSES.forEach(function(e){
+        var y = yearsNeeded(s, e, ret, 0);
+        var display = y > 200 ? '>200' : (y < 1 ? '<1' : Math.round(y).toString());
+        var bg = heatColor(y);
+        var tc = textCol(y);
+        row += '<td class="hm-cell" style="background:' + bg + ';color:' + tc + ';text-shadow:0 0 4px ' + (tc==='#fff'?'rgba(0,0,0,.6)':'rgba(255,255,255,.4)') + ';"'
+             + ' data-s="' + s + '" data-e="' + e + '" data-y="' + y.toFixed(1) + '"'
+             + ' tabindex="0" role="gridcell"'
+             + ' aria-label="' + s + '€ Sparrate, ' + e.toLocaleString('de-DE') + '€ Ziel: ' + Math.round(y) + ' Jahre">'
+             + display + '</td>';
+      });
+      row += '</tr>';
+      rows.push(row);
+    });
+    rows.push('</tbody>');
+    table.innerHTML = rows.join('');
+    attachCellEvents();
+    if (selectedCell) rehighlight();
+  }
+
+  function attachCellEvents() {
+    var cells = table.querySelectorAll('.hm-cell');
+    cells.forEach(function(cell){
+      cell.addEventListener('mouseenter', function(e){ showTooltip(cell, e); });
+      cell.addEventListener('mousemove',  function(e){ moveTooltip(e); });
+      cell.addEventListener('mouseleave', function(){ tooltip.style.display='none'; });
+      cell.addEventListener('click', function(){ selectCell(cell); });
+      cell.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){selectCell(cell);e.preventDefault();} });
+    });
+  }
+
+  function showTooltip(cell, e) {
+    var en = isEn();
+    var s = parseFloat(cell.dataset.s);
+    var ex = parseFloat(cell.dataset.e);
+    var y = parseFloat(cell.dataset.y);
+    var years = Math.round(y);
+    var target = ex * 25;
+    tooltip.innerHTML = (en ? 'Save' : 'Sparen') + ': <strong>' + s.toLocaleString('de-DE') + ' €/Monat</strong><br>'
+      + (en ? 'Goal' : 'Ziel') + ': <strong>' + ex.toLocaleString('de-DE') + ' €/Jahr</strong><br>'
+      + (en ? 'Target capital' : 'Zielkapital') + ': ' + target.toLocaleString('de-DE') + ' €<br>'
+      + '<strong style="font-size:1.1rem">' + (y>200?'>200':years) + ' ' + (en?'years':'Jahre') + '</strong>';
+    tooltip.style.display = 'block';
+    moveTooltip(e);
+  }
+  function moveTooltip(e) {
+    var x = e.clientX + 14, y = e.clientY - 10;
+    if (x + 230 > window.innerWidth) x = e.clientX - 240;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top  = y + 'px';
+  }
+
+  function selectCell(cell) {
+    if (selectedCell) selectedCell.classList.remove('is-selected');
+    selectedCell = cell;
+    cell.classList.add('is-selected');
+    syncPersonalCalc(parseFloat(cell.dataset.s), parseFloat(cell.dataset.e));
+  }
+
+  function rehighlight() {
+    var s = selectedCell ? selectedCell.dataset.s : null;
+    var e = selectedCell ? selectedCell.dataset.e : null;
+    if (!s || !e) return;
+    var cells = table.querySelectorAll('.hm-cell');
+    cells.forEach(function(c){ if(c.dataset.s===s && c.dataset.e===e) { c.classList.add('is-selected'); selectedCell=c; }});
+  }
+
+  function syncPersonalCalc(s, e) {
+    var monthly = document.getElementById('rs-monthly');
+    var annual  = document.getElementById('rs-annual');
+    if (s >= 50 && s <= 3000) { monthly.value = s; document.getElementById('rs-monthly-val').textContent = s.toLocaleString('de-DE'); }
+    if (e >= 5000 && e <= 80000) { annual.value = e; document.getElementById('rs-annual-val').textContent = e.toLocaleString('de-DE'); }
+    updateCalc();
+  }
+
+  // ── Persönlicher Rechner ─────────────────────────────────────
+  var rsMonthly  = document.getElementById('rs-monthly');
+  var rsAnnual   = document.getElementById('rs-annual');
+  var rsAge      = document.getElementById('rs-age');
+  var rsExisting = document.getElementById('rs-existing');
+  var rsResult   = document.getElementById('rs-result');
+  var rsYearsEl  = document.getElementById('rs-years');
+  var rsLabelEl  = document.getElementById('rs-years-label');
+  var rsAgeEl    = document.getElementById('rs-retire-age');
+  var rsTargetEl = document.getElementById('rs-target');
+
+  function updateCalc() {
+    var en = isEn();
+    var monthly  = parseFloat(rsMonthly.value);
+    var annual   = parseFloat(rsAnnual.value);
+    var age      = parseFloat(rsAge.value);
+    var existing = parseFloat(rsExisting.value);
+    var ret      = parseFloat(returnSlider.value);
+
+    document.getElementById('rs-monthly-val').textContent  = monthly.toLocaleString('de-DE');
+    document.getElementById('rs-annual-val').textContent   = annual.toLocaleString('de-DE');
+    document.getElementById('rs-age-val').textContent      = age;
+    document.getElementById('rs-existing-val').textContent = existing.toLocaleString('de-DE');
+
+    var years = yearsNeeded(monthly, annual, ret, existing);
+    var target = annual * 25;
+    var retireAge = Math.round(age + years);
+    var displayYears = years < 0.5 ? '<1' : (years > 200 ? '>200' : Math.round(years).toString());
+
+    rsYearsEl.textContent = displayYears;
+    rsLabelEl.textContent = en ? 'years of saving needed' : 'Jahre Sparphase';
+    rsAgeEl.textContent   = years > 0 && years <= 200
+      ? (en ? '→ Retirement at age approx. ' : '→ Rente mit ca. ') + retireAge
+      : (en ? '→ Already achievable!' : '→ Bereits erreichbar!');
+    rsTargetEl.textContent = (en ? 'Target capital: ' : 'Zielkapital: ')
+      + target.toLocaleString('de-DE') + ' €'
+      + (existing > 0 ? (en ? ' (start: ' : ' (Start: ') + existing.toLocaleString('de-DE') + ' €)' : '');
+
+    // Farbe der Ergebniskarte
+    rsResult.classList.remove('is-green','is-orange','is-red');
+    if (years <= 20) rsResult.classList.add('is-green');
+    else if (years <= 40) rsResult.classList.add('is-orange');
+    else rsResult.classList.add('is-red');
+  }
+
+  [rsMonthly, rsAnnual, rsAge, rsExisting].forEach(function(el){
+    el.addEventListener('input', updateCalc);
+  });
+
+  returnSlider.addEventListener('input', function(){
+    var v = parseFloat(returnSlider.value).toFixed(1).replace('.',',');
+    returnValEl.textContent = v + '%';
+    buildTable(parseFloat(returnSlider.value));
+    updateCalc();
+  });
+
+  // ── Init + Sprach-Rerender ───────────────────────────────────
+  buildTable(3.0);
+  updateCalc();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(function(){
+    buildTable(parseFloat(returnSlider.value));
+    updateCalc();
+  });
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

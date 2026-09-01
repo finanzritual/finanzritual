@@ -1,0 +1,34 @@
+name: SEO-Grundabsicherung
+
+# Laeuft automatisch bei jedem Push und jedem Pull Request auf main/master
+# -- kein manueller Schritt noetig, kein "daran denken muessen". Prueft
+# jede HTML-Datei auf genau einen canonical-Link und genau eine
+# description-Meta (siehe _einrichtung/tools/validate_seo_tags.py fuer
+# die Details und die Vorgeschichte dieses Checks: V1104/V1115/V1117).
+#
+# Schlaegt der Check fehl, zeigt GitHub direkt am Commit/PR ein rotes X
+# -- neue Artikel ohne diese Tags fallen damit sofort auf, statt sich
+# unbemerkt anzusammeln, wie es vor V1117 passiert ist.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch: {}  # erlaubt manuelles Anstossen ueber die GitHub-Oberflaeche
+
+jobs:
+  seo-tags:
+    name: Canonical & Description pruefen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: SEO-Tags validieren
+        run: python3 _einrichtung/tools/validate_seo_tags.py

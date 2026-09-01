@@ -1,0 +1,120 @@
+<!-- ===== Rechner-Modul: REIT-ETF-vs-Immobilie-Hebel =====
+     Automatisch aus beitrag-reit-etf-vs-immobilie.html extrahiert
+     (V887). Vergleicht Eigenkapitalwert nach 15 Jahren bei fremd-
+     finanzierter Immobilie vs. REIT-ETF, isoliert die Hebel-Arithmetik
+     (ohne Miete/Zinskosten/Instandhaltung). Globale CSS-Variablen,
+     keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.ri-calc{ margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.ri-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .ri-calc-inputs{ grid-template-columns:1fr; } }
+.ri-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.ri-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.ri-calc-results{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; }
+@media (max-width:640px){ .ri-calc-results{ grid-template-columns:1fr; } }
+.ri-calc-result{ border-radius:12px; padding:16px 18px; text-align:center; }
+.ri-calc-result--property{ background:rgba(176,141,87,.1); border:1px solid rgba(176,141,87,.3); }
+.ri-calc-result--etf{ background:rgba(36,84,166,.08); border:1px solid rgba(36,84,166,.25); }
+.ri-calc-result .lbl{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.ri-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; }
+.ri-calc-result--property .num{ color:#b08d57; }
+.ri-calc-result--etf .num{ color:var(--blue); }
+</style>
+<div class="ri-calc" id="ri-calc">
+<div class="ri-calc-inputs">
+<div class="row">
+<label for="ri-equity"><span data-en="Your own equity">Dein Eigenkapital</span> <span class="val" id="ri-equity-val">60.000 €</span></label>
+<input class="calc-slider" id="ri-equity" max="200000" min="10000" step="5000" type="range" value="60000"/>
+</div>
+<div class="row">
+<label for="ri-ltv"><span data-en="Loan share on the property">Fremdfinanzierungsanteil</span> <span class="val" id="ri-ltv-val">80⁠%</span></label>
+<input class="calc-slider" id="ri-ltv" max="90" min="0" step="5" type="range" value="80"/>
+</div>
+<div class="row">
+<label for="ri-appreciation"><span data-en="Annual value growth (property)">Jährliche Wertsteigerung (Immobilie)</span> <span class="val" id="ri-appreciation-val">3,0⁠%</span></label>
+<input class="calc-slider" id="ri-appreciation" max="8" min="0" step="0.5" type="range" value="3"/>
+</div>
+<div class="row">
+<label for="ri-etf"><span data-en="Annual return (REIT-ETF)">Jährliche Rendite (REIT-ETF)</span> <span class="val" id="ri-etf-val">6,0⁠%</span></label>
+<input class="calc-slider" id="ri-etf" max="12" min="0" step="0.5" type="range" value="6"/>
+</div>
+</div>
+<p class="calc-note" data-en="Price appreciation and market return only, compounded over 15 years – excludes rent, interest cost, maintenance, vacancy, and taxes. A real property calculation needs all of these; this isolates the leverage arithmetic only. Simplified example, not investment advice.">Nur Wertsteigerung bzw. Marktrendite, über 15 Jahre verzinst — ohne Miete, Zinskosten, Instandhaltung, Leerstand und Steuern. Eine echte Immobilienrechnung braucht all das; hier wird nur die Hebel-Arithmetik isoliert. Vereinfachte Beispielrechnung, keine Anlageberatung.</p>
+<div class="ri-calc-results">
+<div class="ri-calc-result ri-calc-result--property">
+<div class="lbl" data-en="Property equity value after 15 years">Immobilien-Eigenkapitalwert nach 15 Jahren</div>
+<div class="num" id="ri-property-result">–</div>
+</div>
+<div class="ri-calc-result ri-calc-result--etf">
+<div class="lbl" data-en="REIT-ETF value after 15 years">REIT-ETF-Wert nach 15 Jahren</div>
+<div class="num" id="ri-etf-result">–</div>
+<script>
+(function(){
+  const equityEl = document.getElementById('ri-equity');
+  const ltvEl = document.getElementById('ri-ltv');
+  const appEl = document.getElementById('ri-appreciation');
+  const etfEl = document.getElementById('ri-etf');
+  const equityVal = document.getElementById('ri-equity-val');
+  const ltvVal = document.getElementById('ri-ltv-val');
+  const appVal = document.getElementById('ri-appreciation-val');
+  const etfVal = document.getElementById('ri-etf-val');
+  const propertyResult = document.getElementById('ri-property-result');
+  const etfResult = document.getElementById('ri-etf-result');
+  if(!equityEl) return;
+
+  const YEARS = 15;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+  function fmtEuro(n){
+    const en = isEn();
+    const s = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 }).format(Math.round(n));
+    return en ? ('€' + s) : (s + '\u00A0€');
+  }
+  function fmtPct(n){
+    const en = isEn();
+    return n.toFixed(1).replace('.', en ? '.' : ',') + '%';
+  }
+
+  function compute(){
+    const equity = parseFloat(equityEl.value);
+    const ltv = parseFloat(ltvEl.value) / 100;
+    const app = parseFloat(appEl.value) / 100;
+    const etfReturn = parseFloat(etfEl.value) / 100;
+
+    equityVal.textContent = fmtEuro(equity);
+    ltvVal.textContent = fmtPct(ltv*100);
+    appVal.textContent = fmtPct(app*100);
+    etfVal.textContent = fmtPct(etfReturn*100);
+
+    // Immobilie: Kaufpreis = Eigenkapital / (1 - LTV), waechst mit 'app' ueber YEARS Jahre,
+    // Eigenkapitalwert = Immobilienwert - urspruengliche Kreditsumme (Tilgung wird ignoriert, vereinfachte Betrachtung)
+    const ltvClamped = Math.min(ltv, 0.9);
+    const purchasePrice = ltvClamped < 1 ? equity / (1 - ltvClamped) : equity;
+    const loanAmount = purchasePrice - equity;
+    const futurePropertyValue = purchasePrice * Math.pow(1 + app, YEARS);
+    const propertyEquityValue = Math.max(futurePropertyValue - loanAmount, 0);
+
+    // REIT-ETF: einfache Verzinsung des Eigenkapitals
+    const futureEtfValue = equity * Math.pow(1 + etfReturn, YEARS);
+
+    propertyResult.textContent = fmtEuro(propertyEquityValue);
+    etfResult.textContent = fmtEuro(futureEtfValue);
+  }
+
+  [equityEl, ltvEl, appEl, etfEl].forEach(el => el.addEventListener('input', compute));
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+  compute();
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

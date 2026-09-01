@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta name="robots" content="noindex, follow"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="How many years do you need to save? The retirement heat map. — Finanzritual">Wie viele Jahre musst du sparen? Die Renten-Heatmap. — Finanzritual</title>
+<meta name="description" content="Einfache-Sprache-Fassung: Wie viele Jahre musst du für die Rente sparen?." data-en-content="Savings rate × desired annual retirement spending = number of working years. Interactive table with colour scale — plus a personal calculator for your own situation."/>
+<link rel="canonical" href="https://www.finanz-ritual.de/beitrag-rente-sparjahre-einfach.html"/>
+<meta name="fr-video-id" content="1376">
+<meta name="fr-content-hash" content="dcaae5fe20fdb996d37179dc8fb9178410e8cc94f61a0105e2cac31cb6a6c35e">
+<meta name="fr-links-hash" content="95e4bfbb1a63d75abf3ceec97aade7942ed84209181bec57c8339ff54d2ebfb0">
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Wie viele Jahre musst du für die Rente sparen? — Finanzritual" data-en-content="How Many Years Do You Need to Save? The Retirement Heat Map"/>
+<meta property="og:image" content="https://www.finanz-ritual.de/og-default.jpg"/>
+<meta property="og:site_name" content="Finanzritual"/>
+<meta property="og:url" content="https://www.finanz-ritual.de/beitrag-rente-sparjahre-einfach.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="alternate" href="https://www.finanz-ritual.de/beitrag-rente-sparjahre-einfach.html" hreflang="de"/>
+<link rel="alternate" href="https://www.finanz-ritual.de/beitrag-rente-sparjahre-einfach.html" hreflang="x-default"/>
+<link rel="alternate" href="https://www.finanz-ritual.de/rss.xml" title="Finanzritual RSS" type="application/rss+xml"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="stylesheet" href="style.css"/>
+<!-- FR_BOOT_BACKGROUND_START -->
+<script>
+(function(){
+  try {
+    var t=localStorage.getItem('fr-theme')||'light';
+    var c=localStorage.getItem('fr-contrast')||'off';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-contrast',c);
+  } catch(e) {}
+})();
+</script>
+<style id="fr-boot-background">
+html,body{background:#F4F5F7 !important;}
+html[data-theme="dark"] body,html[data-theme="dark"]{background:#10151C !important;}
+html[data-theme="light"][data-contrast="high"] body,html[data-theme="light"][data-contrast="high"]{background:#FFFFFF !important;}
+html[data-theme="dark"][data-contrast="high"] body,html[data-theme="dark"][data-contrast="high"]{background:#000000 !important;}
+</style>
+<!-- FR_BOOT_BACKGROUND_END -->
+<!-- FR_SIMPLE_TRANSITION_START -->
+<style id="fr-simple-transition-style">
+html.fr-simple-transition-active::before{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#F4F5F7;opacity:1;transition:opacity .10s ease-out;}
+html.fr-simple-transition-active[data-theme="dark"]::before{background:#10151C;}
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{background:#FFF;}
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{background:#000;}
+html.fr-simple-transition-done::before{opacity:0;}
+</style>
+<script>
+(function(){
+  try {
+    if(sessionStorage.getItem('fr-simple-transition') === '1'){
+      sessionStorage.removeItem('fr-simple-transition');
+      document.documentElement.classList.add('fr-simple-transition-active');
+      window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('fr-simple-transition-done');
+          setTimeout(function(){
+            document.documentElement.classList.remove('fr-simple-transition-active','fr-simple-transition-done');
+          }, 130);
+        });
+      }, {once:true});
+    }
+  } catch(e) {}
+})();
+</script>
+<!-- FR_SIMPLE_TRANSITION_END -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Wie viele Jahre musst du sparen? Die Renten-Heatmap",
+  "description": "Interaktive Farbmatrix: Sparrate × Jahresausgaben im Alter = Arbeitsjahre. Mit persönlichem Rechner.",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.finanz-ritual.de/beitrag-rente-sparjahre.html" },
+  "author": { "@type": "Person", "name": "Rainer" },
+  "publisher": { "@type": "Organization", "name": "Finanzritual" },
+  "inLanguage": "de-DE"
+}
+</script>
+<style>
+/* ── Heatmap-Tabelle ─────────────────────────────────────────── */
+.hm-outer{overflow-x:auto;margin:24px 0 32px;border-radius:14px;box-shadow:var(--shadow,0 2px 12px rgba(0,0,0,.1));}
+.hm-table{border-collapse:collapse;font-size:.78rem;min-width:700px;width:100%;}
+.hm-table th{
+  background:var(--ink);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;padding:9px 8px;
+  text-align:center;white-space:nowrap;border-right:1px solid rgba(255,255,255,.1);
+}
+.hm-table th:last-child{border-right:none;}
+.hm-table th.hm-row-header{text-align:left;min-width:88px;}
+[data-theme="dark"] .hm-table th{background:#0d0f14;}
+.hm-cell{
+  padding:9px 6px;text-align:center;
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.8rem;
+  border-right:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08);
+  cursor:pointer;transition:filter .12s,outline .08s;outline:none;position:relative;
+}
+.hm-cell:hover{filter:brightness(1.12);}
+.hm-cell.is-selected{outline:3px solid #fff;outline-offset:-3px;filter:brightness(1.18);}
+.hm-label{
+  padding:9px 10px;font-size:.78rem;font-weight:700;
+  color:var(--ink);background:var(--bg-raised);
+  border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+/* Hover-Tooltip */
+.hm-tooltip{
+  position:fixed;z-index:200;pointer-events:none;
+  background:#111720;color:#f2f4f8;border-radius:8px;
+  padding:9px 13px;font-size:.78rem;line-height:1.5;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 4px 20px rgba(0,0,0,.45);max-width:220px;
+  display:none;
+}
+/* ── Persönlicher Rechner ───────────────────────────────────── */
+.rs-calc{
+  background:var(--bg-raised);border:1.5px solid var(--line-strong);
+  border-radius:14px;padding:24px 24px 20px;margin:28px 0;
+}
+.rs-calc-title{
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);font-family:'JetBrains Mono',monospace;margin-bottom:18px;
+}
+.rs-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+@media(max-width:520px){.rs-fields{grid-template-columns:1fr;}}
+.rs-field label{display:block;font-size:.76rem;font-weight:700;color:var(--ink-soft);margin-bottom:5px;}
+.rs-field .rs-val{
+  font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;
+  color:var(--blue);margin-bottom:4px;
+}
+.rs-field input[type=range]{width:100%;accent-color:var(--blue);margin:0;}
+.rs-field-full{grid-column:1/-1;}
+.rs-result{
+  border-radius:10px;padding:16px 18px;text-align:center;
+  background:var(--blue-soft);border:1.5px solid rgba(36,84,166,.25);
+  transition:background .3s,border-color .3s;
+}
+.rs-result.is-green{background:#C6F0D8;border-color:rgba(30,142,90,.6);}
+[data-theme="dark"] .rs-result.is-green{background:#0D3D22;border-color:rgba(30,142,90,.7);}
+.rs-result.is-orange{background:#FFE0B2;border-color:rgba(230,100,0,.55);}
+[data-theme="dark"] .rs-result.is-orange{background:#3D1F00;border-color:rgba(255,130,0,.6);}
+.rs-result.is-red{background:#FFCDD2;border-color:rgba(192,57,43,.6);}
+[data-theme="dark"] .rs-result.is-red{background:#3D0000;border-color:rgba(220,80,60,.65);}
+.rs-years{font-size:2.2rem;font-weight:700;line-height:1;color:var(--ink);}
+.rs-years-label{font-size:.82rem;color:var(--ink-soft);margin-top:4px;}
+.rs-retire-age{font-size:.85rem;color:var(--ink-soft);margin-top:8px;font-style:italic;}
+.rs-target{
+  font-size:.8rem;color:var(--ink-soft);margin-top:8px;
+  font-family:'JetBrains Mono',monospace;
+}
+/* Farb-Legende */
+.hm-legend{
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 8px;font-size:.72rem;color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+}
+.hm-legend-bar{
+  flex:1;height:8px;border-radius:4px;
+  background:linear-gradient(to right,hsl(120,72%,42%),hsl(60,80%,46%),hsl(30,82%,50%),hsl(0,75%,42%));
+}
+</style>
+</meta><style>.key-statement{background:#fff3a3;padding:0 .08em;border-radius:.12em;}</style></head>
+<body data-simple-link="beitrag-rente-sparjahre.html">
+<a class="skip-link" data-en="Skip directly to the English language switch" href="#lang-toggle">Direkt zum Sprachwechsel (Englisch) springen</a><a class="skip-link" data-en="Skip to main content" href="#main-content">Direkt zum Hauptinhalt springen</a>
+<div class="alert-banner" id="alert-banner" role="alert"><div class="alert-banner-inner"><span class="alert-banner-text" id="alert-banner-text"></span><div class="alert-banner-right"><span aria-hidden="true" class="alert-banner-counter" id="perf-counter"><span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span></span><button aria-label="Warnung ausblenden" class="alert-banner-close" data-en-aria-label="Hide warning" id="alert-banner-close" type="button">✕</button></div></div></div>
+<button aria-label="Warnhinweis anzeigen" class="alert-bell" data-en-aria-label="Show warning" id="alert-bell" type="button"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"></path><path d="M10 19a2 2 0 0 0 4 0"></path></svg></button>
+<button aria-label="Nach oben scrollen" class="scroll-top-btn" data-en-aria-label="Scroll to top" id="scroll-top-btn" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg></button>
+<div class="logo-band" id="logo-band">
+<a aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage" href="index.html">
+<img alt="Finanzritual" class="logo-band-img" src="logos/logo-crossword-blue.svg"/>
+</a>
+</div>
+<header class="site">
+<div class="header-inner">
+<a aria-label="Finanzritual — Startseite" class="logo-mark" data-en-aria-label="Finanzritual — Homepage" href="index.html" id="logo-btn"><img alt="Finanzritual" class="logo-crossword-img" src="logos/logo-crossword-blue.svg"/><span class="logo-word">Finanz-Ritua</span>
+<svg aria-hidden="true" class="logo-l" viewbox="0 0 44 34" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 2 V32 H40" fill="none" stroke="#2454A6" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<path d="M8 27 L16 19 L22 23 L30 11 L37 5" fill="none" stroke="#1E8E5A" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+<circle cx="37" cy="5" fill="#1E8E5A" r="3.2"></circle>
+</svg></a>
+<div aria-hidden="true" class="fr-secret-panel" id="fr-secret-panel"><div class="fr-secret-panel-inner"><div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div><nav aria-label="Versteckte Bereiche" class="fr-secret-nav" data-en-aria-label="Hidden sections"><a href="index.html#optionen">Optionen</a></nav><div class="fr-secret-a11y"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Dyslexia-friendly font">Legasthenie-Schrift</span><button class="fr-secret-a11y-switch" id="dyslexic-font-toggle" type="button" aria-pressed="false" aria-label="Legasthenie-freundliche Schrift umschalten" data-en-aria-label="Toggle dyslexia-friendly font"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-ladder-test"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Force mobile ladder (test)">Mobile-Leiter-Test</span><button class="fr-secret-a11y-switch" id="force-ladder-toggle" type="button" aria-pressed="false" aria-label="Mobile-Leiter-Test umschalten" data-en-aria-label="Toggle mobile ladder test"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-youth"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Youth Basic Education">JugendBASISbildung</span><button class="fr-secret-a11y-switch fr-youth-switch" id="fr-youth-toggle" type="button" aria-pressed="false" aria-label="JugendBASISbildung öffnen" data-en-aria-label="Open Youth Basic Education"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-timer"><div class="fr-secret-timer-row"><span class="fr-secret-timer-label" data-en="Quiz thinking time">Quiz-Bedenkzeit</span><span class="fr-secret-timer-value" id="fr-timer-value" data-en="Off">Aus</span></div><input type="range" class="fr-secret-timer-slider" id="fr-timer-slider" min="0" max="120" step="5" value="0" aria-label="Bedenkzeit in Sekunden fuer das Quiz" data-en-aria-label="Thinking time in seconds for the quiz"></div><div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div></div></div>
+<nav aria-label="Hauptnavigation" class="primary" id="primary-nav">
+<div class="nav-drop">
+<button aria-expanded="false" class="nav-drop-toggle is-active" type="button">
+<span data-en="Finance">Finanzen</span>
+<svg aria-hidden="true" class="nav-caret" viewbox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+</button>
+<div class="nav-drop-panel">
+<a class="nav-drop-all" data-en="All Finance posts (63)" href="kat-finanzen.html">Alle Finanzen-Artikel (63)</a><a class="nav-sub-link nav-wegweiser" href="von-zero-zum-hero.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg></span><span class="nav-sub-label" data-en="Beginner's guide">Einsteiger-Wegweiser</span></a>
+<a class="nav-sub-link" href="kat-finanzen-portfolio.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" width="20" x="2" y="7"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(9)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-girokonto.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 10l9-6 9 6"></path><path d="M5 10v9"></path><path d="M19 10v9"></path><path d="M9 10v9"></path><path d="M15 10v9"></path><path d="M3 21h18"></path></svg></span><span class="nav-sub-label" data-en="Checking &amp; Savings Accounts">Girokonto &amp; Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-etf.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg></span><span class="nav-sub-label" data-en="ETFs &amp; Savings Plans">ETF &amp; Sparplan</span><span class="nav-sub-count">(5)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-kredit.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><line x1="19" x2="5" y1="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.3"></circle><circle cx="17.5" cy="17.5" r="2.3"></circle></svg></span><span class="nav-sub-label" data-en="Loans &amp; Debt">Kredit &amp; Schulden</span><span class="nav-sub-count">(1)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-immobilien.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg></span><span class="nav-sub-label" data-en="Real Estate &amp; REITs">Immobilien &amp; REITs</span><span class="nav-sub-count">(2)</span></a>
+<a class="nav-sub-link is-active" href="kat-finanzen-rendite.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 20V10"></path><path d="M12 20V4"></path><path d="M20 20v-6"></path></svg></span><span class="nav-sub-label" data-en="Portfolio &amp; Returns">Depot &amp; Rendite</span><span class="nav-sub-count">(9)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-vermoegen.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg></span><span class="nav-sub-label" data-en="Building Wealth">Vermögensaufbau</span><span class="nav-sub-count">(16)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-steuer.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"></path><path d="M9 8h6"></path><path d="M9 12h6"></path></svg></span><span class="nav-sub-label" data-en="Taxes">Steuern</span><span class="nav-sub-count">(4)</span></a>
+<a class="nav-sub-link" href="kat-finanzen-learning.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"></path><path d="M7 9.5V15c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V9.5"></path></svg></span><span class="nav-sub-label" data-en="Learning">Learning</span><span class="nav-sub-count">(3)</span></a>
+</div>
+</div>
+<a class="nav-rechner-link" href="rechner.html"><svg aria-hidden="true" class="nav-rechner-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg><span data-en="CALC">CALC</span></a>
+<div class="nav-drop"><button aria-expanded="false" class="nav-drop-toggle" data-en="Compare" type="button">Vergleich<svg aria-hidden="true" class="nav-caret" viewbox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg></button><div class="nav-drop-panel"><a class="nav-drop-all" data-en="All comparisons" href="kat-vergleich.html">Alle Vergleiche</a><a class="nav-sub-link" href="kat-vergleich.html#girokonto"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="Checking accounts">Girokonto</span></a><a class="nav-sub-link" href="kat-vergleich.html#mobilfunk"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="Mobile plans">Mobilfunk</span></a><a class="nav-sub-link" href="kat-vergleich.html#depot-broker"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="Custody accounts &amp; brokers">Depot &amp; Broker</span></a><a class="nav-sub-link" href="kat-vergleich.html#kredit"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="Loans">Kredit</span></a><a class="nav-sub-link" href="kat-vergleich.html#immobilien"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="Real estate">Immobilien</span></a><a class="nav-sub-link" href="kat-vergleich.html#etf-grundsatz"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="ETF fundamentals">ETF-Grundsatz</span></a><a class="nav-sub-link" href="kat-vergleich.html#altersvorsorge"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2L4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4z"></path></svg></span><span class="nav-sub-label" data-en="Retirement provision">Altersvorsorge</span></a><a class="nav-sub-link" href="kat-vergleich.html#technik"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="Tech &amp; tools">Technik &amp; Tools</span></a><a class="nav-sub-link" href="kat-vergleich.html#p2p"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M19 7l-3 7a3 3 0 0 0 6 0z"></path><path d="M5 7h14"></path></svg></span><span class="nav-sub-label" data-en="P2P lending">P2P</span></a></div></div>
+<div class="nav-drop">
+<button aria-expanded="false" class="nav-drop-toggle" type="button">
+<span data-en="Lifestyle">Lebensstil</span>
+<svg aria-hidden="true" class="nav-caret" viewbox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+</button>
+<div class="nav-drop-panel">
+<a class="nav-drop-all" data-en="All Lifestyle posts (30)" href="kat-lebensstil.html">Alle Lebensstil-Artikel (30)</a>
+<div class="nav-group-label" data-en="FIRE">FIRE</div>
+<a class="nav-sub-link" href="kat-fire.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-1 3-3 4-3 7 0-2-2-3-2-5-3 2-5 5-5 8 0 4 3 7 7 7z"></path></svg></span><span class="nav-sub-label" data-en="FIRE">FIRE</span><span class="nav-sub-count">(8)</span></a>
+<a class="nav-group-label" data-en="MINIMALISM" href="kat-minimalismus.html">MINIMALISMUS</a>
+<a class="nav-sub-link" href="kat-minimalismus-budget.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"></path><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"></path></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
+<a class="nav-sub-link" href="kat-minimalismus-nachhaltigkeit.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"></path><path d="M4 13c3 0 6 1 7 3"></path></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
+<a class="nav-sub-link" href="kat-minimalismus-sparquote.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M9 12h6"></path><path d="M12 9v6"></path></svg></span><span class="nav-sub-label" data-en="Savings Rate &amp; Everyday">Sparquote &amp; Alltag</span><span class="nav-sub-count">(3)</span></a>
+<a class="nav-sub-link" href="kat-minimalismus-motivation.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"></path></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(14)</span></a><a class="nav-sub-link nav-sub-link--game" href="kat-minimalismus-motivation.html#spiele-bereich"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="3" width="18" x="3" y="3"></rect><circle cx="8" cy="8" fill="currentColor" r="1.3" stroke="none"></circle><circle cx="16" cy="8" fill="currentColor" r="1.3" stroke="none"></circle><circle cx="8" cy="16" fill="currentColor" r="1.3" stroke="none"></circle><circle cx="16" cy="16" fill="currentColor" r="1.3" stroke="none"></circle><circle cx="12" cy="12" fill="currentColor" r="1.3" stroke="none"></circle></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+</div>
+</div>
+<div class="nav-drop"><button aria-expanded="false" class="nav-drop-toggle" type="button"><span data-en="Books">Bücher</span><svg aria-hidden="true" class="nav-caret" viewbox="0 0 12 8"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg></button><div class="nav-drop-panel"><a class="nav-drop-all" data-en="All Books" href="kat-buecher.html">Alle Bücher-Artikel</a><a class="nav-sub-link" href="kat-buecher-vermoegensaufbau-mindset.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"></path><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"></path></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a class="nav-sub-link" href="kat-buecher-unternehmertum.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"></path><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"></path></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a class="nav-sub-link" href="kat-buecher-optionen.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"></path><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"></path></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a class="nav-sub-link" href="kat-buecher-macht-einfluss.html"><span aria-hidden="true" class="nav-sub-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"></path><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"></path></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+<a data-en="Tech" href="kat-technik.html">Tech</a><a data-en="Shop" href="shop.html">Shop</a><a data-en="VIP" href="vip.html">VIP</a>
+</nav>
+<div class="header-controls">
+<button aria-expanded="false" aria-label="Menü öffnen" class="nav-toggle" data-en-aria-label="Open menu" id="nav-toggle">☰</button>
+<div class="control"><label for="font-slider">Aa</label><input aria-label="Schriftgröße" class="font-slider" data-en-aria-label="Font size" id="font-slider" max="1.6" min="0.75" step="0.05" type="range" value="1"/></div>
+<div aria-label="Schriftgröße anpassen" class="font-stepper" data-en-aria-label="Adjust font size" role="group">
+<button aria-label="Schrift verkleinern" class="font-stepper-btn" data-en-aria-label="Decrease font size" id="font-stepper-minus" type="button">−</button>
+<span aria-hidden="true" class="font-stepper-label">Aa</span>
+<button aria-label="Schrift vergrößern" class="font-stepper-btn" data-en-aria-label="Increase font size" id="font-stepper-plus" type="button">+</button>
+</div>
+<button aria-label="Hell-/Dunkelmodus" aria-pressed="false" class="theme-toggle" data-en-aria-label="Toggle dark mode" id="theme-toggle"><span class="dot" id="theme-toggle-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span></button><button aria-label="Hohen Kontrast umschalten" aria-pressed="false" class="contrast-toggle" data-en-aria-label="Toggle high contrast" data-en-title="Turn on high contrast" id="contrast-toggle" title="Hohen Kontrast einschalten" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"></path></svg></button><button aria-label="Vollbildmodus umschalten" aria-pressed="false" class="fullscreen-toggle" data-en-aria-label="Toggle full screen" data-en-title="Full screen" id="fullscreen-toggle" title="Vollbildmodus" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg></button>
+<button aria-label="Switch to English" aria-pressed="false" class="lang-toggle" data-en-aria-label="Auf Deutsch umschalten" id="lang-toggle" lang="en" title="Switch to English" type="button"><span id="lang-toggle-text">EN</span></button><button aria-label="Einfache Sprache umschalten" aria-pressed="false" class="simplelang-toggle" data-en-aria-label="Toggle simple language" data-en-title="Turn on simple language" id="simplelang-toggle" title="Einfache Sprache einschalten" type="button"><span aria-hidden="true" class="simplelang-icon" id="simplelang-icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24"><path d="M12 4v13"></path><path d="M7 7h10"></path><path d="M4 7l3 6H1l3-6Z"></path><path d="M20 7l3 6h-6l3-6Z"></path><path d="M12 17h-3"></path><path d="M12 17h3"></path><path d="M9 20h6"></path><path d="M4 4c1.2-1.2 2.7-1.5 4-.7-1.2.1-2.2.8-2.8 1.8"></path></svg></span></button>
+<a class="ladder-quick-link" href="rechner.html" aria-label="Rechner öffnen" data-en-aria-label="Open calculators"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg></a><a class="ladder-quick-link" href="kat-minimalismus-motivation.html#spiele-bereich" aria-label="Spiele öffnen" data-en-aria-label="Open games"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4.5 4.5 0 0 1 4.2 6l-1 2.5a2.5 2.5 0 0 1-4.5.3l-1.2-2H9l-1.2 2a2.5 2.5 0 0 1-4.5-.3l-1-2.5a4.5 4.5 0 0 1 4.2-6Z"></path><path d="M7.5 11v4M5.5 13h4"></path><circle cx="16.5" cy="12" r=".8" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r=".8" fill="currentColor" stroke="none"></circle></svg></a><button aria-label="Vorschau" class="alert-test-btn" data-en-aria-label="Preview" id="alert-test-btn" type="button"><span class="alert-test-dot"></span></button>
+
+</div>
+</div>
+</header>
+<!-- HERO -->
+<section class="page-hero" id="main-content" tabindex="-1">
+<div class="wrap" style="max-width:900px;">
+<nav aria-label="Breadcrumb" class="breadcrumb"><a data-en="Home" href="index.html">Startseite</a><span>/</span><a href="kat-fire.html">FIRE</a><span>/</span><span aria-current="page" data-en="Retirement savings years">Renten-Sparjahre</span></nav>
+<div class="eyebrow" data-en="Finance · FIRE · 13 Aug 2026">Finanzen · FIRE · 13.08.2026</div>
+<h1 data-en="How many years do you need to save? The retirement heat map.">Wie viele Jahre musst du sparen? Die Renten-Heatmap.</h1>
+<p data-en="Two numbers determine how long you have to work: how much you save every month, and how much you want to spend per year in retirement. The table below shows the result — coloured from green (achievable quickly) to red (a lifetime of work)." style="max-width:66ch;">Zwei Zahlen bestimmen, wie lange du arbeiten musst: wie viel du jeden Monat sparst, und wie viel du im Alter pro Jahr ausgeben willst. Die Tabelle unten zeigt das Ergebnis — von grün (schnell erreichbar) bis rot (ein Leben Arbeit).</p>
+</div>
+</section>
+<!-- ARTIKEL -->
+<article class="section legal simple-lang-pilot" style="border-bottom:none;"><div class="wrap" style="max-width:760px;">
+<div class="info-box is-green">
+<div class="info-box-label" data-en="About this page">Zu dieser Seite</div>
+<p data-en="This is the simple-language version. The detailed version is available here.">Das ist die Einfache-Sprache-Fassung. Die ausführliche Version findest du hier.</p>
+<p><a data-en="→ To the detailed article" href="beitrag-rente-sparjahre.html">→ Zum ausführlichen Artikel</a></p>
+</div>
+<p data-en="How long do you need to save before your investments can cover your desired spending? The calculator on the detailed page gives you an orientation."><mark class="key-statement">Wie lange musst du sparen, bis dein Vermögen deine gewünschten Ausgaben im Ruhestand tragen kann?</mark> Der Rechner auf der ausführlichen Seite gibt dir eine Orientierung.</p>
+<h2 data-en="The biggest lever is the savings rate">Der größte Hebel ist die Sparrate</h2>
+<p data-en="If you save more each month, you reach your target faster. For example, the model shows a much shorter saving period when the monthly savings rate rises from €500 to €1,000.">Wenn du jeden Monat mehr sparst, erreichst du dein Ziel schneller. Das Modell zeigt zum Beispiel eine deutlich kürzere Sparzeit, wenn die monatliche Sparrate von 500 € auf 1.000 € steigt.</p>
+<h2 data-en="Your desired spending matters">Deine gewünschten Ausgaben sind wichtig</h2>
+<p data-en="A higher target for annual spending in retirement means you need more capital. A lower target means you need less. This is not a judgment. It is simply a calculation."><mark class="key-statement">Je mehr Geld du im Ruhestand jedes Jahr ausgeben möchtest, desto größer muss dein Vermögen sein.</mark> Bei einem niedrigeren Ziel brauchst du weniger Kapital. Das ist keine Bewertung. Es ist eine Rechnung.</p>
+<h2 data-en="Existing assets help">Vorhandenes Vermögen hilft</h2>
+<p data-en="Money that is already invested can grow for you. This is why the first €100,000 can feel particularly difficult. Later, the existing capital itself becomes a larger growth factor.">Bereits investiertes Geld kann für dich weiterarbeiten. Deshalb kann sich der Weg zu den ersten 100.000 € besonders schwer anfühlen. Danach wird das vorhandene Kapital selbst zu einem größeren Wachstumsfaktor.</p>
+<h2 data-en="Return is not fully under your control">Rendite liegt nicht vollständig in deiner Hand</h2>
+<p data-en="The model uses a real return after inflation. Changing the return assumption changes the result. But your savings rate is a lever you can influence directly every month.">Das Modell arbeitet mit einer Rendite nach Inflation. Eine andere Rendite-Annahme verändert das Ergebnis. Deine Sparrate kannst du dagegen jeden Monat selbst beeinflussen.</p>
+<h2 data-en="What the model does not include">Was das Modell nicht berücksichtigt</h2>
+<ul>
+<li data-en="statutory pension">gesetzliche Rente</li>
+<li data-en="company pension">betriebliche Altersvorsorge</li>
+<li data-en="property and other income">Immobilien und andere Einkünfte</li>
+</ul>
+<p data-en="The model is an orientation, not a promise. No investment return is guaranteed.">Das Modell ist eine Orientierung. Es ist keine Garantie.<mark class="key-statement"> Eine bestimmte Rendite ist nicht sicher.</mark></p>
+<div class="disclaimer-box" data-fr-snippet="disclaimer-standard" style="margin-top:32px;"></div></div></article>
+<footer class="site"><div class="wrap footer-bottom" style="border-top:1px solid var(--line);padding-top:20px;">
+<div aria-label="Finanzritual in sozialen Netzwerken" class="social-links social-links--compact"><a aria-label="YouTube" href="https://youtube.com/@finanzritual" rel="noopener" target="_blank"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="4" width="20" x="2" y="5"></rect><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"></path></svg></a><a aria-label="Instagram" href="https://instagram.com/finanzritual" rel="noopener" target="_blank"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="18" rx="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" fill="currentColor" r="1" stroke="none"></circle></svg></a></div>
+<p class="footer-a11y-link"><a href="barrierefreiheit.html" data-en="Accessibility"><span class="a11y-icon" aria-hidden="true">♿</span> Barrierefreiheit</a></p>
+<span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+<span><a data-en="Legal Notice" href="impressum.html">Impressum</a> · <a data-en="Privacy Policy" href="datenschutz.html">Datenschutz</a> · <a data-en="Glossary" href="glossar.html">Glossar</a> · <a data-en="FAQ" href="faq.html">FAQ</a> · <a data-en="About Me" href="ueber-mich.html">Über mich</a> · <a data-en="Disclaimer" href="disclaimer.html">Disclaimer</a></span>
+</div></footer>
+<script src="script.js"></script>
+<script>
+(function(){
+  // ── Datenpunkte ──────────────────────────────────────────────
+  var SAVINGS  = [50,100,150,200,300,500,750,1000,1250,1500,1750,2000];
+  var EXPENSES = [5000,10000,15000,20000,25000,30000,35000,40000,45000,50000];
+
+  // ── Formel ───────────────────────────────────────────────────
+  function yearsNeeded(monthly, annual, realReturnPct, existingSavings) {
+    var target = annual * 25;
+    var existing = existingSavings || 0;
+    var r = realReturnPct / 100 / 12;
+
+    // Vorhandenes Vermögen auf Zielkapital anwachsen lassen —
+    // gleichzeitig mit monatlichem Sparbeitrag
+    if (r < 0.000001) {
+      // Ohne Zins: linear
+      var remaining = target - existing;
+      if (remaining <= 0) return 0;
+      return remaining / monthly / 12;
+    }
+
+    // Binäre Suche: Finde n (Monate) sodass FV(existing) + FV(monthly) = target
+    // FV = existing*(1+r)^n + monthly*((1+r)^n - 1)/r
+    if (existing >= target) return 0;
+
+    var lo = 0, hi = 100 * 12; // max 100 Jahre
+    for (var i = 0; i < 60; i++) {
+      var mid = (lo + hi) / 2;
+      var fv = existing * Math.pow(1+r, mid) + monthly * (Math.pow(1+r, mid) - 1) / r;
+      if (fv < target) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2 / 12;
+  }
+
+  // ── Farbe ────────────────────────────────────────────────────
+  function heatColor(years) {
+    var maxY = 100;
+    var t = Math.min(years, maxY) / maxY;
+    var hue = 120 * (1 - t);
+    var sat = 72;
+    var light = 42 - t * 4;
+    return 'hsl(' + hue.toFixed(0) + ',' + sat + '%,' + light.toFixed(1) + '%)';
+  }
+  function textCol(years) {
+    var t = Math.min(years,100)/100;
+    return (t > 0.22 && t < 0.72) ? '#1a1f2e' : '#fff';
+  }
+
+  // ── Tabelle aufbauen ─────────────────────────────────────────
+  var returnSlider = document.getElementById('rs-return');
+  var returnValEl  = document.getElementById('rs-return-val');
+  var table        = document.getElementById('hm-table');
+  var tooltip      = document.getElementById('hm-tooltip');
+  var selectedCell = null;
+
+  function fmtK(n){ return n>=1000?(n/1000).toFixed(0)+'k':n+''; }
+  function isEn(){ return document.documentElement.getAttribute('lang')==='en'; }
+
+  function buildTable(ret) {
+    var en = isEn();
+    var rows = [];
+
+    // Header
+    var hdr = '<thead><tr><th class="hm-row-header" data-en="Monthly savings">Monatl. Sparbetrag</th>';
+    EXPENSES.forEach(function(e){
+      hdr += '<th>' + (e/1000).toFixed(0) + '.000 €</th>';
+    });
+    hdr += '</tr></thead>';
+    rows.push(hdr);
+
+    // Datenzeilen
+    rows.push('<tbody>');
+    SAVINGS.forEach(function(s){
+      var row = '<tr><td class="hm-label">' + s.toLocaleString('de-DE') + ' €</td>';
+      EXPENSES.forEach(function(e){
+        var y = yearsNeeded(s, e, ret, 0);
+        var display = y > 200 ? '>200' : (y < 1 ? '<1' : Math.round(y).toString());
+        var bg = heatColor(y);
+        var tc = textCol(y);
+        row += '<td class="hm-cell" style="background:' + bg + ';color:' + tc + ';text-shadow:0 0 4px ' + (tc==='#fff'?'rgba(0,0,0,.6)':'rgba(255,255,255,.4)') + ';"'
+             + ' data-s="' + s + '" data-e="' + e + '" data-y="' + y.toFixed(1) + '"'
+             + ' tabindex="0" role="gridcell"'
+             + ' aria-label="' + s + '€ Sparrate, ' + e.toLocaleString('de-DE') + '€ Ziel: ' + Math.round(y) + ' Jahre">'
+             + display + '</td>';
+      });
+      row += '</tr>';
+      rows.push(row);
+    });
+    rows.push('</tbody>');
+    table.innerHTML = rows.join('');
+    attachCellEvents();
+    if (selectedCell) rehighlight();
+  }
+
+  function attachCellEvents() {
+    var cells = table.querySelectorAll('.hm-cell');
+    cells.forEach(function(cell){
+      cell.addEventListener('mouseenter', function(e){ showTooltip(cell, e); });
+      cell.addEventListener('mousemove',  function(e){ moveTooltip(e); });
+      cell.addEventListener('mouseleave', function(){ tooltip.style.display='none'; });
+      cell.addEventListener('click', function(){ selectCell(cell); });
+      cell.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){selectCell(cell);e.preventDefault();} });
+    });
+  }
+
+  function showTooltip(cell, e) {
+    var en = isEn();
+    var s = parseFloat(cell.dataset.s);
+    var ex = parseFloat(cell.dataset.e);
+    var y = parseFloat(cell.dataset.y);
+    var years = Math.round(y);
+    var target = ex * 25;
+    tooltip.innerHTML = (en ? 'Save' : 'Sparen') + ': <strong>' + s.toLocaleString('de-DE') + ' €/Monat</strong><br>'
+      + (en ? 'Goal' : 'Ziel') + ': <strong>' + ex.toLocaleString('de-DE') + ' €/Jahr</strong><br>'
+      + (en ? 'Target capital' : 'Zielkapital') + ': ' + target.toLocaleString('de-DE') + ' €<br>'
+      + '<strong style="font-size:1.1rem">' + (y>200?'>200':years) + ' ' + (en?'years':'Jahre') + '</strong>';
+    tooltip.style.display = 'block';
+    moveTooltip(e);
+  }
+  function moveTooltip(e) {
+    var x = e.clientX + 14, y = e.clientY - 10;
+    if (x + 230 > window.innerWidth) x = e.clientX - 240;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top  = y + 'px';
+  }
+
+  function selectCell(cell) {
+    if (selectedCell) selectedCell.classList.remove('is-selected');
+    selectedCell = cell;
+    cell.classList.add('is-selected');
+    syncPersonalCalc(parseFloat(cell.dataset.s), parseFloat(cell.dataset.e));
+  }
+
+  function rehighlight() {
+    var s = selectedCell ? selectedCell.dataset.s : null;
+    var e = selectedCell ? selectedCell.dataset.e : null;
+    if (!s || !e) return;
+    var cells = table.querySelectorAll('.hm-cell');
+    cells.forEach(function(c){ if(c.dataset.s===s && c.dataset.e===e) { c.classList.add('is-selected'); selectedCell=c; }});
+  }
+
+  function syncPersonalCalc(s, e) {
+    var monthly = document.getElementById('rs-monthly');
+    var annual  = document.getElementById('rs-annual');
+    if (s >= 50 && s <= 3000) { monthly.value = s; document.getElementById('rs-monthly-val').textContent = s.toLocaleString('de-DE'); }
+    if (e >= 5000 && e <= 80000) { annual.value = e; document.getElementById('rs-annual-val').textContent = e.toLocaleString('de-DE'); }
+    updateCalc();
+  }
+
+  // ── Persönlicher Rechner ─────────────────────────────────────
+  var rsMonthly  = document.getElementById('rs-monthly');
+  var rsAnnual   = document.getElementById('rs-annual');
+  var rsAge      = document.getElementById('rs-age');
+  var rsExisting = document.getElementById('rs-existing');
+  var rsResult   = document.getElementById('rs-result');
+  var rsYearsEl  = document.getElementById('rs-years');
+  var rsLabelEl  = document.getElementById('rs-years-label');
+  var rsAgeEl    = document.getElementById('rs-retire-age');
+  var rsTargetEl = document.getElementById('rs-target');
+
+  function updateCalc() {
+    var en = isEn();
+    var monthly  = parseFloat(rsMonthly.value);
+    var annual   = parseFloat(rsAnnual.value);
+    var age      = parseFloat(rsAge.value);
+    var existing = parseFloat(rsExisting.value);
+    var ret      = parseFloat(returnSlider.value);
+
+    document.getElementById('rs-monthly-val').textContent  = monthly.toLocaleString('de-DE');
+    document.getElementById('rs-annual-val').textContent   = annual.toLocaleString('de-DE');
+    document.getElementById('rs-age-val').textContent      = age;
+    document.getElementById('rs-existing-val').textContent = existing.toLocaleString('de-DE');
+
+    var years = yearsNeeded(monthly, annual, ret, existing);
+    var target = annual * 25;
+    var retireAge = Math.round(age + years);
+    var displayYears = years < 0.5 ? '<1' : (years > 200 ? '>200' : Math.round(years).toString());
+
+    rsYearsEl.textContent = displayYears;
+    rsLabelEl.textContent = en ? 'years of saving needed' : 'Jahre Sparphase';
+    rsAgeEl.textContent   = years > 0 && years <= 200
+      ? (en ? '→ Retirement at age approx. ' : '→ Rente mit ca. ') + retireAge
+      : (en ? '→ Already achievable!' : '→ Bereits erreichbar!');
+    rsTargetEl.textContent = (en ? 'Target capital: ' : 'Zielkapital: ')
+      + target.toLocaleString('de-DE') + ' €'
+      + (existing > 0 ? (en ? ' (start: ' : ' (Start: ') + existing.toLocaleString('de-DE') + ' €)' : '');
+
+    // Farbe der Ergebniskarte
+    rsResult.classList.remove('is-green','is-orange','is-red');
+    if (years <= 20) rsResult.classList.add('is-green');
+    else if (years <= 40) rsResult.classList.add('is-orange');
+    else rsResult.classList.add('is-red');
+  }
+
+  [rsMonthly, rsAnnual, rsAge, rsExisting].forEach(function(el){
+    el.addEventListener('input', updateCalc);
+  });
+
+  returnSlider.addEventListener('input', function(){
+    var v = parseFloat(returnSlider.value).toFixed(1).replace('.',',');
+    returnValEl.textContent = v + '%';
+    buildTable(parseFloat(returnSlider.value));
+    updateCalc();
+  });
+
+  // ── Init + Sprach-Rerender ───────────────────────────────────
+  buildTable(3.0);
+  updateCalc();
+
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(function(){
+    buildTable(parseFloat(returnSlider.value));
+    updateCalc();
+  });
+})();
+</script>
+</body>
+</html>

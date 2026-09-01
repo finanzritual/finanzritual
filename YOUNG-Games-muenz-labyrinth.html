@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Coin Roll Labyrinth — JugendBASISbildung — FinanzRitual">Münz-Roll-Labyrinth — JugendBASISbildung — FinanzRitual</title>
+    <meta name="description" content="Steuere die rollende Münze sicher durch das Labyrinth zum Sparziel, ohne in die Kreditlöcher zu fallen." data-en-content="Steer the rolling coin safely through the labyrinth to the savings goal, without falling into the debt holes.">
+    <link rel="canonical" href="https://www.finanz-ritual.de/YOUNG-Games-muenz-labyrinth.html">
+<meta name="fr-video-id" content="1005">
+<meta name="fr-content-hash" content="efb9edda1cc464794cab2461c79a9d94b4e3cd3149b06edb109d81c035253755">
+<meta name="fr-links-hash" content="f4df42e96446d471669f55c22af655d41811ab4395d70972c91708941f1286d4">
+    <style>
+        :root {
+            --bg-color: #0c0f12;
+            --board-bg: #161b22;
+            --accent-orange: #ffaa00;
+            --neon-green: #39ff14;
+            --danger-red: #ff3333;
+            --text-color: #ffffff;
+            --y: #eaff00;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            user-select: none;
+        }
+        body:before{content:"";position:fixed;top:0;left:0;right:0;height:4px;background:var(--y);z-index:9999;transition:background .35s ease}
+        body.is-scrolled:before{background:#3a4356}
+
+        .y-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;min-height:62px;padding:0 18px;background:rgba(5,8,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid #303846}
+        .y-brand{font-weight:900;letter-spacing:.08em;color:var(--y);text-decoration:none;white-space:nowrap;font-size:.95rem}
+        .y-nav{display:flex;gap:18px;margin-left:auto;align-items:center}
+        .y-nav a{color:#fff;text-decoration:none;font-size:.9rem}
+        .y-icon-btn{border:1px solid #596274;background:#151b25;color:#fff;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;text-decoration:none}
+        .y-icon-btn svg{width:17px;height:17px}
+        .y-icon-btn[hidden]{display:none}
+        @media(max-width:700px){.y-header{min-height:54px;padding:0 12px}.y-nav a{display:none}}
+
+        .game-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px 50px;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin: 8px 0 5px 0;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #000;
+            text-align: center;
+        }
+
+        /* Ausklappbare Anleitung, gleiches Prinzip wie bei den anderen
+           drei Spielen: natives <details>, standardmaessig zu. */
+        .rules-box{
+            width:100%; max-width: 400px; margin-bottom: 14px;
+            background: var(--board-bg); border: 1px solid #30363d; border-radius: 14px;
+            overflow: hidden;
+        }
+        .rules-box summary{
+            padding: 12px 16px; cursor: pointer; font-weight: 700; font-size: .92rem;
+            color: var(--accent-orange); list-style: none; display:flex; align-items:center; gap:8px;
+        }
+        .rules-box summary::-webkit-details-marker{ display:none; }
+        .rules-box summary:before{ content:"▶"; font-size:.7rem; transition: transform .15s; }
+        .rules-box[open] summary:before{ transform: rotate(90deg); }
+        .rules-box .rules-body{ padding: 0 16px 16px; font-size: .88rem; line-height: 1.55; color: #c3cad7; }
+        .rules-box .rules-body ul{ margin: 8px 0; padding-left: 20px; }
+        .rules-box .rules-body li{ margin-bottom: 6px; }
+        .rules-box .rules-body strong{ color: #fff; }
+
+        .status-bar {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: var(--board-bg);
+            padding: 6px 20px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+        }
+
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1 / 1;
+            background-color: var(--board-bg);
+            border: 3px solid #30363d;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            touch-action: none;
+        }
+
+        #coin {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            will-change: left, top;
+            transform: translate(-50%, -50%);
+        }
+
+        .target {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(57, 255, 20, 0.15);
+            border: 3px dashed var(--neon-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+
+        .hole {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            background-color: #000;
+            border: 3px solid var(--danger-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+        }
+
+        /* Warnphase, bevor ein neues Loch "scharf" wird: gestrichelter
+           Kreis statt sofortigem Kreis-Erscheinen -- gibt der Spielerin
+           eine kurze, aber echte Reaktionschance, statt sie unfair zu
+           ueberrumpeln. */
+        .hole-warning {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            background-color: rgba(255, 51, 51, 0.1);
+            border: 3px dashed var(--danger-red);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: warnPulse 0.5s ease-in-out;
+        }
+
+        @keyframes warnPulse {
+            0% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.6); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 15, 18, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        button.game-btn {
+            margin-top: 20px;
+            padding: 12px 26px;
+            background-color: var(--accent-orange);
+            border: 2px solid #000;
+            border-radius: 8px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+            font-family: inherit;
+        }
+
+        button.game-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        .y-back{display:inline-block;margin-top:26px;color:#fff;border:1px solid #6b7482;border-radius:999px;padding:9px 14px;text-decoration:none;font-size:.85rem}
+    
+.y-game-related{background:var(--card-bg);border:1px solid #303847;border-radius:16px;padding:20px 22px;margin:18px 0 10px;max-width:520px;margin-left:auto;margin-right:auto}
+.y-game-related-title{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-orange);margin-bottom:12px}
+.y-game-related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;text-align:left}
+.y-game-related-list a{color:var(--text-color);text-decoration:none;font-size:.9rem;display:flex;align-items:center;gap:8px}
+.y-game-related-list a:hover{color:var(--accent-orange)}
+</style>
+</head>
+<body>
+
+<header class="y-header">
+<a class="y-brand" href="jugendbasisbildung/index.html">JUGENDBASISBILDUNG</a>
+<nav class="y-nav" aria-label="JugendBASISbildung">
+<a href="jugendbasisbildung/index.html" data-en="Home">Startseite</a>
+<a href="jugendbasisbildung/alle-themen.html" data-en="Topics">Themen</a>
+</nav>
+<a href="suche.html?audience=JugendBASISbildung" class="y-icon-btn" aria-label="Jugendartikel durchsuchen" data-en-aria-label="Search youth articles" title="Suche" data-en-title="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+<button id="fullscreen-toggle" class="y-icon-btn fullscreen-toggle" type="button" aria-label="Vollbildmodus umschalten" aria-pressed="false" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</header>
+
+<div class="game-wrap">
+    <h1 data-en="🕳️ COIN ROLL LABYRINTH">🕳️ MÜNZ-ROLL-LABYRINTH</h1>
+
+    <details class="rules-box">
+      <summary data-en="🕹️ How to play">🕹️ Kurze Spielanleitung</summary>
+      <div class="rules-body" data-en="&lt;p&gt;Do you have total control over your cash? 🪙 Steer the rolling coin safely through the labyrinth, straight into the green savings goal (🐷).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The danger:&lt;/strong&gt; black debt holes (🕳️) lurk all over the board. If your coin slips into one, the debt trap snaps shut and the match is over!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;It gets worse over time:&lt;/strong&gt; new debt holes keep forming while you play! A dashed red circle warns you first — half a second later, bam, it's a real hole. Don't dawdle!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The controls:&lt;/strong&gt; extremely flexible! On a computer, use the arrow keys or drag the coin with your mouse. On your phone, just swipe and drag the coin smoothly with your thumb!&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The challenge:&lt;/strong&gt; there are 3 tricky levels. Can you make it to the end without going broke? 🛹💥&lt;/li&gt;
+&lt;/ul&gt;">
+        <p>Hast du die absolute Kontrolle über deine Kohle? 🪙 Steuere die rollende Münze sicher durch das Labyrinth direkt in das grüne Sparziel (🐷).</p>
+        <ul>
+          <li><strong>Die Gefahr:</strong> Überall auf dem Spielfeld lauern schwarze Kreditlöcher (🕳️). Wenn deine Münze dort hineinrutscht, schnappt die Schuldenfalle zu und das Match ist vorbei!</li>
+          <li><strong>Es wird mit der Zeit fieser:</strong> Während du spielst, entstehen laufend neue Kreditlöcher! Ein gestrichelter roter Kreis warnt dich zuerst — eine halbe Sekunde später, bam, ist es ein echtes Loch. Nicht trödeln!</li>
+          <li><strong>Die Steuerung:</strong> Extrem flexibel! Nutze am PC die Pfeiltasten oder ziehe die Münze mit der Maus. Auf dem Smartphone wischst und ziehst du die Münze einfach flüssig mit dem Daumen!</li>
+          <li><strong>Die Challenge:</strong> Es gibt 3 knackige Level. Schaffst du es bis zum Ziel, ohne pleitezugehen? 🛹💥</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="status-bar" id="status">Level: 1 / 3</div>
+
+    <div id="game-container">
+        <div id="start-overlay" class="overlay">
+            <h2 style="color: var(--accent-orange)" data-en="Roll to the savings goal! 🪙">Rolle zum Sparziel! 🪙</h2>
+            <p data-en="Move the coin safely to the piggy bank (🐷). Watch out that you don't fall into the debt holes (🕳️)!">Bewege die Münze sicher zum Sparschwein (🐷). Pass verdammt gut auf, dass du nicht in die Kreditlöcher (🕳️) fällst!</p>
+            <p data-en="👉 Controls: arrow keys, or just drag with mouse/thumb!">👉 Steuerung: Pfeiltasten oder einfach mit Maus/Daumen ziehen!</p>
+            <button type="button" class="game-btn" onclick="startGame()" data-en="Start playing 🛹">Zocken starten 🛹</button>
+        </div>
+
+        <div id="msg-overlay" class="overlay" style="display: none;">
+            <h2 id="msg-title">Münze weg! 💥</h2>
+            <p id="msg-text">Du bist voll in die Schuldenfalle gerollt.</p>
+            <button type="button" class="game-btn" id="msg-btn" onclick="startGame()">Nochmal versuchen 🔄</button>
+        </div>
+
+        <div id="coin">🪙</div>
+        <div id="elements-container"></div>
+    </div>
+    <div class="y-game-related">
+      <div class="y-game-related-title" data-en="Learn more">Vertiefe dein Wissen</div>
+      <ul class="y-game-related-list">
+      <li><a href="YOUNG-girokonto-jugend.html" data-en="→ Your first checking account: when can you manage your own money?">→ Das erste eigene Girokonto: Ab wann darfst du dein Geld verwalten?</a></li>
+      <li><a href="YOUNG-notgroschen-jugend.html" data-en="→ The emergency fund: why 3 months' expenses bring you peace of mind">→ Der Notgroschen: Warum dir 3 Monatsausgaben Seelenfrieden bringen</a></li>
+      <li><a href="YOUNG-dauerauftrag-vs-lastschrift-jugend.html" data-en="→ Standing order vs. direct debit: who's actually charging you?">→ Dauerauftrag vs. Lastschrift: Wer bucht hier eigentlich ab?</a></li>
+      </ul>
+    </div>
+
+
+    <a class="y-back" href="jugendbasisbildung/index.html" data-en="← Back to Youth Basic Education">← Zur JugendBASISbildung</a>
+</div>
+
+    <script>
+        var isEn = function(){ return document.documentElement.getAttribute('lang') === 'en'; };
+
+        const container = document.getElementById('game-container');
+        const coin = document.getElementById('coin');
+        const elementsContainer = document.getElementById('elements-container');
+        const statusDisplay = document.getElementById('status');
+        const startOverlay = document.getElementById('start-overlay');
+        const msgOverlay = document.getElementById('msg-overlay');
+        const msgTitle = document.getElementById('msg-title');
+        const msgText = document.getElementById('msg-text');
+        const msgBtn = document.getElementById('msg-btn');
+
+        let currentLevel = 1;
+        const maxLevels = 3;
+        let gameActive = false;
+
+        let coinX = 40;
+        let coinY = 40;
+        const coinRadius = 16;
+        let keys = {};
+
+        // Waechst-mit-der-Zeit-Mechanik: nach Nutzerwunsch, damit das
+        // Spiel nicht zu simpel bleibt. Neue Loecher entstehen periodisch
+        // waehrend eines Levels, zuerst als gestrichelte Warnung, dann
+        // scharf. Hart gedeckelt pro Level (40% der Start-Lochzahl,
+        // mindestens 2), damit das Spielfeld immer loesbar bleibt --
+        // quasi ein Selbstbau-Labyrinth mit eingebauter Bremse.
+        const HOLE_WARNING_MS = 500;      // Dauer der gestrichelten Warnung
+        const HOLE_SPAWN_INTERVAL_MS = 4000; // wie oft ein neues Loch versucht zu entstehen
+        let dynamicHoles = [];   // bereits scharfe, dynamisch entstandene Loecher (gleiche {x,y}-Form wie levels[].holes)
+        let maxDynamicHoles = 0;
+        let holeSpawnTimer = null;
+
+        function maxDynamicForLevel(lvlNum) {
+            const staticCount = levels[lvlNum].holes.length;
+            return Math.max(2, Math.round(staticCount * 0.4));
+        }
+
+        const levels = {
+            1: {
+                start: { x: 15, y: 15 },
+                target: { x: 85, y: 85 },
+                holes: [
+                    { x: 50, y: 50 },
+                    { x: 30, y: 70 },
+                    { x: 70, y: 30 }
+                ]
+            },
+            2: {
+                start: { x: 15, y: 85 },
+                target: { x: 85, y: 15 },
+                holes: [
+                    { x: 50, y: 25 },
+                    { x: 50, y: 50 },
+                    { x: 50, y: 75 },
+                    { x: 25, y: 50 },
+                    { x: 75, y: 50 }
+                ]
+            },
+            3: {
+                start: { x: 50, y: 15 },
+                target: { x: 50, y: 85 },
+                holes: [
+                    { x: 20, y: 40 }, { x: 35, y: 40 }, { x: 50, y: 40 }, { x: 65, y: 40 }, { x: 80, y: 40 },
+                    { x: 20, y: 65 }, { x: 40, y: 65 }, { x: 60, y: 65 }, { x: 80, y: 65 }
+                ]
+            }
+        };
+
+        window.addEventListener('keydown', e => {
+            if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
+            keys[e.key] = true;
+        });
+        window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+        let isDragging = false;
+        container.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        container.addEventListener('mousemove', e => handlePointerMove(e.clientX, e.clientY));
+
+        container.addEventListener('touchstart', () => isDragging = true);
+        window.addEventListener('touchend', () => isDragging = false);
+        container.addEventListener('touchmove', e => {
+            if (e.touches.length > 0) {
+                handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        function handlePointerMove(clientX, clientY) {
+            if (!gameActive || !isDragging) return;
+            const rect = container.getBoundingClientRect();
+            let targetX = clientX - rect.left;
+            let targetY = clientY - rect.top;
+
+            coinX += (targetX - coinX) * 0.15;
+            coinY += (targetY - coinY) * 0.15;
+
+            checkBoundaries();
+        }
+
+        function startGame() {
+            startOverlay.style.display = 'none';
+            msgOverlay.style.display = 'none';
+            gameActive = true;
+
+            loadLevel(currentLevel);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function loadLevel(lvlNum) {
+            elementsContainer.innerHTML = '';
+            statusDisplay.innerText = (isEn() ? 'Level: ' : 'Level: ') + lvlNum + ' / ' + maxLevels;
+
+            const lvl = levels[lvlNum];
+            const size = container.clientWidth;
+
+            coinX = (lvl.start.x / 100) * size;
+            coinY = (lvl.start.y / 100) * size;
+            updateCoinPosition();
+
+            const targetEl = document.createElement('div');
+            targetEl.classList.add('target');
+            targetEl.innerText = '🐷';
+            targetEl.style.left = `${lvl.target.x}%`;
+            targetEl.style.top = `${lvl.target.y}%`;
+            elementsContainer.appendChild(targetEl);
+
+            lvl.holes.forEach(h => {
+                const holeEl = document.createElement('div');
+                holeEl.classList.add('hole');
+                holeEl.innerText = '🕳️';
+                holeEl.style.left = `${h.x}%`;
+                holeEl.style.top = `${h.y}%`;
+                elementsContainer.appendChild(holeEl);
+            });
+
+            // Wachsende-Löcher-Mechanik pro Levelstart zurücksetzen
+            dynamicHoles = [];
+            maxDynamicHoles = maxDynamicForLevel(lvlNum);
+            if (holeSpawnTimer) clearInterval(holeSpawnTimer);
+            holeSpawnTimer = setInterval(trySpawnHole, HOLE_SPAWN_INTERVAL_MS);
+        }
+
+        function trySpawnHole() {
+            if (!gameActive) return;
+            if (dynamicHoles.length >= maxDynamicHoles) return;
+
+            const spawnedForLevel = currentLevel;
+            const lvl = levels[currentLevel];
+            const size = container.clientWidth;
+            const existingHoles = lvl.holes.concat(dynamicHoles);
+            const coinPctX = (coinX / size) * 100;
+            const coinPctY = (coinY / size) * 100;
+
+            let candidate = null;
+            for (let attempt = 0; attempt < 20; attempt++) {
+                const cx = 12 + Math.random() * 76;
+                const cy = 12 + Math.random() * 76;
+                const tooCloseToHole = existingHoles.some(h => Math.hypot(h.x - cx, h.y - cy) < 15);
+                const distToTarget = Math.hypot(lvl.target.x - cx, lvl.target.y - cy);
+                const distToCoin = Math.hypot(coinPctX - cx, coinPctY - cy);
+                if (!tooCloseToHole && distToTarget > 14 && distToCoin > 16) {
+                    candidate = { x: cx, y: cy };
+                    break;
+                }
+            }
+            // Keine sichere Stelle in 20 Versuchen gefunden -> diese Runde
+            // einfach auslassen, statt eine unfaire/zu enge Stelle zu erzwingen.
+            if (!candidate) return;
+
+            const warnEl = document.createElement('div');
+            warnEl.classList.add('hole-warning');
+            warnEl.style.left = `${candidate.x}%`;
+            warnEl.style.top = `${candidate.y}%`;
+            elementsContainer.appendChild(warnEl);
+
+            setTimeout(() => {
+                warnEl.remove();
+                if (!gameActive || currentLevel !== spawnedForLevel) return;
+                const holeEl = document.createElement('div');
+                holeEl.classList.add('hole');
+                holeEl.innerText = '🕳️';
+                holeEl.style.left = `${candidate.x}%`;
+                holeEl.style.top = `${candidate.y}%`;
+                elementsContainer.appendChild(holeEl);
+                dynamicHoles.push(candidate);
+            }, HOLE_WARNING_MS);
+        }
+
+        function updatePhysics() {
+            if (!gameActive) return;
+            const speed = 4;
+            if (keys['ArrowLeft'] || keys['a']) coinX -= speed;
+            if (keys['ArrowRight'] || keys['d']) coinX += speed;
+            if (keys['ArrowUp'] || keys['w']) coinY -= speed;
+            if (keys['ArrowDown'] || keys['s']) coinY += speed;
+            checkBoundaries();
+        }
+
+        function checkBoundaries() {
+            const size = container.clientWidth;
+            if (coinX < coinRadius) coinX = coinRadius;
+            if (coinX > size - coinRadius) coinX = size - coinRadius;
+            if (coinY < coinRadius) coinY = coinRadius;
+            if (coinY > size - coinRadius) coinY = size - coinRadius;
+            updateCoinPosition();
+            checkCollisions();
+        }
+
+        function updateCoinPosition() {
+            coin.style.left = `${coinX}px`;
+            coin.style.top = `${coinY}px`;
+        }
+
+        function checkCollisions() {
+            const size = container.clientWidth;
+            const lvl = levels[currentLevel];
+
+            const targetPX = (lvl.target.x / 100) * size;
+            const targetPY = (lvl.target.y / 100) * size;
+
+            let distToTarget = Math.hypot(coinX - targetPX, coinY - targetPY);
+
+            if (distToTarget < 25) {
+                if (currentLevel < maxLevels) {
+                    currentLevel++;
+                    loadLevel(currentLevel);
+                } else {
+                    showEndScreen(true);
+                }
+                return;
+            }
+
+            for (let h of lvl.holes.concat(dynamicHoles)) {
+                const holePX = (h.x / 100) * size;
+                const holePY = (h.y / 100) * size;
+                let distToHole = Math.hypot(coinX - holePX, coinY - holePY);
+                if (distToHole < 20) {
+                    showEndScreen(false);
+                    break;
+                }
+            }
+        }
+
+        function showEndScreen(isWin) {
+            gameActive = false;
+            if (holeSpawnTimer) { clearInterval(holeSpawnTimer); holeSpawnTimer = null; }
+            msgOverlay.style.display = 'flex';
+            const en = isEn();
+            if (isWin) {
+                msgTitle.innerText = '🏆 ' + (en ? 'Goal reached! 👑' : 'Ziel erreicht! 👑');
+                msgTitle.style.color = 'var(--neon-green)';
+                msgText.innerText = en
+                  ? 'You have your finances fully under control and rolled past every debt hole!'
+                  : 'Du hast deine Finanzen voll im Griff und bist an allen Kreditlöchern vorbeigerollt!';
+                msgBtn.innerText = en ? 'Play again 🛹' : 'Nochmal zocken 🛹';
+                currentLevel = 1;
+            } else {
+                msgTitle.innerText = '💥 ' + (en ? 'Coin lost! 🕳️' : 'Münze weg! 🕳️');
+                msgTitle.style.color = 'var(--danger-red)';
+                msgText.innerText = en
+                  ? 'You rolled straight into the debt trap. Watch out more carefully next time!'
+                  : 'Du bist voll in die Kredit-Schuldenfalle gerollt. Pass beim nächsten Mal besser auf!';
+                msgBtn.innerText = en ? 'Retry level 🔄' : 'Level wiederholen 🔄';
+            }
+        }
+
+        function gameLoop() {
+            updatePhysics();
+            if (gameActive) {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (gameActive) loadLevel(currentLevel);
+        });
+    </script>
+
+
+<script>
+(function(){
+  var btn = document.getElementById('fullscreen-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  var supported = root.requestFullscreen || root.webkitRequestFullscreen;
+  if (!supported) { btn.setAttribute('hidden', ''); return; }
+  var EXPAND_PATHS = '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
+  var COMPRESS_PATHS = '<path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M16 3v3a2 2 0 0 0 2 2h3"/><path d="M8 21v-3a2 2 0 0 0-2-2H3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>';
+  var svg = btn.querySelector('svg');
+  btn.addEventListener('click', function(){
+    var isFs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!isFs) {
+      (root.requestFullscreen || root.webkitRequestFullscreen).call(root);
+    } else {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    }
+  });
+  var onChange = function(){
+    var active = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    btn.setAttribute('aria-pressed', active);
+    btn.title = active ? 'Vollbild verlassen' : 'Vollbildmodus';
+    if (svg) svg.innerHTML = active ? COMPRESS_PATHS : EXPAND_PATHS;
+  };
+  document.addEventListener('fullscreenchange', onChange);
+  document.addEventListener('webkitfullscreenchange', onChange);
+})();
+</script>
+<script>
+(function(){
+  var onScroll = function(){
+    document.body.classList.toggle('is-scrolled', window.scrollY > 0);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

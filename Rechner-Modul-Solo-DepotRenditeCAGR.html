@@ -1,0 +1,120 @@
+<!-- ===== Rechner-Modul: Depot-Rendite-Annualisierung =====
+     Automatisch aus beitrag-depot-performance-6-jahre.html extrahiert (V880).
+     Rechnet Gesamtrendite ueber N Jahre in annualisierte Rendite (CAGR)
+     um, plus Gesamtrendite inklusive Dividende. Nutzt globale CSS-
+     Variablen. Keine externen FR_CONFIG/FR_CONSTANTS-Abhaengigkeiten. -->
+<style>
+.dp-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.dp-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .dp-calc-inputs{ grid-template-columns:1fr; } }
+.dp-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.dp-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.dp-result-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:640px){ .dp-result-grid{ grid-template-columns:1fr; } }
+.dp-result-card{ border-radius:12px; padding:16px 18px; text-align:center; background:var(--blue-soft); border-left:3px solid var(--blue); }
+.dp-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.dp-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.5rem; color:var(--blue); }
+
+.dp-insight-box{
+  margin:22px 0; padding:20px 22px; border-radius:14px;
+  background:var(--blue-soft); border-left:3px solid var(--blue);
+}
+</style>
+<div class="dp-calc" id="dp-calc">
+<div class="dp-calc-inputs">
+<div class="row">
+<label for="dp-total"><span data-en="Total return over the whole period">Gesamtrendite über den ganzen Zeitraum</span> <span class="val" id="dp-total-val">60⁠%</span></label>
+<input class="calc-slider" id="dp-total" max="200" min="-50" step="5" type="range" value="60"/>
+</div>
+<div class="row">
+<label for="dp-years"><span data-en="Number of years">Anzahl Jahre</span> <span class="val" id="dp-years-val">6</span></label>
+<input class="calc-slider" id="dp-years" max="20" min="1" step="1" type="range" value="6"/>
+</div>
+<div class="row">
+<label for="dp-div"><span data-en="Dividend yield per year">Dividendenrendite pro Jahr</span> <span class="val" id="dp-div-val">1,9⁠%</span></label>
+<input class="calc-slider" id="dp-div" max="6" min="0" step="0.1" type="range" value="1.9"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified conversion assuming a single lump sum invested at the start. If money was added or withdrawn along the way (as with most real depots, including the one above), the true annualized return differs from this simple calculation.">Vereinfachte Umrechnung unter der Annahme einer einmaligen Anlage zu Beginn. Wurde unterwegs Geld ein- oder ausgezahlt (wie bei den meisten echten Depots, auch dem oben gezeigten), weicht die tatsächliche annualisierte Rendite von dieser einfachen Berechnung ab.</p>
+<div class="dp-result-grid">
+<div class="dp-result-card">
+<div class="dp-result-label" data-en="Annualized price return (CAGR)">Annualisierte Kursrendite (CAGR)</div>
+<div class="dp-result-value" id="dp-result-cagr">–</div>
+</div>
+<div class="dp-result-card">
+<div class="dp-result-label" data-en="Total annualized return incl. dividends">Annualisierte Gesamtrendite inkl. Dividende</div>
+<div class="dp-result-value" id="dp-result-total">–</div>
+</div>
+</div>
+</div>
+<script>
+(function(){
+  const totalEl = document.getElementById('dp-total');
+  if(!totalEl) return;
+  const yearsEl = document.getElementById('dp-years');
+  const divEl = document.getElementById('dp-div');
+
+  const totalVal = document.getElementById('dp-total-val');
+  const yearsVal = document.getElementById('dp-years-val');
+  const divVal = document.getElementById('dp-div-val');
+
+  const resultCagr = document.getElementById('dp-result-cagr');
+  const resultTotal = document.getElementById('dp-result-total');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function fmtPct(val, en){
+    const numStr = en ? val.toFixed(1) : val.toFixed(1).replace('.', ',');
+    return numStr + '%';
+  }
+
+  function compute(){
+    const en = isEn();
+
+    const total = parseFloat(totalEl.value);
+    const years = parseFloat(yearsEl.value);
+    const div = parseFloat(divEl.value);
+
+    totalVal.textContent = fmtPct(total, en);
+    yearsVal.textContent = years + (en ? (years === 1 ? ' year' : ' years') : '');
+    divVal.textContent = fmtPct(div, en);
+
+    /* CAGR = (1 + total/100)^(1/years) - 1, geschützt vor negativer Basis <= -100% */
+    const base = 1 + total / 100;
+    let cagr;
+    if(base <= 0){
+      cagr = -1; /* Totalverlust oder schlimmer */
+    } else {
+      cagr = Math.pow(base, 1 / years) - 1;
+    }
+    const combined = (1 + cagr) * (1 + div / 100) - 1;
+
+    resultCagr.textContent = fmtPct(cagr * 100, en);
+    resultTotal.textContent = fmtPct(combined * 100, en);
+  }
+
+  totalEl.addEventListener('input', compute);
+  yearsEl.addEventListener('input', compute);
+  divEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

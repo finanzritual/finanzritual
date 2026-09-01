@@ -17,6 +17,53 @@
 <meta name="twitter:description" content="Praxisnahe Tipps zu Dividenden, ETFs, Minimalismus und FIRE. Klein anfangen, konsequent dranbleiben." data-en-content="Practical tips on dividends, ETFs, minimalism and FIRE. Start small, stay consistent.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
+<!-- FR_BOOT_BACKGROUND_START -->
+<script>
+(function(){
+  try {
+    var t=localStorage.getItem('fr-theme')||'light';
+    var c=localStorage.getItem('fr-contrast')||'off';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-contrast',c);
+  } catch(e) {}
+})();
+</script>
+<style id="fr-boot-background">
+html,body{background:#F4F5F7 !important;}
+html[data-theme="dark"] body,html[data-theme="dark"]{background:#10151C !important;}
+html[data-theme="light"][data-contrast="high"] body,html[data-theme="light"][data-contrast="high"]{background:#FFFFFF !important;}
+html[data-theme="dark"][data-contrast="high"] body,html[data-theme="dark"][data-contrast="high"]{background:#000000 !important;}
+</style>
+<!-- FR_BOOT_BACKGROUND_END -->
+<!-- FR_SIMPLE_TRANSITION_START -->
+<style id="fr-simple-transition-style">
+html.fr-simple-transition-active::before{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#F4F5F7;opacity:1;transition:opacity .10s ease-out;}
+html.fr-simple-transition-active[data-theme="dark"]::before{background:#10151C;}
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{background:#FFF;}
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{background:#000;}
+html.fr-simple-transition-done::before{opacity:0;}
+</style>
+<script>
+(function(){
+  try {
+    if(sessionStorage.getItem('fr-simple-transition') === '1'){
+      sessionStorage.removeItem('fr-simple-transition');
+      document.documentElement.classList.add('fr-simple-transition-active');
+      window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('fr-simple-transition-done');
+          setTimeout(function(){
+            document.documentElement.classList.remove('fr-simple-transition-active','fr-simple-transition-done');
+          }, 130);
+        });
+      }, {once:true});
+    }
+  } catch(e) {}
+})();
+</script>
+<!-- FR_SIMPLE_TRANSITION_END -->
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -37,21 +84,10 @@
 <link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
 </head>
 <body>
+<a href="#lang-toggle" class="skip-link" data-en="Skip directly to the English language switch">Direkt zum Sprachwechsel (Englisch) springen</a><a href="#main-content" class="skip-link" data-en="Skip to main content">Direkt zum Hauptinhalt springen</a>
+
 
 <!-- ============ INFO-DISCLAIMER-BANNER (blau, einmalig beim ersten Besuch) ============ -->
-<div class="info-banner" id="info-banner" role="status" aria-live="polite">
-  <div class="info-banner-inner">
-    <p class="info-banner-text" data-en="<strong>Education, not advice</strong> &ndash; this content is learning material, not personalised recommendations. Markets are unpredictable."><strong>Bildung, nicht Beratung</strong> – diese Inhalte sind Lernmaterial, keine personalisierten Empfehlungen. Marktentwicklungen sind unvorhersehbar.</p>
-    <img src="logos/logo-crossword-blue.svg" class="info-banner-logo" alt="Finanzritual" aria-hidden="true">
-    <button type="button" class="info-banner-timer" id="info-banner-close" aria-label="Hinweis schließen" data-en-aria-label="Close notice">
-      <svg viewBox="0 0 36 36" width="36" height="36">
-        <circle class="timer-bg" cx="18" cy="18" r="14"/>
-        <circle class="timer-arc" id="info-timer-arc" cx="18" cy="18" r="14"/>
-      </svg>
-      <span class="timer-x" id="info-timer-x">✕</span>
-    </button>
-  </div>
-</div>
 
 <!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
 <div class="alert-banner" id="alert-banner" role="alert">
@@ -76,14 +112,14 @@
 
 <div class="logo-band" id="logo-band">
   <a href="index.html" aria-label="Finanzritual — Startseite" data-en-aria-label="Finanzritual — Homepage">
-    <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-band-img">
+    <img src="logos/finanzritual-header-logo-transparent.png" alt="Finanzritual" class="logo-band-img">
   </a>
 </div>
 
 <header class="site">
   <div class="header-inner">
     <a href="index.html" class="logo-mark" id="logo-btn" aria-label="Finanzritual — Startseite (Doppelklick zeigt weitere Bereiche)" data-en-aria-label="Finanzritual — Homepage (double-click reveals hidden sections)">
-      <img src="logos/logo-crossword-blue.svg" alt="Finanzritual" class="logo-crossword-img">
+      <img src="logos/finanzritual-header-logo-transparent.png" alt="Finanzritual" class="logo-crossword-img">
       <span class="logo-word">Finanz-Ritua</span>
       <svg class="logo-l" viewBox="0 0 44 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M4 2 V32 H40" stroke="#2454A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
@@ -97,10 +133,8 @@
         <div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div>
         <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
           <a href="#optionen" data-en="Options">Optionen</a>
-          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
-          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
-        </nav>
-        <div class="fr-secret-calendar">
+          </nav>
+        <div class="fr-secret-a11y"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Dyslexia-friendly font">Legasthenie-Schrift</span><button class="fr-secret-a11y-switch" id="dyslexic-font-toggle" type="button" aria-pressed="false" aria-label="Legasthenie-freundliche Schrift umschalten" data-en-aria-label="Toggle dyslexia-friendly font"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-ladder-test"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Force mobile ladder (test)">Mobile-Leiter-Test</span><button class="fr-secret-a11y-switch" id="force-ladder-toggle" type="button" aria-pressed="false" aria-label="Mobile-Leiter-Test umschalten" data-en-aria-label="Toggle mobile ladder test"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-youth"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Youth Basic Education">JugendBASISbildung</span><button class="fr-secret-a11y-switch fr-youth-switch" id="fr-youth-toggle" type="button" aria-pressed="false" aria-label="JugendBASISbildung öffnen" data-en-aria-label="Open Youth Basic Education"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-timer"><div class="fr-secret-timer-row"><span class="fr-secret-timer-label" data-en="Quiz thinking time">Quiz-Bedenkzeit</span><span class="fr-secret-timer-value" id="fr-timer-value" data-en="Off">Aus</span></div><input type="range" class="fr-secret-timer-slider" id="fr-timer-slider" min="0" max="120" step="5" value="0" aria-label="Bedenkzeit in Sekunden fuer das Quiz" data-en-aria-label="Thinking time in seconds for the quiz"></div><div class="fr-secret-calendar">
           <div class="fr-cal-header" id="fr-cal-header"></div>
           <div class="fr-cal-weekdays">
             <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
@@ -118,8 +152,8 @@
           <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-drop-panel">
-        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
-        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (63)">Alle Finanzen-Artikel (63)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(9)</span></a>
         <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
         <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
         <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
@@ -146,18 +180,23 @@
         <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
         <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
         <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
-        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(14)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
         </div>
       </div>
       <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
-      <a href="shop.html" data-en="Shop">Shop</a>
-      <a href="vip.html" data-en="VIP">VIP</a>
-    </nav>
+      <a href="kat-technik.html" data-en="Tech">Tech</a><a data-en="Shop" href="shop.html">Shop</a><a data-en="VIP" href="vip.html">VIP</a>
+      </nav>
 
     <div class="header-controls">
+<button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
       <div class="control">
         <label for="font-slider">Aa</label>
         <input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <div class="font-stepper" role="group" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+        <button type="button" class="font-stepper-btn" id="font-stepper-minus" aria-label="Schrift verkleinern" data-en-aria-label="Decrease font size">&minus;</button>
+        <span class="font-stepper-label" aria-hidden="true">Aa</span>
+        <button type="button" class="font-stepper-btn" id="font-stepper-plus" aria-label="Schrift vergrößern" data-en-aria-label="Increase font size">+</button>
       </div>
       <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
         <span class="dot" id="theme-toggle-icon">
@@ -167,28 +206,38 @@
       <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" title="Switch to English">
         <span id="lang-toggle-text">EN</span>
       </button>
-      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+      <button type="button" class="simplelang-toggle" id="simplelang-toggle" aria-pressed="false" aria-label="Einfache Sprache umschalten" data-en-aria-label="Toggle simple language" title="Einfache Sprache einschalten" data-en-title="Turn on simple language">
+        <span class="simplelang-icon" id="simplelang-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v13"/><path d="M7 7h10"/><path d="M4 7l3 6H1l3-6Z"/><path d="M20 7l3 6h-6l3-6Z"/><path d="M12 17h-3"/><path d="M12 17h3"/><path d="M9 20h6"/><path d="M4 4c1.2-1.2 2.7-1.5 4-.7-1.2.1-2.2.8-2.8 1.8"/></svg>
+        </span>
+      </button>
+      <a class="ladder-quick-link" href="rechner.html" aria-label="Rechner öffnen" data-en-aria-label="Open calculators"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg></a><a class="ladder-quick-link" href="kat-minimalismus-motivation.html#spiele-bereich" aria-label="Spiele öffnen" data-en-aria-label="Open games"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4.5 4.5 0 0 1 4.2 6l-1 2.5a2.5 2.5 0 0 1-4.5.3l-1.2-2H9l-1.2 2a2.5 2.5 0 0 1-4.5-.3l-1-2.5a4.5 4.5 0 0 1 4.2-6Z"></path><path d="M7.5 11v4M5.5 13h4"></path><circle cx="16.5" cy="12" r=".8" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r=".8" fill="currentColor" stroke="none"></circle></svg></a><button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
         <span class="alert-test-dot"></span>
       </button>
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+      
     </div>
   </div>
 </header>
 
 <!-- ============================= HERO ============================= -->
-<section class="hero">
+<section class="hero" id="main-content" tabindex="-1">
   <div class="ledger-grid"></div>
   <div class="wrap hero-inner">
     <div>
-      <div class="eyebrow" data-en="Finance · Minimalism · FIRE">Finanzen · Minimalismus · FIRE</div>
+      <div class="eyebrow" data-en="Finance · Minimalism · FIRE · Tech · Books">Finanzen · Minimalismus · FIRE · Tech · Bücher</div>
       <h1 data-en="Small Rituals.<br>Serious <span class=&quot;accent&quot;>Wealth.</span>">Kleine Rituale.<br>Großes <span class="accent">Vermögen.</span></h1>
-      <p class="lead" data-en="Here at FINANZ-RITUAL, you'll find small, recurring money habits that beat big promises — practical articles on dividends, ETFs, mindful consumption, and the path to financial independence, step by step, milestone by milestone.">Hier bei FINANZ-RITUAL findest du wiederkehrende, kleine Finanz-Gewohnheiten, die große Versprechen schlagen — praxisnahe Beiträge zu Dividenden, ETFs, bewusstem Konsum und dem Weg in die finanzielle Unabhängigkeit, Schritt für Schritt, Meilenstein für Meilenstein.</p>
+      <p class="lead" id="hero-lead" data-en="Here at Finanzritual, you won't find Dubai flexing or shady day-trading promises. This platform is for ordinary people who stop looking for excuses and take their financial fate into their own hands starting today. Get ready for an exciting journey into the depths of the financial world! With small, recurring habits, the courage to look beyond the obvious, and hands-on articles on dividends, ETFs, and mindful consumption, we build an unshakeable bridge to your financial independence, step by step. Let's get started!">Hier bei Finanzritual findest du kein Dubai-Geprotze und keine windigen Daytrading-Versprechen. Diese Plattform ist für ganz normale Menschen, die aufhören, Ausreden zu suchen, und ihr finanzielles Schicksal ab heute selbst in die Hand nehmen. Mach dich bereit für eine spannende Reise in die Untiefen der Finanzwelt! Mit wiederkehrenden, kleinen Gewohnheiten, dem Mut zum Blick über den Tellerrand und praxisnahen Beiträgen zu Dividenden, ETFs und bewusstem Konsum bauen wir Schritt für Schritt eine unerschütterliche Brücke in deine finanzielle Unabhängigkeit. Lass uns starten!</p>
+      <button type="button" class="lead-toggle" id="lead-toggle" aria-expanded="false" aria-controls="hero-lead" data-en="Read more">Weiterlesen</button>
       <div class="hero-cta">
         <a href="von-zero-zum-hero.html" class="btn btn-primary btn-hero-bounce" data-en="ZERO TO HERO: your beginner's guide!">ZERO TO HERO: Einsteiger-Wegweiser!</a>
         <a href="#feed" class="btn btn-green" data-en="Read the latest posts">Neueste Beiträge lesen</a>
       </div>
     </div>
     <div class="hero-chart-box">
+      <div class="simplelang-homepage-warning" id="simplelang-homepage-warning" style="display:none;">
+        <span aria-hidden="true">⚠️</span>
+        <span data-en="This homepage can't be converted into simple language — important legal statements could otherwise be altered in a misleading way.">Diese Startseite kann nicht in Einfache Sprache konvertiert werden — sonst könnten wichtige rechtliche Aussagen missverständlich abgewandelt werden.</span>
+      </div>
       <div class="chart-value-wrap" id="hero-chart-value-wrap">
         <span class="chart-value mono" id="hero-chart-value">0 €</span>
         <span class="chart-value-label" data-en="Example portfolio value">Beispielhafter Depotwert</span>
@@ -217,9 +266,14 @@
 <section class="section" style="padding-top:20px; padding-bottom:20px;">
   <div class="wrap">
     <div class="eyebrow" style="margin-bottom:4px;" data-en="New: play & learn">Neu: Spielen & lernen</div>
-    <h2 style="margin:4px 0 6px;" data-en="Four games, right here">Vier Spiele, direkt hier</h2>
+    <h2 style="margin:4px 0 6px;" data-en="Eight games, right here">Acht Spiele, direkt hier</h2>
     <p style="margin:0 0 4px; color:var(--ink-soft); max-width:60ch;" data-en="No need to dig through menus — everything playable lives right on the landing page.">Kein Wühlen durch Menüs nötig — alles Spielbare direkt auf der Landingpage.</p>
     <div class="tool-links-grid">
+      <a href="finanzbildung-wissens-check.html" class="tool-link-btn">
+        <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">🧠</span>
+        <span class="tool-link-label" data-en="Finance Knowledge Check">Finanzwissens-Check</span>
+        <span class="tool-link-sub" data-en="110 questions, 11 categories, 10 per round — instant scoring">110 Fragen, 11 Kategorien, 10 pro Runde — sofortige Auswertung</span>
+      </a>
       <a href="finanzbildung-quiz-run.html" class="tool-link-btn">
         <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">🏁</span>
         <span class="tool-link-label" data-en="QUIZ RUN">QUIZ RUN</span>
@@ -230,6 +284,11 @@
         <span class="tool-link-label" data-en="Finance Quartet">Finanz-Quartett</span>
         <span class="tool-link-sub" data-en="Top trumps with 30 companies instead of horsepower">Quartett mit 30 Unternehmen statt PS</span>
       </a>
+      <a href="finanzbildung-quartett-dividenden.html" class="tool-link-btn">
+        <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">💰</span>
+        <span class="tool-link-label" data-en="Dividend Quartet">Dividenden-Quartett</span>
+        <span class="tool-link-sub" data-en="30 dividend stocks, plus two special cards that break the rules">30 Dividendenaktien, plus zwei regelbrechende Sonderkarten</span>
+      </a>
       <a href="finanzbildung-quartett-etf.html" class="tool-link-btn">
         <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">📊</span>
         <span class="tool-link-label" data-en="ETF Quartet">ETF-Quartett</span>
@@ -239,6 +298,16 @@
         <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">🎲</span>
         <span class="tool-link-label" data-en="Finance Quiz">Finanz-Quiz</span>
         <span class="tool-link-sub" data-en="100 questions, solo, with a random-question reel">100 Fragen, solo, mit Zufalls-Reel</span>
+      </a>
+      <a href="finanzbildung-cashflow-labyrinth.html" class="tool-link-btn">
+        <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">🧭</span>
+        <span class="tool-link-label" data-en="Cash Flow Survival Labyrinth">Cashflow-Überlebens-Labyrinth</span>
+        <span class="tool-link-sub" data-en="8 to 20 decisions, two pools, a highscore — dodge insolvency as a freelancer">8 bis 20 Entscheidungen, zwei Töpfe, ein Highscore — Insolvenz als Freelancer vermeiden</span>
+      </a>
+      <a href="finanzbildung-glossar-karten.html" class="tool-link-btn">
+        <span class="tool-link-icon" aria-hidden="true" style="font-size:1.3rem;">🗂️</span>
+        <span class="tool-link-label" data-en="Glossary Cards">Glossar-Karten</span>
+        <span class="tool-link-sub" data-en="490 finance terms as flash cards — guess first, then reveal">490 Finanzbegriffe als Karteikarten — erst raten, dann aufdecken</span>
       </a>
     </div>
   </div>
@@ -359,6 +428,9 @@
       <p style="margin-top:10px;" data-en="Size shows how often a topic appears in the blog — calculated automatically, not sorted by hand.">Die Größe zeigt, wie oft ein Thema im Blog vorkommt — automatisch berechnet, nicht von Hand sortiert.</p>
     </div>
     <div class="tagcloud" id="tagcloud"></div>
+    <div style="text-align:center; margin-top:16px;">
+      <button class="btn btn-outline" id="tagcloud-more-btn" data-en="Load more">Mehr laden</button>
+    </div>
   </div>
 </section>
 
@@ -405,8 +477,8 @@
       <a class="kat-overview-card" href="kat-technik.html">
         <span class="kat-overview-icon kat-overview-icon--soft" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
         <h3 data-en="Tech">Technik</h3>
-        <p data-en="Calculators, apps, and tools for everyday finances.">Rechner, Apps und Tools für den Finanzalltag.</p>
-        <span class="kat-overview-more" data-en="→ View all calculators">→ Alle Rechner ansehen</span>
+        <p data-en="Practical reviews and everyday tools that make life easier and save money.">Praxistests und Alltags-Tools, die das Leben leichter machen und Geld sparen.</p>
+        <span class="kat-overview-more" data-en="&rarr; View all tech articles">→ Alle Technik-Artikel ansehen</span>
       </a>
     </div>
   </div>
@@ -457,7 +529,7 @@
     </div>
 
     <div class="coffee-strip">
-      <span class="fr-coffee-cup" aria-hidden="true">
+      <a class="fr-coffee-cup fr-coffee-btn" id="fr-coffee-cup-btn" href="#" rel="noopener" aria-label="Kaffee spendieren" data-en-aria-label="Buy me a coffee">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path class="fr-steam fr-steam-1" d="M8 2.5c-.6.8-.6 1.7 0 2.5"/>
           <path class="fr-steam fr-steam-2" d="M12 2c-.7 1-.7 2 0 3"/>
@@ -466,7 +538,7 @@
           <path d="M17 9.5h1.5a2.5 2.5 0 0 1 0 5H17"/>
           <path d="M2 22h16"/>
         </svg>
-      </span>
+      </a>
       <p class="coffee-strip-text" data-en="Without you, this blog wouldn't exist! A small contribution to my coffee fund helps me directly tackle new topics and keep improving the quality of these articles. Thank you for being here.">Ohne euch gäbe es diesen Blog nicht! Mit einem kleinen Beitrag in meine Kaffeekasse hilfst du mir direkt dabei, neue Themen anzugehen und die Qualität der Beiträge weiter zu verbessern. Danke, dass du da bist!</p>
       <a href="#" class="fr-coffee-btn" id="fr-coffee-btn" rel="noopener">
         <span class="fr-coffee-text">
@@ -524,6 +596,8 @@
           <li><a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a></li>
           <li><a href="glossar.html" data-en="Glossary">Glossar</a></li>
           <li><a href="faq.html" data-en="FAQ">FAQ</a></li>
+          <li><a href="ueber-mich.html" data-en="About Me">Über mich</a></li>
+          <li><a href="disclaimer.html" data-en="Disclaimer">Disclaimer</a></li>
           <li><a href="mailto:finanz-ritual@gmx.de" data-en="Contact">Kontakt</a></li>
         </ul>
       </div>
@@ -539,15 +613,17 @@
 
     <div class="footer-about-note">
       <h4 data-en="Accessibility">Barrierefreiheit</h4>
+      <p style="margin:0 0 8px;"><a href="barrierefreiheit.html" data-en="Full accessibility statement →">Vollständige Barrierefreiheitserklärung →</a></p>
       <p data-en="This site is built to be accessible: a slider in the top right enlarges the text, plus a high-contrast and a day/night mode. We deliberately avoid gender-marking symbols, since screen readers often can't render them understandably — a problem especially for blind readers. If German isn't your language, switch to English via EN — English-speaking readers are very welcome.">Diese Seite ist barrierefrei nutzbar: Ein Regler oben rechts vergrößert den Text, dazu gibt es einen Kontrast- und einen Tag-/Nacht-Modus. Auf Gendersternchen und -doppelpunkte wird bewusst verzichtet, da vorgelesener Text bei solchen Zeichen oft nicht mehr verständlich ist — ein Problem besonders für blinde Leser. Wer kein Deutsch spricht, wechselt über EN ins Englische — englischsprachige Leser sind herzlich willkommen.</p>
     </div>
 
-    <div class="disclaimer-box" data-en="Finanzritual is educational content, not investment, tax, or legal advice. All examples are simplified and are not a recommendation to buy or sell any securities.">
-      Finanzritual ist Bildungsangebot, keine Anlage-, Steuer- oder Rechtsberatung. Alle Beispiele sind vereinfacht und keine Empfehlung zum Kauf oder Verkauf von Wertpapieren.
-    </div>
+    <div class="disclaimer-box"  data-fr-snippet="disclaimer-startseite"></div>
+
+    
 
     <div class="footer-bottom">
-      <span data-en="© 2026 Finanzritual · Last updated: 15 July 2026">© 2026 Finanzritual · Zuletzt aktualisiert: 15. Juli 2026</span>
+      <p class="footer-a11y-link"><a href="barrierefreiheit.html" data-en="Accessibility"><span class="a11y-icon" aria-hidden="true">♿</span> Barrierefreiheit</a></p>
+<span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
       <span class="mono" data-en="Built with open-source fonts &amp; no tracking">Gebaut mit Open-Source-Schriften &amp; ohne Tracking</span>
     </div>
   </div>

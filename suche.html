@@ -8,6 +8,53 @@
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
+<!-- FR_BOOT_BACKGROUND_START -->
+<script>
+(function(){
+  try {
+    var t=localStorage.getItem('fr-theme')||'light';
+    var c=localStorage.getItem('fr-contrast')||'off';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-contrast',c);
+  } catch(e) {}
+})();
+</script>
+<style id="fr-boot-background">
+html,body{background:#F4F5F7 !important;}
+html[data-theme="dark"] body,html[data-theme="dark"]{background:#10151C !important;}
+html[data-theme="light"][data-contrast="high"] body,html[data-theme="light"][data-contrast="high"]{background:#FFFFFF !important;}
+html[data-theme="dark"][data-contrast="high"] body,html[data-theme="dark"][data-contrast="high"]{background:#000000 !important;}
+</style>
+<!-- FR_BOOT_BACKGROUND_END -->
+<!-- FR_SIMPLE_TRANSITION_START -->
+<style id="fr-simple-transition-style">
+html.fr-simple-transition-active::before{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#F4F5F7;opacity:1;transition:opacity .10s ease-out;}
+html.fr-simple-transition-active[data-theme="dark"]::before{background:#10151C;}
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{background:#FFF;}
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{background:#000;}
+html.fr-simple-transition-done::before{opacity:0;}
+</style>
+<script>
+(function(){
+  try {
+    if(sessionStorage.getItem('fr-simple-transition') === '1'){
+      sessionStorage.removeItem('fr-simple-transition');
+      document.documentElement.classList.add('fr-simple-transition-active');
+      window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('fr-simple-transition-done');
+          setTimeout(function(){
+            document.documentElement.classList.remove('fr-simple-transition-active','fr-simple-transition-done');
+          }, 130);
+        });
+      }, {once:true});
+    }
+  } catch(e) {}
+})();
+</script>
+<!-- FR_SIMPLE_TRANSITION_END -->
+
+
 <style>
 .sr-wrap{max-width:720px;margin:0 auto}
 .sr-input-wrap{position:relative;margin-bottom:14px}
@@ -33,6 +80,17 @@
 .cc-m{background:#FAEEDA;color:#92400E}[data-theme="dark"] .cc-m{background:#3A2800;color:#FCD34D}
 .cc-r{background:#FCEBEB;color:#C0392B}[data-theme="dark"] .cc-r{background:#3A0000;color:#FF9999}
 .cc-x{background:var(--bg-raised);color:var(--ink-soft);border:1px solid var(--line)}
+[data-gcat="wirtschaft"]        { --gcat-color:#f0c14b; }
+[data-gcat="eu_recht"]          { --gcat-color:#5b9bf5; }
+[data-gcat="boerse"]            { --gcat-color:#f0914b; }
+[data-gcat="investment"]        { --gcat-color:#4dd9a0; }
+[data-gcat="crypto"]            { --gcat-color:#b57bef; }
+[data-gcat="karriere_learning"] { --gcat-color:#3fd6c8; }
+[data-gcat="absicherung"]       { --gcat-color:#ff8a70; }
+[data-gcat="allgemein_tech"]    { --gcat-color:#8fa3c4; }
+[data-gcat="allgemein"]         { --gcat-color:#98A2B3; }
+.sr-card[data-gcat]{border-left:3px solid var(--gcat-color, transparent)}
+.sr-card[data-gcat] .sr-card-cat{background:color-mix(in srgb, var(--gcat-color, var(--blue)) 16%, transparent);color:var(--gcat-color, var(--blue))}
 .sr-card-date{font-size:.67rem;color:var(--ink-soft);font-family:'JetBrains Mono',monospace}
 .sr-card-title{font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:3px;line-height:1.3}
 .sr-card-excerpt{font-size:.79rem;color:var(--ink-soft);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -71,8 +129,11 @@ mark{background:rgba(253,211,77,.4);border-radius:2px;padding:0 1px;color:inheri
 <link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/suche.html">
 <link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/suche.html">
 <link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
+<link rel="canonical" href="https://www.finanz-ritual.de/suche.html">
 </head>
 <body>
+<a href="#lang-toggle" class="skip-link" data-en="Skip directly to the English language switch">Direkt zum Sprachwechsel (Englisch) springen</a><a href="#main-content" class="skip-link" data-en="Skip to main content">Direkt zum Hauptinhalt springen</a>
+
 <div class="alert-banner" id="alert-banner" role="alert"><div class="alert-banner-inner"><span class="alert-banner-text" id="alert-banner-text"></span><div class="alert-banner-right"><span class="alert-banner-counter" id="perf-counter" aria-hidden="true"><span id="perf-count">–</span> Aufrufe · <span id="perf-time"></span></span><button type="button" class="alert-banner-close" id="alert-banner-close" aria-label="Warnung ausblenden" data-en-aria-label="Hide warning">✕</button></div></div></div>
 <button type="button" class="alert-bell" id="alert-bell" aria-label="Warnhinweis anzeigen" data-en-aria-label="Show warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a5 5 0 0 0-5 5c0 5-2 6-2 7h14c0-1-2-2-2-7a5 5 0 0 0-5-5z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></button>
 <button type="button" id="scroll-top-btn" class="scroll-top-btn" aria-label="Nach oben scrollen" data-en-aria-label="Scroll to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></button>
@@ -89,7 +150,7 @@ mark{background:rgba(253,211,77,.4);border-radius:2px;padding:0 1px;color:inheri
         <path d="M8 27 L16 19 L22 23 L30 11 L37 5" stroke="#1E8E5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         <circle cx="37" cy="5" r="3.2" fill="#1E8E5A"/>
       </svg></a>
-<div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true"><div class="fr-secret-panel-inner"><div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div><nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections"><a href="index.html#optionen">Optionen</a><a href="shop.html" class="fr-secret-soon" data-en="Shop ✶">Shop ✶</a><a href="vip.html" class="fr-secret-soon" data-en="VIP ✶">VIP ✶</a></nav><div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div></div></div>
+<div class="fr-secret-panel" id="fr-secret-panel" aria-hidden="true"><div class="fr-secret-panel-inner"><div class="fr-secret-panel-header" data-en="More sections">Weitere Bereiche</div><nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections"><a href="index.html#optionen">Optionen</a></nav><div class="fr-secret-a11y"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Dyslexia-friendly font">Legasthenie-Schrift</span><button class="fr-secret-a11y-switch" id="dyslexic-font-toggle" type="button" aria-pressed="false" aria-label="Legasthenie-freundliche Schrift umschalten" data-en-aria-label="Toggle dyslexia-friendly font"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-ladder-test"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Force mobile ladder (test)">Mobile-Leiter-Test</span><button class="fr-secret-a11y-switch" id="force-ladder-toggle" type="button" aria-pressed="false" aria-label="Mobile-Leiter-Test umschalten" data-en-aria-label="Toggle mobile ladder test"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-youth"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Youth Basic Education">JugendBASISbildung</span><button class="fr-secret-a11y-switch fr-youth-switch" id="fr-youth-toggle" type="button" aria-pressed="false" aria-label="JugendBASISbildung öffnen" data-en-aria-label="Open Youth Basic Education"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-timer"><div class="fr-secret-timer-row"><span class="fr-secret-timer-label" data-en="Quiz thinking time">Quiz-Bedenkzeit</span><span class="fr-secret-timer-value" id="fr-timer-value" data-en="Off">Aus</span></div><input type="range" class="fr-secret-timer-slider" id="fr-timer-slider" min="0" max="120" step="5" value="0" aria-label="Bedenkzeit in Sekunden fuer das Quiz" data-en-aria-label="Thinking time in seconds for the quiz"></div><div class="fr-secret-calendar"><div class="fr-cal-header" id="fr-cal-header"></div><div class="fr-cal-weekdays"><span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span></div><div class="fr-cal-days" id="fr-cal-days"></div></div></div></div>
     <nav class="primary" id="primary-nav" aria-label="Hauptnavigation">
       <div class="nav-drop">
         <button type="button" class="nav-drop-toggle" aria-expanded="false">
@@ -97,8 +158,8 @@ mark{background:rgba(253,211,77,.4);border-radius:2px;padding:0 1px;color:inheri
           <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-drop-panel">
-        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
-        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (63)">Alle Finanzen-Artikel (63)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(9)</span></a>
         <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
         <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
         <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
@@ -125,23 +186,28 @@ mark{background:rgba(253,211,77,.4);border-radius:2px;padding:0 1px;color:inheri
         <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
         <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
         <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
-        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(14)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
         </div>
       </div>
       <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
-      <a href="shop.html" data-en="Shop">Shop</a>
-      <a href="vip.html" data-en="VIP">VIP</a>
-    </nav>
+      <a href="kat-technik.html" data-en="Tech">Tech</a><a data-en="Shop" href="shop.html">Shop</a><a data-en="VIP" href="vip.html">VIP</a>
+      </nav>
 <div class="header-controls">
-<div class="control"><label for="font-slider">Aa</label><input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße" data-en-aria-label="Font size"></div>
-<button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus" data-en-aria-label="Toggle dark mode"><span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
-<button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" data-en-aria-label="Auf Deutsch umschalten" title="Switch to English"><span id="lang-toggle-text">EN</span></button>
-<button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Vorschau" data-en-aria-label="Preview"><span class="alert-test-dot"></span></button>
 <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+<div class="control"><label for="font-slider">Aa</label><input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße" data-en-aria-label="Font size"></div>
+      <div class="font-stepper" role="group" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+        <button type="button" class="font-stepper-btn" id="font-stepper-minus" aria-label="Schrift verkleinern" data-en-aria-label="Decrease font size">&minus;</button>
+        <span class="font-stepper-label" aria-hidden="true">Aa</span>
+        <button type="button" class="font-stepper-btn" id="font-stepper-plus" aria-label="Schrift vergrößern" data-en-aria-label="Increase font size">+</button>
+      </div>
+<button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus" data-en-aria-label="Toggle dark mode"><span class="dot" id="theme-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button><button type="button" class="contrast-toggle" id="contrast-toggle" aria-pressed="false" aria-label="Hohen Kontrast umschalten" data-en-aria-label="Toggle high contrast" title="Hohen Kontrast einschalten" data-en-title="Turn on high contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button><button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-pressed="false" aria-label="Vollbildmodus umschalten" data-en-aria-label="Toggle full screen" title="Vollbildmodus" data-en-title="Full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+<button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" data-en-aria-label="Auf Deutsch umschalten" title="Switch to English"><span id="lang-toggle-text">EN</span></button><button type="button" class="simplelang-toggle" id="simplelang-toggle" aria-pressed="false" aria-label="Einfache Sprache umschalten" data-en-aria-label="Toggle simple language" title="Einfache Sprache einschalten" data-en-title="Turn on simple language"><span class="simplelang-icon" id="simplelang-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v13"/><path d="M7 7h10"/><path d="M4 7l3 6H1l3-6Z"/><path d="M20 7l3 6h-6l3-6Z"/><path d="M12 17h-3"/><path d="M12 17h3"/><path d="M9 20h6"/><path d="M4 4c1.2-1.2 2.7-1.5 4-.7-1.2.1-2.2.8-2.8 1.8"/></svg></span></button>
+<a class="ladder-quick-link" href="rechner.html" aria-label="Rechner öffnen" data-en-aria-label="Open calculators"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg></a><a class="ladder-quick-link" href="kat-minimalismus-motivation.html#spiele-bereich" aria-label="Spiele öffnen" data-en-aria-label="Open games"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4.5 4.5 0 0 1 4.2 6l-1 2.5a2.5 2.5 0 0 1-4.5.3l-1.2-2H9l-1.2 2a2.5 2.5 0 0 1-4.5-.3l-1-2.5a4.5 4.5 0 0 1 4.2-6Z"></path><path d="M7.5 11v4M5.5 13h4"></path><circle cx="16.5" cy="12" r=".8" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r=".8" fill="currentColor" stroke="none"></circle></svg></a><button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Vorschau" data-en-aria-label="Preview"><span class="alert-test-dot"></span></button>
+
 </div>
 </div></header>
 
-<section class="page-hero" style="padding-bottom:20px;">
+<section class="page-hero" id="main-content" tabindex="-1" style="padding-bottom:20px;">
 <div class="wrap sr-wrap">
 <div class="eyebrow" data-en="Search">Suche</div>
 <h1 data-en="What are you looking for?">Was suchst du?</h1>
@@ -162,6 +228,15 @@ mark{background:rgba(253,211,77,.4);border-radius:2px;padding:0 1px;color:inheri
   autocomplete="off" spellcheck="false">
 <svg class="sr-icon" id="sr-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
 <button class="sr-clear" id="sr-clear" aria-label="Suche löschen" data-en-aria-label="Clear search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+</div>
+
+<!-- TEMPORAERE ADMIN-FILTER (Einfache-Sprache-Testphase) -->
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px;">
+  <button type="button" id="sr-filter-todo" class="tag-pill" data-en="🟡 Not yet in simple language">🟡 Noch nicht einfach</button>
+  <button type="button" id="sr-filter-simple" class="tag-pill" data-en="✅ Simple-language pages only">✅ Nur Einfache Sprache</button>
+  <button type="button" id="sr-filter-videoscript" class="tag-pill" data-en="🎬 Has hidden video script">🎬 Mit Video-Skript</button>
+  <button type="button" id="sr-filter-youth" class="tag-pill" data-en="🔍🎓 Youth Basic Education only">🔍🎓 Nur JugendBASISbildung</button>
+  <button type="button" id="sr-filter-draft" class="tag-pill" data-en="📦 Halde/drafts only (hidden from visitors)">📦 Nur Halde/Entwurf (für Besucher unsichtbar)</button>
 </div>
 
 <!-- SUCHERGEBNISSE (erscheinen beim Tippen, UBER dem Reel) -->
@@ -201,8 +276,10 @@ mark{background:rgba(253,211,77,.4);border-radius:2px;padding:0 1px;color:inheri
 </section>
 
 <footer class="site"><div class="wrap footer-bottom" style="border-top:1px solid var(--line);padding-top:20px;">
+    
+    <p class="footer-a11y-link"><a href="barrierefreiheit.html" data-en="Accessibility"><span class="a11y-icon" aria-hidden="true">♿</span> Barrierefreiheit</a></p>
 <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
-<span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a></span>
+<span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a> · <a href="ueber-mich.html" data-en="About Me">Über mich</a> · <a href="disclaimer.html" data-en="Disclaimer">Disclaimer</a></span>
 </div></footer>
 
 <script src="script.js"></script>
@@ -221,7 +298,10 @@ var input=document.getElementById('sr-q'),
     reelWrap=document.getElementById('sr-reel-wrap'),
     reelTrack=document.getElementById('sr-reel-track'),
     reelLabel=document.getElementById('sr-reel-label');
-var ROW_HEIGHT=76,allPosts=[],reelPosts=[],N=0,pos=0,speed=0,activeTag=null;
+var ROW_HEIGHT=76,allPosts=[],reelPosts=[],N=0,pos=0,speed=0,activeTag=null,modeFilter=null,audienceFilter=false;
+var simplePosts=(typeof FR_SIMPLE_PAIRS!=='undefined')?FR_SIMPLE_PAIRS.map(function(s){return{title:s.title,titleEn:s.titleEn,cat:s.cat,subcat:'einfach',date:s.date,excerpt:s.excerpt,excerptEn:s.excerptEn,tags:['Einfache Sprache'],link:s.simple};}):[];
+var doneLinks=(typeof FR_SIMPLE_PAIRS!=='undefined')?FR_SIMPLE_PAIRS.map(function(s){return s.normal;}):[];
+function getModeBase(){if(modeFilter==='draft')return allPosts.filter(function(p){return p.draft===true;});var base=allPosts.filter(function(p){return !p.draft;});if(modeFilter==='todo')return base.filter(function(p){return doneLinks.indexOf(p.link)===-1;});if(modeFilter==='simple')return simplePosts;if(modeFilter==='videoscript')return base.filter(function(p){return p.videoScript===true;});return base;}
 function isEn(){return document.documentElement.getAttribute('lang')==='en';}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function catKey(cat){if(!cat)return'x';var c=cat.toLowerCase();if(c==='finanzen')return'f';if(c.includes('buch'))return'b';if(c.includes('minimal'))return'm';if(c==='fire')return'r';return'x';}
@@ -230,7 +310,7 @@ function fmtDate(d){return d?d.split('-').reverse().join('.'):''}
 function shortestDiff(i,p){var d=(i-p)%N;if(d>N/2)d-=N;if(d<-N/2)d+=N;return d;}
 function buildReel(){reelTrack.innerHTML='';reelPosts.forEach(function(p,i){var row=document.createElement('div');row.className='sr-reel-row';row.dataset.index=String(i);row.innerHTML='<div class="sr-reel-cat rc-'+catKey(p.cat)+'"></div><div class="sr-reel-title"></div>';reelTrack.appendChild(row);});updateReelTexts();}
 function updateReelTexts(){var en=isEn(),rows=reelTrack.children;for(var i=0;i<rows.length;i++){var p=reelPosts[i];if(!p)continue;rows[i].querySelector('.sr-reel-cat').textContent=catLbl(p.cat,en);rows[i].querySelector('.sr-reel-title').textContent=(en&&p.titleEn?p.titleEn:p.title)||'';}}
-function renderReel(){var rows=reelTrack.children;for(var i=0;i<rows.length;i++){var diff=shortestDiff(i,pos),dist=Math.abs(diff);if(dist>3){rows[i].style.opacity='0';rows[i].style.pointerEvents='none';continue;}rows[i].style.transform='translateY('+diff*ROW_HEIGHT+'px) translateY(-50%) scale('+Math.max(0.58,1-dist*0.16)+')';rows[i].style.opacity=String(Math.max(0,1-dist*0.32));rows[i].style.zIndex=String(100-Math.round(dist*10));rows[i].style.pointerEvents=dist<0.5?'auto':'none';}}
+function renderReel(){var rows=reelTrack.children;for(var i=0;i<rows.length;i++){var diff=shortestDiff(i,pos),dist=Math.abs(diff);if(dist>3){rows[i].style.opacity='0';rows[i].style.pointerEvents='none';continue;}rows[i].style.transform='translateY('+diff*ROW_HEIGHT+'px) translateY(-50%) scale('+Math.max(0.58,1-dist*0.16)+')';rows[i].style.opacity=String(Math.max(0,1-dist*0.32));rows[i].style.zIndex=String(10-Math.round(dist*3));rows[i].style.pointerEvents=dist<0.5?'auto':'none';}}
 function tick(){if(Math.abs(speed)>0.0003){pos=((pos+speed)%N+N)%N;renderReel();}requestAnimationFrame(tick);}
 function speedFromRelY(r){var c=(r-0.5)*2,d=0.14;if(Math.abs(c)<=d)return 0;return(c>0?1:-1)*((Math.abs(c)-d)/(1-d))*0.048;}
 reelWrap.addEventListener('mousemove',function(e){var r=reelWrap.getBoundingClientRect();speed=speedFromRelY(Math.max(0,Math.min(1,(e.clientY-r.top)/r.height)));});
@@ -240,30 +320,65 @@ reelWrap.addEventListener('touchend',function(){speed=0;});
 reelWrap.addEventListener('click',function(e){var row=e.target.closest('.sr-reel-row');if(row){var idx=parseInt(row.dataset.index,10);if(Math.abs(shortestDiff(idx,pos))<0.7){var p=reelPosts[idx];if(p&&p.link)window.location.href=p.link;}else{pos=idx;speed=0;renderReel();}}});
 function hlText(t,q){if(!q)return esc(t);return esc(t).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');}
 function stripThousandDots(s){return s.replace(/(\d)\.(?=\d{3}\b)/g,'$1');}
+// Normalisierung fuer den reinen Treffer-Abgleich (nicht fuer die
+// Hervorhebung im Ergebnis -- die nutzt weiterhin den unveraenderten
+// Suchbegriff). Bindestriche zaehlen wie Leerzeichen ("4-Prozent-Regel"
+// findet man mit "4 prozent regel" genauso wie mit "4-prozent-regel"),
+// und "%" und "prozent" gelten als dasselbe Wort in beide Richtungen.
+function normalizeForMatch(s){return stripThousandDots(s).replace(/%/g,' prozent ').replace(/[-\u2010-\u2015]/g,' ').replace(/\s+/g,' ').trim();}
 function renderSearch(){
-var q=stripThousandDots(input.value.trim().toLowerCase()),en=isEn(),hasQ=q.length>=2;
-var base=activeTag?allPosts.filter(function(p){return(p.tags||[]).some(function(t){return t===activeTag;});}):allPosts;
-reelPosts=hasQ?base.filter(function(p){return stripThousandDots([p.title,p.titleEn,p.excerpt,p.excerptEn,(p.tags||[]).join(' '),p.cat,p.subcat].join(' ').toLowerCase()).includes(q);}):base;
+var qRaw=stripThousandDots(input.value.trim().toLowerCase()),qNorm=normalizeForMatch(input.value.trim().toLowerCase()),en=isEn(),hasQ=qNorm.length>=2;
+var modeBase=getModeBase();
+// Jugend-Filter wirkt jetzt in beide Richtungen: eingeschaltet zeigt nur
+// Jugendartikel, ausgeschaltet zeigt explizit nur Erwachsenen-Artikel
+// (Jugendartikel werden dann ausgeschlossen). Vorher galt die Filterung
+// nur EINSEITIG (nur bei aktiviertem Schalter), im Ruhezustand ohne
+// Filterung liefen Jugend- und Erwachsenen-Artikel gemischt durcheinander
+// -- sowohl in den Suchergebnissen als auch im "Alle Artikel stöbern"-
+// Karussell, das aus derselben modeBase gespeist wird.
+modeBase=audienceFilter?modeBase.filter(function(p){return p.cat==='JugendBASISbildung';}):modeBase.filter(function(p){return p.cat!=='JugendBASISbildung';});
+var base=activeTag?modeBase.filter(function(p){return(p.tags||[]).some(function(t){return t===activeTag;});}):modeBase;
+reelPosts=hasQ?base.filter(function(p){return normalizeForMatch([p.title,p.titleEn,p.excerpt,p.excerptEn,(p.tags||[]).join(' '),p.cat,p.subcat].join(' ').toLowerCase()).includes(qNorm);}):base;
 N=reelPosts.length;if(pos>=N)pos=0;buildReel();renderReel();
 reelLabel.textContent=en?(activeTag?'Articles: '+activeTag:'Browse all articles'):(activeTag?'Artikel: '+activeTag:'Alle Artikel stöbern');
-if(!hasQ&&!activeTag){resSection.style.display='none';return;}
+if(!hasQ&&!activeTag&&!modeFilter&&!audienceFilter){resSection.style.display='none';return;}
 resSection.style.display='';
 var filtered=[].concat(reelPosts).sort(function(a,b){return new Date(b.date||0)-new Date(a.date||0);});
 statsEl.innerHTML='<strong>'+filtered.length+'</strong>'+(en?' of ':' von ')+allPosts.length+(en?' articles':' Artikeln');
 if(filtered.length===0){resultsEl.innerHTML='';emptyEl.style.display='';emptyTitle.textContent=en?'No article found':'Kein Artikel gefunden';emptyMsg.textContent=en?'Try another term or browse the reel below.':'Anderen Begriff versuchen oder im Reel stöbern.';return;}
 emptyEl.style.display='none';
 var tKey=en?'titleEn':'title',eKey=en?'excerptEn':'excerpt';
-resultsEl.innerHTML=filtered.map(function(p){var title=p[tKey]||p.title||'',exc=p[eKey]||p.excerpt||'';var cc='cc-'+catKey(p.cat);
-return'<a href="'+esc(p.link||'#')+'" class="sr-card" role="listitem"><div class="sr-card-body"><div class="sr-card-eye"><span class="sr-card-cat '+cc+'">'+esc(catLbl(p.cat,en))+'</span><span class="sr-card-date">'+fmtDate(p.date)+'</span></div><div class="sr-card-title">'+hlText(title,q)+'</div><div class="sr-card-excerpt">'+hlText(exc,q)+'</div></div><span class="sr-card-arrow" aria-hidden="true">→</span></a>';}).join('');}
+resultsEl.innerHTML=filtered.map(function(p){var title=p[tKey]||p.title||'',exc=p[eKey]||p.excerpt||'';var cc='cc-'+catKey(p.cat);var gcatAttr=p.gcat?' data-gcat="'+esc(p.gcat)+'"':'';var catLabel=p.gcat&&typeof frGcatLabel==='function'?frGcatLabel(p.gcat):catLbl(p.cat,en);
+return'<a href="'+esc(p.link||'#')+'" class="sr-card" role="listitem"'+gcatAttr+'><div class="sr-card-body"><div class="sr-card-eye"><span class="sr-card-cat '+cc+'">'+esc(catLabel)+'</span><span class="sr-card-date">'+fmtDate(p.date)+'</span></div><div class="sr-card-title">'+hlText(title,qRaw)+'</div><div class="sr-card-excerpt">'+hlText(exc,qRaw)+'</div></div><span class="sr-card-arrow" aria-hidden="true">→</span></a>';}).join('');}
 function buildTagCloud(){var tc={};allPosts.forEach(function(p){(p.tags||[]).forEach(function(t){tc[t]=(tc[t]||0)+1;});});var sorted=Object.entries(tc).sort(function(a,b){return b[1]-a[1];});var maxCount=sorted.reduce(function(a,e){return Math.max(a,e[1]);},1);var moreBtn=document.getElementById('tag-cloud-more');var shown=0;var pageSize=20;function renderNextTags(){var slice=sorted.slice(shown,shown+pageSize);slice.forEach(function(e){var tag=e[0],count=e[1];var pill=document.createElement('button');pill.type='button';pill.className='tag-pill';pill.dataset.tag=tag;pill.style.fontSize=(0.72+(count/maxCount)*0.18).toFixed(2)+'rem';pill.innerHTML=tag+' <span class="tag-count">('+count+')</span>';pill.addEventListener('click',function(){if(activeTag===tag){activeTag=null;pill.classList.remove('is-active');}else{document.querySelectorAll('.tag-pill.is-active').forEach(function(p){p.classList.remove('is-active');});activeTag=tag;pill.classList.add('is-active');}renderSearch();requestAnimationFrame(function(){var target=resSection.style.display!=='none'?resSection:reelWrap;target.scrollIntoView({behavior:'smooth',block:'start'});});});cloud.appendChild(pill);});shown+=slice.length;if(moreBtn){moreBtn.style.display=shown>=sorted.length?'none':'inline-flex';}}renderNextTags();if(moreBtn){moreBtn.addEventListener('click',renderNextTags);}}
 var debounce;
+var todoBtn=document.getElementById('sr-filter-todo'),simpleBtn=document.getElementById('sr-filter-simple'),videoBtn=document.getElementById('sr-filter-videoscript'),youthBtn=document.getElementById('sr-filter-youth'),draftBtn=document.getElementById('sr-filter-draft');
+function setMode(m){modeFilter=modeFilter===m?null:m;todoBtn.classList.toggle('is-active',modeFilter==='todo');simpleBtn.classList.toggle('is-active',modeFilter==='simple');if(videoBtn)videoBtn.classList.toggle('is-active',modeFilter==='videoscript');if(draftBtn)draftBtn.classList.toggle('is-active',modeFilter==='draft');renderSearch();}
+if(todoBtn)todoBtn.addEventListener('click',function(){setMode('todo');});
+if(simpleBtn)simpleBtn.addEventListener('click',function(){setMode('simple');});
+if(videoBtn)videoBtn.addEventListener('click',function(){setMode('videoscript');});
+if(draftBtn)draftBtn.addEventListener('click',function(){setMode('draft');});
+// Jugend-Filter ist bewusst KEIN Teil von setMode()/modeFilter -- er soll
+// sich mit den anderen drei Filtern kombinieren lassen (z.B. "Jugend" +
+// Tag-Wolke), statt sie gegenseitig auszuschliessen. Reiner Boolean-Toggle.
+function setAudienceFilter(on){
+  audienceFilter=on;
+  if(youthBtn)youthBtn.classList.toggle('is-active',audienceFilter);
+  var u=new URL(location.href);
+  if(audienceFilter)u.searchParams.set('audience','JugendBASISbildung');
+  else u.searchParams.delete('audience');
+  history.replaceState(null,'',u.toString());
+  renderSearch();
+}
+if(youthBtn)youthBtn.addEventListener('click',function(){setAudienceFilter(!audienceFilter);});
 input.addEventListener('input',function(){var v=input.value;clearBtn.style.display=v?'flex':'none';iconEl.style.opacity=v?'0':'1';clearTimeout(debounce);debounce=setTimeout(renderSearch,130);});
 clearBtn.addEventListener('click',function(){input.value='';clearBtn.style.display='none';iconEl.style.opacity='1';input.focus();renderSearch();});
 function waitFor(cb,n){if(typeof FR_POSTS!=='undefined'){cb(FR_POSTS);return;}if((n||0)>40)return;setTimeout(function(){waitFor(cb,(n||0)+1);},100);}
-waitFor(function(posts){allPosts=posts.filter(function(p){return p.link&&p.title;});reelPosts=allPosts;N=allPosts.length;pos=Math.floor(Math.random()*N);buildReel();renderReel();requestAnimationFrame(tick);buildTagCloud();var urlQ=new URLSearchParams(location.search).get('q');if(urlQ){input.value=urlQ;clearBtn.style.display='flex';iconEl.style.opacity='0';}renderSearch();input.focus();});
+waitFor(function(posts){allPosts=posts.filter(function(p){return p.link&&p.title;});reelPosts=allPosts;N=allPosts.length;pos=Math.floor(Math.random()*N);buildReel();renderReel();requestAnimationFrame(tick);buildTagCloud();var urlQ=new URLSearchParams(location.search).get('q');if(urlQ){input.value=urlQ;clearBtn.style.display='flex';iconEl.style.opacity='0';}if(new URLSearchParams(location.search).get('audience')==='JugendBASISbildung'){setAudienceFilter(true);}renderSearch();input.focus();});
 window.frPageRecomputers=window.frPageRecomputers||[];
 window.frPageRecomputers.push(function(){updateReelTexts();renderReel();renderSearch();});
 })();
 </script>
+
 </body>
 </html>

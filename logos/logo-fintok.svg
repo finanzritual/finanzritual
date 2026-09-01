@@ -1,0 +1,28 @@
+<svg viewBox="0 0 400 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FinanzRitual FIN-TOK Logo">
+  <rect width="400" height="130" fill="#0a0a0a"/>
+
+  <!-- Krone (handgezeichneter Stil, Gold) -->
+  <g transform="translate(20,18)" fill="none" stroke="#ffaa00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 26 L2 10 L11 18 L18 4 L25 18 L34 10 L34 26 Z"/>
+    <path d="M2 26 L34 26" stroke-width="3.4"/>
+    <circle cx="2" cy="7" r="2.1" fill="#ffaa00" stroke="none"/>
+    <circle cx="18" cy="1.5" r="2.1" fill="#ffaa00" stroke="none"/>
+    <circle cx="34" cy="7" r="2.1" fill="#ffaa00" stroke="none"/>
+  </g>
+
+  <!-- FinanzRitual Schriftzug -->
+  <g font-family="'Space Grotesk','Arial',sans-serif" font-weight="700">
+    <text x="66" y="42" font-size="30" fill="#ffaa00">FinanzRitual<tspan font-size="14" dy="-14">™</tspan></text>
+    <rect x="66" y="50" width="196" height="2.5" fill="#ffaa0088"/>
+  </g>
+
+  <!-- FIN-TOK Badge -->
+  <g transform="translate(20,72)">
+    <rect x="0" y="0" width="150" height="40" rx="20" fill="#111111" stroke="#ffaa00" stroke-width="1.5"/>
+    <text x="75" y="20.5" text-anchor="middle" dominant-baseline="central" font-family="'Space Grotesk','Arial',sans-serif" font-weight="800" font-size="19" letter-spacing="1">
+      <tspan fill="#00f2ea">FIN</tspan><tspan fill="#ffffff">-</tspan><tspan fill="#ff0050">TOK</tspan>
+    </text>
+  </g>
+
+  <text x="182" y="98" font-family="'Space Grotesk','Arial',sans-serif" font-size="12" fill="#8a8a8a" letter-spacing="1">JUGENDBASISBILDUNG</text>
+</svg>

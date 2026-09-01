@@ -1,0 +1,74 @@
+<!-- ===== Rechner-Modul: 3-Konten-Puffer =====
+     Automatisch aus beitrag-3-konten-modell-freelancer.html extrahiert (V878).
+     Freelancer-Geschaeftskonto-Pufferrechner (Fixkosten x Sicherheits-
+     Monate). Nutzt globale CSS-Variablen (--bg-raised/--blue/--line-strong
+     etc.), kein eigenstaendiges Farbschema -- funktioniert automatisch im
+     jeweiligen Hell/Dunkel-Kontext der Zielseite. -->
+<style>
+.qr-calc{ margin:26px 0 8px; padding:20px 22px 24px; border-radius:16px; background:var(--bg-raised); border:1px solid var(--line-strong); }
+.qr-calc-inputs .row label{ display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; margin-bottom:8px; }
+.qr-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.qr-pills{ display:flex; flex-wrap:wrap; gap:7px; margin:14px 0; }
+.qr-pill{ border:1.5px solid var(--line-strong); border-radius:20px; padding:6px 13px; font-size:.75rem; font-weight:600; color:var(--ink-soft); background:var(--bg); cursor:pointer; }
+.qr-pill.is-active{ border-color:var(--blue); color:var(--ink); background:var(--blue-soft); }
+.qr-results{ display:flex; flex-direction:column; gap:6px; margin-top:14px; border-top:1px solid var(--line); padding-top:12px; }
+</style>
+<div class="qr-calc" id="km-buffer-calc">
+<div class="qr-calc-inputs">
+<div class="row">
+<label for="km-fixkosten"><span data-en="Monthly fixed business costs">Monatliche Geschäfts-Fixkosten</span> <span class="val" id="km-fixkosten-val">1.500 €</span></label>
+<input class="calc-slider" id="km-fixkosten" max="6000" min="500" step="50" type="range" value="1500"/>
+</div>
+</div>
+<div aria-label="Sicherheits-Horizont" class="qr-pills" role="group">
+<button class="qr-pill" data-en="3 months — tight but common" data-months="3" type="button">3 Monate — knapp, aber üblich</button>
+<button class="qr-pill is-active" data-en="6 months — solid standard" data-months="6" type="button">6 Monate — solider Standard</button>
+<button class="qr-pill" data-en="12 months — very safe" data-months="12" type="button">12 Monate — sehr sicher</button>
+</div>
+<div class="qr-results">
+<div style="display:flex; justify-content:space-between; font-size:.95rem; font-weight:700; padding-top:4px;">
+<span data-en="Target buffer in the business account">Ziel-Puffer im Geschäftskonto</span>
+<span class="mono" id="km-buffer-result" style="color:var(--green);">9.000 €</span>
+</div>
+</div>
+<p class="calc-note" data-en="Rule-of-thumb calculation, not financial advice. This buffer sits IN the business account, separate from the tax sub-account — it protects your business operations, not your tax obligations.">Faustregel-Rechnung, keine Finanzberatung. Dieser Puffer liegt IM Geschäftskonto, getrennt vom Steuer-Unterkonto — er schützt deinen Geschäftsbetrieb, nicht deine Steuerpflicht.</p>
+</div>
+<script>
+(function(){
+  var slider = document.getElementById('km-fixkosten');
+  var sliderVal = document.getElementById('km-fixkosten-val');
+  var pills = document.querySelectorAll('#km-buffer-calc .qr-pill');
+  var resultEl = document.getElementById('km-buffer-result');
+  var months = 6;
+
+  function fmt(n){ return Math.round(n).toLocaleString('de-DE') + ' €'; }
+
+  function recalc(){
+    var fixkosten = parseInt(slider.value, 10);
+    sliderVal.textContent = fmt(fixkosten);
+    resultEl.textContent = fmt(fixkosten * months);
+  }
+
+  slider.addEventListener('input', recalc);
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      pills.forEach(function(x){ x.classList.remove('is-active'); });
+      p.classList.add('is-active');
+      months = parseInt(p.dataset.months, 10);
+      recalc();
+    });
+  });
+  recalc();
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

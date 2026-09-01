@@ -17,12 +17,61 @@
 <link rel="canonical" href="https://www.finanz-ritual.de/faq.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
+<!-- FR_BOOT_BACKGROUND_START -->
+<script>
+(function(){
+  try {
+    var t=localStorage.getItem('fr-theme')||'light';
+    var c=localStorage.getItem('fr-contrast')||'off';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-contrast',c);
+  } catch(e) {}
+})();
+</script>
+<style id="fr-boot-background">
+html,body{background:#F4F5F7 !important;}
+html[data-theme="dark"] body,html[data-theme="dark"]{background:#10151C !important;}
+html[data-theme="light"][data-contrast="high"] body,html[data-theme="light"][data-contrast="high"]{background:#FFFFFF !important;}
+html[data-theme="dark"][data-contrast="high"] body,html[data-theme="dark"][data-contrast="high"]{background:#000000 !important;}
+</style>
+<!-- FR_BOOT_BACKGROUND_END -->
+<!-- FR_SIMPLE_TRANSITION_START -->
+<style id="fr-simple-transition-style">
+html.fr-simple-transition-active::before{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#F4F5F7;opacity:1;transition:opacity .10s ease-out;}
+html.fr-simple-transition-active[data-theme="dark"]::before{background:#10151C;}
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{background:#FFF;}
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{background:#000;}
+html.fr-simple-transition-done::before{opacity:0;}
+</style>
+<script>
+(function(){
+  try {
+    if(sessionStorage.getItem('fr-simple-transition') === '1'){
+      sessionStorage.removeItem('fr-simple-transition');
+      document.documentElement.classList.add('fr-simple-transition-active');
+      window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('fr-simple-transition-done');
+          setTimeout(function(){
+            document.documentElement.classList.remove('fr-simple-transition-active','fr-simple-transition-done');
+          }, 130);
+        });
+      }, {once:true});
+    }
+  } catch(e) {}
+})();
+</script>
+<!-- FR_SIMPLE_TRANSITION_END -->
+
+
 
 <link rel="alternate" hreflang="de" href="https://www.finanz-ritual.de/faq.html">
 <link rel="alternate" hreflang="x-default" href="https://www.finanz-ritual.de/faq.html">
 <link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
 </head>
-<body>
+<body data-simple-link="faq-einfach.html">
+<a href="#lang-toggle" class="skip-link" data-en="Skip directly to the English language switch">Direkt zum Sprachwechsel (Englisch) springen</a><a href="#main-content" class="skip-link" data-en="Skip to main content">Direkt zum Hauptinhalt springen</a>
+
 
 <!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
 <div class="alert-banner" id="alert-banner" role="alert">
@@ -69,8 +118,8 @@
           <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-drop-panel">
-        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
-        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (63)">Alle Finanzen-Artikel (63)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(9)</span></a>
         <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
         <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
         <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
@@ -97,14 +146,22 @@
         <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
         <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
         <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
-        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(14)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
         </div>
       </div>
       <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
+      <a href="kat-technik.html" data-en="Tech">Tech</a><a data-en="Shop" href="shop.html">Shop</a><a data-en="VIP" href="vip.html">VIP</a>
       <a href="shop.html" data-en="Shop">Shop</a>
       <a href="vip.html" data-en="VIP">VIP</a>
     </nav>
     <div class="header-controls">
+<button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+      <div class="control"><label for="font-slider">Aa</label><input aria-label="Schriftgröße" class="font-slider" id="font-slider" max="1.6" min="0.75" step="0.05" type="range" value="1"/></div>
+<div aria-label="Schriftgröße anpassen" class="font-stepper" data-en-aria-label="Adjust font size" role="group">
+<button aria-label="Schrift verkleinern" class="font-stepper-btn" data-en-aria-label="Decrease font size" id="font-stepper-minus" type="button">−</button>
+<span aria-hidden="true" class="font-stepper-label">Aa</span>
+<button aria-label="Schrift vergrößern" class="font-stepper-btn" data-en-aria-label="Increase font size" id="font-stepper-plus" type="button">+</button>
+</div>
       <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
         <span class="dot" id="theme-toggle-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -113,15 +170,20 @@
       <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" title="Switch to English">
         <span id="lang-toggle-text">EN</span>
       </button>
-      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+      <button type="button" class="simplelang-toggle" id="simplelang-toggle" aria-pressed="false" aria-label="Einfache Sprache umschalten" data-en-aria-label="Toggle simple language" title="Einfache Sprache einschalten" data-en-title="Turn on simple language">
+        <span class="simplelang-icon" id="simplelang-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v13"/><path d="M7 7h10"/><path d="M4 7l3 6H1l3-6Z"/><path d="M20 7l3 6h-6l3-6Z"/><path d="M12 17h-3"/><path d="M12 17h3"/><path d="M9 20h6"/><path d="M4 4c1.2-1.2 2.7-1.5 4-.7-1.2.1-2.2.8-2.8 1.8"/></svg>
+        </span>
+      </button>
+      <a class="ladder-quick-link" href="rechner.html" aria-label="Rechner öffnen" data-en-aria-label="Open calculators"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg></a><a class="ladder-quick-link" href="kat-minimalismus-motivation.html#spiele-bereich" aria-label="Spiele öffnen" data-en-aria-label="Open games"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4.5 4.5 0 0 1 4.2 6l-1 2.5a2.5 2.5 0 0 1-4.5.3l-1.2-2H9l-1.2 2a2.5 2.5 0 0 1-4.5-.3l-1-2.5a4.5 4.5 0 0 1 4.2-6Z"></path><path d="M7.5 11v4M5.5 13h4"></path><circle cx="16.5" cy="12" r=".8" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r=".8" fill="currentColor" stroke="none"></circle></svg></a><button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
         <span class="alert-test-dot"></span>
       </button>
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+      
     </div>
   </div>
 </header>
 
-<section class="page-hero">
+<section class="page-hero" id="main-content" tabindex="-1">
   <div class="wrap">
     <h1 data-en="Frequently Asked Questions (FAQ)">Häufige Fragen (FAQ)</h1>
     <p style="max-width:60ch;" data-en="Everything about using this site — accessibility, the font slider, glossary, games, and more. Click any question to expand it.">Alles rund um die Bedienung dieser Seite — Barrierefreiheit, Schriftregler, Glossar, Spiele und mehr. Auf eine Frage klicken, um sie aufzuklappen.</p>
@@ -212,21 +274,21 @@
 <details class="faq-item">
 <summary data-en="Am I being tracked when I visit this site?">Werde ich beim Besuch dieser Seite getrackt?</summary>
 <div class="faq-body">
-<p data-en="No analytics, no third-party tracking scripts, no cookie banner — because there's nothing to consent to. The site is entirely static, with no server-side logic collecting visitor data.">Keine Analytics, keine Tracking-Skripte von Drittanbietern, kein Cookie-Banner — weil es nichts gibt, dem zuzustimmen wäre. Die Seite ist komplett statisch, ohne serverseitige Logik, die Besucherdaten sammelt.</p>
+<p data-en="No. There are no analytics, no third-party tracking scripts, and therefore no annoying cookie banner — because there's simply nothing that would need consent. The site is entirely static and collects no personal visitor data.">Nein. Es gibt keine Analytics, keine Tracking-Skripte von Drittanbietern und somit auch kein nerviges Cookie-Banner — weil es schlichtweg nichts gibt, dem zugestimmt werden müsste. Die Seite ist komplett statisch und sammelt keine personenbezogenen Besucherdaten.</p>
 </div>
 </details>
 
 <details class="faq-item">
-<summary data-en="Are the links to books, brokers, or banks affiliate links?">Sind die Links zu Büchern, Brokern oder Banken Affiliate-Links?</summary>
+<summary data-en="Are links on this website affiliate links?">Sind Links auf dieser Website Affiliate-Links?</summary>
 <div class="faq-body">
-<p data-en="Some are, or will be once the relevant partner programs are confirmed — clearly marked as such where they appear. Using them may earn Finanzritual a small commission at no extra cost to you. This never influences which products get covered or how they're described — see our <a href=&quot;datenschutz.html&quot;>privacy policy</a> for details.">Manche sind es, oder werden es, sobald die entsprechenden Partnerprogramme bestätigt sind — an der jeweiligen Stelle klar gekennzeichnet. Die Nutzung kann Finanzritual eine kleine Provision einbringen, ohne Mehrkosten für dich. Das beeinflusst nie, welche Produkte besprochen werden oder wie — Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+<p data-en="Some links (e.g. to books, brokers, or within plan comparisons) may be, or become, affiliate links (partner links) once the relevant partner programs are active. This is always clearly marked as advertising at the relevant point. Using them may earn Finanzritual a small commission at no extra cost to you. This never influences which products get covered or how they're described. Details in our <a href=&quot;datenschutz.html&quot;>privacy policy</a> and in the <a href=&quot;disclaimer.html&quot;>legal disclaimer</a>.">Manche Links (z. B. zu Büchern, Brokern oder innerhalb von Tarifvergleichen) können Affiliate-Links (Partnerlinks) sein oder werden, sobald die entsprechenden Partnerprogramme aktiv sind. Dies ist an der jeweiligen Stelle immer klar als Werbung gekennzeichnet. Die Nutzung kann Finanzritual eine kleine Provision einbringen, ohne dass für dich Mehrkosten entstehen. Dies beeinflusst niemals, welche Produkte besprochen werden oder wie die redaktionelle Bewertung ausfällt. Details dazu findest du in unserer <a href="datenschutz.html">Datenschutzerklärung</a> und im <a href="disclaimer.html">rechtlichen Disclaimer</a>.</p>
 </div>
 </details>
 
 <details class="faq-item">
 <summary data-en="Is this financial advice?">Ist das hier Finanzberatung?</summary>
 <div class="faq-body">
-<p data-en="No. Everything on Finanzritual is educational content, not investment, tax, or legal advice. For decisions specific to your situation, talk to a qualified, licensed advisor.">Nein. Alles auf Finanzritual ist Bildungsangebot, keine Anlage-, Steuer- oder Rechtsberatung. Für Entscheidungen, die deine konkrete Situation betreffen, sprich mit einem qualifizierten, zugelassenen Berater.</p>
+<p data-en="No. Everything on Finanzritual is a purely editorial educational offering. It expressly does not constitute investment, tax, or legal advice. Since the content can't take your personal financial situation into account, you make all decisions entirely on your own responsibility. For concrete investment decisions, always consult a qualified, independent professional advisor.">Nein. Alles auf Finanzritual ist ein reines, redaktionelles Bildungsangebot. Es handelt sich ausdrücklich nicht um eine Anlage-, Steuer- oder Rechtsberatung. Da die Inhalte deine persönliche finanzielle Situation nicht berücksichtigen können, triffst du alle Entscheidungen vollkommen eigenverantwortlich. Für konkrete Anlageentscheidungen konsultiere bitte stets eine qualifizierte, unabhängige Fachberatung.</p>
 </div>
 </details>
 
@@ -246,9 +308,121 @@
 </div>
 </details>
 
-<div class="disclaimer-box" style="margin-top:32px;" data-en="Didn't find your question? Reach out via the contact link in the footer — this page grows as new questions come up.">
-      Deine Frage war nicht dabei? Meld dich über den Kontakt-Link im Footer — diese Seite wächst, sobald neue Fragen aufkommen.
-    </div>
+<h2 class="faq-section-title" data-en="Investing: getting started">Geldanlage: Einsteiger-Fragen</h2>
+
+<details class="faq-item">
+<summary data-en="From how much money can I even invest at the stock market?">Ab wie viel Euro kann ich überhaupt an der Börse investieren?</summary>
+<div class="faq-body">
+<p data-en="From one euro. Many people believe you need thousands to get started — that's the biggest misconception keeping beginners on the sidelines. ETF savings plans at most neobrokers start at €1 per month, some brokers have a minimum of €25 or €50. You don't need a lump sum at all; a small, regular monthly rate is enough to get going.">Ab einem Euro. Die Vorstellung, man bräuchte tausende Euro, ist der größte Irrtum, der Einsteiger vom Start abhält. ETF-Sparpläne starten bei den meisten Neo-Brokern schon ab 1 € im Monat, manche Broker verlangen ein Minimum von 25 oder 50 €. Eine große Einmalsumme brauchst du gar nicht — eine kleine, regelmäßige Monatsrate reicht zum Einstieg völlig.</p>
+<p><a data-en="→ Which ETF? A guide for complete beginners" href="beitrag-etf-sparplan-fuer-anfaenger.html">→ Welcher ETF? Ein Leitfaden für blutige Anfänger</a></p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="Can my money on the custody account just disappear completely?">Kann mein Geld auf dem Depot einfach komplett verschwinden?</summary>
+<div class="faq-body">
+<p data-en="No — and this fear is based on a widespread misunderstanding. ETFs and funds count as Sondervermögen (segregated special assets): legally, they belong to you, not to the bank or broker managing them. Even if your broker goes bankrupt, the fund assets are kept separate from the broker's own balance sheet and simply get transferred to another custodian. What can happen is that the value of your investments falls — that's market risk, not a disappearance of your ownership.">Nein — und diese Angst beruht auf einem weit verbreiteten Missverständnis. ETFs und Fonds gelten als Sondervermögen: Rechtlich gehören sie dir, nicht der Bank oder dem Broker, der sie verwaltet. Selbst wenn dein Broker pleitegeht, wird das Fondsvermögen getrennt von der eigenen Bilanz des Brokers gehalten und einfach zu einem anderen Verwahrer übertragen. Was passieren kann: Der Wert deiner Anlage sinkt — das ist Marktrisiko, kein Verschwinden deines Eigentums.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="What's the difference between a stock and an ETF?">Was ist der Unterschied zwischen einer Aktie und einem ETF?</summary>
+<div class="faq-body">
+<p data-en="A stock is a tiny ownership stake in exactly one company. An ETF (exchange-traded fund) bundles many stocks — often hundreds or thousands — into a single, tradeable product. Buying one share of a broad ETF means owning a small slice of every company inside it at once, instead of betting on a single business.">Eine Aktie ist ein winziger Eigentumsanteil an genau einem Unternehmen. Ein ETF (Exchange Traded Fund) bündelt viele Aktien — oft Hunderte oder Tausende — in einem einzigen, handelbaren Produkt. Wer einen Anteil eines breiten ETFs kauft, besitzt gleichzeitig ein kleines Stück von jedem enthaltenen Unternehmen, statt auf ein einzelnes Geschäft zu wetten.</p>
+<p><a data-en="→ Diversification explained" href="beitrag-diversifikation-erklaert.html">→ Diversifikation erklärt: So schützt du dein Depot vor Wertverlusten</a></p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="Do I have to check the prices every day once I invest?">Muss ich jeden Tag die Kurse checken, wenn ich investiere?</summary>
+<div class="faq-body">
+<p data-en="No. A savings plan into a broad ETF is deliberately built to run passively: the same amount gets invested automatically every month, market moves up or down included. Daily price-checking tends to trigger anxiety and impulsive decisions, not better returns — historically, investors who check and trade less frequently tend to do better than those glued to the charts.">Nein. Ein Sparplan auf einen breiten ETF ist bewusst so gebaut, dass er passiv läuft: Jeden Monat wird automatisch derselbe Betrag investiert, egal ob der Markt gerade steigt oder fällt. Tägliches Kurs-Checken erzeugt eher Angst und impulsive Entscheidungen als bessere Rendite — historisch schneiden Anleger, die seltener nachschauen und handeln, tendenziell besser ab als die, die ständig auf den Chart starren.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="What happens if my trading app goes bankrupt?">Was passiert, wenn meine Trading-App pleitegeht?</summary>
+<div class="faq-body">
+<p data-en="Two separate protections apply. Your securities (stocks, ETFs) are Sondervermögen and simply get transferred to another custodian — they were never part of the broker's own assets. Your cash balance, on the other hand, is covered by the statutory Einlagensicherung (deposit insurance) up to €100,000 per person and bank, EU-wide.">Zwei getrennte Absicherungen greifen. Deine Wertpapiere (Aktien, ETFs) sind Sondervermögen und werden einfach zu einem anderen Verwahrer übertragen — sie waren nie Teil des eigenen Vermögens des Brokers. Dein Cash-Bestand dagegen ist über die gesetzliche Einlagensicherung bis 100.000 € pro Person und Bank EU-weit abgesichert.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="How much money should I keep as an emergency fund in a savings account?">Wie viel Geld sollte ich als Notgroschen auf dem Tagesgeldkonto lassen?</summary>
+<div class="faq-body">
+<p data-en="A common rule of thumb: three to six net monthly salaries, kept liquid and separate from your investments. This is the financial groundwork that comes before investing — it's what keeps you from having to sell ETFs at a bad moment just because the washing machine broke.">Eine gängige Faustregel: drei bis sechs Netto-Monatsgehälter, liquide und getrennt von deinen Investments gehalten. Das ist die finanzielle Basisarbeit, die vor dem Investieren kommt — sie verhindert, dass du ausgerechnet zum falschen Zeitpunkt ETFs verkaufen musst, nur weil die Waschmaschine kaputtgegangen ist.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="What does &quot;Buy Now, Pay Later&quot; (e.g. Klarna) mean for my Schufa?">Was bedeutet „Buy Now, Pay Later" (z. B. Klarna) für meine Schufa?</summary>
+<div class="faq-body">
+<p data-en="Buy Now, Pay Later is a form of consumer debt (Konsumschulden) that lowers the barrier to buying so much that small purchases quietly pile up into real liabilities. Missed or late installments can be reported to the Schufa and hurt your credit score — and several open BNPL items running in parallel are exactly the kind of debt trap that stands between you and your first euro invested.">Buy Now, Pay Later ist eine Form von Konsumschulden, die die Kaufhemmung so stark senkt, dass sich kleine Anschaffungen unbemerkt zu echten Verbindlichkeiten summieren. Verpasste oder verspätete Raten können der Schufa gemeldet werden und den eigenen Score verschlechtern — und mehrere parallel laufende BNPL-Posten sind genau die Art von Schuldenfalle, die zwischen dir und deinem ersten investierten Euro steht.</p>
+<p><a data-en="→ Debt is the biggest trap standing between you and investing" href="beitrag-schulden.html">→ Schulden sind die größte Falle, um überhaupt investieren zu können</a></p>
+</div>
+</details>
+
+<h2 class="faq-section-title" data-en="Investing: advanced &amp; taxes">Geldanlage: Fortgeschrittene &amp; Steuern</h2>
+
+<details class="faq-item">
+<summary data-en="How does ETF taxation work via the Vorabpauschale?">Wie funktioniert die Versteuerung von ETFs über die Vorabpauschale?</summary>
+<div class="faq-body">
+<p data-en="The Vorabpauschale is an annual advance tax on accumulating (thesaurierend) funds: even though gains aren't paid out, a portion — based on a base interest rate set by the tax authorities — is taxed each year as if it had been distributed. It's automatically deducted from your settlement account in January and offset later against your Sparerpauschbetrag and against real capital gains tax when you eventually sell.">Die Vorabpauschale ist eine jährliche Vorab-Besteuerung bei thesaurierenden Fonds: Obwohl Gewinne nicht ausgezahlt werden, wird ein Anteil — berechnet über einen vom Finanzamt festgelegten Basiszins — jedes Jahr so besteuert, als wäre er ausgeschüttet worden. Sie wird automatisch im Januar vom Verrechnungskonto abgebucht und später mit dem Sparerpauschbetrag sowie der tatsächlichen Abgeltungssteuer beim späteren Verkauf verrechnet.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="Distributing or accumulating: which ETF suits me better tax-wise?">Thesaurierend oder ausschüttend: Welcher ETF passt steuerlich besser zu mir?</summary>
+<div class="faq-body">
+<p data-en="It mostly comes down to how you want to use your Sparerpauschbetrag (€1,000/€2,000 per year, tax-free). Distributing ETFs pay out regularly and use up the allowance automatically — good if your capital gains are modest and you want to see them stay tax-free without doing anything. Accumulating ETFs reinvest everything and are taxed via the Vorabpauschale instead — often more convenient once your portfolio has grown large enough that manually reinvesting distributions gets tedious.">Es kommt vor allem darauf an, wie du deinen Sparerpauschbetrag (1.000 €/2.000 € pro Jahr, steuerfrei) nutzen willst. Ausschüttende ETFs zahlen regelmäßig aus und schöpfen den Freibetrag automatisch aus — gut, wenn deine Kapitalerträge überschaubar sind und ohne eigenes Zutun steuerfrei bleiben sollen. Thesaurierende ETFs legen alles wieder an und werden stattdessen über die Vorabpauschale besteuert — oft praktischer, sobald das Depot so groß geworden ist, dass manuelles Wiederanlegen der Ausschüttungen lästig wird.</p>
+<p><a data-en="→ The €1,000 tax allowance: how to get every cent back" href="beitrag-freibetrag.html">→ Der 1.000-Euro-Freibetrag: So holst du dir jeden Cent zurück</a> · <a data-en="→ The milestone roadmap: from debt to your first million" href="beitrag-meilensteine.html">→ Der Meilenstein-Fahrplan: Vom Schuldenberg zur ersten Million</a></p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="How often should I rebalance my portfolio?">Wie oft sollte ich ein Rebalancing in meinem Portfolio durchführen?</summary>
+<div class="faq-body">
+<p data-en="A common approach: once a year, or whenever an asset class drifts more than about 5 percentage points away from its target weighting — whichever comes first. Rebalancing too often mostly generates extra transaction costs and taxable events without meaningfully reducing Klumpenrisiko; too rarely, and clustering risk can quietly build up unnoticed.">Ein gängiger Ansatz: einmal im Jahr, oder immer dann, wenn eine Anlageklasse mehr als etwa 5 Prozentpunkte von ihrer Zielgewichtung abweicht — je nachdem, was zuerst eintritt. Zu häufiges Rebalancing erzeugt vor allem zusätzliche Transaktionskosten und steuerpflichtige Ereignisse, ohne das Klumpenrisiko spürbar zu senken; zu selten, und ein Klumpenrisiko kann sich unbemerkt aufbauen.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="Why is too high a US weighting in the MSCI World risky, and how do I balance it out?">Warum ist ein zu hoher US-Anteil im MSCI World gefährlich und wie gleiche ich ihn aus?</summary>
+<div class="faq-body">
+<p data-en="The MSCI World weights companies by market capitalization, not by economic output (GDP) — and since US tech giants have grown so much, the US now makes up over 71% of the index. That concentrates your risk far more than the name &quot;World&quot; suggests. A common way to balance it: adding a slice of Emerging Markets (e.g. via an MSCI EM or FTSE All-World-style ETF) to reduce the US and developed-market overweight.">Der MSCI World gewichtet Unternehmen nach Marktkapitalisierung, nicht nach Wirtschaftsleistung (BIP) — und weil US-Tech-Giganten so stark gewachsen sind, machen die USA inzwischen über 71 % des Index aus. Das konzentriert dein Risiko deutlich stärker, als der Name „World" vermuten lässt. Ein gängiger Ausgleich: eine Beimischung von Emerging Markets (z. B. über einen MSCI-EM- oder FTSE-All-World-ETF), um das US- und Industrieländer-Übergewicht zu senken.</p>
+<p><a data-en="→ MSCI World, FTSE All-World and ACWI explained" href="beitrag-msci-world-vs-ftse-all-world.html">→ MSCI World, FTSE All-World und ACWI einfach erklärt</a></p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="What's the difference between physical and synthetic (swap) ETF replication?">Was ist der Unterschied zwischen physischer und synthetischer (Swap-)ETF-Replikation?</summary>
+<div class="faq-body">
+<p data-en="A physical ETF actually buys the underlying stocks. A synthetic ETF instead uses a swap contract with a bank (the Swap-Kontrahent), which promises to deliver the index return in exchange for a different basket of securities as collateral — the ETF itself may hold none of the stocks its name suggests. Both are regulated and collateralized under UCITS rules, but synthetic replication adds a layer of counterparty risk that physical replication doesn't have.">Ein physischer ETF kauft die zugrunde liegenden Aktien tatsächlich. Ein synthetischer ETF nutzt stattdessen einen Swap-Vertrag mit einer Bank (dem Swap-Kontrahenten), die im Austausch gegen einen anderen Wertpapierkorb als Sicherheit die Indexrendite garantiert — der ETF selbst hält womöglich keine der Aktien, die sein Name vermuten lässt. Beide Varianten sind nach UCITS-Regeln reguliert und besichert, aber die synthetische Replikation bringt eine zusätzliche Ebene Kontrahentenrisiko mit, die physische Replikation nicht hat.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="How do I protect my portfolio from &quot;sequence of returns&quot; risk in retirement?">Wie schütze ich mein Depot im Alter vor dem „Sequence of Returns"-Risiko?</summary>
+<div class="faq-body">
+<p data-en="Sequence of Returns Risk describes how a market crash right at the start of your withdrawal phase can permanently damage your portfolio — even if the market fully recovers later, because you were forced to sell shares at depressed prices to cover living expenses. Common protections: keeping one to two years of withdrawals in cash or bonds heading into retirement, and staying flexible on your withdrawal rate during down years instead of a fixed amount.">Das Sequence-of-Returns-Risiko beschreibt, wie ein Markteinbruch genau zu Beginn der Entnahmephase dein Depot dauerhaft schädigen kann — selbst wenn sich der Markt später vollständig erholt, weil du gezwungen warst, Anteile zu gedrückten Kursen zu verkaufen, um die Lebenshaltungskosten zu decken. Gängiger Schutz: ein bis zwei Jahre an Entnahmen als Cash oder Anleihen vor dem Ruhestand zurückhalten, und die Entnahmerate in schlechten Jahren flexibel senken statt einen festen Betrag zu entnehmen.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="Is factor investing (e.g. small caps or value) worth it for private investors?">Lohnt sich Factor Investing (z. B. Small Caps oder Value) für Privatanleger?</summary>
+<div class="faq-body">
+<p data-en="Factor Investing targets scientifically documented return premiums — small-cap, value, quality, momentum — that have historically outperformed the broad market on average, at the cost of higher volatility and long stretches of underperformance. For most private investors, a simple broad-market ETF remains the more robust base; factor tilts are a reasonable addition for those who understand the extra risk and won't panic-sell during years the factor lags.">Factor Investing zielt auf wissenschaftlich belegte Renditeprämien — Small-Cap, Value, Qualität, Momentum —, die den breiten Markt historisch im Schnitt geschlagen haben, allerdings bei höherer Volatilität und teils langen Durststrecken. Für die meisten Privatanleger bleibt ein einfacher breiter Markt-ETF die robustere Basis; Faktor-Beimischungen sind eine sinnvolle Ergänzung für alle, die das zusätzliche Risiko verstehen und in schwachen Faktor-Jahren nicht in Panik verkaufen.</p>
+</div>
+</details>
+
+<details class="faq-item">
+<summary data-en="When does a Nichtveranlagungsbescheinigung (NV certificate) make sense for my custody account?">Wann ist eine Nichtveranlagungsbescheinigung (NV-Bescheinigung) für mein Depot sinnvoll?</summary>
+<div class="faq-body">
+<p data-en="If your total income stays below the Grundfreibetrag (€12,348 for single filers, 2026) — common for students, low earners, or retirees with a small pension — an NV-Bescheinigung from your local tax office lets your bank pay out capital gains completely tax-free, even beyond the regular Sparerpauschbetrag. It's typically valid for up to three years and needs to be filed with your bank once obtained.">Wenn dein Gesamteinkommen unter dem Grundfreibetrag bleibt (12.348 € für Einzelpersonen, Stand 2026) — häufig bei Studierenden, Geringverdienern oder Rentnern mit kleiner Rente der Fall —, lässt eine NV-Bescheinigung vom zuständigen Finanzamt deine Bank Kapitalerträge komplett steuerfrei auszahlen, auch über den regulären Sparerpauschbetrag hinaus. Sie gilt in der Regel bis zu drei Jahre und muss nach Erhalt bei der Bank eingereicht werden.</p>
+</div>
+</details>
+
+<div class="disclaimer-box" data-fr-snippet="disclaimer-standard" style="margin-top:32px;"></div>
 
   </div>
 </section>
@@ -256,13 +430,15 @@
 
 <footer class="site">
   <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    
     <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
       <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
       <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
     </div>
-    <span data-en="© 2026 Finanzritual · Last updated: 15 July 2026">© 2026 Finanzritual · Zuletzt aktualisiert: 15. Juli 2026</span>
+    <p class="footer-a11y-link"><a href="barrierefreiheit.html" data-en="Accessibility"><span class="a11y-icon" aria-hidden="true">♿</span> Barrierefreiheit</a></p>
+<span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
     <span><a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a></span>
   </div>
 </footer>

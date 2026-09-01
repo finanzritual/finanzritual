@@ -1,0 +1,116 @@
+<!-- ===== Rechner-Modul: Muenzzaehl-Gebuehr-vs-Investiert =====
+     Automatisch aus beitrag-muenzen-kostenlos-tauschen.html extrahiert
+     (V886). Vergleicht Verlust durch Muenzzaehl-Automaten-Gebuehren
+     (5,5%) mit dem, was derselbe Betrag stattdessen investiert (7%)
+     werden koennte. Globale CSS-Variablen inkl. [data-theme="dark"].
+     Keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.mz-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.mz-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .mz-calc-inputs{ grid-template-columns:1fr; } }
+.mz-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.mz-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+.mz-calc-results{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;
+}
+@media (max-width:640px){ .mz-calc-results{ grid-template-columns:1fr; } }
+.mz-calc-result{
+  border-radius:12px; padding:14px 16px; text-align:center; background:var(--bg);
+  border:1px solid var(--line);
+}
+.mz-calc-result .lbl{ font-size:.7rem; color:var(--ink-soft); margin-bottom:4px; }
+.mz-calc-result .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.35rem; }
+.mz-calc-result--bad .num{ color:#e2431e; }
+.mz-calc-result--good .num{ color:var(--green); }
+
+.mz-insight-box{
+  margin:22px 0; padding:calc(20px * var(--step-user)) calc(22px * var(--step-user)); border-radius:14px;
+  background:#D9F0E1; border-left:3px solid var(--green);
+box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .mz-insight-box{ background:#173828;  box-shadow:none;}
+</style>
+<div class="mz-calc" id="mz-calc">
+<div class="mz-calc-inputs">
+<div class="row">
+<label for="mz-amount"><span data-en="Coins per year">Kleingeld pro Jahr</span> <span class="val" id="mz-amount-val">200 €</span></label>
+<input class="calc-slider" id="mz-amount" max="1000" min="50" step="10" type="range" value="200"/>
+</div>
+<div class="row">
+<label for="mz-years"><span data-en="Time horizon">Anlagehorizont</span> <span class="val" id="mz-years-val">15 J.</span></label>
+<input class="calc-slider" id="mz-years" max="30" min="5" step="1" type="range" value="15"/>
+</div>
+</div>
+<p class="calc-note" data-en="Fee assumption: 5,5⁠% per coin-counting transaction. Assumes the amount not lost to the fee is invested annually at a constant 7⁠% average return instead. Simplified example calculation, not investment advice.">Gebühren-Annahme: 5,5⁠% pro Münzzähl-Vorgang. Es wird angenommen, dass der nicht verlorene Betrag stattdessen jährlich bei konstant angenommener 7⁠% Rendite angelegt wird. Vereinfachte Beispielrechnung, keine Anlageberatung.</p>
+<div class="mz-calc-results">
+<div class="mz-calc-result mz-calc-result--bad">
+<div class="lbl" data-en="Lost to the machine">Verloren an den Automaten</div>
+<div class="num" id="mz-lost">–</div>
+</div>
+<div class="mz-calc-result mz-calc-result--good">
+<div class="lbl" data-en="Invested instead, could become">Stattdessen angelegt, könnte werden</div>
+<div class="num" id="mz-grown">–</div>
+</div>
+</div>
+</div>
+<script>
+(function(){
+  const amountEl = document.getElementById('mz-amount');
+  const yearsEl = document.getElementById('mz-years');
+  const amountVal = document.getElementById('mz-amount-val');
+  const yearsVal = document.getElementById('mz-years-val');
+  const lostEl = document.getElementById('mz-lost');
+  const grownEl = document.getElementById('mz-grown');
+  if(!amountEl) return;
+
+  const FEE = 0.055;
+  const RETURN = 0.07;
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function fmtEuro(n){
+    const en = isEn();
+    const s = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 }).format(Math.round(n));
+    return en ? ('€' + s) : (s + '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+    const amount = parseFloat(amountEl.value);
+    const years = parseFloat(yearsEl.value);
+
+    amountVal.textContent = fmtEuro(amount);
+    yearsVal.textContent = years + (en ? ' yrs' : ' J.');
+
+    const annualFee = amount * FEE;
+    const totalLost = annualFee * years;
+
+    // Zukunftswert einer jährlichen Einzahlung (annualFee) bei RETURN über 'years' Jahre
+    const fv = annualFee * (((Math.pow(1 + RETURN, years)) - 1) / RETURN);
+
+    lostEl.textContent = fmtEuro(totalLost);
+    grownEl.textContent = fmtEuro(fv);
+  }
+
+  amountEl.addEventListener('input', compute);
+  yearsEl.addEventListener('input', compute);
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+  compute();
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

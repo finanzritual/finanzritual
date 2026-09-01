@@ -16,6 +16,53 @@
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="style.css">
+<!-- FR_BOOT_BACKGROUND_START -->
+<script>
+(function(){
+  try {
+    var t=localStorage.getItem('fr-theme')||'light';
+    var c=localStorage.getItem('fr-contrast')||'off';
+    document.documentElement.setAttribute('data-theme',t);
+    document.documentElement.setAttribute('data-contrast',c);
+  } catch(e) {}
+})();
+</script>
+<style id="fr-boot-background">
+html,body{background:#F4F5F7 !important;}
+html[data-theme="dark"] body,html[data-theme="dark"]{background:#10151C !important;}
+html[data-theme="light"][data-contrast="high"] body,html[data-theme="light"][data-contrast="high"]{background:#FFFFFF !important;}
+html[data-theme="dark"][data-contrast="high"] body,html[data-theme="dark"][data-contrast="high"]{background:#000000 !important;}
+</style>
+<!-- FR_BOOT_BACKGROUND_END -->
+<!-- FR_SIMPLE_TRANSITION_START -->
+<style id="fr-simple-transition-style">
+html.fr-simple-transition-active::before{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:#F4F5F7;opacity:1;transition:opacity .10s ease-out;}
+html.fr-simple-transition-active[data-theme="dark"]::before{background:#10151C;}
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{background:#FFF;}
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{background:#000;}
+html.fr-simple-transition-done::before{opacity:0;}
+</style>
+<script>
+(function(){
+  try {
+    if(sessionStorage.getItem('fr-simple-transition') === '1'){
+      sessionStorage.removeItem('fr-simple-transition');
+      document.documentElement.classList.add('fr-simple-transition-active');
+      window.addEventListener('load', function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('fr-simple-transition-done');
+          setTimeout(function(){
+            document.documentElement.classList.remove('fr-simple-transition-active','fr-simple-transition-done');
+          }, 130);
+        });
+      }, {once:true});
+    }
+  } catch(e) {}
+})();
+</script>
+<!-- FR_SIMPLE_TRANSITION_END -->
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -43,6 +90,8 @@
 <link rel="alternate" type="application/rss+xml" title="Finanzritual RSS" href="https://www.finanz-ritual.de/rss.xml">
 </head>
 <body>
+<a href="#lang-toggle" class="skip-link" data-en="Skip directly to the English language switch">Direkt zum Sprachwechsel (Englisch) springen</a><a href="#main-content" class="skip-link" data-en="Skip to main content">Direkt zum Hauptinhalt springen</a>
+
 
 <!-- ============ WARN-BANNER (orange-rot, standardmäßig aus) ============ -->
 <div class="alert-banner" id="alert-banner" role="alert">
@@ -89,10 +138,8 @@
         <nav class="fr-secret-nav" aria-label="Versteckte Bereiche" data-en-aria-label="Hidden sections">
           <a href="index.html#optionen">Optionen</a>
           <a href="kat-technik.html" data-en="Tech">Technik</a>
-          <a href="shop.html" class="fr-secret-soon" data-en="Shop ✦">Shop ✦</a>
-          <a href="vip.html" class="fr-secret-soon" data-en="VIP area ✦">VIP-Bereich ✦</a>
-        </nav>
-        <div class="fr-secret-calendar">
+          </nav>
+        <div class="fr-secret-a11y"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Dyslexia-friendly font">Legasthenie-Schrift</span><button class="fr-secret-a11y-switch" id="dyslexic-font-toggle" type="button" aria-pressed="false" aria-label="Legasthenie-freundliche Schrift umschalten" data-en-aria-label="Toggle dyslexia-friendly font"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-ladder-test"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Force mobile ladder (test)">Mobile-Leiter-Test</span><button class="fr-secret-a11y-switch" id="force-ladder-toggle" type="button" aria-pressed="false" aria-label="Mobile-Leiter-Test umschalten" data-en-aria-label="Toggle mobile ladder test"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-youth"><div class="fr-secret-a11y-row"><span class="fr-secret-a11y-label" data-en="Youth Basic Education">JugendBASISbildung</span><button class="fr-secret-a11y-switch fr-youth-switch" id="fr-youth-toggle" type="button" aria-pressed="false" aria-label="JugendBASISbildung öffnen" data-en-aria-label="Open Youth Basic Education"><span class="fr-secret-a11y-switch-dot" aria-hidden="true"></span></button></div></div><div class="fr-secret-timer"><div class="fr-secret-timer-row"><span class="fr-secret-timer-label" data-en="Quiz thinking time">Quiz-Bedenkzeit</span><span class="fr-secret-timer-value" id="fr-timer-value" data-en="Off">Aus</span></div><input type="range" class="fr-secret-timer-slider" id="fr-timer-slider" min="0" max="120" step="5" value="0" aria-label="Bedenkzeit in Sekunden fuer das Quiz" data-en-aria-label="Thinking time in seconds for the quiz"></div><div class="fr-secret-calendar">
           <div class="fr-cal-header" id="fr-cal-header"></div>
           <div class="fr-cal-weekdays">
             <span data-en="Mo">Mo</span><span data-en="Tu">Di</span><span data-en="We">Mi</span><span data-en="Th">Do</span><span data-en="Fr">Fr</span><span data-en="Sa">Sa</span><span data-en="Su">So</span>
@@ -110,8 +157,8 @@
           <svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-drop-panel">
-        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (62)">Alle Finanzen-Artikel (62)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
-        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(8)</span></a>
+        <a href="kat-finanzen.html" class="nav-drop-all" data-en="All Finance posts (63)">Alle Finanzen-Artikel (63)</a><a href="von-zero-zum-hero.html" class="nav-sub-link nav-wegweiser"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span><span class="nav-sub-label" data-en="Beginner&#39;s guide">Einsteiger-Wegweiser</span></a>
+        <a href="kat-finanzen-portfolio.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="nav-sub-label" data-en="My Portfolio">Mein Portfolio</span><span class="nav-sub-count">(9)</span></a>
         <a href="kat-finanzen-girokonto.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 21h18"/></svg></span><span class="nav-sub-label" data-en="Checking & Savings Accounts">Girokonto & Tagesgeld</span><span class="nav-sub-count">(7)</span></a>
         <a href="kat-finanzen-etf.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="nav-sub-label" data-en="ETFs & Savings Plans">ETF & Sparplan</span><span class="nav-sub-count">(5)</span></a>
         <a href="kat-finanzen-kredit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="17.5" cy="17.5" r="2.3"/></svg></span><span class="nav-sub-label" data-en="Loans & Debt">Kredit & Schulden</span><span class="nav-sub-count">(1)</span></a>
@@ -138,17 +185,22 @@
         <a href="kat-minimalismus-budget.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v3"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-4a2 2 0 1 0 0 4"/></svg></span><span class="nav-sub-label" data-en="Budget">Budget</span><span class="nav-sub-count">(8)</span></a>
         <a href="kat-minimalismus-nachhaltigkeit.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-11 1 6-1 9-2 11a7 7 0 0 1 0 7"/><path d="M4 13c3 0 6 1 7 3"/></svg></span><span class="nav-sub-label" data-en="Sustainability">Nachhaltigkeit</span><span class="nav-sub-count">(2)</span></a>
         <a href="kat-minimalismus-sparquote.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/><path d="M12 9v6"/></svg></span><span class="nav-sub-label" data-en="Savings Rate & Everyday">Sparquote & Alltag</span><span class="nav-sub-count">(3)</span></a>
-        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(12)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
+        <a href="kat-minimalismus-motivation.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z"/></svg></span><span class="nav-sub-label" data-en="Motivation">Motivation</span><span class="nav-sub-count">(14)</span></a><a href="kat-minimalismus-motivation.html#spiele-bereich" class="nav-sub-link nav-sub-link--game"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span><span class="nav-sub-label" data-en="Games">Spiele</span><span class="nav-sub-count">(2)</span></a>
         </div>
       </div>
       <div class="nav-drop"><button type="button" class="nav-drop-toggle" aria-expanded="false"><span data-en="Books">Bücher</span><svg class="nav-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="nav-drop-panel"><a href="kat-buecher.html" class="nav-drop-all" data-en="All Books">Alle Bücher-Artikel</a><a href="kat-buecher-vermoegensaufbau-mindset.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Building Wealth &amp; Mindset">Vermögensaufbau &amp; Mindset</span><span class="nav-sub-count">(18)</span></a><a href="kat-buecher-unternehmertum.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Entrepreneurship">Unternehmertum</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-optionen.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Options Trading">Optionen</span><span class="nav-sub-count">(4)</span></a><a href="kat-buecher-macht-einfluss.html" class="nav-sub-link"><span class="nav-sub-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H2z"/><path d="M22 4h-7a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H22z"/></svg></span><span class="nav-sub-label" data-en="Power &amp; Influence">Macht &amp; Einfluss</span><span class="nav-sub-count">(3)</span></a></div></div>
-      <a href="shop.html" data-en="Shop">Shop</a>
-      <a href="vip.html" data-en="VIP">VIP</a>
-    </nav>
+      <a href="kat-technik.html" data-en="Tech">Tech</a>
+      </nav>
     <div class="header-controls">
+<button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
       <div class="control">
         <label for="font-slider">Aa</label>
         <input type="range" id="font-slider" class="font-slider" min="0.75" max="1.6" step="0.05" value="1" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+      </div>
+      <div class="font-stepper" role="group" aria-label="Schriftgröße anpassen" data-en-aria-label="Adjust font size">
+        <button type="button" class="font-stepper-btn" id="font-stepper-minus" aria-label="Schrift verkleinern" data-en-aria-label="Decrease font size">&minus;</button>
+        <span class="font-stepper-label" aria-hidden="true">Aa</span>
+        <button type="button" class="font-stepper-btn" id="font-stepper-plus" aria-label="Schrift vergrößern" data-en-aria-label="Increase font size">+</button>
       </div>
       <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Hell-/Dunkelmodus umschalten" data-en-aria-label="Toggle light/dark mode">
         <span class="dot" id="theme-toggle-icon">
@@ -158,10 +210,15 @@
       <button type="button" class="lang-toggle" id="lang-toggle" aria-pressed="false" aria-label="Switch to English" lang="en" title="Switch to English">
         <span id="lang-toggle-text">EN</span>
       </button>
-      <button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
+      <button type="button" class="simplelang-toggle" id="simplelang-toggle" aria-pressed="false" aria-label="Einfache Sprache umschalten" data-en-aria-label="Toggle simple language" title="Einfache Sprache einschalten" data-en-title="Turn on simple language">
+        <span class="simplelang-icon" id="simplelang-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v13"/><path d="M7 7h10"/><path d="M4 7l3 6H1l3-6Z"/><path d="M20 7l3 6h-6l3-6Z"/><path d="M12 17h-3"/><path d="M12 17h3"/><path d="M9 20h6"/><path d="M4 4c1.2-1.2 2.7-1.5 4-.7-1.2.1-2.2.8-2.8 1.8"/></svg>
+        </span>
+      </button>
+      <a class="ladder-quick-link" href="rechner.html" aria-label="Rechner öffnen" data-en-aria-label="Open calculators"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect height="20" rx="2" width="16" x="4" y="2"></rect><line x1="8" x2="16" y1="6" y2="6"></line><line x1="8" x2="8" y1="10" y2="10.01"></line><line x1="12" x2="12" y1="10" y2="10.01"></line><line x1="16" x2="16" y1="10" y2="10.01"></line><line x1="8" x2="8" y1="14" y2="14.01"></line><line x1="12" x2="12" y1="14" y2="14.01"></line><line x1="16" x2="16" y1="14" y2="14.01"></line><line x1="8" x2="8" y1="18" y2="18.01"></line><line x1="12" x2="12" y1="18" y2="18.01"></line><line x1="16" x2="16" y1="18" y2="18.01"></line></svg></a><a class="ladder-quick-link" href="kat-minimalismus-motivation.html#spiele-bereich" aria-label="Spiele öffnen" data-en-aria-label="Open games"><svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5h11a4.5 4.5 0 0 1 4.2 6l-1 2.5a2.5 2.5 0 0 1-4.5.3l-1.2-2H9l-1.2 2a2.5 2.5 0 0 1-4.5-.3l-1-2.5a4.5 4.5 0 0 1 4.2-6Z"></path><path d="M7.5 11v4M5.5 13h4"></path><circle cx="16.5" cy="12" r=".8" fill="currentColor" stroke="none"></circle><circle cx="18.5" cy="14" r=".8" fill="currentColor" stroke="none"></circle></svg></a><button type="button" class="alert-test-btn" id="alert-test-btn" aria-label="Warnhinweis-Vorschau anzeigen" data-en-aria-label="Show notice preview" title="Warnhinweis-Vorschau" data-en-title="Notice preview">
         <span class="alert-test-dot"></span>
       </button>
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menü öffnen" data-en-aria-label="Open menu">☰</button>
+      
     </div>
   </div>
 </header>
@@ -184,6 +241,22 @@
 }
 .cf-rounds-label span#cf-rounds-value{ font-weight:700; color:var(--blue); }
 #cf-rounds-slider{ flex:1; accent-color:var(--blue); cursor:pointer; }
+
+/* Highscore-Box: liest/schreibt einen einfachen localStorage-Wert
+   (bester Rundenstand + bester Endsaldo als Tiebreak), rein clientseitig,
+   kein Server, kein Konto. Zeigt sich bewusst dezent unter dem
+   Runden-Regler, direkt ueber dem Spielfeld -- der Ort, an dem der
+   Blick sowieso als naechstes landet. */
+.cf-highscore-box{
+  display:flex; align-items:center; gap:8px; margin:0 0 16px;
+  padding:9px 14px; background:var(--bg-raised); border:1px solid var(--line);
+  border-left:3px solid #D4A017; border-radius:10px; font-size:.82rem; color:var(--ink-soft);
+}
+.cf-highscore-icon{ font-size:1rem; flex:none; }
+.cf-highscore-box strong{ color:var(--ink); font-weight:700; }
+@media (max-width:480px){
+  .cf-highscore-box{ flex-wrap:wrap; }
+}
 
 /* Dauerausgaben-Boxen: zeigen bis zu 4 aktuell laufende, dauerhafte
    Kosten (drainRounds:'rest') als kleine "Geldscheine", die sich
@@ -277,14 +350,14 @@
 .cf-hidden{ display:none !important; }
 </style>
 
-<section class="page-hero" style="padding-bottom:20px;">
+<section class="page-hero" id="main-content" tabindex="-1" style="padding-bottom:20px;">
   <div class="wrap cf-wrap">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="index.html" data-en="Home">Startseite</a><span>/</span><a href="kat-minimalismus-motivation.html" data-en="Motivation">Motivation</a><span>/</span><span aria-current="page" data-en="Cash Flow Labyrinth">Cashflow-Labyrinth</span>
     </nav>
     <div class="eyebrow" data-en="Motivation · Game · 08 Aug 2026">Motivation · Spiel · 08.08.2026</div>
     <h1 data-en="Cash Flow Survival Labyrinth: Avoid Insolvency as a Freelancer">Cashflow-Überlebens-Labyrinth: Insolvenz vermeiden als Freelancer</h1>
-    <p style="max-width:62ch;" data-en="You start with €4,000 on the business account — the €6,000 buffer only kicks in automatically once the account would go negative, exactly the 40/60 rule from our article. Ten real-world decisions follow, some with a third option. Both pools empty and it's game over.">Du startest mit 4.000 € auf dem Geschäftskonto — der 6.000-€-Puffer springt erst automatisch ein, wenn das Konto sonst ins Minus rutschen würde, genau das 40/60-Gebot aus unserem Artikel. Es folgen zehn Alltagsentscheidungen, manche mit einer dritten Option. Sind beide Töpfe leer, ist das Spiel vorbei.</p>
+    <p style="max-width:62ch;" data-en="You start with €4,000 on the business account — the €6,000 buffer only kicks in automatically once the account would go negative, exactly the 40/60 rule from our article. 8 to 20 real-world decisions follow (adjustable below), some with a third option. Both pools empty and it's game over. How many rounds can you survive?">Du startest mit 4.000 € auf dem Geschäftskonto — der 6.000-€-Puffer springt erst automatisch ein, wenn das Konto sonst ins Minus rutschen würde, genau das 40/60-Gebot aus unserem Artikel. Es folgen 8 bis 20 Alltagsentscheidungen (unten einstellbar), manche mit einer dritten Option. Sind beide Töpfe leer, ist das Spiel vorbei. Wie viele Runden schaffst du?</p>
   </div>
 </section>
 
@@ -296,6 +369,12 @@
         <span data-en="Rounds:">Runden:</span> <span id="cf-rounds-value">10</span> <span data-en="— takes effect on (re)start" style="opacity:.7;">— gilt beim (Neu-)Start</span>
       </label>
       <input type="range" id="cf-rounds-slider" min="8" max="20" step="1" value="10">
+    </div>
+
+    <div class="cf-highscore-box" id="cf-highscore-box">
+      <span class="cf-highscore-icon" aria-hidden="true">🏆</span>
+      <span data-en="Your best run so far:">Dein bisheriger Highscore:</span>
+      <strong id="cf-highscore-value" data-en="not played yet">noch nicht gespielt</strong>
     </div>
 
     <div id="cf-drains-wrap" class="cf-hidden">
@@ -327,6 +406,26 @@
 
     <p style="text-align:center; margin-top:20px;"><a href="beitrag-cashflow-ueberlebensgesetz.html" class="cf-related-link" data-en="→ The article behind this game: The Iron Law of Survival">→ Der Artikel hinter diesem Spiel: Das eiserne Überlebensgesetz</a></p>
     <p style="text-align:center; margin-top:8px;"><a href="beitrag-3-konten-modell-freelancer.html" class="cf-related-link" data-en="→ How to set up the Konto/Puffer split for real, with a calculator">→ Konto/Puffer im echten Leben einrichten, mit Rechner</a></p>
+
+    <!-- FR_VIDEO_SCRIPT_START:finanzbildung-cashflow-labyrinth.html -->
+<details class="fr-video-script" style="margin-top:28px;border:1px dashed var(--line);border-radius:10px;padding:12px 16px;background:var(--bg-raised);">
+<summary style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);">🎬 Produktionsnotiz — Videoskript (nicht Teil des Artikels)</summary>
+<div style="margin-top:12px;font-size:.85rem;overflow-x:auto;">
+<p style="margin:0 0 10px;color:var(--ink-soft);">Skript-Vorschlag für eine Video-KI. Interner Produktionshinweis, für Leser:innen ausgeblendet. Quelle: video-skripte.json (Rollout-Datum: 2027-01-01).</p>
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;">
+<thead><tr style="text-align:left;border-bottom:1px solid var(--line);"><th style="padding:6px 8px;">Zeit</th><th style="padding:6px 8px;">Visuelle Anweisung (B-Roll / Prompt)</th><th style="padding:6px 8px;">Voiceover</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 8px;white-space:nowrap;">0:00–0:05</td><td style="padding:6px 8px;">[Hook] Rainer blickt gestresst auf den Bildschirm. Text im Video klatscht groß auf: „9 von 10 Firmen gehen PLEITE. Warum?“</td><td style="padding:6px 8px;">90 % aller Start-ups scheitern in den ersten Jahren. Und der Grund ist fast nie eine schlechte Idee...</td></tr>
+<tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 8px;white-space:nowrap;">0:05–0:13</td><td style="padding:6px 8px;">Bildschirmaufnahme (Screencast) vom Spiel. Man sieht das Dashboard, blinkende rote Zahlen und den Button „Runde beenden“.</td><td style="padding:6px 8px;">...der Grund ist brutaler: Das Geld geht aus. Totaler Cashflow-Kollaps. Genau darum habe ich ein Spiel programmiert, das dich mitten in diesen Überlebenskampf wirft!</td></tr>
+<tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 8px;white-space:nowrap;">0:13–0:25</td><td style="padding:6px 8px;">Nahaufnahme vom Spiel-Interface. Eine fiktive Event-Karte ploppt im Spiel auf: „Mitarbeiter fordert Gehaltserhöhung“ oder „Kunde zahlt nicht“.</td><td style="padding:6px 8px;">In meinem Cashflow-Überlebensspiel bist du der Chef. Jede Runde bringt neue, unvorhersehbare Krisen. Investierst du in neues Marketing oder hältst du deine eisernen Reserven flüssig?</td></tr>
+<tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 8px;white-space:nowrap;">0:25–0:38</td><td style="padding:6px 8px;">Schneller Schnitt zurück zu Rainer, der schmunzelnd den Kopf schüttelt. Danach wieder das Spiel, wo die Liquiditätskurve steil nach unten rauscht.</td><td style="padding:6px 8px;">Der Haken: Dein Gewinn auf dem Papier nützt dir gar nichts, wenn dein Kunde erst in 90 Tagen zahlt, aber dein Vermieter MORGEN die Miete will. Ein falscher Klick – und du bist insolvent!</td></tr>
+<tr style="border-bottom:1px solid var(--line);"><td style="padding:6px 8px;white-space:nowrap;">0:38–0:48</td><td style="padding:6px 8px;">Text-Overlay: „Wie viele Runden überlebst du?“ Die Kamera filmt über Rainers Schulter, wie er die neue Highscore-Box im Spiel antippt.</td><td style="padding:6px 8px;">Das Spiel zeigt dir gnadenlos, wie die Realität im Big Business läuft. Keine graue Theorie, sondern pures Learning by Gaming. Wie viele Runden schaffst du, bevor dir die Bank den Hahn abdreht?</td></tr>
+<tr style=""><td style="padding:6px 8px;white-space:nowrap;">0:48–1:00</td><td style="padding:6px 8px;">[CTA] QR-Code wird kurz eingeblendet oder der Daumen zeigt nach oben zur Bio. Das Finanzritual-Logo glänzt im Outro.</td><td style="padding:6px 8px;">Fordere dich selbst heraus. Das Spiel ist komplett gratis, läuft ohne Anmeldung direkt im Browser auf meinem Blog. Den Link findest du in der Bio. Zeig mir in den Kommentaren deinen Highscore – Ciao, Rainer!</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<!-- FR_VIDEO_SCRIPT_END:finanzbildung-cashflow-labyrinth.html -->
 
   </div>
 </article>
@@ -825,6 +924,45 @@
   var drainsWrap = document.getElementById('cf-drains-wrap');
   var drainsBoxesEl = document.getElementById('cf-drains-boxes');
   var endArea = document.getElementById('cf-end-area');
+  var highscoreValueEl = document.getElementById('cf-highscore-value');
+
+  // Highscore: rein lokal im Browser (localStorage), kein Server, kein
+  // Konto. Zaehlt "Runden ueberlebt" als Hauptkriterium; bei Gleichstand
+  // entscheidet der hoehere Endsaldo (Konto+Puffer) als Tiebreak, damit
+  // ein Sieg mit viel Reserve noch etwas mehr zaehlt als einer auf der
+  // Kippe. Ein Sieg (alle Runden geschafft) zaehlt immer als TOTAL_ROUNDS
+  // Runden, unabhaengig vom gewaehlten Rundenregler-Wert.
+  var HS_KEY = 'fr-cashflow-highscore-v1';
+  function loadHighscore(){
+    try {
+      var raw = localStorage.getItem(HS_KEY);
+      if(!raw) return null;
+      var parsed = JSON.parse(raw);
+      if(typeof parsed.rounds === 'number' && typeof parsed.total === 'number') return parsed;
+      return null;
+    } catch(e) { return null; }
+  }
+  function saveHighscoreIfBetter(rounds, total){
+    try {
+      var current = loadHighscore();
+      if(!current || rounds > current.rounds || (rounds === current.rounds && total > current.total)){
+        localStorage.setItem(HS_KEY, JSON.stringify({ rounds: rounds, total: total }));
+        return true;
+      }
+      return false;
+    } catch(e) { return false; }
+  }
+  function renderHighscore(){
+    var en = isEn();
+    var hs = loadHighscore();
+    if(!hs){
+      highscoreValueEl.textContent = en ? 'not played yet' : 'noch nicht gespielt';
+      return;
+    }
+    highscoreValueEl.textContent = (en
+      ? hs.rounds + ' rounds survived (' + fmt(hs.total) + ' final)'
+      : hs.rounds + ' Runden überlebt (' + fmt(hs.total) + ' Endstand)');
+  }
 
   function shuffle(arr){
     var a = arr.slice();
@@ -1044,21 +1182,27 @@
     endArea.classList.remove('cf-hidden');
 
     if(won){
+      var isNewHsWin = saveHighscoreIfBetter(TOTAL_ROUNDS, konto + puffer);
+      renderHighscore();
       endArea.innerHTML =
         '<div class="cf-end-card is-win">' +
         '<div class="cf-end-emoji">🏆</div>' +
         '<div class="cf-end-title">' + (en ? 'Still solvent after ' + TOTAL_ROUNDS + ' rounds!' : 'Nach ' + TOTAL_ROUNDS + ' Runden noch liquide!') + '</div>' +
         '<p class="cf-end-text">' + (en ? 'Final: ' : 'Endstand: ') + '<strong>' + fmt(Math.max(0,konto)) + (en ? ' account, ' : ' Konto, ') + '<strong>' + fmt(Math.max(0,puffer)) + (en ? ' buffer</strong>. ' : ' Puffer</strong>. ') +
-        (en ? 'You made the disciplined choice more often than not — exactly what keeps a business alive in year one.' : 'Du hast öfter die diszipliniertere Wahl getroffen — genau das hält ein Business im ersten Jahr am Leben.') + '</p>' +
+        (en ? 'You made the disciplined choice more often than not — exactly what keeps a business alive in year one.' : 'Du hast öfter die diszipliniertere Wahl getroffen — genau das hält ein Business im ersten Jahr am Leben.') +
+        (isNewHsWin ? ('</p><p class="cf-end-text" style="font-weight:700;color:var(--green);">' + (en ? '🏆 New personal best!' : '🏆 Neuer persönlicher Highscore!')) : '') + '</p>' +
         '<button type="button" class="cf-restart-btn" id="cf-restart">' + (en ? '🔄 Play again' : '🔄 Nochmal spielen') + '</button>' +
         '</div>';
     } else {
+      var isNewHsLose = saveHighscoreIfBetter(round, konto + puffer);
+      renderHighscore();
       endArea.innerHTML =
         '<div class="cf-end-card is-lose">' +
         '<div class="cf-end-emoji">💸</div>' +
         '<div class="cf-end-title">' + (en ? 'Insolvency in year one — Game Over.' : 'Insolvenz im 1. Jahr! Game Over.') + '</div>' +
         '<p class="cf-end-text">' + (en ? 'You survived ' : 'Du hast ') + (round) + (en ? ' of ' + TOTAL_ROUNDS + ' rounds — account AND buffer both hit zero.' : ' von ' + TOTAL_ROUNDS + ' Runden geschafft — Konto UND Puffer sind beide leer.') + ' ' +
-        (en ? 'Exactly the kind of chain of small decisions our cash-flow article warns about — none of them looked dramatic on its own.' : 'Genau die Art Kette kleiner Entscheidungen, vor der unser Cashflow-Artikel warnt — keine einzeln wirkte dramatisch.') + '</p>' +
+        (en ? 'Exactly the kind of chain of small decisions our cash-flow article warns about — none of them looked dramatic on its own.' : 'Genau die Art Kette kleiner Entscheidungen, vor der unser Cashflow-Artikel warnt — keine einzeln wirkte dramatisch.') +
+        (isNewHsLose ? ('</p><p class="cf-end-text" style="font-weight:700;color:var(--green);">' + (en ? '🏆 Still a new personal best for rounds survived!' : '🏆 Trotzdem ein neuer persönlicher Highscore bei überlebten Runden!')) : '') + '</p>' +
         '<button type="button" class="cf-restart-btn" id="cf-restart">' + (en ? '🔄 Try again' : '🔄 Nochmal versuchen') + '</button>' +
         '</div>';
     }
@@ -1086,6 +1230,7 @@
     if(!gameOver) renderScenario();
   });
 
+  renderHighscore();
   startGame();
 })();
 </script>
@@ -1093,14 +1238,16 @@
 
 <footer class="site">
   <div class="wrap footer-bottom" style="border-top:1px solid var(--line); padding-top:20px;">
+    
     <div class="social-links social-links--compact" aria-label="Finanzritual in sozialen Netzwerken" data-en-aria-label="Finanzritual on social media">
       <a href="https://youtube.com/@finanzritual" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube (Platzhalter-Link)" data-en-title="YouTube (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://tiktok.com/@finanzritual" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok (Platzhalter-Link)" data-en-title="TikTok (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v10.7a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.6 2.1 4.7 4.7 4.7"/></svg></a>
       <a href="https://instagram.com/finanzritual" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram (Platzhalter-Link)" data-en-title="Instagram (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://linkedin.com/company/finanzritual" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn (Platzhalter-Link)" data-en-title="LinkedIn (placeholder link)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.2" y1="10" x2="7.2" y2="17"/><circle cx="7.2" cy="7" r="0.6" fill="currentColor" stroke="none"/><line x1="11.5" y1="10" x2="11.5" y2="17"/><path d="M11.5 13a2 2 0 0 1 4 0v4"/></svg></a>
     </div>
-    <span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
-    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a></span>
+    <p class="footer-a11y-link"><a href="barrierefreiheit.html" data-en="Accessibility"><span class="a11y-icon" aria-hidden="true">♿</span> Barrierefreiheit</a></p>
+<span data-en="© 2026 Finanzritual">© 2026 Finanzritual</span>
+    <span><a href="impressum.html" data-en="Legal Notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy Policy">Datenschutz</a> · <a href="glossar.html" data-en="Glossary">Glossar</a> · <a href="faq.html" data-en="FAQ">FAQ</a> · <a href="ueber-mich.html" data-en="About Me">Über mich</a> · <a href="disclaimer.html" data-en="Disclaimer">Disclaimer</a></span>
   </div>
 </footer>
 

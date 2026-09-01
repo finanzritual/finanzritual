@@ -1,0 +1,458 @@
+{
+  "_hinweis": "Interne Produktionsdaten fuer Video-Shorts/TikTok-Skripte. Wird von einzelnen Artikelseiten per fetch() geladen und nur bis zum jeweiligen rolloutDatum als eingeklapptes Element angezeigt. Diese Datei liegt bewusst NICHT unter _einrichtung/, da Jekyll Unterstrich-Ordner vom Live-Build ausschliesst und der Client-Fetch sonst live ins Leere liefe. Batch-Export und Archivierung: _einrichtung/export-video-skripte.py",
+  "finanzbildung-cashflow-labyrinth.html": {
+    "titel": "Die 90-Prozent-Pleite (Cashflow-Spiel)",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-19",
+    "hinweis": "Erstes Videoskript fuer eine Spiel-Seite statt eines Artikels (finanzbildung-cashflow-labyrinth.html). Vor dem Backen wurde die Spiel-Seite selbst aufpoliert: Highscore-Anzeige (localStorage, rundenbasiert mit Endsaldo als Tiebreak) ergaenzt, passend zur im Skript beworbenen Highscore-Challenge, sowie der Hero-Text von einer fest verdrahteten \"zehn Runden\"-Angabe auf die tatsaechlich einstellbare 8-20-Runden-Spanne korrigiert. Die Zufallslogik des Spiels selbst wurde geprueft (Fisher-Yates-Shuffle, 37 Szenarien fuer max. 20 Runden, frischer Shuffle pro Spielstart) und war bereits einwandfrei -- keine Aenderung noetig.",
+    "szenen": [
+      {
+        "zeit": "0:00–0:05",
+        "visual": "[Hook] Rainer blickt gestresst auf den Bildschirm. Text im Video klatscht groß auf: „9 von 10 Firmen gehen PLEITE. Warum?“",
+        "voiceover": "90 % aller Start-ups scheitern in den ersten Jahren. Und der Grund ist fast nie eine schlechte Idee..."
+      },
+      {
+        "zeit": "0:05–0:13",
+        "visual": "Bildschirmaufnahme (Screencast) vom Spiel. Man sieht das Dashboard, blinkende rote Zahlen und den Button „Runde beenden“.",
+        "voiceover": "...der Grund ist brutaler: Das Geld geht aus. Totaler Cashflow-Kollaps. Genau darum habe ich ein Spiel programmiert, das dich mitten in diesen Überlebenskampf wirft!"
+      },
+      {
+        "zeit": "0:13–0:25",
+        "visual": "Nahaufnahme vom Spiel-Interface. Eine fiktive Event-Karte ploppt im Spiel auf: „Mitarbeiter fordert Gehaltserhöhung“ oder „Kunde zahlt nicht“.",
+        "voiceover": "In meinem Cashflow-Überlebensspiel bist du der Chef. Jede Runde bringt neue, unvorhersehbare Krisen. Investierst du in neues Marketing oder hältst du deine eisernen Reserven flüssig?"
+      },
+      {
+        "zeit": "0:25–0:38",
+        "visual": "Schneller Schnitt zurück zu Rainer, der schmunzelnd den Kopf schüttelt. Danach wieder das Spiel, wo die Liquiditätskurve steil nach unten rauscht.",
+        "voiceover": "Der Haken: Dein Gewinn auf dem Papier nützt dir gar nichts, wenn dein Kunde erst in 90 Tagen zahlt, aber dein Vermieter MORGEN die Miete will. Ein falscher Klick – und du bist insolvent!"
+      },
+      {
+        "zeit": "0:38–0:48",
+        "visual": "Text-Overlay: „Wie viele Runden überlebst du?“ Die Kamera filmt über Rainers Schulter, wie er die neue Highscore-Box im Spiel antippt.",
+        "voiceover": "Das Spiel zeigt dir gnadenlos, wie die Realität im Big Business läuft. Keine graue Theorie, sondern pures Learning by Gaming. Wie viele Runden schaffst du, bevor dir die Bank den Hahn abdreht?"
+      },
+      {
+        "zeit": "0:48–1:00",
+        "visual": "[CTA] QR-Code wird kurz eingeblendet oder der Daumen zeigt nach oben zur Bio. Das Finanzritual-Logo glänzt im Outro.",
+        "voiceover": "Fordere dich selbst heraus. Das Spiel ist komplett gratis, läuft ohne Anmeldung direkt im Browser auf meinem Blog. Den Link findest du in der Bio. Zeig mir in den Kommentaren deinen Highscore – Ciao, Rainer!"
+      }
+    ]
+  },
+  "beitrag-drei-zeiler-reichtum-finanzbildung.html": {
+    "titel": "Das Schul-Versagen",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-19",
+    "hinweis": "Rohtext bezog sich im Videoskript auf \"Knast-Makrele\" (V604) und das Dividenden-Quartett (V611) als B-Roll-Verweise auf Blog-Inhalte — beide existieren tatsächlich und wurden 1:1 übernommen. Der ebenfalls erwähnte \"Ziegen\"-Zinseszins-Vergleich existiert als Artikel auf dem Blog bislang NICHT — im Voiceover entsprechend nicht mit übernommen, um keinen Verweis auf nicht-existenten Inhalt zu erzeugen.",
+    "szenen": [
+      {
+        "zeit": "0:00–0:06",
+        "visual": "Rainer guckt genervt, hält ein dickes Physikbuch in die Kamera. Text knallt rein: „Quantenmechanik? JA! Girokonto? NEIN!“",
+        "voiceover": "Wir lernen in der Schule, wie man die Quantenmechanik berechnet. Aber kein Mensch zeigt uns, wie man einen Dauerauftrag einrichtet."
+      },
+      {
+        "zeit": "0:06–0:15",
+        "visual": "Schneller Schnitt: Eine Hand unterschreibt einen fetten, unübersichtlichen Vertrag. Rotes Text-Overlay: „Finanzielle Alphabeten“.",
+        "voiceover": "Wir entlassen Jugendliche nach dem Abschluss als finanzielle Alphabeten direkt in ein Haifischbecken aus Knebelverträgen und Abofallen."
+      },
+      {
+        "zeit": "0:15–0:26",
+        "visual": "Der Beat setzt fett ein. Text ploppt Zeile für Zeile auf: 1. Broker auf, 2. Welt-ETF, 3. Füße stillhalten.",
+        "voiceover": "Dabei passt das wichtigste Finanzwissen der Welt auf einen simplen Drei-Zeiler: 1. Neobroker eröffnen. 2. ETF-Sparplan einrichten. 3. Abwarten und die Nerven behalten!"
+      },
+      {
+        "zeit": "0:26–0:38",
+        "visual": "Ein verwirrtes Gesicht, Hand greift nach dem Smartphone, rote blinkende Zahlen auf einem Chart. Text: „Warum scheitern wir?“",
+        "voiceover": "Warum ist dann nicht jeder reich? Weil dieser Drei-Zeiler im echten Leben stinklangweilig ist. Und weil unser Gehirn bei der kleinsten Börsenkrise sofort in Panik verfällt."
+      },
+      {
+        "zeit": "0:38–0:48",
+        "visual": "Kurze Schnitte von Blog-Tools: das Dividenden-Quartett-Spiel, die Knast-Makrele-Story. Text: „Finanzwissen barrierefrei“.",
+        "voiceover": "Genau deshalb habe ich Finanzritual gestartet. Ich erkläre Wirtschaft so barrierefrei und spannend, dass es sogar Kinder verstehen. Mit Knast-Makrelen und echten Games."
+      },
+      {
+        "zeit": "0:48–1:00",
+        "visual": "[CTA] Rainer lächelt, zeigt nach oben. Das grüne Logo von Finanzritual blendet sich ein. Text: „Bereit fürs echte Leben?“",
+        "voiceover": "Mein Ziel: Dieser Blog gehört in ein paar Jahren als kostenloser Werkzeugkasten in die Schulen. Schluss mit der grauen Theorie. Klick auf den Link in der Bio und lerne die Regeln des Geldes. Ciao, Rainer!"
+      }
+    ]
+  },
+  "beitrag-gummibaerchen-knappheit-inflation.html": {
+    "titel": "Das Gummibärchen-Gesetz",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-19",
+    "hinweis": "Rohtext beschrieb die Gefängnis-Anekdote als „wahre Geschichte“. Beim Fact-Check keine Quelle gefunden, die sie belegt — Voiceover-Text entsprechend leicht angepasst („Es ist die Geschichte von…“ statt einer Tatsachenbehauptung), Artikeltext selbst geht ausführlicher auf die fehlende Quellenlage ein.",
+    "szenen": [
+      {
+        "zeit": "0:00–0:05",
+        "visual": "Nahaufnahme einer Zelle, schwere Gittertür schlägt zu (Soundeffekt: Metallischer Knall). Text im Video: „Das härteste Gesetz des Knasts...“",
+        "voiceover": "Was ist die härteste Währung im Knast? Nein, nicht die Makrele... und auch keine Zigaretten."
+      },
+      {
+        "zeit": "0:05–0:12",
+        "visual": "Schnitt auf eine Hand, die ganz langsam ein einzelnes, rotes Gummibärchen auf einen kahlen Holztisch legt.",
+        "voiceover": "Es ist die Geschichte von einer Tüte Gummibärchen in einem Care-Paket. Und einer Zelle voller Häftlinge, die eine radikale Entscheidung trafen:"
+      },
+      {
+        "zeit": "0:12–0:20",
+        "visual": "Text ploppt groß auf: „NUR EINS PRO TAG“. Kamera zeigt das Gummibärchen in extremem Makro-Zoom. Der Beat setzt jetzt fett ein.",
+        "voiceover": "Strikt nur ein einziges Gummibärchen am Tag. Für jeden Mann. Nicht, weil sie nicht mehr hatten. Sondern um die Illusion der Verfügbarkeit in die Zukunft zu retten."
+      },
+      {
+        "zeit": "0:20–0:32",
+        "visual": "Schnelle Schnitte: Eine edle Hermès-Handtasche, eine Luxus-Uhr im Schaufenster, lange Menschenschlangen vor einem Store. Text: „Künstliche Verknappung“.",
+        "voiceover": "Was die Häftlinge aus Not erfanden, nutzen die mächtigsten Luxuskonzerne der Welt als eiskalte Strategie: Künstliche Verknappung! Wer das Produkt rationiert, hält die Gier der Kunden am Kochen."
+      },
+      {
+        "zeit": "0:32–0:45",
+        "visual": "Bildschirme mit fallenden Aktienkursen, das Logo der Zentralbank (EZB/Fed), dicke Geldbündel werden weggesperrt. Text: „Zins-Rationierung“.",
+        "voiceover": "Und genau so steuern Notenbanken unsere Wirtschaft. Um die Inflation zu stoppen, drehen sie den Zinshahn zu. Sie rationieren das Geld, damit der verbleibende Euro seinen Wert behält."
+      },
+      {
+        "zeit": "0:45–0:55",
+        "visual": "Rainer direkt in die Kamera (oder ein cooler Workspace/Garage). Text: „Die Lektion für dein Depot“.",
+        "voiceover": "Die Lektion für dich? Wer im Überfluss lebt, verliert. Wer den Mangel strategisch verwaltet, überlebt. Rationiere deine Ausgaben, investiere stur in knappe Sachwerte..."
+      },
+      {
+        "zeit": "0:55–1:00",
+        "visual": "Der Daumen drückt auf den \"Folgen\"-Button. Das Logo des Blogs Finanzritual blendet sich ein.",
+        "voiceover": "...und rette deine eigene Zukunft. Mehr schräges Finanzwissen gibt's auf Finanzritual.de. Macht das Plus weg!"
+      }
+    ]
+  },
+  "beitrag-ehrlicher-disclaimer-diversifikation.html": {
+    "titel": "Der ehrliche Disclaimer: Warum Langeweile an der Börse dein bestes Ruhekissen ist",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "szenen": [
+      {
+        "zeit": "0:00–0:06",
+        "visual": "Ein imposantes Kartenhaus bricht in Zeitlupe komplett in sich zusammen.",
+        "voiceover": "Wer sich an der Börse zu sicher ist, verliert. Selbst die größten Firmen können komplett abstürzen!"
+      },
+      {
+        "zeit": "0:06–0:13",
+        "visual": "Das zerbrochene Wirecard-Logo blendet ein, gefolgt von fallenden roten Börsen-Kerzen.",
+        "voiceover": "Denk an Wirecard: ein stolzer DAX-Konzern, der durch einen riesigen Bilanzbetrug auf null gecrasht ist."
+      },
+      {
+        "zeit": "0:13–0:21",
+        "visual": "Ein altes Tasten-Handy von Nokia fällt auf den Boden, Schnitt auf ein modernes Paar Gummistiefel.",
+        "voiceover": "Oder Nokia: einst der unangefochtene Handy-König, der den Smartphone-Trend komplett verschlafen hat."
+      },
+      {
+        "zeit": "0:21–0:29",
+        "visual": "Ein modernes E-Auto steht mit offener Motorhaube und Warnblinkanlage am Straßenrand.",
+        "voiceover": "Selbst unsere Autoindustrie strauchelt heute massiv durch falsches Timing und falsche Strategien im E-Sektor."
+      },
+      {
+        "zeit": "0:29–0:37",
+        "visual": "Ein Mensch schläft tief, fest und völlig entspannt im Bett. Ruhiges, blaues Licht.",
+        "voiceover": "Genau darum sind ETFs für die meisten Menschen die viel bessere Strategie. Sie sind langweilig — aber sie lassen dich ruhig schlafen!"
+      },
+      {
+        "zeit": "0:37–0:45",
+        "visual": "Ein riesiges, schützendes Schild blockiert herabstürzende Trümmerteile.",
+        "voiceover": "Wenn im MSCI World eine Firma pleitegeht, ist das für dein Geld nur ein kleiner Schluckauf. Das System reinigt sich von selbst."
+      },
+      {
+        "zeit": "0:45–0:53",
+        "visual": "Ein Globus dreht sich, auf dem hunderte kleine, leuchtende Punkte (Aktien) aufblinken.",
+        "voiceover": "Hab keine Angst vor der Börse. Du musst dein Risiko einfach nur auf tausende Unternehmen weltweit verteilen."
+      },
+      {
+        "zeit": "0:53–1:00",
+        "visual": "Das Website-Logo blendet ein mit dem großen Schriftzug: „Gut gestreut, nie bereut!\"",
+        "voiceover": "Speicher dir diesen Satz fürs Depot: Gut gestreut, nie bereut! Mach die Verunsicherung weg für echte Finanz-Sicherheit."
+      }
+    ]
+  },
+  "beitrag-milliardaer-weisswurst-lektionen.html": {
+    "titel": "Der Weißwurst-Milliardär",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "konzept": "Ein-Block-Teaser (bewusst KEINE Mehrteiler-Serie) mit Hook, Kernaussage und Call-to-Action. Haelt die restlichen 7 Lektionen und die Aufloesung des Zitat-Faktenchecks bewusst zurueck, um zum vollstaendigen Artikel zu fuehren.",
+    "szenen": [
+      {
+        "zeit": "0:00–0:08",
+        "visual": "Nahaufnahme auf ein Smartphone-Display mit einer Kontaktliste von 22 Namen. Kamera bleibt starr; die Einträge werden im Sekundentakt einer nach dem anderen grau ausgeblendet und durchgestrichen — schnelle, snappy Schnitte, keine Kamerabewegung.",
+        "voiceover": "Ich habe 22 Milliardäre kalt angeschrieben. Keine Kontakte, keine Beziehungen. 21 haben nie geantwortet."
+      },
+      {
+        "zeit": "0:08–0:18",
+        "visual": "Weiter Establishing-Shot von oben (Vogelperspektive) auf einen Tisch mit Weißwürsten, Brezel und Bier auf blau-weißem Rautentuch. Kamera fährt langsam nach unten in eine warme Nahaufnahme der dampfenden Wurst, im unscharfen Hintergrund Münchner Häuserfassaden.",
+        "voiceover": "Einer hat es getan. Getroffen haben wir uns in München — bei Weißwurst und Bier, ganz bodenständig."
+      },
+      {
+        "zeit": "0:18–0:30",
+        "visual": "Harter Split-Screen-Schnitt: links eine Glühbirne, die kurz aufflackert und dann mit einem roten X durchgestrichen wird; rechts ein ruhiger Handschlag vor einem beleuchteten Ladenschild in der Abenddämmerung. Kamera fix auf beiden Seiten, kein Schwenk — der Kontrast trägt die Aussage.",
+        "voiceover": "Sein wichtigster Rat war nicht das, was ich erwartet hätte. Kauf keine neue Idee — kauf eine Firma, die schon läuft."
+      },
+      {
+        "zeit": "0:30–0:42",
+        "visual": "Close-up von schräg oben auf ein aufgeschlagenes Notizbuch. Ein Kugelschreiber schreibt in schneller, leicht unruhiger Handschrift mit; Kamera dezent handheld für Authentizität, im unscharfen Hintergrund eine Kaffeetasse, warmes Frühstückslicht.",
+        "voiceover": "Acht Lektionen hat er mir mitgegeben, direkt am Tisch mitgeschrieben — über Cashflow, über Stolz, und darüber, wann man eine Idee loslassen muss."
+      },
+      {
+        "zeit": "0:42–0:52",
+        "visual": "Frontale Einstellung auf eine Zitat-Karte „Erfolg hat vier Buchstaben: TUN!“. Kamera zoomt langsam heran, während sich darüber ein Goethe-Porträt einblendet und nach kurzer Pause mit einem großen roten Fragezeichen überstempelt wird.",
+        "voiceover": "Er hat mit einem berühmten Zitat geschlossen. Nur ein Problem: Es stammt vermutlich gar nicht von dem, dem es zugeschrieben wird."
+      },
+      {
+        "zeit": "0:52–1:00",
+        "visual": "Ruhige, statische End Card: Artikeltitel „Der Weißwurst-Milliardär“ erscheint zentriert, darunter blendet sanft ein Button „Jetzt lesen“ ein (Fade-in), Marken-Farbschema Blau/Grün im Hintergrund.",
+        "voiceover": "Alle acht Lektionen und der Faktencheck: kostenlos im Artikel, Link in der Beschreibung."
+      }
+    ]
+  },
+  "beitrag-casino-prinzip-neobroker.html": {
+    "titel": "Börse oder Spielothek? Das Casino-Prinzip deines Neobrokers",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "szenen": [
+      {
+        "zeit": "0:00–0:06",
+        "visual": "Weiter Establishing-Shot eines glitzernden Casinos in Las Vegas: Kamera schwenkt langsam über einen sich drehenden Roulette-Tisch, im Hintergrund blinkende Spielautomaten. Warmes, gesättigtes Kunstlicht.",
+        "voiceover": "Weißt du, warum es in Casinos keine Uhren und keine Fenster gibt?"
+      },
+      {
+        "zeit": "0:06–0:13",
+        "visual": "Harter Schnitt in ein tristes, kühl beleuchtetes Wartezimmer. Nahaufnahme einer Person, die frustriert auf eine tickende Wanduhr starrt; Kamera fix, kein Schwenk.",
+        "voiceover": "Du sollst die Zeit vergessen und weiterspielen. Genau wie im Wartezimmer, wo du jede Minute auf die Uhr starrst."
+      },
+      {
+        "zeit": "0:13–0:21",
+        "visual": "Extreme Nahaufnahme: ein Daumen entsperrt hektisch ein Smartphone-Display und öffnet eine bunte Trading-App. Schnelle, leicht wacklige Handheld-Bewegung für Unruhe.",
+        "voiceover": "Und genau diesen psychologischen Trick nutzt deine Neobroker-App in deiner Hosentasche aus."
+      },
+      {
+        "zeit": "0:21–0:29",
+        "visual": "Halbtotale auf einen Mann, der ungeduldig an einer Dönerbude wartet und dabei aufs Handy starrt. Kamera leicht von der Seite, Alltagslicht, Straßenszene im Hintergrund unscharf.",
+        "voiceover": "Du öffnest dein Depot nicht für Analysen. Du öffnest es aus purer Langeweile — beim Warten auf den Imbiss um die Ecke."
+      },
+      {
+        "zeit": "0:29–0:37",
+        "visual": "Schneller Zoom auf einen wild flackernden Aktienkurs, der nach oben und unten ausschlägt; ein roter Warn-Schriftzug „TÖDLICH“ blendet mit hartem Cut ein.",
+        "voiceover": "Doch dieses ständige App-Öffnen und hektische Kaufen ist absolut tödlich für deine Performance!"
+      },
+      {
+        "zeit": "0:37–0:45",
+        "visual": "Slow-Motion-Aufnahme: Geldscheine fliegen metaphorisch im Wind davon, im unscharfen Vordergrund ein Smartphone-Display mit rotierenden Kurszahlen.",
+        "voiceover": "Niemand kann den Markt timen. Wer ständig hin und her schichtet, verbrennt sein Geld durch Steuern und Gebühren."
+      },
+      {
+        "zeit": "0:45–0:53",
+        "visual": "Ruhige Nahaufnahme: ein Mann legt sein Handy in eine Schublade und schiebt sie zu, atmet sichtbar tief durch. Kamera fix, warmes, beruhigendes Licht — bewusster Tempowechsel zur Zerissenheit der vorherigen Szene.",
+        "voiceover": "Wahres Investieren ist kein Casino, sondern ein Marathon. Mach die App aus und lass dein Geld einfach mal in Ruhe arbeiten."
+      },
+      {
+        "zeit": "0:53–1:00",
+        "visual": "Ruhige, statische End Card: Website-Logo blendet sanft ein, darunter der Text „Lerne rationales Investieren“.",
+        "voiceover": "Wie oft am Tag checkst du heimlich dein Depot? Schreib es in die Kommentare und folg mir für mehr Finanz-Klartext!"
+      }
+    ]
+  },
+  "beitrag-scheinwerfer-effekt-fomo.html": {
+    "titel": "Der Scheinwerfer-Effekt: Warum die besten Aktien niemals auf der Titelseite stehen",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "szenen": [
+      {
+        "zeit": "0:00–0:06",
+        "visual": "Frontale Nahaufnahme: ein gigantischer, greller Bühnenscheinwerfer geht mit einem harten Cut an und blendet direkt in die Kamera. Kamera fix, kein Schwenk.",
+        "voiceover": "Wenn eine Aktie auf der Titelseite der Zeitung steht, ist es für dich meistens schon zu spät!"
+      },
+      {
+        "zeit": "0:06–0:13",
+        "visual": "Schnelle Montage: historische Zeitungsüberschriften und Nachrichtenausschnitte fliegen im Sekundentakt durchs Bild — Wasserstoff, Cannabis, Solar. Kamera fix, nur die Overlays bewegen sich.",
+        "voiceover": "Aus Angst, etwas zu verpassen, rennen Millionen Anleger dem nächsten großen Trend hinterher."
+      },
+      {
+        "zeit": "0:13–0:21",
+        "visual": "Ein alter Röhrenfernseher im Wohnzimmer-Setting zeigt eine nachgestellte 90er-Jahre-Werbeszene für die Telekom-Aktie. Kamera fährt langsam näher an den Bildschirm heran.",
+        "voiceover": "Denk an das Trauma der Telekom-Volksaktie. Es wurden immer neue Tranchen auf den Markt geworfen, um die Gier zu füttern."
+      },
+      {
+        "zeit": "0:21–0:29",
+        "visual": "Ein rasant abstürzender Aktienkurs im Chart, hart geschnitten auf ein Schild mit der Aufschrift „ZUG ABGEFAHREN“ vor einem leeren Bahngleis.",
+        "voiceover": "Doch der Zug war längst durch. Wer im Scheinwerferlicht kauft, bezahlt am Ende fast immer die Zeche für die Profis."
+      },
+      {
+        "zeit": "0:29–0:37",
+        "visual": "Slow-Motion-Aufnahme von unten: ein riesiger, massiver Eisenanker sinkt ruhig auf den Meeresgrund, während oben an der Wasseroberfläche sichtbar die Wellen toben. Bewusster Tempowechsel zur hektischen Montage davor.",
+        "voiceover": "Wenn du langfristig gewinnen willst, brauchst du keine Hype-Aktien. Du brauchst Ankersteine!"
+      },
+      {
+        "zeit": "0:37–0:45",
+        "visual": "Ruhiger, sauberer Chart einer stabilen Aktie mit wiederkehrendem Dividenden-Symbol ($), das in regelmäßigen Abständen sanft einblendet. Kamera fix.",
+        "voiceover": "Langweilige Unternehmen mit einer konstant guten Dividendenrendite, die absolut niemand in den Nachrichten erwähnt."
+      },
+      {
+        "zeit": "0:45–0:53",
+        "visual": "Ein unaufgeregtes, perfekt ausbalanciertes Waagen-Modell im Studio-Setting, das sich trotz simuliertem Windstoß im Hintergrund kaum bewegt.",
+        "voiceover": "Sie halten dein Depot im Sturm stabil und fangen die Verluste deiner riskanten Titel ab."
+      },
+      {
+        "zeit": "0:53–1:00",
+        "visual": "Ruhige, statische End Card: Website-Logo blendet sanft ein, darunter der Text „Finde deine Ankersteine“.",
+        "voiceover": "Schluss mit FOMO. Setz auf gesunde Langeweile. Folge mir für echte Finanzstrategien abseits des Hypes!"
+      }
+    ]
+  },
+  "beitrag-bananen-effekt-dispositionseffekt.html": {
+    "titel": "Gewinner verkaufen, Verlierer behalten: Der Bananen-Effekt",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "szenen": [
+      {
+        "zeit": "0:00–0:06",
+        "visual": "Nahaufnahme einer Obstschale auf einer Küchentheke. Eine Hand greift gezielt und ungeduldig nach einer komplett braunen, matschigen Banane, während daneben knackig gelbe liegen bleiben.",
+        "voiceover": "Warum essen die meisten Menschen freiwillig matschige Bananen, obwohl knackig gelbe danebenliegen?"
+      },
+      {
+        "zeit": "0:06–0:13",
+        "visual": "Harter Schnitt auf ein Smartphone-Display, das ein Aktien-Depot mit tiefroten Zahlen zeigt. Kamera fix, leichter Zoom auf die roten Werte.",
+        "voiceover": "Klingt verrückt? Genau diesen Fehler machst du wahrscheinlich jeden Tag in deinem Aktien-Depot."
+      },
+      {
+        "zeit": "0:13–0:21",
+        "visual": "Split-Screen: links eine knackige, gelbe Banane im Detail, rechts ein Aktienchart mit steiler grüner Linie nach oben. Beide Seiten fix, kein Schwenk.",
+        "voiceover": "Stell dir vor, du hast Gewinner-Aktien im Depot — die knackigen Bananen. Und Verlierer-Aktien — die matschigen."
+      },
+      {
+        "zeit": "0:21–0:29",
+        "visual": "Extreme Nahaufnahme: ein Finger drückt hektisch und mehrfach auf einen grünen „Verkaufen“-Button auf dem Smartphone. Leicht wacklige Handheld-Bewegung für Nervosität.",
+        "voiceover": "Aus Angst, Gewinne zu verlieren, verkaufen die meisten Anleger ihre besten Aktien viel zu früh. Sie essen die gute Banane sofort auf."
+      },
+      {
+        "zeit": "0:29–0:37",
+        "visual": "Ein Mann sitzt am Schreibtisch und starrt hoffnungsvoll auf einen langsam fallenden roten Chart auf dem Monitor. Ein Heiligenschein-Icon blendet ironisch über der Kurve ein.",
+        "voiceover": "Aber die Verlierer-Aktien im Keller? Die behalten sie monatelang, in der Hoffnung, dass sie irgendwie wieder steigen."
+      },
+      {
+        "zeit": "0:37–0:45",
+        "visual": "Split-Handlung: eine Hand wirft frische Schnittblumen in einen Mülleimer, während dieselbe Hand mit einer Gießkanne welkes Unkraut im Blumentopf daneben gießt.",
+        "voiceover": "Das Ergebnis? Du wirfst die Blumen weg und gießt das Unkraut. Dein Depot mutiert zu einer Schale voller fauler Früchte."
+      },
+      {
+        "zeit": "0:45–0:53",
+        "visual": "Ein Investor schneidet mit einer großen Gartenschere entschlossen eine rote Chart-Linie im Bild ab, blickt danach zufrieden nach oben zu einer grün wachsenden Linie daneben.",
+        "voiceover": "Profis machen es umgekehrt: Schneide die matschigen Verlierer radikal ab und lass die echten Raketen ungestört laufen!"
+      },
+      {
+        "zeit": "0:53–1:00",
+        "visual": "Ruhige, statische End Card: Website-Logo blendet sanft ein mit dem Text „Mach das Plus weg für clevere Depot-Strategien“.",
+        "voiceover": "Welche matschige Banane liegt gerade noch in deinem Depot? Schreib es in die Kommentare und folg mir für mehr Klartext!"
+      }
+    ]
+  },
+  "beitrag-einsamkeits-effekt-automatisiertes-sparen.html": {
+    "titel": "Der Einsamkeits-Effekt: Digitales Schweigen und automatisiertes Sparen",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "szenen": [
+      {
+        "zeit": "0:00–0:06",
+        "visual": "U-Bahn-Wagon voller Menschen, alle sitzen schweigend und starren auf ihr Smartphone. Kamera fährt langsam durch den Gang, düstere, kühle Beleuchtung.",
+        "voiceover": "Wir verstummen. Und eine aktuelle weltweite Studie beweist es wissenschaftlich."
+      },
+      {
+        "zeit": "0:06–0:13",
+        "visual": "Extreme Nahaufnahme auf ein Smartphone-Display: ein Chatverlauf (WhatsApp/Slack) scrollt rasant nach oben. Kamera fix, nur der Text bewegt sich.",
+        "voiceover": "Seit 15 Jahren verlieren wir pro Jahr rund 338 gesprochene Wörter. Der Grund? Schreiben statt Sprechen."
+      },
+      {
+        "zeit": "0:13–0:21",
+        "visual": "Ein Mann bezahlt an einer Supermarktkasse, starrt dabei aufs Handy und würdigt die Kassiererin keines Blickes. Kamera von der Seite, Alltagslicht.",
+        "voiceover": "Dadurch sterben die sogenannten „Weak Ties” aus. Der kurze, gesunderhaltende Plausch beim Bäcker oder an der Kasse."
+      },
+      {
+        "zeit": "0:21–0:29",
+        "visual": "Ein einsames Licht brennt nachts in einem Fenster einer Wohnung, Kamera von außen, langsamer Zoom. Der Text „Einsamkeits-Vektor“ blendet dezent unten ein.",
+        "voiceover": "Die Folge ist ein schleichender Automatismus, der uns isoliert und krank macht. Technologie steuert uns unbemerkt."
+      },
+      {
+        "zeit": "0:29–0:37",
+        "visual": "Nahaufnahme: ein glänzendes Smartphone-Display zeigt eine sich öffnende Trading-/Sparplan-App. Kamera fix, leichter Zoom auf die App-Oberfläche.",
+        "voiceover": "Und ich dachte mir: Ich wünschte, genau so einen mächtigen Automatismus gäbe es für unser Geld!"
+      },
+      {
+        "zeit": "0:37–0:45",
+        "visual": "Ein Zahnrad greift präzise in ein zweites Zahnrad, Kamera seitlich; parallel fallen goldene Münzen langsam in ein digitales Sparschwein-Icon.",
+        "voiceover": "Stell dir vor, wir nutzen diese Technologie-Eigendynamik positiv. Durch vollautomatisierte Sparpläne im Depot."
+      },
+      {
+        "zeit": "0:45–0:53",
+        "visual": "Ein Balkendiagramm wächst ruhig und stetig im Hintergrund nach oben, Kamera fix, sanfter Zoom heraus, um das Wachstum über Zeit zu zeigen.",
+        "voiceover": "Ohne Nachdenken. Ohne emotionale Fehler. Das System baut Vermögen auf, während du dein Leben lebst."
+      },
+      {
+        "zeit": "0:53–1:00",
+        "visual": "Ruhige, statische End Card: Website-Claim blendet sanft ein, im Vordergrund ein zufriedenes Lächeln einer Person, die das Handy weglegt.",
+        "voiceover": "Dreh den Spieß um: Lass die Technik dein Geld ansparen — und sprich heute wieder ein echtes Wort mit einem Menschen."
+      }
+    ]
+  },
+  "beitrag-hungersteine-boersenangst.html": {
+    "titel": "Die Hungersteine des DAX",
+    "status": "pending",
+    "rolloutDatum": "2027-01-01",
+    "erstelltAm": "2026-08-18",
+    "hinweis": "Voiceover-Zeile bei 0:47-0:54 (\"krachen die Kurse dreimal schneller, als sie gestiegen sind\") ist gaengige Boersen-Folklore (\"Treppe rauf, Fahrstuhl runter\"), aber keine belastbar mit einer einzelnen Quelle belegte 3x-Kennzahl -- bewusst unveraendert aus der Nutzer-Vorlage uebernommen, da Produktionsnotiz/Voiceover-Text und keine im Artikel behauptete Tatsache.",
+    "szenen": [
+      {
+        "zeit": "0:00–0:05",
+        "visual": "Dynamischer Zoom auf einen rissigen, ausgetrockneten Flusslauf. Große, bedrohliche Felsen liegen im Schlamm frei.",
+        "voiceover": "Warum baut die Börse eigentlich keine Wohlstands-Denkmäler?"
+      },
+      {
+        "zeit": "0:05–0:12",
+        "visual": "Nahaufnahme eines alten Steins mit eingemeißelter Schrift („Wenn du mich siehst, dann weine”). Kamera fährt langsam über die Gravur.",
+        "voiceover": "Bei extremer Dürre tauchen in Flüssen sogenannte Hungersteine auf. Sie markieren historische Katastrophen."
+      },
+      {
+        "zeit": "0:12–0:19",
+        "visual": "Harter Schnitt auf einen modernen, glänzenden Wolkenkratzer (Frankfurter Börse), Kamera schwenkt von unten nach oben.",
+        "voiceover": "Aber niemand versenkt Steine bei Rekordwerten. Warum? Weil Verlust uns psychologisch doppelt so tief trifft wie Gewinn!"
+      },
+      {
+        "zeit": "0:19–0:26",
+        "visual": "Ein Mann geht entspannt mit einem Hund im Park spazieren, warmes Licht, ruhige Kamerafahrt mit.",
+        "voiceover": "Im Bullenmarkt hebt die Flut alle Schiffe. Du gehst mit dem Hund Gassi und wirst plötzlich von Fremden angesprochen…"
+      },
+      {
+        "zeit": "0:26–0:31",
+        "visual": "Smartphone-Bildschirm zeigt eine steil steigende Aktie (z. B. Rheinmetall), Nahaufnahme, leichter Zoom auf den Chart.",
+        "voiceover": "…dass du JETZT unbedingt noch Rheinmetall kaufen musst!"
+      },
+      {
+        "zeit": "0:31–0:39",
+        "visual": "Ein rotes Warnlicht blinkt auf. Eine animierte Waage kippt rasant nach unten. Schnitt-Tempo steigt.",
+        "voiceover": "Genau das ist dein Warnsignal. Der Markt pendelt aus. Die Gier schlägt in pure Panik um."
+      },
+      {
+        "zeit": "0:39–0:47",
+        "visual": "Ein DAX-Chart bricht nach unten durch eine dicke, rote Linie (Unterstützungslinie), Kamera fix, harter Cut beim Durchbruch.",
+        "voiceover": "Fällt der DAX unter wichtige Chartlinien, tauchen die Börsen-Hungersteine wieder auf. Automatische Verkäufe lösen aus."
+      },
+      {
+        "zeit": "0:47–0:54",
+        "visual": "Der DAX-Chart stürzt sichtbar schneller ab, als er zuvor gestiegen ist — beschleunigte Animation im Vergleich zu den vorherigen Szenen.",
+        "voiceover": "Und weil Angst stärker ist als Gier, krachen die Kurse im Keller dreimal schneller, als sie gestiegen sind."
+      },
+      {
+        "zeit": "0:54–1:00",
+        "visual": "Großer Text blendet über den Bildschirm: „Stop-Loss setzen!“ Ein Finger tippt auf ein Tablet. Ruhige, statische End-Einstellung.",
+        "voiceover": "Sichere jetzt deine Gewinne mit Stop-Loss-Orders. Lass die Raketen laufen, aber sichere sie ab!"
+      }
+    ]
+  }
+}

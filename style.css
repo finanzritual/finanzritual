@@ -164,9 +164,9 @@
   --ink:           #16233D;
   --ink-soft:      #4B5568;
   --blue:          #2454A6;
-  --blue-soft:     #E7EEF9;
+  --blue-soft:     #CFE0F7;
   --green:         #1E8E5A;
-  --green-soft:    #E6F3EC;
+  --green-soft:    #C9EBD7;
   --line:          #C6CBBD;
   --line-strong:   #9AA290;
   --shadow:        0 1px 3px rgba(22,35,61,.08), 0 10px 28px rgba(22,35,61,.12);
@@ -213,9 +213,9 @@ html[data-theme="light"][data-contrast="high"]{
   --ink:           #000000;
   --ink-soft:      #1A1A1A;
   --blue:          #0000EE;
-  --blue-soft:     #E0ECFF;
+  --blue-soft:     #C2D9FF;
   --green:         #00591F;
-  --green-soft:    #E1F3E6;
+  --green-soft:    #B8E5C8;
   --line:          #000000;
   --line-strong:   #000000;
   --shadow:        none;
@@ -235,6 +235,17 @@ html[data-theme="dark"][data-contrast="high"]{
   --shadow:        none;
   color-scheme: dark;
 }
+/* Viele Tabellen-Header sitesweit nutzen background:var(--blue)/var(--green)
+   kombiniert mit hart gesetztem color:#fff (in ueber 10 Artikeln so
+   verstreut). Im normalen Dunkelmodus sind --blue/--green dunkel genug
+   fuer weissen Text -- aber im Dunkel+Kontrast-Modus werden beide
+   Variablen bewusst sehr hell (damit sie als TEXT auf Schwarz gut
+   lesbar sind), wodurch derselbe hart weisse Tabellen-Header-Text auf
+   hellem Grund "abersaeuft". Statt jede einzelne Datei einzeln zu
+   fixen: eine globale Regel, die in genau dieser Modus-Kombination
+   jeden th-Text auf Schwarz zwingt -- sicher, weil beide Akzentfarben
+   in diesem Modus konsistent hell sind. */
+html[data-theme="dark"][data-contrast="high"] th{ color:#000000 !important; }
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
@@ -456,7 +467,16 @@ header.site.is-scrolled{
 .logo-mark--lg .logo-word{ font-size:1.95rem; }
 .logo-mark--lg .logo-l{ width:38px; margin-left:2px; }
 
-nav.primary{ display:flex; gap:2px; flex:1 1 auto; min-width:0; }
+/* Eigene, feste Schriftgroesse noetig: ohne diese Zeile erbt der
+   Flex-Container die skalierte body-Schriftgroesse (waechst mit dem
+   Aa-Regler bis auf 25,6px), obwohl die <a>-Kinder selbst ihre eigene
+   feste .92rem-Groesse haben. Diese geerbte, riesige Schriftgroesse
+   beeinflusst trotzdem die eigene Hoehenberechnung des Flex-Containers
+   und liess CALC/Shop/VIP beim Ziehen des Reglers sichtbar nach oben
+   wandern, waehrend die fest positionierten Icon-Buttons (theme/
+   contrast/fullscreen-toggle) unbeweglich blieben -- dadurch wirkte es
+   wie ein Auseinanderdriften der Menüzeile. */
+nav.primary{ display:flex; gap:2px; flex:1 1 auto; min-width:0; font-size:1rem; }
 nav.primary a{
   color:var(--ink-soft);
   font-size:.92rem;
@@ -487,14 +507,41 @@ nav.primary a.is-soon::after{ content:"·bald"; font-size:.65em; margin-left:4px
 .control{ display:flex; align-items:center; gap:8px; position:relative; }
 .control label{ display:none; }
 
+/* Mobil-Only Alternative zum Schieberegler: "- Aa +"-Stepper mit echten
+   Tap-Zielen statt eines winzigen Drag-Reglers, der auf dem Handy schwer
+   zu treffen ist. Auf dem Desktop unsichtbar (dort bleibt der bewaehrte
+   Schieberegler aktiv), erscheint nur unterhalb 900px -- dort verschwindet
+   im Gegenzug .control (der alte Regler), damit nicht beides gleichzeitig
+   angezeigt wird. */
+.font-stepper{ display:none; }
+@media (max-width:900px){
+  .control{ display:none; }
+  .font-stepper{
+    display:flex; align-items:center; gap:2px;
+    background:var(--bg-raised); border:1px solid var(--line-strong);
+    border-radius:var(--radius); padding:2px; margin-right:2px;
+  }
+  .font-stepper-btn{
+    display:flex; align-items:center; justify-content:center;
+    width:29px; height:29px; border:none; background:none; border-radius:calc(var(--radius) - 2px);
+    color:var(--ink); font-size:1.05rem; font-weight:700; cursor:pointer; line-height:1;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .font-stepper-btn:active{ background:var(--blue-soft); color:var(--blue); }
+  .font-stepper-label{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:.78rem;
+    color:var(--ink-soft); padding:0 4px; min-width:20px; text-align:center;
+  }
+}
+
 .search-toggle{
   display:inline-flex; align-items:center; justify-content:center;
   background:none; border:none;
-  width:36px; height:36px; padding:0; cursor:pointer;
+  width:42px; height:42px; padding:0; cursor:pointer;
   color:var(--ink-soft); transition:color .2s ease;
   text-decoration:none; margin-left:10px; flex:none;
 }
-.search-toggle svg{ width:22px; height:22px; display:block; stroke-width:2.2; }
+.search-toggle svg{ width:32px; height:32px; display:block; stroke-width:2.1; }
 .search-toggle:hover{ color:var(--blue); }
 
 /* Schwebende Lupe -- nur sichtbar auf dem Handy, wenn die Menüzeile
@@ -550,22 +597,106 @@ input[type="range"].font-slider::-moz-range-thumb{
    gedacht), das SVG darin ist aber 16x16 – dadurch saß Sonne/Mond bisher sichtbar
    nach oben/links verschoben statt zentriert im runden Button. Fix: eigener,
    passend großer, echt zentrierter Container nur für diesen Anwendungsfall. */
+.theme-toggle[aria-pressed="true"]{ outline:1.5px solid var(--blue); outline-offset:-1px; box-shadow:inset 0 0 0 1px var(--blue); position:relative; z-index:2; }
 .theme-toggle .dot{
   width:16px; height:16px; border-radius:0; background:none;
   display:inline-flex; align-items:center; justify-content:center;
 }
 
+/* Rechner-/Spiele-Kurzlinks: nur in der mobilen Icon-Leiter sichtbar
+   (V511). Auf Desktop bereits über die Hauptnavigation erreichbar,
+   deshalb hier standardmaessig ausgeblendet -- kein doppeltes Icon
+   in der normalen Header-Kontrollleiste. */
+.ladder-quick-link{ display:none; }
+
 .lang-toggle{
   display:inline-flex; align-items:center; justify-content:center;
   background:var(--bg-raised); border:1px solid var(--line-strong);
-  border-radius:0 var(--radius-lg) var(--radius-lg) 0; width:34px; height:34px; padding:0; cursor:pointer;
+  border-radius:0; width:34px; height:34px; padding:0; cursor:pointer;
   color:var(--ink-soft); font-family:'JetBrains Mono',monospace;
   font-size:.66rem; font-weight:600; letter-spacing:.02em;
   transition:border-color .2s ease, color .2s ease;
   margin-left:-15px;
 }
 .lang-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
-.lang-toggle[aria-pressed="true"]{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
+.lang-toggle[aria-pressed="true"]{ background:var(--blue-soft); outline:2px solid var(--blue); outline-offset:-1px; color:var(--blue); font-weight:700; position:relative; z-index:1; }
+
+/* ---------- OpenDyslexic: Legasthenie-freundliche Schrift, optional ----------
+   Lokal in fonts/opendyslexic/ eingebunden (SIL Open Font License), damit kein
+   externes Nachladen bei jedem Seitenaufbau nötig ist -- gleiches Prinzip wie
+   die übrigen lokal eingebundenen Schriften. Zusätzliche, unabhängige Option
+   neben der Schriftgrößen-Regelung, nicht deren Ersatz. */
+@font-face{
+  font-family:'OpenDyslexic';
+  src:url('fonts/opendyslexic/OpenDyslexic-Regular.woff') format('woff'),
+      url('fonts/opendyslexic/OpenDyslexic-Regular.ttf') format('truetype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'OpenDyslexic';
+  src:url('fonts/opendyslexic/OpenDyslexic-Bold.woff') format('woff'),
+      url('fonts/opendyslexic/OpenDyslexic-Bold.ttf') format('truetype');
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'OpenDyslexic';
+  src:url('fonts/opendyslexic/OpenDyslexic-Italic.woff') format('woff'),
+      url('fonts/opendyslexic/OpenDyslexic-Italic.ttf') format('truetype');
+  font-weight:400; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:'OpenDyslexic';
+  src:url('fonts/opendyslexic/OpenDyslexic-BoldItalic.woff') format('woff'),
+      url('fonts/opendyslexic/OpenDyslexic-BoldItalic.ttf') format('truetype');
+  font-weight:700; font-style:italic; font-display:swap;
+}
+/* Greift nur auf Fließtext-Elemente, nicht auf Icons/Logo/Zahlen-Mono-Schrift */
+html[data-dyslexic-font="on"] body,
+html[data-dyslexic-font="on"] p,
+html[data-dyslexic-font="on"] li,
+html[data-dyslexic-font="on"] h1,
+html[data-dyslexic-font="on"] h2,
+html[data-dyslexic-font="on"] h3,
+html[data-dyslexic-font="on"] .eyebrow,
+html[data-dyslexic-font="on"] label{
+  font-family:'OpenDyslexic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* ---------- A11y-Schalter im Secret Panel (Doppelklick aufs Logo) ----------
+   Bewusst nicht als sichtbarer Header-Button, sondern im ohnehin schon
+   vorhandenen "Weitere Bereiche"-Panel versteckt -- gleiche Logik wie die
+   Optionen-/Technik-Kurzlinks dort. */
+.fr-secret-a11y{ border-top:1px solid var(--line); padding-top:12px; margin-top:2px; }
+.fr-secret-a11y-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.fr-secret-a11y-label{ font-size:.85rem; color:var(--ink); }
+.fr-secret-a11y-switch{
+  position:relative; width:34px; height:18px; border-radius:10px;
+  background:var(--line-strong); border:none; padding:0; cursor:pointer; flex:none;
+  transition:background .2s ease;
+}
+.fr-secret-a11y-switch:hover{ outline:1.5px solid var(--blue); outline-offset:1px; }
+.fr-secret-a11y-switch[aria-pressed="true"]{ background:var(--blue); }
+.fr-secret-a11y-switch-dot{
+  position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%;
+  background:var(--bg); transition:transform .2s ease;
+}
+.fr-secret-a11y-switch[aria-pressed="true"] .fr-secret-a11y-switch-dot{ transform:translateX(16px); }
+
+/* Zweiter Schalter im Secret Panel: Mobile-Leiter-Test erzwingen (V512).
+   Gleicher Pill-Stil wie der Dyslexie-Schalter, eigene Zeile darunter. */
+.fr-secret-ladder-test{ border-top:1px solid var(--line); padding-top:10px; margin-top:8px; }
+.fr-secret-ladder-test .fr-secret-a11y-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+
+.simplelang-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+  border-radius:0 var(--radius-lg) var(--radius-lg) 0; width:34px; height:34px; padding:0; cursor:pointer;
+  color:var(--ink-soft); transition:border-color .2s ease, color .2s ease;
+  margin-left:-15px;
+}
+.simplelang-toggle svg{ width:16px; height:16px; display:block; }
+.simplelang-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
+.simplelang-toggle[aria-pressed="true"]{ background:var(--green-soft); outline:1.5px solid var(--green); outline-offset:-1px; box-shadow:inset 0 0 0 1px var(--green); color:var(--green); position:relative; z-index:2; }
 
 .contrast-toggle{
   display:inline-flex; align-items:center; justify-content:center;
@@ -576,7 +707,7 @@ input[type="range"].font-slider::-moz-range-thumb{
 }
 .contrast-toggle svg{ width:16px; height:16px; display:block; }
 .contrast-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
-.contrast-toggle[aria-pressed="true"]{ outline:1.5px solid var(--green); outline-offset:-1px; color:var(--green); position:relative; z-index:1; }
+.contrast-toggle[aria-pressed="true"]{ background:var(--green-soft); outline:1.5px solid var(--green); outline-offset:-1px; box-shadow:inset 0 0 0 1px var(--green); color:var(--green); position:relative; z-index:2; }
 
 .fullscreen-toggle{
   display:inline-flex; align-items:center; justify-content:center;
@@ -587,7 +718,7 @@ input[type="range"].font-slider::-moz-range-thumb{
 }
 .fullscreen-toggle svg{ width:16px; height:16px; display:block; }
 .fullscreen-toggle:hover{ outline:1.5px solid var(--blue); outline-offset:-1px; color:var(--blue); position:relative; z-index:1; }
-.fullscreen-toggle[aria-pressed="true"]{ outline:1.5px solid var(--green); outline-offset:-1px; color:var(--green); position:relative; z-index:1; }
+.fullscreen-toggle[aria-pressed="true"]{ outline:1.5px solid var(--green); outline-offset:-1px; box-shadow:inset 0 0 0 1px var(--green); color:var(--green); position:relative; z-index:2; }
 .fullscreen-toggle[hidden]{ display:none; }
 .fullscreen-toggle[hidden] + .lang-toggle{ margin-left:0; border-radius:var(--radius-lg); }
 
@@ -604,7 +735,7 @@ input[type="range"].font-slider::-moz-range-thumb{
 .nav-toggle{ display:none; }
 
 /* ============================= HERO ============================= */
-.hero{ position:relative; overflow:hidden; padding:88px 0 64px; }
+.hero{ position:relative; overflow:hidden; padding:46px 0 64px; }
 .hero-inner{
   position:relative; z-index:1;
   display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center;
@@ -613,6 +744,28 @@ input[type="range"].font-slider::-moz-range-thumb{
 .hero h1 .accent{ color:var(--green); }
 .hero p.lead{ font-size:calc(1.05rem * var(--step-user)); max-width:52ch; }
 .hero-cta{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+
+/* Lead-Absatz auf dem echten Handy: nimmt unbearbeitet zu viel Platz
+   ueber der "Fold" ein (Laptop/iPad haben genug Breite, dort bleibt er
+   unveraendert). Ab 560px klemmt der Text auf 4 Zeilen, ein
+   "Weiterlesen"-Button klappt den Rest bei Bedarf auf. */
+.lead-toggle{ display:none; }
+@media (max-width:560px){
+  .hero p.lead{
+    max-width:none;
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4;
+    overflow:hidden;
+  }
+  .hero p.lead.is-expanded{
+    display:block; -webkit-line-clamp:unset; overflow:visible;
+  }
+  .lead-toggle{
+    display:inline-flex; align-items:center; gap:4px;
+    background:none; border:none; padding:0; margin-top:8px;
+    color:var(--blue); font-size:.88rem; font-weight:600; cursor:pointer;
+  }
+  .lead-toggle:hover{ text-decoration:underline; }
+}
 
 .btn{
   display:inline-flex; align-items:center; gap:8px;
@@ -648,12 +801,22 @@ input[type="range"].font-slider::-moz-range-thumb{
    deshalb hier auf Weiß umschalten. Dunkel-Modus (auch mit Kontrast) bleibt
    unverändert, da --green dort weiterhin hell ist und dunkler Text passt. */
 html[data-theme="light"][data-contrast="high"] .btn-green,
-html[data-theme="light"][data-contrast="high"] .btn-green:hover{ color:#FFFFFF; }
+html[data-theme="light"][data-contrast="high"] .btn-green:hover{ color:#FFFFFF; background:#15803D; }
+/* Der Hintergrund braucht dieselbe Korrektur wie der Text: #00591F
+   (--green im Kontrastmodus) wirkt als Button-Flaeche fast schwarz.
+   #15803D ist ein sichtbar kraeftiges Gruen, das mit weissem Text
+   weiterhin die WCAG-AA-Kontrastanforderung erfuellt. */
 
 .hero-chart-box{
   position:relative;
   background:var(--bg-raised); border:1px solid var(--line);
   border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow);
+}
+.simplelang-homepage-warning{
+  display:flex; align-items:flex-start; gap:8px;
+  background:rgba(226,67,30,.12); border:1.5px solid var(--alert-bg);
+  border-radius:var(--radius); padding:10px 12px; margin-bottom:14px;
+  font-size:.78rem; line-height:1.45; color:var(--ink);
 }
 .hero-chart-box svg{ width:100%; height:auto; display:block; }
 .chart-caption{ display:flex; flex-direction:column; gap:4px; margin-top:10px; font-size:.72rem; color:var(--ink-soft); }
@@ -738,61 +901,13 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
 .alert-banner-close:hover{ background:rgba(255,255,255,.18); }
 
 /* =========================================================
-   INFO-DISCLAIMER-BANNER (blau, einmalig)
+   INFO-DISCLAIMER-BANNER (blau, einmalig) -- ENTFERNT (V1052)
+   Zugehoeriges HTML-Element wurde projektweit entfernt: schloss sich
+   per sessionStorage nach 5s automatisch selbst, ein dauerhaft
+   sichtbarer Rechtshinweis, der zeitweise verschwindet, ist rechtlich
+   riskant (Abmahnrisiko). Die gruene Disclaimer-Box ersetzt es
+   dauerhaft sichtbar, ohne Auto-Dismiss.
    ========================================================= */
-.info-banner{
-  position:fixed; top:0; left:0; right:0; z-index:205;
-  background:var(--blue); color:#fff;
-  box-shadow:0 2px 12px rgba(0,0,0,.25);
-  transform:translateY(-100%);
-  visibility:hidden;
-  transition:transform .35s cubic-bezier(.22,.68,0,1.2), visibility 0s linear .35s;
-}
-.info-banner.is-visible{
-  transform:translateY(0);
-  visibility:visible;
-  transition:transform .35s cubic-bezier(.22,.68,0,1.2), visibility 0s linear 0s;
-}
-.info-banner-inner{
-  max-width:1200px; margin:0 auto; padding:13px 16px;
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-}
-.info-banner-icon{
-  flex:none; width:20px; height:20px; opacity:.9; color:#fff;
-}
-.info-banner-text{
-  flex:1; font-size:.95rem; line-height:1.55; margin:0; color:#fff; font-weight:600;
-}
-.info-banner-text strong{ font-weight:800; color:#fff; }
-.info-banner-logo{
-  flex:none; height:44px; width:auto; opacity:.85;
-}
-@media(max-width:500px){ .info-banner-logo{ display:none; } }
-/* Kreis-Timer */
-.info-banner-timer{
-  flex:none; position:relative; width:36px; height:36px; cursor:pointer;
-  padding:0; margin:0; border:none; background:none; appearance:none;
-  -webkit-appearance:none; box-sizing:border-box; font:inherit; display:block;
-}
-.info-banner-timer svg{ position:absolute; top:0; left:0; transform:rotate(-90deg); }
-.info-banner-timer .timer-bg{
-  fill:none; stroke:rgba(255,255,255,.3); stroke-width:3;
-}
-.info-banner-timer .timer-arc{
-  fill:none; stroke:#fff; stroke-width:3;
-  stroke-linecap:round;
-  stroke-dasharray:91; stroke-dashoffset:0;
-  transition:stroke-dashoffset linear;
-}
-.info-banner-timer .timer-x{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  font-size:.75rem; color:#fff; font-weight:700; line-height:1;
-  pointer-events:none;
-}
-.info-banner-timer:hover .timer-arc{ stroke:rgba(255,255,255,.6); }
-@media(max-width:600px){
-  .info-banner-text{ font-size:.85rem; }
-}
 
 /* Glocke: nur sichtbar, wenn eine aktive Warnung gerade ausgeblendet ist */
 .alert-bell{
@@ -846,6 +961,9 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
   pointer-events:none;
 }
 .fr-easter-toast.is-visible{ opacity:1; transform:translate(-50%,0); }
+.fr-timer-toast{ font-variant-numeric:tabular-nums; }
+.fr-timer-toast .fr-timer-count{ font-weight:700; }
+.fr-timer-toast--warn .fr-timer-count{ color:#c0392b; }
 @media (prefers-reduced-motion: reduce){
   .fr-easter-glow{ animation:none; }
   .fr-easter-toast{ transition:none; }
@@ -919,19 +1037,20 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
   .header-controls{ gap:4px; }
   input[type="range"].font-slider{ width:36px; }
   .control{ gap:2px; }
-  .theme-toggle, .contrast-toggle, .fullscreen-toggle, .lang-toggle{ width:29px !important; height:29px !important; }
-  .theme-toggle svg, .contrast-toggle svg, .fullscreen-toggle svg{ width:14px !important; height:14px !important; }
+  .theme-toggle, .contrast-toggle, .fullscreen-toggle, .lang-toggle, .simplelang-toggle{ width:29px !important; height:29px !important; }
+  .theme-toggle svg, .contrast-toggle svg, .fullscreen-toggle svg, .simplelang-toggle svg{ width:14px !important; height:14px !important; }
   .theme-toggle .dot{ width:14px !important; height:14px !important; }
-  /* Lupe raus aus der staendig sichtbaren mobilen Leiste -- spart Platz,
-     die schwebende Lupe (.search-float) uebernimmt diese Aufgabe schon,
-     sobald der Header beim Scrollen verschwindet. */
-  .search-toggle{ display:none !important; }
+  /* Die Lupe bleibt auch mobil staendig erreichbar. Sie sitzt in der
+     Header-Control-Leiste und bleibt bewusst groesser als ein normales
+     Icon, damit sie als Suchfunktion sofort erkennbar ist. */
+  .search-toggle{ display:inline-flex !important; width:32px; height:32px; margin-left:0; margin-right:2px; }
+  .search-toggle svg{ width:30px; height:30px; }
   /* Die verbundenen Quadrate (Kontrast/Vollbild/EN) hatten ihre negativen
      Raender noch von der Desktop-Groesse (34px Buttons, 14px Luecke) --
      bei den kleineren mobilen 29px-Buttons und der auf 4px reduzierten
      Luecke ueberkorrigierte das und liess die Quadrate ineinander rutschen.
      Hier auf die tatsaechliche mobile Luecke neu kalibriert. */
-  .contrast-toggle, .fullscreen-toggle, .lang-toggle{ margin-left:-4px !important; }
+  .contrast-toggle, .fullscreen-toggle, .lang-toggle, .simplelang-toggle{ margin-left:-4px !important; }
   /* Hamburger: groesser, ohne Kasten-Rahmen -- wie in den meisten Apps
      ein reines, gut erkennbares Icon statt eines umrandeten Buttons,
      dazu deutlich mehr Abstand zur Icon-Leiste, damit man beim Tippen
@@ -940,12 +1059,9 @@ details.tool-details[open] > summary .tool-arrow{ border-color:var(--green); bac
   .nav-toggle{
     width:34px !important; height:34px !important; font-size:1.4rem !important; font-weight:700 !important;
     border:none !important; background:none !important; padding:0 !important;
-    margin-left:18px; line-height:1;
+    line-height:1;
     display:flex !important; align-items:center; justify-content:center;
   }
-}
-@media (max-width:340px){
-  .nav-toggle{ margin-left:12px !important; }
 }
 
 /* ============================= CALCULATOR ============================= */
@@ -1038,6 +1154,10 @@ input[type="range"].calc-slider{
   color:var(--green); background:var(--green-soft); border-radius:999px;
   padding:2px 9px; margin-bottom:8px;
 }
+.feed-item[data-gcat]{ border-left:3px solid var(--gcat-color, transparent); padding-left:14px; }
+.feed-item[data-gcat] .feed-cat{
+  color:var(--gcat-color, var(--green)); background:color-mix(in srgb, var(--gcat-color, var(--green)) 16%, transparent);
+}
 .feed-item p{ font-size:calc(.92rem * var(--step-user)); margin:0; }
 .feed-more{ text-align:center; margin-top:32px; }
 
@@ -1068,6 +1188,28 @@ a.cat-row-cover:hover{ border-color:var(--green); }
   display:inline-block; width:fit-content; font-size:.66rem; font-family:'JetBrains Mono',monospace;
   color:var(--blue); background:var(--blue-soft); border-radius:999px;
   padding:2px 8px;
+}
+/* ============================= GCAT (Glossar-Kategorie) Farbcodierung fuer Artikel =============================
+   Dieselben Farbwerte wie im Glossar (glossar.html), damit Artikel- und
+   Glossar-Ansicht konsistent wirken. Ueber data-gcat-Attribut auf
+   .cat-row bzw. .kat-card gesetzt (siehe frRenderCategoryPosts in
+   script.js). */
+[data-gcat="wirtschaft"]        { --gcat-color:#f0c14b; }
+[data-gcat="eu_recht"]          { --gcat-color:#5b9bf5; }
+[data-gcat="boerse"]            { --gcat-color:#f0914b; }
+[data-gcat="investment"]        { --gcat-color:#4dd9a0; }
+[data-gcat="crypto"]            { --gcat-color:#b57bef; }
+[data-gcat="karriere_learning"] { --gcat-color:#3fd6c8; }
+[data-gcat="absicherung"]       { --gcat-color:#ff8a70; }
+[data-gcat="allgemein_tech"]    { --gcat-color:#8fa3c4; }
+[data-gcat="allgemein"]         { --gcat-color:#98A2B3; }
+.cat-row[data-gcat]{ border-left:3px solid var(--gcat-color, transparent); padding-left:14px; }
+.cat-row[data-gcat] .cat-row-cat{
+  color:var(--gcat-color, var(--blue)); background:color-mix(in srgb, var(--gcat-color, var(--blue)) 16%, transparent);
+}
+.kat-card[data-gcat]{ border-left:3px solid var(--gcat-color, transparent); }
+.kat-card[data-gcat] .kat-card-tag{
+  color:var(--gcat-color, var(--blue)); background:color-mix(in srgb, var(--gcat-color, var(--blue)) 16%, transparent);
 }
 .placeholder-box{
   border:1px dashed var(--line-strong); border-radius:var(--radius-lg);
@@ -1114,6 +1256,12 @@ a.cat-row-cover:hover{ border-color:var(--green); }
   background:linear-gradient(120deg, var(--coffee-soft), transparent 65%);
 }
 .coffee-strip .fr-coffee-cup{ flex:0 0 auto; }
+.coffee-strip .fr-coffee-cup.fr-coffee-btn{
+  padding:8px; margin:0; background:transparent; border:1px solid transparent; border-radius:50%;
+}
+.coffee-strip .fr-coffee-cup.fr-coffee-btn:hover{
+  background:var(--coffee-soft); border-color:var(--coffee-line); transform:none; box-shadow:none;
+}
 .coffee-strip .fr-coffee-cup svg{ width:30px; height:30px; }
 .coffee-strip-text{ flex:1 1 320px; margin:0; font-size:.86rem; line-height:1.55; color:var(--ink-soft); }
 .coffee-strip .fr-coffee-btn{ flex:0 0 auto; margin:0; }
@@ -1136,6 +1284,14 @@ footer.site{ padding:48px 0 32px; }
 .social-links svg{ width:15px; height:15px; }
 .social-links--compact a{ width:26px; height:26px; }
 .social-links--compact svg{ width:13px; height:13px; }
+
+/* A11y-Link im Footer: gleiche Zeilenhöhe wie Copyright-/Links-Zeile daneben,
+   Emoji-Icon bewusst über eigene Zeilenhöhe gebremst (Systemschriften rendern
+   Symbol-Emoji sonst sichtbar größer als den umgebenden Fließtext). */
+.footer-a11y-link{ margin:0; font-size:.78rem; line-height:1.4; }
+.footer-a11y-link a{ display:inline-flex; align-items:center; gap:4px; color:var(--ink-soft); text-decoration:underline; }
+.footer-a11y-link a:hover{ color:var(--blue); }
+.footer-a11y-link .a11y-icon{ font-size:1em; line-height:1; display:inline-block; }
 
 .footer-newsletter{ display:flex; flex-direction:column; gap:8px; min-width:0; }
 .footer-newsletter input[type="email"]{
@@ -1195,8 +1351,8 @@ footer.site{ padding:48px 0 32px; }
 html[data-theme="light"][data-contrast="high"] .fr-lesson-next{ color:#FFFFFF; }
 
 .disclaimer-box{
-  margin-top:28px; padding:16px 18px; border-left:3px solid var(--green);
-  background:#D9F0E1; font-size:calc(.8rem * var(--step-user)); color:var(--ink-soft); border-radius:0 var(--radius) var(--radius) 0;
+  margin-top:28px; margin-bottom:28px; padding:16px 18px; border-left:3px solid var(--green);
+  background:#BFE8CE; font-size:.8rem; color:var(--ink-soft); border-radius:0 var(--radius) var(--radius) 0;
   box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);
   max-width:720px;
 }
@@ -1252,20 +1408,54 @@ html[data-theme="light"][data-contrast="high"] .fr-lesson-next{ color:#FFFFFF; }
 
 .shop-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 .product-card{
-  border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden;
-  background:var(--bg-raised); box-shadow:var(--shadow); display:flex; flex-direction:column;
+  position:relative; border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--bg-raised); box-shadow:var(--shadow); aspect-ratio:3/4;
 }
 .product-thumb{
-  aspect-ratio:4/3; background:
+  position:absolute; inset:0; background:
     linear-gradient(135deg, var(--blue-soft), var(--green-soft));
   display:flex; align-items:center; justify-content:center; color:var(--ink-soft);
 }
 .product-thumb--photo{ background:var(--bg); padding:0; }
 .product-thumb--photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-.product-body{ padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.product-body{
+  position:absolute; inset:0; padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px;
+  justify-content:flex-end;
+}
+.product-body,
+.product-body h3,
+.product-body p,
+.product-body .price,
+.product-body .product-price-note,
+.product-body .badge{
+  color:#fff;
+  text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 2px 8px rgba(0,0,0,.7);
+}
 .product-body h3{ font-size:calc(1rem * var(--step-user)); }
-.product-body .price{ font-size:1.05rem; font-weight:600; color:var(--green); margin-top:auto; }
+.product-body .price{ font-size:1.05rem; font-weight:600; margin-top:auto; }
+.product-price-note{ font-size:.72rem; font-weight:500; margin-top:-4px; }
+.product-body .badge{ background:rgba(0,0,0,.55); border-color:rgba(255,255,255,.4); }
 .product-body .btn{ margin-top:10px; justify-content:center; }
+/* Hover-Reveal nur auf echten Hover-Geraeten (Maus): Bild steht standardmaessig komplett
+   frei wie in einem Schaufenster, Text-Overlay blendet erst bei Hover/Tastatur-Fokus ein. */
+@media (hover:hover){
+  .product-body{
+    background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.55) 42%, rgba(0,0,0,.94) 100%);
+    opacity:0; transform:translateY(10px); transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+  }
+  .product-card:hover .product-body,
+  .product-card:focus-within .product-body{
+    opacity:1; transform:translateY(0); pointer-events:auto;
+  }
+}
+/* Touch-Geraete (Handy/Tablet) haben kein echtes Hover -- Text bleibt dort immer sichtbar,
+   mit demselben lesbaren Verlauf hinter dem Text, damit auf Mobile nichts verloren geht. */
+@media (hover:none){
+  .product-body{
+    background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.94) 100%);
+  }
+}
 .badge{
   align-self:flex-start; font-size:.68rem; font-family:'JetBrains Mono',monospace;
   background:var(--blue-soft); color:var(--blue); padding:3px 9px; border-radius:999px;
@@ -1295,7 +1485,7 @@ html[data-theme="light"][data-contrast="high"] .fr-lesson-next{ color:#FFFFFF; }
   font-size:.78rem; background:var(--green-soft); color:var(--green); padding:6px 12px; border-radius:999px;
 }
 
-.legal h2{ font-size:calc(1.15rem * var(--step-user)); margin:34px 0 10px; }
+.legal h2{ font-size:calc(1.35rem * var(--step-user)); margin:34px 0 10px; }
 .legal p, .legal li{ color:var(--ink-soft); font-size:calc(.94rem * var(--step-user)); }
 .legal ul{ padding-left:20px; }
 
@@ -1313,22 +1503,46 @@ html[data-theme="light"][data-contrast="high"] .fr-lesson-next{ color:#FFFFFF; }
     display:flex; background:none; border:1px solid var(--line-strong); border-radius:var(--radius);
     padding:8px 10px; color:var(--ink); cursor:pointer;
   }
+  /* Fix: Auf Mobil klebte die gesamte Icon-Leiste (Aa-Regler + Icon-
+     Gruppe + Hamburger) als EIN Block am rechten Rand, weil
+     .header-inner nur zwischen Logo und .header-controls space-between
+     macht -- das liess die Icon-Gruppe optisch nach links verschoben
+     wirken (grosse Luecke zum Logo, alles Weitere eng zusammengequetscht),
+     und der Hamburger hing nur an einem festen 18px-Abstand, der bei
+     schmalen Bildschirmen ueberlaufen und den Button vom sichtbaren
+     Bereich schieben konnte.
+     Loesung: .header-controls nimmt den gesamten verbleibenden Platz
+     ein (flex:1) und zentriert seine Kinder darin -- die Icon-Gruppe
+     sitzt dadurch tatsaechlich mittig im verfuegbaren Raum. Der
+     Hamburger bekommt margin-left:auto, was in Flexbox automatisch
+     den gesamten uebrigen Platz auf seiner linken Seite aufsaugt und
+     ihn damit garantiert an die tatsaechliche rechte Kante von
+     .header-controls draengt -- unabhaengig von der Bildschirmbreite,
+     nie ueberlaufend, nie abgeschnitten. */
+  .header-controls{ flex:1; justify-content:center; }
+  .nav-toggle{ margin-left:auto !important; }
   .hero-inner{ grid-template-columns:1fr; }
   .calc-card{ grid-template-columns:1fr; }
   .twoup{ grid-template-columns:1fr; }
+  /* Footer: Logo/Social (1.) und Newsletter (4.) bleiben ueber die volle
+     Breite, Kategorien (2.) und Rechtliches (3.) werden gezielt als
+     eigenes Paar nebeneinander gehalten -- unabhaengig von der
+     Bildschirmbreite, auch wenn alles andere schon einspaltig stapelt.
+     Reine nth-child-Zuordnung auf den bestehenden 4 Grid-Kindern, keine
+     HTML-Aenderung noetig (Footer-Markup ist auf allen Seiten identisch). */
   .footer-grid{ grid-template-columns:1fr 1fr; }
+  .footer-grid > *:nth-child(1){ grid-column:1 / -1; }
+  .footer-grid > *:nth-child(2){ grid-column:1; }
+  .footer-grid > *:nth-child(3){ grid-column:2; }
+  .footer-grid > *:nth-child(4){ grid-column:1 / -1; }
   .shop-grid{ grid-template-columns:1fr 1fr; }
   .vip-wrap{ grid-template-columns:1fr; }
   .feed-item{ grid-template-columns:1fr; gap:4px; }
 }
 @media (max-width: 560px){
   .shop-grid{ grid-template-columns:1fr; }
-  .footer-grid{ grid-template-columns:1fr 1fr; }
   .footer-grid > *{ min-width:0; }
   .header-controls .control label{ display:none; }
-}
-@media (max-width:420px){
-  .footer-grid{ grid-template-columns:1fr; }
 }
 
 /* ============================================================
@@ -1487,6 +1701,13 @@ html[data-theme="dark"] body{ font-weight:400; }
 .fr-coffee-float .fr-steam-2{ animation-delay:.3s; }
 .fr-coffee-float .fr-steam-3{ animation-delay:.6s; }
 
+/* Gag auf Wunsch: die Tasse im Coffee-Strip auf der Landingpage dampft
+   ebenfalls dauerhaft -- bewusste Ausnahme von der obigen "sonst zu
+   unruhig"-Entscheidung, hier extra so gewollt. */
+.coffee-strip .fr-steam{ animation:fr-steam-rise 2s ease-in-out infinite; }
+.coffee-strip .fr-steam-2{ animation-delay:.3s; }
+.coffee-strip .fr-steam-3{ animation-delay:.6s; }
+
 /* Button ohne hinterlegten Link: sichtbar, aber klar inaktiv */
 .fr-coffee-btn.is-disabled{
   opacity:.5; cursor:not-allowed; pointer-events:none; filter:grayscale(.5);
@@ -1527,12 +1748,32 @@ html[data-theme="dark"] body{ font-weight:400; }
 }
 
 /* ============================================================
+   SKIP-LINKS (Barrierefreiheit — per Tab direkt zu Hauptinhalt/EN)
+   ============================================================ */
+.skip-link{
+  position:absolute; top:-80px; left:8px; z-index:9999;
+  background:var(--green); color:#062015;
+  padding:10px 16px; border-radius:var(--radius);
+  font-weight:700; font-size:.9rem; text-decoration:none;
+  transition:top .15s ease;
+}
+.skip-link:focus{ top:8px; outline:2px solid var(--ink); outline-offset:2px; }
+.skip-link:nth-of-type(2):focus{ top:56px; }
+
+/* ============================================================
+   FOOTER-TICKER ("Dauerwerbesendung"-Laufband) -- ENTFERNT (V1052)
+   Zugehoeriges HTML-Element wurde projektweit entfernt (dismissible/
+   verschwindender Laufschrift-Hinweis, Abmahnrisiko + auf Mobil
+   unnoetig). Die gruene Disclaimer-Box ersetzt es dauerhaft sichtbar.
+   ============================================================ */
+
+/* ============================================================
    NAV-DROPDOWN (Unterkategorien in Finanzen/Minimalismus)
    ============================================================ */
 .nav-drop{ position:relative; }
 .nav-drop-toggle{
   background:none; border:none; font:inherit; cursor:pointer;
-  color:var(--ink-soft); font-size:.92rem; font-weight:500;
+  color:var(--ink-soft); font-size:.92rem; font-weight:600;
   padding:8px 10px 8px 12px; border-radius:var(--radius);
   display:inline-flex; align-items:center; gap:5px;
   transition:color .15s ease, background .15s ease;
@@ -1567,17 +1808,18 @@ html[data-theme="dark"] body{ font-weight:400; }
 }
 .nav-drop-panel a.nav-drop-all::before{ content:""; width:14px; height:2px; background:var(--green); display:inline-block; flex:none; }
 .nav-drop-panel a.nav-drop-all:hover{ background:var(--green-soft); color:var(--green); }
-.nav-drop-panel a.nav-sub-link{ display:flex; align-items:center; gap:9px; }
+.nav-drop-panel a.nav-sub-link{ display:flex; align-items:center; gap:9px; font-weight:400; }
 .nav-sub-icon{ display:inline-flex; align-items:center; justify-content:center; flex:none; color:var(--ink-soft); transition:color .15s ease; }
 .nav-sub-icon svg{ width:15px; height:15px; display:block; }
 .nav-drop-panel a.nav-sub-link:hover .nav-sub-icon,
 .nav-drop-panel a.nav-sub-link.is-active .nav-sub-icon{ color:var(--blue); }
+.nav-drop-panel a.nav-wegweiser{ color:var(--green); background:var(--green-soft); border-radius:var(--radius); }
+.nav-drop-panel a.nav-wegweiser:hover{ color:var(--green); background:var(--green-soft); }
 .nav-wegweiser .nav-sub-icon{ color:var(--green); }
 .nav-wegweiser:hover .nav-sub-icon{ color:var(--green); }
 .nav-sub-link--game .nav-sub-icon{ color:var(--green); }
 .nav-sub-link--game:hover{ background:var(--green-soft); }
 .nav-sub-link--game .nav-sub-count{ color:var(--green); font-weight:700; }
-.nav-wegweiser:hover{ color:var(--green); }
 .nav-sub-label{ flex:1; }
 .nav-group-label{
   font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.08em; text-transform:uppercase;
@@ -1794,6 +2036,13 @@ a.kat-card-icon--cover:hover{ border-color:var(--green); }
   .pull-quote p{ font-size:calc(1.05rem * var(--step-user)); }
 }
 
+/* V531: .ss-insight-box is the second green article-box family.
+   Keep its typography stable at high zoom just like the disclaimer box. */
+.ss-insight-box p {
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
 /* ============================= INFO-BOX / TIP-BOX ============================= */
 /* Bisher nur lokal in beitrag-etf-sparplan-fuer-anfaenger.html definiert,
    jetzt global — wird für den Retrofit mehrerer textlastiger Artikel
@@ -1810,6 +2059,12 @@ a.kat-card-icon--cover:hover{ border-color:var(--green); }
   border-left-color: var(--green);
   background: var(--green-soft);
 }
+/* V531: green info boxes stay on the same zoom-stable contract as the
+   disclaimer boxes; the box itself must not acquire height from zoom padding. */
+.info-box.is-green {
+  padding: 16px 20px;
+}
+
 .info-box-label {
   font-size: .7rem;
   font-weight: 700;
@@ -1879,7 +2134,31 @@ a.kat-card-icon--cover:hover{ border-color:var(--green); }
   position:relative; display:inline-block; cursor:help;
   border-bottom:1.5px dotted var(--ink-soft);
 }
+/* ---------- Eingebettetes Kurzvideo (0,00 EUR Serverlast, extern gehostet) ---------- */
+.fr-video-embed{
+  max-width:360px; margin:2rem auto; border:1px solid var(--line);
+  border-radius:var(--radius-lg); overflow:hidden; background:var(--bg-raised);
+  box-shadow:var(--shadow);
+}
+.fr-video-embed-frame{ position:relative; width:100%; aspect-ratio:9/16; }
+.fr-video-embed-frame iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+
 .term-tip:hover, .term-tip.is-open{ border-bottom-color:var(--blue); }
+
+/* ---------- Dev-Mode: Glossar-Signifikanz sichtbar machen (nur bei ?devmode=glossary) ---------- */
+.fr-devmode-generic{ background:rgba(226,105,75,.18); border-bottom:2px solid #e2694b !important; }
+.fr-devmode-significant{ background:rgba(35,134,54,.14); border-bottom:2px solid #238636 !important; }
+.fr-devmode-panel{
+  position:fixed; bottom:16px; right:16px; z-index:9998;
+  background:#12161d; color:#f5f7fb; border:1px solid #303846; border-radius:10px;
+  padding:12px 16px; font:13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  box-shadow:0 8px 24px rgba(0,0,0,.4); max-width:280px;
+}
+.fr-devmode-panel strong{ display:block; margin-bottom:6px; color:#00c8ff; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; }
+.fr-devmode-panel .fr-devmode-row{ display:flex; justify-content:space-between; gap:12px; margin:2px 0; }
+.fr-devmode-panel .fr-devmode-term-list{ margin-top:8px; padding-top:8px; border-top:1px solid #303846; max-height:160px; overflow-y:auto; }
+.fr-devmode-panel .fr-devmode-term-list span{ display:inline-block; margin:1px 3px 1px 0; padding:1px 6px; border-radius:4px; font-size:.72rem; }
+
 .term-tip-popup{
   position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%) translateY(4px);
   width:300px; max-width:82vw; background:#16233D; color:#fff;
@@ -1918,3 +2197,554 @@ a.kat-card-icon--cover:hover{ border-color:var(--green); }
 @media(max-width:480px){
   .term-tip-popup{ width:260px; font-size:.8rem; }
 }
+
+/* Kategorie-Farbcodierung fuer Glossar-Tooltips (Fly-over-Fenster).
+   Eine CSS-Variable pro Kategorie, generische Regeln nutzen sie --
+   neue Kategorien brauchen dadurch nur eine Zeile, keine Duplikation. */
+.term-tip[data-cat="wirtschaft"]        { --cat-color:#f0c14b; }
+.term-tip[data-cat="eu_recht"]          { --cat-color:#5b9bf5; }
+.term-tip[data-cat="boerse"]            { --cat-color:#f0914b; }
+.term-tip[data-cat="investment"]        { --cat-color:#4dd9a0; }
+.term-tip[data-cat="crypto"]            { --cat-color:#b57bef; }
+.term-tip[data-cat="karriere_learning"] { --cat-color:#3fd6c8; }
+.term-tip[data-cat="absicherung"]       { --cat-color:#ff8a70; }
+.term-tip[data-cat="allgemein_tech"]    { --cat-color:#8fa3c4; }
+.term-tip[data-cat="allgemein"]         { --cat-color:#98A2B3; }
+.term-tip[data-cat] .term-tip-popup{ border-left:3px solid var(--cat-color, transparent); }
+.term-tip[data-cat] .term-tip-popup .term-tip-label{ color:var(--cat-color, #98A2B3); }
+
+/* ============================================================
+   LEUCHTSTIFT — Kernaussagen-Hervorhebung (dauerhaft, jederzeit nutzbar)
+   ============================================================
+   Anders als der Testphasen-Marker unten NICHT an den Einfache-
+   Sprache-Schalter gekoppelt: Kernaussagen hervorzuheben ist auch in
+   noch nicht komplett vereinfachten Artikeln sinnvoll. Einsatz direkt
+   im Artikeltext: <mark class="leuchtstift">Kernaussage</mark>.
+   Gelb (nicht Gruen) -- trifft die eigentliche Textmarker-Assoziation,
+   konsistent mit dem Testphasen-Marker-Gelbton weiter unten. */
+mark.leuchtstift{
+  background:#FFD500; color:#111; padding:2px 6px; border-radius:3px;
+  font-weight:600; box-decoration-break:clone; -webkit-box-decoration-break:clone;
+}
+[data-theme="dark"] mark.leuchtstift{ color:#111; }
+
+/* ============================================================
+   TESTPHASE — "EINFACHE SPRACHE"-PILOT-MARKER
+   ============================================================
+   NUR FUER DIE TESTPHASE. Gelber Rand-Strich (Textmarker-Optik) an
+   Seiten, die probeweise nach den Einfache-Sprache-Prinzipien
+   ueberarbeitet wurden (kurze Saetze, wenig Fachbegriffe, mehr
+   Glossar-Verlinkung, <mark>-Hervorhebungen). Bewusst als EIN
+   zentraler, klar markierter Block angelegt: zum Entfernen reicht es,
+   diesen kompletten Abschnitt zu loeschen und die Klasse
+   "simple-lang-pilot" aus den betroffenen Seiten zu entfernen -- keine
+   Suche quer durchs Projekt noetig.
+
+   Zwei Teile, die zusammenspielen:
+   1. Die Klasse "simple-lang-pilot" auf <article>/<section> ist das
+      Seiten-TOKEN -- markiert, dass DIESE Seite bereits eine
+      ueberarbeitete Einfache-Sprache-Fassung hat. Wird von
+      simplelangInit() in script.js beim Laden abgefragt.
+   2. Sichtbar wird der Marker erst, wenn der globale Kopfzeilen-
+      Schalter (Feder-Icon) aktiv ist -- html[data-simple-lang="on"].
+      Auf Seiten ohne das Token bleibt der Schalter wirkungslos (keine
+      falschen gelben Balken auf noch nicht ueberarbeiteten Seiten).
+   Wirkt identisch in DE und EN, da rein CSS-basiert.
+
+   WICHTIG (Korrektur): Rand-Strich, Eck-Kreis und <mark>-Hervorhebung
+   auf Pilot-Seiten sind UNCONDITIONAL -- sie zeigen "das hier IST die
+   einfache Fassung" und sollen deshalb immer sichtbar sein, sobald man
+   auf so einer Seite ist, egal ob man ueber den Schalter oder einen
+   normalen Link/Lesezeichen dorthin gelangt ist. Vorher haengte das
+   zusaetzlich am globalen Schalter-Zustand (data-simple-lang="on") --
+   das erzeugte genau den gemeldeten Glitch: Direktaufruf einer
+   -einfach-Seite zeigte den Strich nicht, weil der Schalter (aus einer
+   frueheren Seite/Sitzung) noch auf "aus" stand. Der Kreis auf
+   NORMALEN Seiten (ohne Token) bleibt weiterhin an den Schalter
+   gekoppelt -- dort signalisiert er "Testmodus aktiv, hier fehlt noch
+   die einfache Fassung", das ist ein bewusst anderer Anwendungsfall. */
+/* Gelber Punkt-Badge auf SCHWEREN Artikeln, die bereits eine leichte
+   Gegenseite haben -- IMMER sichtbar, unabhaengig vom Schalter-
+   Zustand (User-Wunsch: nicht auf jeder Seite erst den Schalter
+   druecken muessen, um zu sehen, ob es schon eine einfache Fassung
+   gibt). Anders als der reine CSS-Marker oben ist das ein echtes,
+   klickbares <a>-Element -- wird von script.js eingefuegt, siehe
+   simplelangInit() -> addSimpleLinkBadge(). */
+.simple-link-badge{
+  position:absolute; top:6px; left:6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#FFD500; box-shadow:0 0 0 2px var(--bg), 0 1px 4px rgba(0,0,0,.3);
+  z-index:3; display:block; cursor:pointer;
+  transition:transform .15s ease;
+}
+.simple-link-badge:hover,
+.simple-link-badge:focus-visible{ transform:scale(1.25); outline:2px solid var(--ink); outline-offset:2px; }
+
+/* Genauigkeits-Hinweis, automatisch von script.js unter die gruene
+   "Zu dieser Seite"-Info-Box gesetzt (addSimplelangAccuracyNote()) --
+   NUR fuer die Testphase, wie der Rest dieses Abschnitts. Absichtlich
+   dezent (kein weiterer Warnfarbton), da es kein Sicherheits- oder
+   Rechtshinweis ist, sondern nur ein Genauigkeits-Disclaimer. */
+.simplelang-accuracy-note{
+  font-size:.78rem; color:var(--ink-soft); font-style:italic;
+  margin:0 0 24px; padding:0 2px;
+}
+
+.simple-lang-pilot .wrap{
+  border-left:5px solid #FFD500;
+  padding-left:20px;
+  border-radius:2px;
+}
+@media(max-width:640px){
+  .simple-lang-pilot .wrap{ padding-left:14px; border-left-width:4px; }
+}
+/* V550: Gelber Kreis auf Leicht-Seiten entfernt -- der gelbe Strich
+   oben (.wrap border-left) reicht als Marker bereits aus. Punkt bleibt
+   exklusiv den SCHWEREN Seiten vorbehalten (.simple-link-badge, unten),
+   wo er echte Zusatzinformation traegt ("hier gibt es eine Leicht-
+   Fassung, klick um hinzuspringen"). */
+.simple-lang-pilot{ position:relative; }
+/* Gelber Kreis auf NORMALEN Seiten (ohne Token) -- bleibt an den
+   globalen Schalter gekoppelt: signalisiert "Testmodus an, hier fehlt
+   noch die einfache Fassung", zusammen mit dem Hinweisfenster von
+   script.js. */
+html[data-simple-lang="on"] body:not([data-simple-link]) .section.legal:not(.simple-lang-pilot){ position:relative; }
+html[data-simple-lang="on"] body:not([data-simple-link]) .section.legal:not(.simple-lang-pilot)::before{
+  content:""; position:absolute; top:6px; left:6px;
+  width:16px; height:16px; border-radius:50%;
+  background:#FFD500; box-shadow:0 0 0 2px var(--bg), 0 1px 4px rgba(0,0,0,.3);
+  z-index:3; pointer-events:none;
+}
+/* Kernaussagen-Hervorhebung auf Pilot-Seiten -- ebenfalls unconditional
+   (semantisches <mark>, nutzt das bestehende Farbsystem statt
+   Inline-Styles). */
+.simple-lang-pilot mark{
+  background:#FFD500; color:#111; padding:1px 4px; border-radius:3px;
+  font-weight:600; box-decoration-break:clone; -webkit-box-decoration-break:clone;
+}
+[data-theme="dark"] .simple-lang-pilot mark{ color:#111; }
+/* Glossar-Tooltip-Unterstreichung ist normalerweise hellgrau
+   (var(--ink-soft)) -- auf gelbem Leuchtstift-Hintergrund praktisch
+   unsichtbar. Innerhalb von <mark> auf dunkel/kontraststark umstellen. */
+.simple-lang-pilot mark .term-tip{ border-bottom-color:#111; }
+.simple-lang-pilot mark .term-tip:hover,
+.simple-lang-pilot mark .term-tip.is-open{ border-bottom-color:#0a2540; }
+
+/* Kleiner, dezenter Hinweis auf Seiten OHNE Token, wenn der Schalter
+   trotzdem aktiv ist -- wird von script.js dynamisch eingefuegt, nicht
+   fest im HTML jeder Seite, damit nichts gepflegt werden muss. */
+.simplelang-missing-note{
+  max-width:760px; margin:0 auto 20px; padding:10px 16px;
+  background:var(--bg-raised); border:1px dashed var(--line-strong);
+  border-radius:var(--radius); font-size:.82rem; color:var(--ink-soft);
+}
+
+/* Kompakte Zwei-Spalten-Darstellung fuer reine Markennamen-Listen
+   (z. B. Second-Hand-Markenlisten) -- CSS-Multicolumn statt Grid, da
+   sich kurze Eintraege dann natuerlich von oben nach unten auffuellen,
+   ohne dass jede Spalte manuell befuellt werden muss. */
+ul.brand-list{
+  column-count:2; column-gap:24px; margin:10px 0 20px;
+}
+ul.brand-list li{ break-inside:avoid; margin-bottom:4px; }
+@media(max-width:480px){
+  ul.brand-list{ column-count:1; }
+}
+
+
+/* FR_CROSS_DOCUMENT_VIEW_TRANSITION */
+/* Schwer <-> Einfach soll beim Seitenwechsel nicht kurz als weiße
+   Browser-Zwischenseite erscheinen. Moderne Browser können bei
+   gleich-origin Navigationen einen Cross-Document-View-Transition
+   durchführen. Ältere Browser ignorieren diese Regeln vollständig. */
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 110ms;
+  animation-timing-function: ease-out;
+}
+::view-transition-old(root) { animation-name: fade-out; }
+::view-transition-new(root) { animation-name: fade-in; }
+@keyframes fade-out { from { opacity: 1; } to { opacity: .92; } }
+@keyframes fade-in { from { opacity: .92; } to { opacity: 1; } }
+
+
+/* ---------- Ruhiger Schwer/Einfach-Seitenübergang ----------
+   Kein weißer Blitz beim Wechsel zwischen zwei statischen HTML-Dokumenten.
+   Der Zielartikel startet mit einer vollflächigen Hintergrundebene, die
+   bereits vor dem ersten sichtbaren Seitenaufbau vorhanden ist und erst
+   nach dem vollständigen Laden sanft verschwindet. DE/EN bleibt davon
+   unberührt, weil dieser Wechsel innerhalb derselben Seite erfolgt. */
+html.fr-simple-transition-active::before{
+  content:""; position:fixed; inset:0; z-index:2147483647; pointer-events:none;
+  background:#F4F5F7; opacity:1;
+  transition:opacity .10s ease-out;
+}
+html.fr-simple-transition-active[data-theme="dark"]::before{ background:#10151C; }
+html.fr-simple-transition-active[data-theme="light"][data-contrast="high"]::before{ background:#FFFFFF; }
+html.fr-simple-transition-active[data-theme="dark"][data-contrast="high"]::before{ background:#000000; }
+html.fr-simple-transition-done::before{ opacity:0; }
+
+/* ============================================================
+   V500 — MOBILE ICON-LEITER
+   Konzept: Antippen -> Leiter fixieren -> vertikal wischen ->
+   gewünschtes Element hervorheben -> kurzer Wisch bestätigt.
+   V510: Schwellenwert rein breitenbasiert (max-width:900px), nicht mehr
+   an pointer:coarse gekoppelt -- siehe script.js isNarrow(). Dadurch
+   erscheint die Leiter auch bei Maus-Bedienung, sobald Fenster/Zoom
+   unter 900px fallen. Tastaturbedienung bleibt unverändert.
+   ============================================================ */
+
+/* V514 -- Idle-Hinweis: kleine blaue Pille am rechten Bildschirmrand,
+   sichtbar bevor die Leiter geoeffnet wird. Deutet an "hier gibt es ein
+   Menue, nach rechts ausgeblendet" -- Teil des urspruenglichen Konzepts,
+   bisher gefehlt. Wird per JS erzeugt (frInitLadderHint, script.js) und
+   automatisch ausgeblendet, sobald die Leiter tatsaechlich offen ist
+   (html.fr-mobile-ladder-open). V517: jetzt klickbar -- oeffnet die
+   Leiter direkt, statt rein dekorativ zu sein. Die sichtbare Pille
+   bleibt schmal (4x40px, per ::after), das Element selbst ist breiter
+   (28px, unsichtbar) fuer ein bequemes Touch-/Maus-Ziel.
+   V519: Selektor um html.fr-force-ladder erweitert -- bisher nur bei
+   echter schmaler Breite sichtbar, im Force-Test (breiter Desktop-
+   Bildschirm) griff die Medienabfrage nie, die Pille war dadurch fuer
+   Tester praktisch unsichtbar. */
+@media (max-width:900px){
+  .fr-ladder-hint{ display:block; }
+}
+html.fr-force-ladder .fr-ladder-hint{ display:block; }
+.fr-ladder-hint{
+  display:none;
+  position:fixed;
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  padding:0;
+  margin:0;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  width:28px;
+  height:56px;
+  background:transparent;
+  z-index:1100;
+  cursor:pointer;
+  transition:opacity .15s ease;
+}
+.fr-ladder-hint::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  width:4px;
+  height:40px;
+  background:var(--blue);
+  border-radius:4px 0 0 4px;
+  opacity:.65;
+  transition:opacity .15s ease, width .15s ease;
+}
+.fr-ladder-hint:hover::after,
+.fr-ladder-hint:focus-visible::after{ opacity:1; width:6px; }
+.fr-ladder-hint:focus-visible{ outline:none; box-shadow:0 0 0 2px var(--blue); border-radius:4px 0 0 4px; }
+html.fr-mobile-ladder-open .fr-ladder-hint{ opacity:0; pointer-events:none; }
+
+@media (max-width:900px){
+  .header-controls.fr-touch-ladder{
+    position:fixed;
+    top:50%;
+    right:10px;
+    transform:translateY(-50%);
+    z-index:1200;
+    flex:0 0 auto;
+    width:54px;
+    max-height:calc(100vh - 28px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:7px 5px;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:stretch;
+    gap:5px;
+    background:color-mix(in srgb, var(--bg-raised) 94%, transparent);
+    border:1px solid var(--line-strong);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    touch-action:none;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .header-controls.fr-touch-ladder::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:rgba(0,0,0,.10);
+    pointer-events:none;
+  }
+  .header-controls.fr-touch-ladder > .font-stepper,
+  .header-controls.fr-touch-ladder > button,
+  .header-controls.fr-touch-ladder > a{
+    margin:0 !important;
+    flex:0 0 44px;
+    width:44px !important;
+    min-width:44px;
+    height:44px !important;
+    border-radius:12px !important;
+    outline:none;
+    transition:transform .12s ease, background-color .12s ease, color .12s ease, box-shadow .12s ease;
+  }
+  .header-controls.fr-touch-ladder > .ladder-quick-link{
+    display:inline-flex !important; align-items:center; justify-content:center;
+    background:var(--bg-raised); border:1px solid var(--line-strong); color:var(--ink-soft);
+  }
+  .header-controls.fr-touch-ladder > .font-stepper{
+    display:flex;
+    padding:2px;
+    gap:1px;
+    background:var(--bg-raised);
+    border:1px solid var(--line-strong);
+  }
+  .header-controls.fr-touch-ladder > .font-stepper .font-stepper-btn{
+    width:19px;
+    min-width:19px;
+    height:38px;
+    padding:0;
+    font-size:.95rem;
+  }
+  .header-controls.fr-touch-ladder > .font-stepper .font-stepper-label{ display:none; }
+  .header-controls.fr-touch-ladder > button svg,
+  .header-controls.fr-touch-ladder > button .dot,
+  .header-controls.fr-touch-ladder > a svg{
+    width:20px !important;
+    height:20px !important;
+  }
+  .header-controls.fr-touch-ladder > button.fr-ladder-selected,
+  .header-controls.fr-touch-ladder > a.fr-ladder-selected,
+  .header-controls.fr-touch-ladder > .font-stepper.fr-ladder-selected{
+    transform:scale(1.08);
+    background:var(--green-soft);
+    color:var(--green);
+    box-shadow:0 0 0 2px var(--green), 0 4px 14px rgba(0,0,0,.16);
+    position:relative;
+    z-index:2;
+  }
+  .header-controls.fr-touch-ladder > button.fr-ladder-selected::after,
+  .header-controls.fr-touch-ladder > a.fr-ladder-selected::after,
+  .header-controls.fr-touch-ladder > .font-stepper.fr-ladder-selected::after{
+    content:"";
+    position:absolute;
+    left:-8px;
+    top:50%;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--green);
+    transform:translateY(-50%);
+  }
+  .header-controls.fr-touch-ladder > .alert-test-btn{ display:none; }
+  /* V522: Der Hamburger ist ein vollwertiges Leiter-Feld. Das bisherige
+     Textzeichen war in der vergroesserten Leiter optisch nicht sauber
+     zentriert. Deshalb wird hier ein echtes, geometrisch zentriertes
+     Drei-Linien-Symbol gezeichnet. Das Feld bleibt der bestehende
+     #nav-toggle-Button und oeffnet direkt das Hauptmenue. */
+  .header-controls.fr-touch-ladder > .nav-toggle{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:44px !important;
+    min-width:44px !important;
+    height:44px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:1px solid var(--line-strong) !important;
+    border-radius:12px !important;
+    background:var(--bg-raised) !important;
+    color:var(--ink-soft) !important;
+    font-size:0 !important;
+    line-height:0 !important;
+  }
+  .header-controls.fr-touch-ladder > .nav-toggle::before{
+    content:"";
+    display:block;
+    width:22px;
+    height:16px;
+    background:
+      linear-gradient(currentColor,currentColor) 0 0/100% 2px no-repeat,
+      linear-gradient(currentColor,currentColor) 0 7px/100% 2px no-repeat,
+      linear-gradient(currentColor,currentColor) 0 14px/100% 2px no-repeat;
+    border-radius:2px;
+  }
+  .header-controls.fr-touch-ladder > .nav-toggle:hover{
+    color:var(--blue) !important;
+    border-color:var(--blue) !important;
+  }
+  .header-controls.fr-touch-ladder > .nav-toggle.fr-ladder-selected{
+    background:var(--green-soft) !important;
+    color:var(--green) !important;
+  }
+  /* V518: .nav-toggle bleibt damit als regulaerer, auswaehlbarer Eintrag
+     in der Leiter erhalten und ist auch auf dem Desktop-Testmodus sichtbar. */
+}
+/* V512 -- Test-Erzwingung unabhaengig von der Fensterbreite: Wenn der
+   Nutzer den Schalter im Secret Panel aktiviert, bekommt <html> die
+   Klasse fr-force-ladder. Dieselben Regeln wie oben, nur nicht an
+   max-width:900px gebunden -- damit laesst sich die Leiter auf jedem
+   Bildschirm testen, unabhaengig von echter Fenstergroesse oder Zoom. */
+  html.fr-force-ladder .header-controls.fr-touch-ladder{
+    position:fixed !important;
+    top:50% !important;
+    right:10px !important;
+    left:auto !important;
+    bottom:auto !important;
+    transform:translateY(-50%) !important;
+    z-index:1200;
+    flex:0 0 auto;
+    width:54px;
+    max-height:calc(100vh - 28px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:7px 5px;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:stretch;
+    gap:5px;
+    background:color-mix(in srgb, var(--bg-raised) 94%, transparent);
+    border:1px solid var(--line-strong);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    touch-action:none;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:rgba(0,0,0,.10);
+    pointer-events:none;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .control{ display:none !important; }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .font-stepper,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > button,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > a{
+    margin:0 !important;
+    flex:0 0 44px;
+    width:44px !important;
+    min-width:44px;
+    height:44px !important;
+    border-radius:12px !important;
+    outline:none;
+    transition:transform .12s ease, background-color .12s ease, color .12s ease, box-shadow .12s ease;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .ladder-quick-link{
+    display:inline-flex !important; align-items:center; justify-content:center;
+    background:var(--bg-raised); border:1px solid var(--line-strong); color:var(--ink-soft);
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .font-stepper{
+    display:flex;
+    padding:2px;
+    gap:1px;
+    background:var(--bg-raised);
+    border:1px solid var(--line-strong);
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .font-stepper .font-stepper-btn{
+    width:19px;
+    min-width:19px;
+    height:38px;
+    padding:0;
+    font-size:.95rem;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .font-stepper .font-stepper-label{ display:none; }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > button svg,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > button .dot,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > a svg{
+    width:20px !important;
+    height:20px !important;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > button.fr-ladder-selected,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > a.fr-ladder-selected,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .font-stepper.fr-ladder-selected{
+    transform:scale(1.08);
+    background:var(--green-soft);
+    color:var(--green);
+    box-shadow:0 0 0 2px var(--green), 0 4px 14px rgba(0,0,0,.16);
+    position:relative;
+    z-index:2;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > button.fr-ladder-selected::after,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > a.fr-ladder-selected::after,
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .font-stepper.fr-ladder-selected::after{
+    content:"";
+    position:absolute;
+    left:-8px;
+    top:50%;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--green);
+    transform:translateY(-50%);
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .alert-test-btn{ display:none; }
+  /* V522: Hamburger-Feld auch im Desktop-Force-Test sichtbar und exakt
+     wie in der mobilen Leiter zentriert. */
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .nav-toggle{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:44px !important;
+    min-width:44px !important;
+    height:44px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:1px solid var(--line-strong) !important;
+    border-radius:12px !important;
+    background:var(--bg-raised) !important;
+    color:var(--ink-soft) !important;
+    font-size:0 !important;
+    line-height:0 !important;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .nav-toggle::before{
+    content:"";
+    display:block;
+    width:22px;
+    height:16px;
+    background:
+      linear-gradient(currentColor,currentColor) 0 0/100% 2px no-repeat,
+      linear-gradient(currentColor,currentColor) 0 7px/100% 2px no-repeat,
+      linear-gradient(currentColor,currentColor) 0 14px/100% 2px no-repeat;
+    border-radius:2px;
+  }
+  html.fr-force-ladder .header-controls.fr-touch-ladder > .nav-toggle.fr-ladder-selected{
+    background:var(--green-soft) !important;
+    color:var(--green) !important;
+  }
+
+@media (max-width:380px){
+  .header-controls.fr-touch-ladder{ right:6px; }
+  .header-controls.fr-touch-ladder > .font-stepper,
+  .header-controls.fr-touch-ladder > button{ flex-basis:40px; height:40px !important; min-height:40px; }
+}
+
+/* V618 — JugendBASISbildung Easter-Egg-Schalter */
+.fr-secret-youth{margin-top:0;border-top:1px solid #3a4555;padding-top:10px}
+.fr-secret-youth .fr-secret-a11y-row{min-height:48px}
+.fr-youth-switch[aria-pressed="true"]{background:#eaff00;border-color:#eaff00}
+.fr-youth-switch[aria-pressed="true"] .fr-secret-a11y-switch-dot{background:#070a10;transform:translateX(22px)}
+.fr-youth-switch{transition:background .18s ease,border-color .18s ease}
+
+/* Globaler Quiz-Bedenkzeit-Regler im Easter-Egg-Panel -- gilt seitenuebergreifend
+   (localStorage), damit Lehrkraefte die Einstellung an einer einzigen, immer
+   sichtbaren Stelle vornehmen koennen, statt sich einen Tastatur-Shortcut oder
+   einen Toggle tief in einer einzelnen Quizseite merken zu muessen. */
+.fr-secret-timer{margin-top:0;border-top:1px solid var(--line);padding-top:10px}
+.fr-secret-timer-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.fr-secret-timer-label{font-size:.85rem;color:var(--ink)}
+.fr-secret-timer-value{font-size:.82rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;min-width:34px;text-align:right}
+.fr-secret-timer-slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:999px;background:var(--line);outline:none;cursor:pointer;margin:0}
+.fr-secret-timer-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:grab;border:none}
+.fr-secret-timer-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--blue);border:none;cursor:grab}

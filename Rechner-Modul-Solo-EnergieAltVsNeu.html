@@ -1,0 +1,162 @@
+<!-- ===== Rechner-Modul: Energieeffizienz Alt-vs-Neu =====
+     Automatisch aus beitrag-energieeffizienz-haushaltsgeraete.html
+     extrahiert (V881). Vergleicht Stromverbrauch altes/neues Geraet,
+     berechnet jaehrliche/monatliche Ersparnis und Amortisationszeit.
+     Nutzt globale CSS-Variablen inkl. [data-theme="dark"]. Keine
+     externen FR_CONFIG-Abhaengigkeiten. -->
+<style>
+.ee-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.ee-calc-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:20px 26px; margin-bottom:6px; }
+@media (max-width:640px){ .ee-calc-inputs{ grid-template-columns:1fr; } }
+.ee-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.ee-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.ee-result-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:20px 0 4px; }
+@media (max-width:640px){ .ee-result-grid{ grid-template-columns:1fr; } }
+.ee-result-card{ border-radius:12px; padding:calc(16px * var(--step-user)) calc(18px * var(--step-user)); text-align:center; background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .ee-result-card{ background:#173828;  box-shadow:none;}
+.ee-result-label{ font-size:.74rem; color:var(--ink-soft); margin-bottom:4px; }
+.ee-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.5rem; color:var(--green); }
+
+.ee-diff-box{
+  margin:24px 0 4px; padding:20px 22px; border-radius:14px; text-align:center;
+  background:var(--blue-soft);
+}
+.ee-diff-box .big{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.8rem; color:var(--blue); }
+.ee-diff-box .label{ font-size:.78rem; color:var(--ink-soft); margin-top:4px; }
+.ee-diff-box.ee-diff-box--warn{ background:var(--gold-soft, rgba(212,160,60,.15)); }
+.ee-diff-box.ee-diff-box--warn .big{ color:#b08d57; }
+
+.ee-insight-box{
+  margin:22px 0; padding:20px 22px; border-radius:14px;
+  background:var(--blue-soft); border-left:3px solid var(--blue);
+}
+</style>
+<div class="ee-calc" id="ee-calc">
+<div class="ee-calc-inputs">
+<div class="row">
+<label for="ee-old-kwh"><span data-en="Old appliance: consumption/year">Altes Gerät: Verbrauch/Jahr</span> <span class="val" id="ee-old-kwh-val">600 kWh</span></label>
+<input class="calc-slider" id="ee-old-kwh" max="900" min="200" step="10" type="range" value="600"/>
+</div>
+<div class="row">
+<label for="ee-new-kwh"><span data-en="New appliance: consumption/year">Neues Gerät: Verbrauch/Jahr</span> <span class="val" id="ee-new-kwh-val">150 kWh</span></label>
+<input class="calc-slider" id="ee-new-kwh" max="300" min="80" step="10" type="range" value="150"/>
+</div>
+<div class="row">
+<label for="ee-price"><span data-en="Price of the new appliance">Preis des neuen Geräts</span> <span class="val" id="ee-price-val">450 €</span></label>
+<input class="calc-slider" id="ee-price" max="1500" min="300" step="50" type="range" value="450"/>
+</div>
+<div class="row">
+<label for="ee-power-price"><span data-en="Electricity price">Strompreis</span> <span class="val" id="ee-power-price-val">0,35 €/kWh</span></label>
+<input class="calc-slider" id="ee-power-price" max="0.45" min="0.25" step="0.01" type="range" value="0.35"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation. Assumes constant consumption figures and a constant electricity price over the amortization period; actual consumption depends on appliance size, usage habits, and kitchen placement, and electricity prices can change.">Vereinfachte Beispielrechnung. Geht von konstanten Verbrauchswerten und konstantem Strompreis über den Amortisationszeitraum aus; der tatsächliche Verbrauch hängt von Gerätegröße, Nutzungsverhalten und Aufstellort ab, und Strompreise können sich ändern.</p>
+<div class="ee-result-grid">
+<div class="ee-result-card">
+<div class="ee-result-label" data-en="Electricity savings per year">Stromersparnis pro Jahr</div>
+<div class="ee-result-value" id="ee-result-yearly">–</div>
+</div>
+<div class="ee-result-card">
+<div class="ee-result-label" data-en="Electricity savings per month">Stromersparnis pro Monat</div>
+<div class="ee-result-value" id="ee-result-monthly">–</div>
+</div>
+</div>
+<div class="ee-diff-box" id="ee-diff-box">
+<div class="big" id="ee-result-payback">–</div>
+<div class="label" data-en="until the new appliance has paid for itself">bis sich das neue Gerät amortisiert hat</div>
+</div>
+</div>
+<h2 data-en="The same logic in the kitchen: air fryer instead of oven">Dieselbe Logik in der Küche: Umluftfritteuse statt Backofen</h2>
+<p data-en="The same principle shows up on a smaller scale in the kitchen. Heating an entire oven cavity to warm up a couple of bread rolls or bake a small dish wastes most of the energy on preheating and heating air you don't need. An air fryer heats a much smaller volume, reaches temperature faster, and uses a fraction of the energy for small portions – while the oven still makes sense for anything that actually fills it.">Dasselbe Prinzip zeigt sich im Kleinen in der Küche. Den ganzen Backofen-Innenraum aufzuheizen, um ein paar Brötchen aufzuwärmen oder ein kleines Gericht zu backen, verschwendet den Großteil der Energie fürs Vorheizen und Aufheizen von Luft, die man gar nicht braucht. Eine Umluftfritteuse heizt ein viel kleineres Volumen auf, erreicht die Temperatur schneller und braucht für kleine Portionen nur einen Bruchteil der Energie — während der Backofen weiterhin Sinn ergibt für alles, was ihn tatsächlich füllt.</p>
+<script>
+(function(){
+  const oldKwhEl = document.getElementById('ee-old-kwh');
+  if(!oldKwhEl) return;
+  const newKwhEl = document.getElementById('ee-new-kwh');
+  const priceEl = document.getElementById('ee-price');
+  const powerPriceEl = document.getElementById('ee-power-price');
+
+  const oldKwhVal = document.getElementById('ee-old-kwh-val');
+  const newKwhVal = document.getElementById('ee-new-kwh-val');
+  const priceVal = document.getElementById('ee-price-val');
+  const powerPriceVal = document.getElementById('ee-power-price-val');
+
+  const resultYearly = document.getElementById('ee-result-yearly');
+  const resultMonthly = document.getElementById('ee-result-monthly');
+  const resultPayback = document.getElementById('ee-result-payback');
+  const diffBox = document.getElementById('ee-diff-box');
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function fmtEUR(val, en){
+    const fmt = new Intl.NumberFormat(en ? 'en-IE' : 'de-DE', { maximumFractionDigits:0 });
+    return (en ? '€' : '') + fmt.format(Math.round(val)) + (en ? '' : '\u00A0€');
+  }
+
+  function fmtKwh(val){
+    return Math.round(val) + ' kWh';
+  }
+
+  function fmtPrice(val, en){
+    const numStr = en ? val.toFixed(2) : val.toFixed(2).replace('.', ',');
+    return (en ? '€' : '') + numStr + (en ? '' : '\u00A0€');
+  }
+
+  function compute(){
+    const en = isEn();
+
+    const oldKwh = parseFloat(oldKwhEl.value);
+    const newKwh = parseFloat(newKwhEl.value);
+    const price = parseFloat(priceEl.value);
+    const powerPrice = parseFloat(powerPriceEl.value);
+
+    oldKwhVal.textContent = fmtKwh(oldKwh);
+    newKwhVal.textContent = fmtKwh(newKwh);
+    priceVal.textContent = fmtEUR(price, en);
+    powerPriceVal.textContent = fmtPrice(powerPrice, en) + '/kWh';
+
+    const kwhDiff = Math.max(0, oldKwh - newKwh);
+    const yearlySavings = kwhDiff * powerPrice;
+    const monthlySavings = yearlySavings / 12;
+
+    resultYearly.textContent = fmtEUR(yearlySavings, en);
+    resultMonthly.textContent = fmtEUR(monthlySavings, en);
+
+    if(yearlySavings <= 0){
+      resultPayback.textContent = en ? 'never' : 'nie';
+      diffBox.classList.add('ee-diff-box--warn');
+    } else {
+      diffBox.classList.remove('ee-diff-box--warn');
+      const years = price / yearlySavings;
+      const yearsRounded = Math.round(years * 10) / 10;
+      const numStr = en ? yearsRounded.toFixed(1) : yearsRounded.toFixed(1).replace('.', ',');
+      resultPayback.textContent = '~' + numStr + (en ? (yearsRounded === 1 ? ' year' : ' years') : ' Jahre');
+    }
+  }
+
+  oldKwhEl.addEventListener('input', compute);
+  newKwhEl.addEventListener('input', compute);
+  priceEl.addEventListener('input', compute);
+  powerPriceEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>

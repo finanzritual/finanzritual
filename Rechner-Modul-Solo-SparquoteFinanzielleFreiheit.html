@@ -1,0 +1,83 @@
+<!-- ===== Rechner-Modul: Sparquote-zu-Finanzielle-Freiheit =====
+     Automatisch aus beitrag-minimalismus-budget.html extrahiert (V885).
+     Einfacher Ein-Slider-Rechner: Sparquote -> Jahre bis zur finanziellen
+     Freiheit (4-Prozent-Regel, 5% reale Rendite als Annahme). Bewusst
+     nur das Widget uebernommen, nicht die im Original folgende, statische
+     Referenztabelle. Globale CSS-Variablen inkl. [data-theme="dark"].
+     Keine FR_CONFIG-Abhaengigkeit. -->
+<style>
+.mb-calc{
+  margin:30px 0 8px; padding:22px 22px 26px; border-radius:16px;
+  background:var(--bg-raised); border:1px solid var(--line-strong);
+}
+.mb-calc-inputs .row label{
+  display:flex; justify-content:space-between; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:8px;
+}
+.mb-calc-inputs .row label .val{ font-family:'JetBrains Mono',monospace; color:var(--blue); font-weight:700; }
+
+.mb-result{ text-align:center; margin:24px 0 4px; padding:22px; border-radius:12px; background:#D9F0E1; border:1.5px solid var(--green); box-shadow:0 1px 3px rgba(22,35,61,.08), 0 4px 10px rgba(22,35,61,.10);}
+[data-theme="dark"] .mb-result{ background:#173828;  box-shadow:none;}
+.mb-result-label{ font-size:.78rem; color:var(--ink-soft); margin-bottom:6px; }
+.mb-result-value{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:2.1rem; color:var(--green); }
+.mb-result-sub{ font-size:.72rem; color:var(--ink-soft); margin-top:6px; }
+</style>
+<div class="mb-calc" id="mb-calc">
+<div class="mb-calc-inputs">
+<div class="row">
+<label for="mb-rate"><span data-en="Savings rate">Sparquote</span> <span class="val" id="mb-rate-val">25⁠%</span></label>
+<input class="calc-slider" id="mb-rate" max="80" min="10" step="5" type="range" value="25"/>
+</div>
+</div>
+<p class="calc-note" data-en="Simplified example calculation, not a promise of any specific timeline. Assumes a constant savings rate, a 5⁠% real (after-inflation) investment return, and the 4⁠% rule (25× annual spending) as the financial-independence target.">Vereinfachte Beispielrechnung, kein Versprechen für einen bestimmten Zeitrahmen. Geht von konstanter Sparquote, 5⁠% realer (nach Inflation) Rendite und der 4-Prozent-Regel (25× Jahresausgaben) als Ziel für finanzielle Freiheit aus.</p>
+<div class="mb-result">
+<div class="mb-result-label" data-en="Time to financial independence">Zeit bis zur finanziellen Freiheit</div>
+<div class="mb-result-value" id="mb-result-years">–</div>
+<div class="mb-result-sub" data-en="starting from zero savings, at this constant rate">ausgehend von null Ersparnissen, bei dieser konstanten Quote</div>
+</div>
+</div>
+<script>
+(function(){
+  const rateEl = document.getElementById('mb-rate');
+  if(!rateEl) return;
+  const rateVal = document.getElementById('mb-rate-val');
+  const resultYears = document.getElementById('mb-result-years');
+
+  const REAL_RETURN = 0.05; /* 5% reale Rendite p.a., feste Annahme */
+  const WITHDRAWAL_MULTIPLE = 25; /* 4-Prozent-Regel */
+
+  function isEn(){ return document.documentElement.getAttribute('lang') === 'en'; }
+
+  function yearsToFI(sPct){
+    const s = sPct / 100;
+    const ratio = 1 + WITHDRAWAL_MULTIPLE * REAL_RETURN * (1 - s) / s;
+    return Math.log(ratio) / Math.log(1 + REAL_RETURN);
+  }
+
+  function compute(){
+    const en = isEn();
+    const ratePct = parseFloat(rateEl.value);
+    rateVal.textContent = ratePct + '%';
+
+    const years = yearsToFI(ratePct);
+    const yearsRounded = Math.round(years * 10) / 10;
+    const numStr = en ? yearsRounded.toFixed(1) : yearsRounded.toFixed(1).replace('.', ',');
+    resultYears.textContent = '~' + numStr + (en ? (yearsRounded === 1 ? ' year' : ' years') : ' Jahre');
+  }
+
+  rateEl.addEventListener('input', compute);
+  compute();
+  window.frPageRecomputers = window.frPageRecomputers || [];
+  window.frPageRecomputers.push(compute);
+})();
+</script>
+
+<!-- Rechtlich zwingend: Diese Datei ist als eigenstaendige URL erreichbar
+     (Testphase im Hauptverzeichnis, siehe RECHNER_MODULE.md) und braucht
+     deshalb einen eigenen Impressum-/Datenschutz-Link, auch wenn sie
+     primaer als einbettbares Widget gedacht ist. Wird sie spaeter in eine
+     Seite mit eigenem vollstaendigen Footer eingebettet, kann dieser
+     Block entfernt werden -- bis dahin sichert er die Impressumspflicht
+     fuer den Fall, dass jemand die Datei direkt aufruft. -->
+<p style="margin-top:24px;text-align:center;font-size:.72rem;color:var(--ink-soft,#888);font-family:'JetBrains Mono',monospace;">
+  <a href="impressum.html" style="color:inherit;">Impressum</a> &middot; <a href="datenschutz.html" style="color:inherit;">Datenschutz</a>
+</p>
