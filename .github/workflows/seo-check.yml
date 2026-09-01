@@ -3,7 +3,7 @@ name: SEO-Grundabsicherung
 # Laeuft automatisch bei jedem Push und jedem Pull Request auf main/master
 # -- kein manueller Schritt noetig, kein "daran denken muessen". Prueft
 # jede HTML-Datei auf genau einen canonical-Link und genau eine
-# description-Meta (siehe _einrichtung/tools/validate_seo_tags.py fuer
+# description-Meta (siehe wartung/scripts/validate_seo_tags.py fuer
 # die Details und die Vorgeschichte dieses Checks: V1104/V1115/V1117).
 #
 # Schlaegt der Check fehl, zeigt GitHub direkt am Commit/PR ein rotes X
@@ -31,4 +31,4 @@ jobs:
           python-version: '3.12'
 
       - name: SEO-Tags validieren
-        run: python3 _einrichtung/tools/validate_seo_tags.py
+        run: python3 wartung/scripts/validate_seo_tags.py
