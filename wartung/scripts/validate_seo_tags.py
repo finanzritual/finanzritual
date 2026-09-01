@@ -27,14 +27,19 @@ import glob
 import sys
 from html.parser import HTMLParser
 
-# Dateien, die absichtlich keine description brauchen -- NICHT als feste
-# Namensliste gepflegt (waere bei jeder neuen Ausnahme eine weitere
-# Fehlerquelle), sondern ueber ein erkennbares Merkmal automatisch
-# erkannt: reine Redirect-Stubs (meta http-equiv="refresh") und Test-
-# /Stil-Referenzseiten (Dateiname beginnt mit "test-").
+# Reine Redirect-Stubs (meta http-equiv="refresh") sind zwar keine
+# echten Artikel, gehoeren aber inhaltlich weiterhin ins Hauptverzeichnis
+# (echte, wenn auch weiterleitende Seiten) -- werden ueber ein
+# erkennbares Merkmal automatisch von der Description-Pflicht befreit.
+# Reine Entwickler-/Design-Testkonstrukte (Kontrast-Referenzen,
+# Stil-Tests etc.) gehoeren dagegen gar nicht erst hierher: seit V1123
+# leben sie in _dev-referenzen/ (Unterstrich-Praefix wie _einrichtung/,
+# _includes/ -- von Jekyll automatisch komplett vom Live-Build
+# ausgeschlossen). find_target_files() unten durchsucht ohnehin nur das
+# Hauptverzeichnis (kein rekursiver Glob), Dateien dort werden also gar
+# nicht erst erfasst -- eine fragile Namens-Praefix-Sonderregel dafuer
+# ist damit ueberfluessig geworden.
 def is_exempt(filename, html):
-    if filename.startswith('test-'):
-        return True
     if 'http-equiv="refresh"' in html or "http-equiv='refresh'" in html:
         return True
     return False
@@ -81,12 +86,12 @@ def main():
         n_desc = len(checker.descriptions)
         exempt = is_exempt(f, html)
 
-        if n_canon == 0:
-            problems.append((f, 'FEHLT: canonical'))
-        elif n_canon > 1:
-            problems.append((f, f'DOPPELT: {n_canon}x canonical'))
-
         if not exempt:
+            if n_canon == 0:
+                problems.append((f, 'FEHLT: canonical'))
+            elif n_canon > 1:
+                problems.append((f, f'DOPPELT: {n_canon}x canonical'))
+
             if n_desc == 0:
                 problems.append((f, 'FEHLT: description'))
             elif n_desc > 1:
